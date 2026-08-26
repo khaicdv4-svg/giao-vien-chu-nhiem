@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gvc-app-v22-audio-lifecycle';
+const CACHE_NAME = 'gvc-app-v23-responsive-stability';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './sw.js', './cover-clean.png', './thaykhaiedu-logo.png', './assets/fonts/Lexend-Vietnamese-Variable.woff2', './assets/audio/background.mp3', './assets/audio/spin.mp3', './assets/audio/win.mp3', './assets/audio/cheer.mp3'];
 
 self.addEventListener('install', event => {
