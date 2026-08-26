@@ -1,0 +1,26 @@
+{
+  "name": "GIÁO VIÊN CHỦ NHIỆM · ThayKhaiEdu",
+  "short_name": "GV Chủ nhiệm",
+  "description": "Trợ lý tổ chức lớp học offline cho giáo viên tiểu học Việt Nam.",
+  "lang": "vi",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f7f6fc",
+  "theme_color": "#6c4cf1",
+  "icons": [
+    {
+      "src": "./thaykhaiedu-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./thaykhaiedu-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
