@@ -1131,6 +1131,7 @@ updateTeacherProfileUI();renderTeacherProfileSettings();
    the library when the teacher only opens the game setup screen. */
 (function(){
   function safeLensSetup(){
+    if(window.safeLensSetup&&window.safeLensSetup!==safeLensSetup)return window.safeLensSetup();
     var root=document.getElementById('games'); if(!root)return;
     var count=0; try{count=Array.isArray(window.students)?window.students.length:0}catch(e){}
     window.classroomGame={type:'lens',started:false,q:0,score:[0,0,0,0],pos:[0,0,0,0],revealed:false,claimed:null,opened:[],gift:[]};
@@ -1266,5 +1267,31 @@ updateTeacherProfileUI();renderTeacherProfileSettings();
   syncCover();
   window.addEventListener('resize',syncCover,{passive:true});
   if(window.MutationObserver)new MutationObserver(syncCover).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+})();
+</script>
+<script id="stable-lens-and-mobile-final">
+/* V24: phiên bản Ống kính nhẹ, dùng được offline và không mở camera/render ảnh mặc định. */
+(function(){
+  var lite={question:0,score:0,student:null,answered:false};
+  function esc(v){return String(v==null?'':v).replace(/[&<>\"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]})}
+  function qs(){return Array.isArray(window.questionData)?window.questionData.filter(function(q){return q&&(q.question||q.text)&&Array.isArray(q.options||q.answers)&&(q.options||q.answers).length>=2}):[]}
+  function pool(){return Array.isArray(window.students)?window.students:[]}
+  function render(){
+    var root=document.getElementById('games');if(!root)return;
+    var data=qs(), q=data.length?data[lite.question%data.length]:null, opts=q?(q.options||q.answers):[];
+    if(!q){root.innerHTML='<div class="game-play"><div class="game-play-head"><div><h2>⭐ BẮT SAO KIẾN THỨC</h2><p>Trò chơi thay thế Ống kính may mắn, hoạt động hoàn toàn offline.</p></div><button class="btn soft" onclick="gameBack()">← Thư viện</button></div><div class="card"><h3>Chưa có câu hỏi</h3><p>Hãy nhập câu hỏi trong Kho câu hỏi trước khi bắt đầu.</p><button class="btn color" onclick="openView(\'questions\')">Mở Kho câu hỏi</button></div></div>';return}
+    var answerHtml=opts.map(function(a,i){var cls=lite.answered?(i===Number(q.correct)?'correct':i===lite.selected?'wrong':'muted'):' ';return '<button class="answer '+cls+'" '+(lite.answered?'disabled':'')+' onclick="window.liteLensAnswer('+i+')"><b>'+String.fromCharCode(65+i)+'.</b> '+esc(a)+'</button>'}).join('');
+    root.innerHTML='<div class="game-play lite-lens-play"><div class="game-play-head"><div><h2>⭐ BẮT SAO KIẾN THỨC</h2><p>Trò chơi offline nhẹ nhàng thay thế Ống kính may mắn.</p></div><button class="btn soft" onclick="gameBack()">← Thư viện</button></div><div class="card lite-lens-card"><div class="lite-lens-badge">Câu '+(lite.question+1)+' · '+esc(lite.student?lite.student.name:'Cả lớp')+' · '+lite.score+' điểm</div><h3>'+esc(q.question||q.text)+'</h3><div class="answers">'+answerHtml+'</div>'+(lite.answered?'<div class="lite-lens-feedback '+(lite.selected===Number(q.correct)?'ok':'no')+'">'+(lite.selected===Number(q.correct)?'🎉 Chính xác!':'💡 Chưa đúng, mình cùng xem lại nhé.')+'</div>':'')+'<div class="toolbar"><button class="btn color" '+(lite.answered?'':'disabled')+' onclick="window.liteLensNext()">⭐ Câu tiếp theo</button><button class="btn soft" onclick="window.liteLensReset()">↺ Chơi lại</button></div></div></div>';
+  }
+  window.liteLensAnswer=function(i){if(lite.answered)return;var data=qs();var q=data[lite.question%data.length];lite.selected=i;lite.answered=true;if(i===Number(q.correct))lite.score++;if(typeof audioPlayOnce==='function'){audioPlayOnce(i===Number(q.correct)?'win':'spin')}render()};
+  window.liteLensNext=function(){lite.question++;lite.answered=false;lite.selected=-1;var p=pool();lite.student=p.length?p[Math.floor(Math.random()*p.length)]:null;render()};
+  window.liteLensReset=function(){lite={question:0,score:0,student:null,answered:false,selected:-1};var p=pool();lite.student=p.length?p[Math.floor(Math.random()*p.length)]:null;render()};
+  window.safeLensSetup=function(){var p=pool();lite={question:0,score:0,student:p.length?p[Math.floor(Math.random()*p.length)]:null,answered:false,selected:-1};window.classroomGame={type:'lens',started:true,q:0,score:[0,0,0,0],pos:[0,0,0,0],revealed:false,claimed:null,opened:[],gift:[]};render()};
+  var oldPick=window.pickStudent;
+  window.pickStudent=function(){var panel=document.getElementById('audioSettingsPanel');if(panel)panel.hidden=true;return oldPick.apply(this,arguments)};
+  var oldToggle=window.toggleAudioSettings;
+  window.toggleAudioSettings=function(){var p=document.getElementById('audioSettingsPanel');if(!p)return;var isOpen=!p.hidden;if(isOpen){p.hidden=true;return}p.hidden=false;var r=p.getBoundingClientRect();if(r.right>window.innerWidth-8)p.style.right='8px';if(r.bottom>window.innerHeight-8){p.style.top='auto';p.style.bottom='48px'}};
+  var oldOpen=window.openView;
+  window.openView=function(id){var panel=document.getElementById('audioSettingsPanel');if(panel)panel.hidden=true;var out=oldOpen.apply(this,arguments);requestAnimationFrame(function(){window.scrollTo({top:0,left:0,behavior:'auto'});document.documentElement.scrollTop=0;document.body.scrollTop=0});return out};
 })();
 </script></body></html>
