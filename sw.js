@@ -1,5 +1,5 @@
-const CACHE_NAME = 'gvc-app-v25-ai-2a';
-const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './sw.js', './cover-clean.png', './thaykhaiedu-logo.png', './assets/fonts/Lexend-Vietnamese-Variable.woff2', './assets/audio/background.mp3', './assets/audio/spin.mp3', './assets/audio/win.mp3', './assets/audio/cheer.mp3'];
+const CACHE_NAME = 'gvc-app-v7-freeze-fix';
+const APP_SHELL = ['./', './index.html', './sw.js', './cover-clean.png', './thaykhaiedu-logo.png', './assets/fonts/Lexend-Vietnamese-Variable.woff2'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
