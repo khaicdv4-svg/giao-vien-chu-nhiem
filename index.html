@@ -1227,4 +1227,34 @@ var st=document.createElement('style');st.textContent='.question-source-panel{ma
   window.sharedOpenAI=open17;window.hubOpenAI=open17;window.externalOpen=open17;
   var st=document.createElement('style');st.textContent='.ai17-source-panel{grid-column:1/-1;border:1px solid #c4b5fd;border-radius:13px;padding:12px;background:#f8f7ff;margin-top:2px}.ai17-source-title{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#4c1d95}.ai17-source-title span,.ai17-file-wrap small,.ai17-help{color:#64748b;font-size:12px}.ai17-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.ai17-tab{border:1px solid #c4b5fd;background:#fff;color:#4c1d95;border-radius:9px;padding:8px 12px;font:inherit;cursor:pointer}.ai17-tab.active{background:#6d28d9;color:#fff}.ai17-file-wrap{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.ai17-file-list{display:grid;gap:5px;margin-top:8px}.ai17-file{display:flex;gap:8px;align-items:center;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:7px}.ai17-file span{min-width:0;overflow-wrap:anywhere}.ai17-file small{color:#475569}.ai17-file button{margin-left:auto;border:0;background:transparent;font-size:20px;cursor:pointer}.ai17-status{margin-top:9px;padding:8px;border-radius:8px;background:#f1f5f9;color:#475569}.ai17-status.good{background:#dcfce7;color:#166534}.ai17-status.warn{background:#fff7ed;color:#9a3412}.ai17-status.loading{background:#eff6ff;color:#1d4ed8}@media(max-width:600px){.ai17-source-title{align-items:flex-start;flex-direction:column}.ai17-file-wrap{align-items:flex-start;flex-direction:column}}';document.head.appendChild(st);
 })();
+/* Lệnh 17B: luồng nguồn câu hỏi ngắn gọn trong thiết lập, không tác động Gọi tên vui. */
+(function(){
+  var baseCheck=window.aiExtCheck, baseRender=window.renderGames, modalId='ai17SetPicker';
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]})}
+  function currentType(){return window.classroomGame&&window.classroomGame.type||''}
+  function sets(){return Array.isArray(window.questionBankSets)?window.questionBankSets:[]}
+  function questions(){return Array.isArray(window.questionData)?window.questionData:[]}
+  function label(s){return String(s&&s.name||'Bộ chưa đặt tên')+' · '+String(s&&s.grade||'Chưa phân loại')+' · '+String(s&&s.subject||'Chưa phân loại')+' · '+((s&&s.questions)||[]).length+' câu'}
+  function close(){var m=document.getElementById(modalId);if(m)m.remove()}
+  function choose(mode,id){var t=currentType(),source=document.getElementById(t+'Source'),set=document.getElementById(t+'Set');if(source){source.value=mode;set&& (set.value=id||'');if(typeof questionSourceChanged==='function')questionSourceChanged(t)}close()}
+  function openPicker(){
+    close();var m=document.createElement('div');m.id=modalId;m.className='ai17-picker-modal';
+    var list=sets().map(function(s){return'<article class="ai17-picker-item"><div><b>'+esc(s.name||'Bộ câu hỏi')+'</b><small>'+esc(label(s))+'</small></div><button class="btn color" data-id="'+esc(s.id)+'">Dùng bộ này</button></article>'}).join('');
+    if(!list)list='<p class="ai17-picker-empty">Chưa có bộ câu hỏi đã lưu. Hãy tạo hoặc nhập câu hỏi mới.</p>';
+    m.innerHTML='<div class="ai17-picker-card"><div class="page-title"><div><h2>📚 Chọn nguồn câu hỏi</h2><p>Chọn một bộ cho riêng trò chơi đang mở.</p></div><button class="btn soft" type="button">Đóng</button></div><button class="btn soft ai17-use-all" type="button">Dùng toàn bộ Kho câu hỏi</button><div class="ai17-picker-list">'+list+'</div></div>';
+    document.body.appendChild(m);m.querySelector('.page-title button').onclick=close;m.querySelector('.ai17-use-all').onclick=function(){choose('all','')};m.querySelectorAll('[data-id]').forEach(function(b){b.onclick=function(){choose('set',b.dataset.id)}})
+  }
+  function enhance(){
+    var t=currentType();if(!t||t==='lens'||!document.getElementById('games'))return;
+    var p=document.querySelector('#games .question-source-panel');if(!p||p.querySelector('.ai17-actions'))return;
+    var actions=document.createElement('div');actions.className='ai17-actions';actions.innerHTML='<strong>📚 Nguồn câu hỏi</strong><span class="ai17-current">Chưa chọn bộ câu hỏi</span><button class="btn color" type="button">Chọn từ Kho câu hỏi</button><button class="btn soft" type="button">Tạo / nhập câu hỏi mới</button>';
+    p.insertBefore(actions,p.firstChild);var bs=actions.querySelectorAll('button');bs[0].onclick=openPicker;bs[1].onclick=function(){if(typeof window.sharedOpenAI==='function')window.sharedOpenAI()};
+    var src=document.getElementById(t+'Source'),set=document.getElementById(t+'Set'),summary=actions.querySelector('.ai17-current');if(src&&src.value==='set'&&set&&set.selectedIndex>0)summary.textContent='Đang dùng: '+set.options[set.selectedIndex].text;else if(src&&src.value==='quick')summary.textContent='Đang dùng: Câu hỏi chơi ngay';
+  }
+  function render(){var r=baseRender.apply(this,arguments);setTimeout(enhance,0);return r}
+  window.renderGames=render;
+  window.aiExtCheck=function(){var raw=document.getElementById('aiExtJson');if(raw&&raw.value.length>1048576){var s=document.getElementById('aiExtJsonStatus');if(s){s.textContent='✕ JSON quá lớn (tối đa 1 MB). Hãy chia nhỏ dữ liệu.';s.className='ext-status ai-ext-bad'}return}try{var d=raw&&raw.value?JSON.parse(raw.value):null;if(d&&Array.isArray(d.questions)&&d.questions.length>200){var s2=document.getElementById('aiExtJsonStatus');if(s2){s2.textContent='✕ Tối đa 200 câu mỗi lần.';s2.className='ext-status ai-ext-bad'}return}}catch(e){}return baseCheck.apply(this,arguments)};
+  var st=document.createElement('style');st.textContent='.ai17-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:0 0 12px;padding:11px;border:1px solid #ddd6fe;border-radius:11px;background:#fff}.ai17-actions strong{color:#4c1d95}.ai17-current{color:#64748b;flex:1;min-width:190px}.ai17-picker-modal{position:fixed;inset:0;z-index:1300;background:#24154bcc;display:grid;place-items:center;padding:14px}.ai17-picker-card{width:min(700px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;padding:18px;color:#29254a}.ai17-picker-list{display:grid;gap:8px;margin-top:12px}.ai17-picker-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px;border:1px solid #e2e8f0;border-radius:11px}.ai17-picker-item small{display:block;color:#64748b;margin-top:4px}.ai17-picker-empty{color:#64748b}@media(max-width:600px){.ai17-actions{align-items:stretch;flex-direction:column}.ai17-actions button{width:100%}.ai17-picker-item{align-items:stretch;flex-direction:column}.ai17-picker-item button{width:100%}}';document.head.appendChild(st);
+  setTimeout(enhance,0)
+})();
 </script></body></html>
