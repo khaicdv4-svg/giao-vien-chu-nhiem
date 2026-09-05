@@ -289,6 +289,17 @@
     html body .school-cover-title h1.main-title{font-family:var(--app-font)!important;font-style:normal!important;font-variant-ligatures:none!important;font-feature-settings:normal!important;letter-spacing:normal;line-height:1.18;overflow-wrap:break-word}
     html body .school-cover-title .school-name,html body .school-cover-title .school-line{font-family:var(--app-font)!important;font-style:normal!important;font-variant-ligatures:none!important;font-feature-settings:normal!important;letter-spacing:normal;line-height:1.4;overflow-wrap:break-word}
   </style>
+<style id="cover-scale-fix">
+  /* Keep the application title legible, compact and on one line at every viewport. */
+  .school-cover-title .cover-copy{min-width:0;width:100%;}
+  .school-cover-title .main-title{width:100%;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:clip;font-size:clamp(24px,3.8vw,54px);line-height:1.1;letter-spacing:-.045em;}
+  .school-cover-inner .brand-mark{width:62px;height:62px;}
+  .nav-shell .nav button span{width:22px;height:22px;font-size:18px;}
+  .stat-icon{width:38px;height:38px;font-size:18px;}
+  .quick em{font-size:21px;margin-bottom:8px;}
+  @media(max-width:1024px){.school-cover-inner .brand-mark{width:54px;height:54px}.school-cover-title .main-title{font-size:clamp(24px,4.5vw,46px)}}
+  @media(max-width:680px){.school-cover-inner .brand-mark{width:46px;height:46px}.school-cover-title .main-title{font-size:clamp(22px,6.1vw,34px);letter-spacing:-.055em}.school-cover-title .school-line{font-size:12px;padding:6px 11px;margin-bottom:10px}}
+</style>
 </head>
 <body>
 <div class="app">
