@@ -1,0 +1,422 @@
+[
+ {
+  "id": "A1",
+  "name": "Lần chạy đầu tự nạp 7 bộ mẫu, mỗi bộ 20 câu, mỗi bộ đúng một dạng, không câu nào lỗi",
+  "status": "PASS",
+  "detail": "ABCD:20 TRUEFALSE:20 MULTI:20 FILL:20 SHORT:20 MATCHING:20 OPEN:20"
+ },
+ {
+  "id": "A2",
+  "name": "Thanh phân loại hiện 7 dạng kèm số câu",
+  "status": "PASS",
+  "detail": "Tất cả 142 · 🔠 A–B–C–D 22 · ✅ Đúng/Sai 20 · ☑️ Nhiều đáp án 20 · ✏️ Điền khuyết 20 · 💬 Trả lời ngắn 20 · 🔗 Ghép đôi 20 · 🗣️ Câu hỏi mở 20"
+ },
+ {
+  "id": "A3",
+  "name": "Kho chia hai nhóm: “Bộ câu hỏi của tôi” và “Bộ câu hỏi mẫu”",
+  "status": "PASS",
+  "detail": "Bộ câu hỏi của tôi 1 bộ / Bộ câu hỏi mẫu 7 bộ"
+ },
+ {
+  "id": "A4",
+  "name": "Chỉ còn một nút thêm câu hỏi; không còn nút trùng chức năng của bản cũ",
+  "status": "PASS",
+  "detail": "{\"add\":1,\"old\":0}"
+ },
+ {
+  "id": "A5",
+  "name": "Tải lại trang không nạp trùng bộ mẫu",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "A6",
+  "name": "Xóa một bộ mẫu (có hộp xác nhận) → không tự nạp lại; hiện nút “Nạp bộ câu hỏi mẫu”",
+  "status": "PASS",
+  "detail": "{\"n\":6,\"btn\":true}"
+ },
+ {
+  "id": "A7",
+  "name": "Bấm “Nạp bộ câu hỏi mẫu” → đủ lại 7 bộ",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "A8",
+  "name": "Không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "B1",
+  "name": "Word 20 câu Đ/S có tiêu đề → đúng 20 câu Đúng/Sai, 20 khóa khớp",
+  "status": "PASS",
+  "detail": "Nhận 20 · hợp lệ 20 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: Đúng/Sai: 20"
+ },
+ {
+  "id": "B2",
+  "name": "Bảng xem trước ghi rõ kết quả tự phân loại",
+  "status": "PASS",
+  "detail": "Nhận 20 · hợp lệ 20 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: Đúng/Sai: 20"
+ },
+ {
+  "id": "B3",
+  "name": "Tự gắn Lớp 4, năm học 2026–2027, môn Toán (từ tiêu đề)",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "B4",
+  "name": "Bộ mới nằm trong “Bộ câu hỏi của tôi”, thẻ ghi lớp – môn – dạng – số câu, có Chơi ngay và Luyện tập",
+  "status": "PASS",
+  "detail": "ds20-tieu-de | Lớp 4 · Toán · Chưa xác định chủ đề | 20 câu | ✅ Đúng/Sai · 20 | ▶ Chơi ngay | ✎ Luyện tập | Xem | ⋯"
+ },
+ {
+  "id": "B5",
+  "name": "100 câu hỗn hợp → tự phân loại đúng 100/100 thành 5 dạng",
+  "status": "PASS",
+  "detail": "Nhận 100 · hợp lệ 80 · rà soát 20 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: A–B–C–D: 20 · Đúng/Sai: 20 · Trắc nghiệm nhiều đáp án: 20 · Điền khuyết: 20 · Câu hỏi mở: 20"
+ },
+ {
+  "id": "B6",
+  "name": "12 câu bốn lựa chọn (có “…”, một dòng, hai cột) → lưu là dạng A–B–C–D, 12 khóa đúng",
+  "status": "PASS",
+  "detail": "{\"raw\":\"ABCD\",\"shown\":\"ABCD\",\"keys\":\"CBADCBADBCBC\"}"
+ },
+ {
+  "id": "B7",
+  "name": "Nhập lại cùng tệp → báo 20 câu trùng, không lưu chồng",
+  "status": "PASS",
+  "detail": "Nhận 20 · hợp lệ 0 · rà soát 20 · trùng 20 · thiếu đáp án 0  —  Tự phân loại: Đúng/Sai: 20"
+ },
+ {
+  "id": "B8",
+  "name": "Tải lại trang: các bộ đã nhập còn nguyên câu và khóa",
+  "status": "PASS",
+  "detail": "{\"n\":20,\"keys\":\"01001010101010101001\",\"total\":11}"
+ },
+ {
+  "id": "B9",
+  "name": "Bấm thẻ “Điền khuyết” → chỉ còn các bộ có câu điền khuyết",
+  "status": "PASS",
+  "detail": "[\"mixed100\",\"Mẫu 4 · Điền khuyết · Toán lớp 1–5 Bộ mẫu\"]"
+ },
+ {
+  "id": "B10",
+  "name": "Lọc theo Khối, Môn, Bỏ lọc và ô tìm kiếm đều hoạt động",
+  "status": "PASS",
+  "detail": "{\"lop4\":4,\"khoahoc\":[\"mixed100\"],\"tim\":[\"ds20-tieu-de\",\"Mẫu 2 · Đúng/Sai · Toán lớp 1–5 Bộ mẫu\"]}"
+ },
+ {
+  "id": "B11",
+  "name": "Không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "C-mau-1-abcd",
+  "name": "Luyện tập “Mẫu 1 · Trắc nghiệm A–B–C–D”: 20 câu hiện đúng nội dung, trả lời theo đáp án → Đúng 20/20",
+  "status": "PASS",
+  "detail": "20/20 · 🎉 Hoàn thành! Đúng 20/20 câu Tuyệt vời, em làm đúng tất cả!"
+ },
+ {
+  "id": "C-mau-2-dung-sai",
+  "name": "Luyện tập “Mẫu 2 · Đúng/Sai”: 20 câu hiện đúng nội dung, trả lời theo đáp án → Đúng 20/20",
+  "status": "PASS",
+  "detail": "20/20 · 🎉 Hoàn thành! Đúng 20/20 câu Tuyệt vời, em làm đúng tất cả!"
+ },
+ {
+  "id": "C-mau-3-nhieu-dap-an",
+  "name": "Luyện tập “Mẫu 3 · Nhiều đáp án”: 20 câu hiện đúng nội dung, trả lời theo đáp án → Đúng 20/20",
+  "status": "PASS",
+  "detail": "20/20 · 🎉 Hoàn thành! Đúng 20/20 câu Tuyệt vời, em làm đúng tất cả!"
+ },
+ {
+  "id": "C-mau-4-dien-khuyet",
+  "name": "Luyện tập “Mẫu 4 · Điền khuyết”: 20 câu hiện đúng nội dung, trả lời theo đáp án → Đúng 20/20",
+  "status": "PASS",
+  "detail": "20/20 · 🎉 Hoàn thành! Đúng 20/20 câu Tuyệt vời, em làm đúng tất cả!"
+ },
+ {
+  "id": "C-mau-5-tra-loi-ngan",
+  "name": "Luyện tập “Mẫu 5 · Trả lời ngắn”: 20 câu hiện đúng nội dung, trả lời theo đáp án → Đúng 20/20",
+  "status": "PASS",
+  "detail": "20/20 · 🎉 Hoàn thành! Đúng 20/20 câu Tuyệt vời, em làm đúng tất cả!"
+ },
+ {
+  "id": "C-mau-6-ghep-doi",
+  "name": "Luyện tập “Mẫu 6 · Ghép đôi”: 20 câu hiện đúng nội dung, trả lời theo đáp án → Đúng 20/20",
+  "status": "PASS",
+  "detail": "20/20 · 🎉 Hoàn thành! Đúng 20/20 câu Tuyệt vời, em làm đúng tất cả!"
+ },
+ {
+  "id": "C-mau-7-cau-hoi-mo",
+  "name": "Luyện tập “Mẫu 7 · Câu hỏi mở”: 20 câu hiện đúng nội dung, trả lời theo đáp án → Đúng 20/20",
+  "status": "PASS",
+  "detail": "20/20 · 🎉 Hoàn thành! Đúng 20/20 câu Tuyệt vời, em làm đúng tất cả!"
+ },
+ {
+  "id": "C8",
+  "name": "A–B–C–D trả lời sai → báo chưa đúng và hiện đáp án đúng",
+  "status": "PASS",
+  "detail": "❌ Chưa đúng. Đáp án: B. 7"
+ },
+ {
+  "id": "C9",
+  "name": "Điền khuyết trả lời sai → báo chưa đúng và hiện đáp án",
+  "status": "PASS",
+  "detail": "❌ Chưa đúng. Đáp án: 5"
+ },
+ {
+  "id": "C10",
+  "name": "Bỏ qua và đếm điểm đúng: sau 1 sai, 1 đúng, 1 bỏ qua → đang ở câu 4, Đúng 1",
+  "status": "PASS",
+  "detail": "Câu 4/20 ✏️ Điền khuyết Lớp 1 Đúng 1"
+ },
+ {
+  "id": "C11",
+  "name": "Ghép đôi: các ý bên phải được xáo trộn, không trùng thứ tự đáp án",
+  "status": "PASS",
+  "detail": "[\"7\",\"5\",\"9\",\"8\"]"
+ },
+ {
+  "id": "C12",
+  "name": "Không lỗi JavaScript trong Luyện tập",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "D1-tug",
+  "name": "Bộ mẫu A–B–C–D → tug: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"tug\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🪢 KÉO CO KIẾN THỨC Trận 1 · Câu 1/20 · Đang thi đấu ⚙ Câu hỏi Ⅱ Tạm dừng 🎵 Nhạc nền: Bật 🔊 Tiếng: Bật ⛶ Toàn màn hình ? Hướng d\"}"
+ },
+ {
+  "id": "D1-gift",
+  "name": "Bộ mẫu A–B–C–D → gift: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"gift\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🎁 HỘP QUÀ BÍ MẬT Đã mở 0/8 hộp · Hoạt động offline ⚙ Câu hỏi 1 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn Lê Phương Nhi 0 Đang đ\"}"
+ },
+ {
+  "id": "D1-buzzer",
+  "name": "Bộ mẫu A–B–C–D → buzzer: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"buzzer\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🔔 AI NHANH HƠN Đội bấm phím đầu tiên giành quyền · 1 giây ⚙ Câu hỏi 🔓 Mở chuông Ⅱ Tạm dừng N Câu tiếp theo ? Hướng dẫn 🔵 Tổ 1 0\"}"
+ },
+ {
+  "id": "D1-millionaire",
+  "name": "Bộ mẫu A–B–C–D → millionaire: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"millionaire\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"💰 Chinh phục tri thức Toán · Kết nối tri thức ⏱ 00:01 CÂU 1/10 · MỨC NHẬN BIẾT 3 + 4 = ? A. 7 B. 8 C. 6 D. 9 50:50 📊 Hỏi khán gi\"}"
+ },
+ {
+  "id": "D1-tiles",
+  "name": "Bộ mẫu A–B–C–D → tiles: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"tiles\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🧩 LẬT MẢNH GHÉP Vòng 1/1 · Đã mở 0/9 mảnh · Hoạt động offline ⚙ Câu hỏi 1 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn Tổ 1 0 Đúng\"}"
+ },
+ {
+  "id": "D1-race",
+  "name": "Bộ mẫu A–B–C–D → race: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"race\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🏁 ĐƯỜNG ĐUA KIẾN THỨC 🏁 · Câu 1/20 · Hoạt động offline ⚙ Câu hỏi 29 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn 🏎️ Tổ 1 0/10 ch\"}"
+ },
+ {
+  "id": "D1-head-tilt",
+  "name": "Bộ A–B–C–D → Quiz Nghiêng Đầu bị khóa, nêu lý do",
+  "status": "PASS",
+  "detail": "Quiz Nghiêng Đầu | 0/20 câu dùng được | Không dùng được: Quiz Nghiêng Đầu chỉ nhận Đúng/Sai"
+ },
+ {
+  "id": "D2-tug",
+  "name": "Bộ mẫu Đúng/Sai → tug: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"tug\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🪢 KÉO CO KIẾN THỨC Trận 1 · Câu 1/20 · Đang thi đấu ⚙ Câu hỏi Ⅱ Tạm dừng 🎵 Nhạc nền: Bật 🔊 Tiếng: Bật ⛶ Toàn màn hình ? Hướng d\"}"
+ },
+ {
+  "id": "D2-gift",
+  "name": "Bộ mẫu Đúng/Sai → gift: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"gift\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🎁 HỘP QUÀ BÍ MẬT Đã mở 0/8 hộp · Hoạt động offline ⚙ Câu hỏi 1 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn Học sinh 21 0 Đang đến\"}"
+ },
+ {
+  "id": "D2-buzzer",
+  "name": "Bộ mẫu Đúng/Sai → buzzer: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"buzzer\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🔔 AI NHANH HƠN Đội bấm phím đầu tiên giành quyền · 1 giây ⚙ Câu hỏi 🔓 Mở chuông Ⅱ Tạm dừng N Câu tiếp theo ? Hướng dẫn 🔵 Tổ 1 0\"}"
+ },
+ {
+  "id": "D2-tiles",
+  "name": "Bộ mẫu Đúng/Sai → tiles: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"tiles\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🧩 LẬT MẢNH GHÉP Vòng 1/1 · Đã mở 0/9 mảnh · Hoạt động offline ⚙ Câu hỏi 1 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn Tổ 1 0 Đúng\"}"
+ },
+ {
+  "id": "D2-race",
+  "name": "Bộ mẫu Đúng/Sai → race: vào chơi thẳng với 20 câu của bộ",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"race\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🏁 ĐƯỜNG ĐUA KIẾN THỨC 🏁 · Câu 1/20 · Hoạt động offline ⚙ Câu hỏi 29 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn 🏎️ Tổ 1 0/10 ch\"}"
+ },
+ {
+  "id": "D2-millionaire",
+  "name": "Bộ Đúng/Sai → Chinh phục tri thức bị khóa, nêu lý do",
+  "status": "PASS",
+  "detail": "Chinh phục tri thức | 0/20 câu dùng được | Không dùng được: Trò này yêu cầu 4 phương án A–D"
+ },
+ {
+  "id": "D3",
+  "name": "Bộ mẫu Câu hỏi mở → Kéo co (giáo viên chấm) vào chơi với 20 câu",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"tug\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🪢 KÉO CO KIẾN THỨC Trận 1 · Câu 1/20 · Đang thi đấu ⚙ Câu hỏi Ⅱ Tạm dừng 🎵 Nhạc nền: Bật 🔊 Tiếng: Bật ⛶ Toàn màn hình ? Hướng d\"}"
+ },
+ {
+  "id": "D4",
+  "name": "Bộ chỉ có dạng chưa có trò chơi nhận (Điền khuyết): không hiện Chơi ngay, có Luyện tập và lời giải thích",
+  "status": "PASS",
+  "detail": "Mẫu 4 · Điền khuyết · Toán lớp 1–5 Bộ mẫu | Lớp 1–5 · Toán · Tổng hợp lớp 1–5 | 20 câu | ✏️ Điền khuyết · 20 | ✎ Luyện tập | Xem | ⋯ | Các trò chơi hiện chỉ nhận câu A–B–C–D, Đúng/Sai và câu hỏi mở. Bộ này dùng được ở Luyện tập."
+ },
+ {
+  "id": "D5",
+  "name": "Chuyển qua lại 12 lượt trò chơi không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "E1",
+  "name": "Chọn mảnh → hiện câu của bộ, Tự động chấm, không có nút xác nhận tay",
+  "status": "PASS",
+  "detail": "{\"q\":{\"text\":\"10 − 4 = 5.\",\"correct\":1},\"opened\":0,\"total\":9,\"confirmVisible\":false,\"auto\":true}"
+ },
+ {
+  "id": "E2",
+  "name": "Trả lời sai → mảnh không mở",
+  "status": "PASS",
+  "detail": "{\"q\":null,\"opened\":0,\"total\":9,\"confirmVisible\":false,\"auto\":false}"
+ },
+ {
+  "id": "E3",
+  "name": "Trả lời đúng lần lượt → mở đủ 9 mảnh, câu không lặp",
+  "status": "PASS",
+  "detail": "9/9 · 9 câu"
+ },
+ {
+  "id": "E4",
+  "name": "Chơi lại đặt lại bàn chơi",
+  "status": "PASS",
+  "detail": "0"
+ },
+ {
+  "id": "E5",
+  "name": "Thoát về thư viện, không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "F1",
+  "name": "Bộ cũ kiểu Chặng 7 (21 câu, “Chưa phân loại”) đọc nguyên vẹn, không bị tự sửa",
+  "status": "PASS",
+  "detail": "Bộ nhập Chặng 7 | Chưa xác định lớp · Chưa xác định môn · Chưa xác định chủ đề | 21 câu | ✅ Đúng/Sai · 20 | 🗣️ Câu hỏi mở · 1 | ▶ Chơi ngay | ✎ Luyện tập | Xem | ⋯"
+ },
+ {
+  "id": "F2",
+  "name": "Xem: liệt kê 21 câu kèm đáp án; lọc theo dạng trong bộ",
+  "status": "PASS",
+  "detail": "Tất cả 21 · Đúng/Sai 20 · Câu hỏi mở 1"
+ },
+ {
+  "id": "F3",
+  "name": "Sửa: xóa riêng “câu” tiêu đề 21 → 20, 20 câu còn lại giữ khóa; có hộp xác nhận nêu số câu bị xóa",
+  "status": "PASS",
+  "detail": "{\"n\":20}"
+ },
+ {
+  "id": "F4",
+  "name": "Sửa: đổi tên, Khối, Môn của bộ → cập nhật xuống từng câu, còn sau tải lại",
+  "status": "PASS",
+  "detail": "{\"name\":\"Toán 4 – Đúng/Sai (đã sửa)\",\"n\":20,\"hasHeading\":false,\"grade\":\"Lớp 4\",\"subject\":\"Toán\",\"topic\":\"Chưa phân loại\",\"qGrade\":[\"Lớp 4\"],\"qSubject\":[\"Toán\"],\"keys\":\"10101010101010101010\"}"
+ },
+ {
+  "id": "F5",
+  "name": "Sao chép tạo bộ mới trong “Bộ câu hỏi của tôi”",
+  "status": "PASS",
+  "detail": "{\"n\":10,\"last\":\"Toán 4 – Đúng/Sai (đã sửa) · Bản sao\",\"mine\":\"Bộ câu hỏi của tôi 3 bộ\"}"
+ },
+ {
+  "id": "F6",
+  "name": "Sao chép một bộ mẫu → bản sao thuộc “Bộ của tôi”, bộ mẫu vẫn 7",
+  "status": "PASS",
+  "detail": "Bộ câu hỏi của tôi 4 bộ / Bộ câu hỏi mẫu 7 bộ"
+ },
+ {
+  "id": "F7",
+  "name": "Xuất dữ liệu tải về tệp JSON của bộ",
+  "status": "PASS",
+  "detail": "bo-cau-hoi-q7-set-legacy.json"
+ },
+ {
+  "id": "F8",
+  "name": "Không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "G1",
+  "name": "Service worker cài xong và lưu đủ 26 tệp ứng dụng",
+  "status": "PASS",
+  "detail": "{\"caches\":[\"hmv-ban-chinh-1.1\"],\"n\":26}"
+ },
+ {
+  "id": "G2",
+  "name": "Ngắt mạng rồi tải lại: ứng dụng, Kho và 7 bộ mẫu vẫn mở đúng bản chính",
+  "status": "PASS",
+  "detail": "{\"online\":false,\"marker\":\"Build kiểm tra: HMV-BAN-CHINH-1.1-20261011\",\"demo\":7,\"styled\":\"rgb(243, 240, 255)\",\"cam\":true}"
+ },
+ {
+  "id": "G3",
+  "name": "Ngắt mạng: đọc tệp Word 20 câu, tự phân loại Đúng/Sai",
+  "status": "PASS",
+  "detail": "Nhận 20 · hợp lệ 20 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: Đúng/Sai: 20"
+ },
+ {
+  "id": "G4",
+  "name": "Ngắt mạng: Luyện tập chấm đúng",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "G5",
+  "name": "Ngắt mạng: Chơi ngay → Đường đua chạy với 20 câu của bộ mẫu",
+  "status": "PASS",
+  "detail": "{\"view\":\"games\",\"type\":\"race\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🏁 ĐƯỜNG ĐUA KIẾN THỨC 🏁 · Câu 1/20 · Hoạt động offline ⚙ Câu hỏi 29 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn 🏎️ Tổ 1 0/10 ch\"}"
+ },
+ {
+  "id": "G6",
+  "name": "Ngắt mạng: không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "H-1366",
+  "name": "1366×768: không tràn ngang, chữ đủ tương phản, ô tìm rộng, thẻ gọn, nút không chồng",
+  "status": "PASS",
+  "detail": "{\"overflowX\":false,\"title\":10.2,\"chip\":10.4,\"searchW\":334,\"cardH\":[103,103,103,103,131,131,131,131,103],\"overlap\":false}"
+ },
+ {
+  "id": "H-1920",
+  "name": "1920×1080: không tràn ngang, chữ đủ tương phản, ô tìm rộng, thẻ gọn, nút không chồng",
+  "status": "PASS",
+  "detail": "{\"overflowX\":false,\"title\":10.2,\"chip\":10.4,\"searchW\":395,\"cardH\":[103,103,103,103,131,131,131,131,103],\"overlap\":false}"
+ },
+ {
+  "id": "I1",
+  "name": "Mở lần lượt 10 màn hình chính không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "I2",
+  "name": "Nút “Kho câu hỏi” trong thư viện trò chơi mở đúng Kho mới (cùng một giao diện)",
+  "status": "PASS",
+  "detail": "{\"bank\":true,\"add\":1}"
+ }
+]

@@ -1,0 +1,28 @@
+# ===== KHÔNG đưa lên GitHub =====
+# Khóa Gemini và cài đặt riêng của từng máy
+CAI-DAT-AI/
+**/khoa-gemini.txt
+.env
+.env.*
+
+# Chương trình chạy kèm, nhật ký, bản sao lưu trên máy
+HOC-MA-VUI-BAN-CHINH/runtime/
+HOC-MA-VUI-BAN-CHINH/backups/
+HOC-MA-VUI-BAN-CHINH/kiem-thu/anh/
+*.log
+/backups/
+
+# Bộ nhận diện camera tải về máy (bản web tự lấy từ máy chủ chính thức của MediaPipe)
+HOC-MA-VUI-BAN-CHINH/app/vendor/
+
+# Gói thử, hồ sơ trình duyệt thử và tệp nén cũ
+/BAN-CHAY-THU-*/
+/TRINH-DIEN-*/
+/qa-*/
+/qa-*.png
+/qa-*.json
+*.zip
+
+# Công cụ
+node_modules/
+.vercel/

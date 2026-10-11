@@ -1,0 +1,132 @@
+{
+ "at": "2026-10-11T04:20:35.008Z",
+ "pass": 25,
+ "total": 25,
+ "results": [
+  {
+   "name": "Mặc định: nhạc nền bật, tiếng chuông bật",
+   "pass": true,
+   "detail": "{\"music\":true,\"sound\":true,\"vol\":0.3}"
+  },
+  {
+   "name": "Màn thiết lập có ô \"Nhạc nền\" và thanh âm lượng nhạc",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Ở màn thiết lập (chưa chơi) nhạc chưa phát",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Kho → Chơi ngay → Ai nhanh hơn: vào trận",
+   "pass": true,
+   "detail": "BUZZER_OPEN"
+  },
+  {
+   "name": "Nhạc nền phát ngay khi vào trận (Web Audio)",
+   "pass": true,
+   "detail": "{\"mode\":\"webaudio\",\"ctx\":\"running\",\"playing\":true,\"source\":true,\"duration\":16.031995464852606,\"loop\":[1,13],\"gain\":0.30000001192092896,\"time\":2.4526077097505667}"
+  },
+  {
+   "name": "Đúng tệp đã chọn: dài ~16 giây, phát lặp đoạn 1 s → 13 s, âm lượng 30%",
+   "pass": true,
+   "detail": "{\"mode\":\"webaudio\",\"ctx\":\"running\",\"playing\":true,\"source\":true,\"duration\":16.031995464852606,\"loop\":[1,13],\"gain\":0.30000001192092896,\"time\":2.4526077097505667}"
+  },
+  {
+   "name": "Đồng hồ âm thanh đang chạy (nhạc thực sự phát)",
+   "pass": true,
+   "detail": "{\"dt\":1}"
+  },
+  {
+   "name": "Màn chơi có nút \"🎵 Nhạc nền: Bật\" và \"🔊 Tiếng: Bật\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Mở chuông → đội 1 bấm phím Q giành quyền (luật chơi giữ nguyên)",
+   "pass": true,
+   "detail": "{\"buzzer\":\"TEAM_LOCKED\",\"claimed\":0}"
+  },
+  {
+   "name": "Giáo viên chấm đúng (D) → cộng 10 điểm; nhạc vẫn phát qua các lần vẽ lại màn hình",
+   "pass": true,
+   "detail": "{\"scores\":[10,0],\"playing\":true}"
+  },
+  {
+   "name": "Sang câu tiếp theo (N): nhạc không bị ngắt hay phát chồng",
+   "pass": true,
+   "detail": "{\"q\":1}"
+  },
+  {
+   "name": "Tạm dừng → nhạc dừng",
+   "pass": true,
+   "detail": "{\"ctx\":\"suspended\"}"
+  },
+  {
+   "name": "Tiếp tục → nhạc phát tiếp",
+   "pass": true,
+   "detail": "running"
+  },
+  {
+   "name": "Nút \"Nhạc nền\" tắt nhạc",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Nút \"Nhạc nền\" bật lại nhạc",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Nút \"Tiếng\" bật/tắt tiếng chuông, không ảnh hưởng nhạc nền",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Rời sang màn hình khác → nhạc dừng",
+   "pass": true,
+   "detail": "suspended"
+  },
+  {
+   "name": "Quay lại trò chơi → nhạc phát tiếp",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Kết thúc trò chơi (bảng chiến thắng) → nhạc dừng",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chơi lại → nhạc phát lại",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Về thư viện → nhạc dừng hẳn",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Bỏ chọn \"Nhạc nền\" ở thiết lập rồi Bắt đầu → không phát nhạc",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Lưu thiết lập: các ô vẫn hiện đúng giá trị vừa lưu (3 đội, 20 giây, nhạc 50%)",
+   "pass": true,
+   "detail": "{\"teams\":\"3\",\"resp\":\"20\",\"music\":true,\"vol\":\"50\"}"
+  },
+  {
+   "name": "Phát lặp 40 giây theo đoạn 1 s → 13 s: chỗ nối liền mạch (giữ nhịp y như bản nhạc gốc; phát lặp cả tệp thì lệch nhịp)",
+   "pass": true,
+   "detail": "{\"duration\":16.032,\"originalMusic\":0.94,\"loopRegion\":{\"windows\":140,\"minSimilarity\":0.934,\"worstAtSecond\":10.75},\"wholeFile\":{\"windows\":140,\"minSimilarity\":-0.616,\"worstAtSecond\":28.75}}"
+  },
+  {
+   "name": "Không có lỗi JavaScript / tải tệp",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

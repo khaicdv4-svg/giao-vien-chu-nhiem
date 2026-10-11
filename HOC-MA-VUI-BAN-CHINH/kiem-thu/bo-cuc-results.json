@@ -1,0 +1,698 @@
+{
+ "at": "2026-10-11T12:16:15.777Z",
+ "build": "HMV-BAN-CHINH-2.5-20261011",
+ "sizes": [
+  "1280x600",
+  "1366x650",
+  "1536x730",
+  "1774x934",
+  "1920x950"
+ ],
+ "total": 22,
+ "passed": 22,
+ "results": [
+  {
+   "name": "0 Hộp quà lúc đang chọn hộp: lời nhắc \"Chọn một hộp quà\" không bị coi là câu hỏi (không có nút loa); mở câu hỏi thật thì nút loa mới hiện",
+   "pass": true,
+   "detail": {
+    "text": "Chọn một hộp quà",
+    "n": 0,
+    "ready": true
+   }
+  },
+  {
+   "name": "1 Hộp quà (toàn màn hình), lúc chọn hộp: 8 hộp, thẻ người chơi và các nút đều nằm trong màn hình ở mọi cỡ",
+   "pass": true,
+   "detail": [
+    [
+     "1280x600",
+     []
+    ],
+    [
+     "1366x650",
+     []
+    ],
+    [
+     "1536x730",
+     []
+    ],
+    [
+     "1774x934",
+     []
+    ],
+    [
+     "1920x950",
+     []
+    ]
+   ]
+  },
+  {
+   "name": "2 Hộp quà (toàn màn hình), lúc mở câu hỏi: câu hỏi, 4 phương án, nút Xác nhận đúng/sai, dải hộp quà và thẻ người chơi đều nằm trong màn hình ở mọi cỡ (trước đây câu hỏi bị đẩy khuất xuống dưới)",
+   "pass": true,
+   "detail": [
+    [
+     "1280x600",
+     []
+    ],
+    [
+     "1366x650",
+     []
+    ],
+    [
+     "1536x730",
+     []
+    ],
+    [
+     "1774x934",
+     []
+    ],
+    [
+     "1920x950",
+     []
+    ]
+   ]
+  },
+  {
+   "name": "3 Khi câu hỏi mở: hộp quà thu nhỏ thành một dải (vẫn đủ 8 hộp, đủ số, hộp đang mở được viền nổi), câu hỏi nằm ngay dưới dải hộp, các nút phụ nằm sau câu hỏi",
+   "pass": true,
+   "detail": [
+    {
+     "n": 8,
+     "h": 50,
+     "rows": 1,
+     "text": "🎁1 🎁2 🎁3 🎁4 🎁5 🎁6 🎁7 🎁8",
+     "selOutline": "solid",
+     "qBelow": true,
+     "order": [
+      "page-title",
+      "gift-score-row",
+      "gift-box-grid",
+      "gift-question",
+      "gift-actions",
+      "btn"
+     ]
+    },
+    104
+   ]
+  },
+  {
+   "name": "4 Hộp quà (toàn màn hình) với câu hỏi dài 3 dòng: câu hỏi, phương án và nút xác nhận vẫn nằm trong màn hình ở mọi cỡ",
+   "pass": true,
+   "detail": [
+    [
+     "1280x600",
+     []
+    ],
+    [
+     "1366x650",
+     []
+    ],
+    [
+     "1536x730",
+     []
+    ],
+    [
+     "1774x934",
+     []
+    ],
+    [
+     "1920x950",
+     []
+    ]
+   ]
+  },
+  {
+   "name": "5 Bố cục gọn không làm hỏng thao tác: chọn phương án, xác nhận đúng vẫn chạy; màn \"phần quà\" (Áp dụng kết quả) nằm trong màn hình ở mọi cỡ",
+   "pass": true,
+   "detail": [
+    "B.",
+    [
+     [
+      "1280x600",
+      []
+     ],
+     [
+      "1366x650",
+      []
+     ],
+     [
+      "1536x730",
+      []
+     ],
+     [
+      "1774x934",
+      []
+     ],
+     [
+      "1920x950",
+      []
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "6 Áp dụng xong, trở lại lúc chọn hộp: hộp quà lớn như cũ để học sinh dễ chọn, hộp vừa mở được đánh dấu",
+   "pass": true,
+   "detail": {
+    "q": false,
+    "hint": "Chọn một hộp quà",
+    "h": 104,
+    "opened": 1,
+    "disp": "block"
+   }
+  },
+  {
+   "name": "7 Hộp quà (toàn màn hình), màn kết quả: tiêu đề kết quả và nút Chơi lại / Về thư viện nằm trong màn hình ở mọi cỡ",
+   "pass": true,
+   "detail": [
+    [
+     "1280x600",
+     []
+    ],
+    [
+     "1366x650",
+     []
+    ],
+    [
+     "1536x730",
+     []
+    ],
+    [
+     "1774x934",
+     []
+    ],
+    [
+     "1920x950",
+     []
+    ]
+   ]
+  },
+  {
+   "name": "8 Hộp quà ở chế độ thường (không toàn màn hình): mở câu hỏi là thấy ngay câu hỏi và 4 phương án, không phải cuộn (trước đây phải cuộn xuống)",
+   "pass": true,
+   "detail": [
+    [
+     "1280x600",
+     []
+    ],
+    [
+     "1366x650",
+     []
+    ],
+    [
+     "1536x730",
+     []
+    ],
+    [
+     "1774x934",
+     []
+    ],
+    [
+     "1920x950",
+     []
+    ]
+   ]
+  },
+  {
+   "name": "9 Hộp quà trên màn hình hẹp (860 px): thẻ người chơi và dải hộp xếp chồng, không phần nào tràn khỏi khung trò chơi",
+   "pass": true,
+   "detail": {
+    "n": 8,
+    "ans": true,
+    "tiles": true,
+    "score": true,
+    "stacked": true
+   }
+  },
+  {
+   "name": "10 Bình chọn (chế độ thường), câu hỏi ngắn: đủ 4 phương án A–D và nút \"Bắt đầu đếm\" đều hiện trong màn hình ở mọi cỡ, không còn vùng cuộn ẩn che phương án (trước đây ở màn hình thấp phương án D bị che)",
+   "pass": true,
+   "detail": [
+    [
+     "1280x600",
+     {
+      "n": 4,
+      "rowH": 54,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1366x650",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1536x730",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1774x934",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1920x950",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ]
+   ]
+  },
+  {
+   "name": "11 Các hàng phương án tự co theo màn hình: thấp thì gọn (≥ 34 px, vẫn chạm được), cao thì rộng rãi (≤ 84 px)",
+   "pass": true,
+   "detail": [
+    54,
+    84,
+    84,
+    84,
+    84
+   ]
+  },
+  {
+   "name": "12 Bình chọn với câu hỏi dài và một phương án dài hai dòng: ở mọi cỡ màn hình không phương án nào bị che hay đè lên nút; từ 1366×650 trở lên tất cả nằm trọn trong màn hình (màn hình 1280×600 thì trang cuộn thêm một chút)",
+   "pass": true,
+   "detail": [
+    [
+     "1280x600",
+     {
+      "n": 4,
+      "rowH": 42,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": false,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1366x650",
+     {
+      "n": 4,
+      "rowH": 69,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1536x730",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1774x934",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1920x950",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ]
+   ]
+  },
+  {
+   "name": "13 Bình chọn lúc đang đếm và lúc hiện kết quả (có dòng tổng kết, 3 nút): 4 phương án, số phiếu và các nút đều hiện trong màn hình ở mọi cỡ; số phiếu đúng",
+   "pass": true,
+   "detail": [
+    "result",
+    {
+     "n": 4,
+     "rowH": 41,
+     "noHiddenScroll": true,
+     "inPanel": true,
+     "noOverlap": true,
+     "onScreen": true,
+     "labels": true,
+     "overflowY": "visible"
+    },
+    "1,2,1,0",
+    [
+     [
+      "1280x600",
+      {
+       "n": 4,
+       "rowH": 41,
+       "noHiddenScroll": true,
+       "inPanel": true,
+       "noOverlap": true,
+       "onScreen": true,
+       "labels": true,
+       "overflowY": "visible"
+      }
+     ],
+     [
+      "1366x650",
+      {
+       "n": 4,
+       "rowH": 77,
+       "noHiddenScroll": true,
+       "inPanel": true,
+       "noOverlap": true,
+       "onScreen": true,
+       "labels": true,
+       "overflowY": "visible"
+      }
+     ],
+     [
+      "1536x730",
+      {
+       "n": 4,
+       "rowH": 84,
+       "noHiddenScroll": true,
+       "inPanel": true,
+       "noOverlap": true,
+       "onScreen": true,
+       "labels": true,
+       "overflowY": "visible"
+      }
+     ],
+     [
+      "1774x934",
+      {
+       "n": 4,
+       "rowH": 84,
+       "noHiddenScroll": true,
+       "inPanel": true,
+       "noOverlap": true,
+       "onScreen": true,
+       "labels": true,
+       "overflowY": "visible"
+      }
+     ],
+     [
+      "1920x950",
+      {
+       "n": 4,
+       "rowH": 84,
+       "noHiddenScroll": true,
+       "inPanel": true,
+       "noOverlap": true,
+       "onScreen": true,
+       "labels": true,
+       "overflowY": "visible"
+      }
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "14 Bình chọn ở chế độ toàn màn hình: vẫn đủ 4 phương án và nút trong màn hình ở mọi cỡ",
+   "pass": true,
+   "detail": [
+    [
+     "1280x600",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1366x650",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1536x730",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1774x934",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1920x950",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ]
+   ]
+  },
+  {
+   "name": "15 Bình chọn \"Hỏi nhanh\" (không dùng bộ câu hỏi): các lựa chọn và nút cũng nằm trọn trong màn hình ở mọi cỡ",
+   "pass": true,
+   "detail": [
+    [
+     "1280x600",
+     {
+      "n": 4,
+      "rowH": 49,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1366x650",
+     {
+      "n": 4,
+      "rowH": 67,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1536x730",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1774x934",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ],
+    [
+     "1920x950",
+     {
+      "n": 4,
+      "rowH": 84,
+      "noHiddenScroll": true,
+      "inPanel": true,
+      "noOverlap": true,
+      "onScreen": true,
+      "labels": true,
+      "overflowY": "visible"
+     }
+    ]
+   ]
+  },
+  {
+   "name": "16 Bình chọn trên màn hình hẹp (800 px, xếp dọc): không tràn ngang, không bị ép chiều cao",
+   "pass": true,
+   "detail": {
+    "h": "",
+    "scroll": true,
+    "rows": 4
+   }
+  },
+  {
+   "name": "17 Đường đua (toàn màn hình): các làn đua gọn thành một hàng mỗi đội (vẫn đủ tên đội, đường đua, xe, điểm), câu hỏi + 4 phương án + nút xác nhận nằm trong màn hình ở mọi cỡ (trước đây ở màn hình thấp bị khuất)",
+   "pass": true,
+   "detail": [
+    [
+     [
+      "1280x600",
+      []
+     ],
+     [
+      "1366x650",
+      []
+     ],
+     [
+      "1536x730",
+      []
+     ],
+     [
+      "1774x934",
+      []
+     ],
+     [
+      "1920x950",
+      []
+     ]
+    ],
+    {
+     "h": 50,
+     "carIn": true,
+     "n": 2,
+     "text": "🏎️ Tổ 1 0/10 chặng · 0 điểm 🏎️ 🏁 🛡️ 0 · đúng 0 · sai 0"
+    }
+   ]
+  },
+  {
+   "name": "18 Đường đua: trả lời đúng thì xe của đội đang đến lượt vẫn tiến trên làn gọn",
+   "pass": true,
+   "detail": [
+    "0%,0%",
+    "10%,0%"
+   ]
+  },
+  {
+   "name": "19 Ai nhanh hơn (toàn màn hình): thẻ đội, dải \"Bấm chuông\", câu hỏi và 4 phương án nằm trong màn hình ở mọi cỡ, kể cả màn hình thấp 1280×600",
+   "pass": true,
+   "detail": [
+    [
+     "1280x600",
+     []
+    ],
+    [
+     "1366x650",
+     []
+    ],
+    [
+     "1536x730",
+     []
+    ],
+    [
+     "1774x934",
+     []
+    ],
+    [
+     "1920x950",
+     []
+    ]
+   ]
+  },
+  {
+   "name": "20 Trên màn hình đủ cao (1366×768 trở lên) cỡ chữ và nút của Ai nhanh hơn giữ nguyên như trước",
+   "pass": true,
+   "detail": [
+    71,
+    28.686
+   ]
+  },
+  {
+   "name": "21 Không có lỗi JavaScript trong suốt quá trình",
+   "pass": true,
+   "detail": []
+  }
+ ]
+}

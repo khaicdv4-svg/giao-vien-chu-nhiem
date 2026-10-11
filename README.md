@@ -1,3 +1,17 @@
+# HỌC MÀ VUI · Trường Tiểu học Trần Văn Ơn
+
+**Bản đang dùng: HỌC MÀ VUI – BẢN CHÍNH 2.8** (11/10/2026), nằm trong thư mục [`HOC-MA-VUI-BAN-CHINH/`](HOC-MA-VUI-BAN-CHINH/).
+
+- **Trang web:** https://giao-vien-chu-nhiem.vercel.app – Vercel phát thư mục `HOC-MA-VUI-BAN-CHINH/app` (xem `vercel.json`). Mỗi lần nhánh `main` có thay đổi, Vercel tự cập nhật.
+- **Bản trên web** chạy trò chơi, Kho câu hỏi, camera, âm thanh. **Không có AI Gemini**: phần AI chỉ chạy ở bản cài trên máy (mở bằng `MO-HOC-MA-VUI.cmd`, cần thêm thư mục `runtime` chứa `node.exe`, không nằm trong kho này).
+- **Dữ liệu lớp học** (học sinh, câu hỏi, điểm) chỉ lưu trong trình duyệt của từng máy, không gửi lên GitHub hay Vercel.
+- **Không đưa khóa Gemini lên kho này.** Thư mục `CAI-DAT-AI/` đã nằm trong `.gitignore`.
+- Ghi chú đầy đủ từng bản: [`HOC-MA-VUI-BAN-CHINH/DOC-TRUOC.md`](HOC-MA-VUI-BAN-CHINH/DOC-TRUOC.md).
+
+Phần bên dưới là mô tả của bản đầu tiên (“GIÁO VIÊN CHỦ NHIỆM V1.0”, các tệp ở gốc kho), giữ lại để tham khảo.
+
+---
+
 # GIÁO VIÊN CHỦ NHIỆM · ThayKhaiEdu
 
 Prototype V1.0 cho giáo viên tiểu học Việt Nam, nhận diện Trường Tiểu học Trần Văn Ơn.

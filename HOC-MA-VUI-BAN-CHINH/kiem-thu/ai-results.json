@@ -1,0 +1,774 @@
+{
+  "build": "HMV-BAN-CHINH-2.4-20261011",
+  "note": "Gemini giả, không gọi Google",
+  "total": 58,
+  "passed": 58,
+  "results": [
+    {
+      "name": "A1 Trạng thái: máy chủ bản 2, chưa có khóa, có tệp mẫu để dán khóa",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "server": 2,
+        "provider": "gemini",
+        "configured": false,
+        "keyHint": "",
+        "models": [
+          "gemini-3.8-flash",
+          "gemini-3.5-flash-lite"
+        ],
+        "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
+        "lastOk": {
+          "at": "2026-10-11T11:51:18.434Z",
+          "model": "gemini-3.8-flash"
+        },
+        "lastError": null
+      }
+    },
+    {
+      "name": "A2 Chưa có khóa: trả lỗi NO_KEY bằng tiếng Việt, không gọi Gemini",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "code": "NO_KEY",
+        "message": "Chưa có khóa Gemini. Hãy vào Trợ lý AI → Kết nối AI để dán khóa."
+      }
+    },
+    {
+      "name": "A3 Chặn yêu cầu từ trang web khác (Origin lạ, Host lạ, cross-site); cho phép localhost",
+      "pass": true,
+      "detail": [
+        403,
+        403,
+        403,
+        503
+      ]
+    },
+    {
+      "name": "A4 Từ chối: không phải JSON (400), JSON hỏng (400), sai phương thức (405), đường dẫn lạ (404)",
+      "pass": true,
+      "detail": [
+        400,
+        400,
+        405,
+        404
+      ]
+    },
+    {
+      "name": "A5 Khóa sai định dạng bị từ chối",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "code": "KEY_FORMAT",
+        "message": "Khóa không đúng định dạng. Hãy sao chép lại nguyên khóa từ Google AI Studio."
+      }
+    },
+    {
+      "name": "A5b Khóa dạng mới của Google (\"AQ.\" kèm dấu chấm) được nhận, lưu và gửi đi nguyên vẹn trong tiêu đề x-goog-api-key",
+      "pass": true,
+      "detail": [
+        {
+          "ok": true,
+          "server": 2,
+          "provider": "gemini",
+          "configured": true,
+          "keyHint": "…wxyz",
+          "models": [
+            "gemini-3.8-flash",
+            "gemini-3.5-flash-lite"
+          ],
+          "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
+          "lastOk": {
+            "at": "2026-10-11T11:51:18.434Z",
+            "model": "gemini-3.8-flash"
+          },
+          "lastError": null
+        },
+        {
+          "ok": true,
+          "server": 2,
+          "provider": "gemini",
+          "configured": true,
+          "keyHint": "…wxyz",
+          "models": [
+            "gemini-3.8-flash",
+            "gemini-3.5-flash-lite"
+          ],
+          "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
+          "lastOk": {
+            "at": "2026-10-11T11:51:18.434Z",
+            "model": "gemini-3.8-flash"
+          },
+          "lastError": null
+        },
+        200
+      ]
+    },
+    {
+      "name": "A5c Khóa có khoảng trắng hoặc kí tự lạ vẫn bị từ chối",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "code": "KEY_FORMAT",
+        "message": "Khóa không đúng định dạng. Hãy sao chép lại nguyên khóa từ Google AI Studio."
+      }
+    },
+    {
+      "name": "A6 Lưu khóa: ghi vào tệp trên máy; trạng thái chỉ lộ 4 ký tự cuối, không bao giờ trả lại khóa",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "server": 2,
+        "provider": "gemini",
+        "configured": true,
+        "keyHint": "…9876",
+        "models": [
+          "gemini-3.8-flash",
+          "gemini-3.5-flash-lite"
+        ],
+        "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
+        "lastOk": {
+          "at": "2026-10-11T11:53:02.119Z",
+          "model": "gemini-3.8-flash"
+        },
+        "lastError": null
+      }
+    },
+    {
+      "name": "A7 Gọi được Gemini: có câu trả lời, khóa đi trong tiêu đề (không nằm trên URL)",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "text": "SẴN SÀNG",
+        "model": "gemini-3.8-flash",
+        "truncated": false
+      }
+    },
+    {
+      "name": "A8 Tệp khóa do Notepad lưu dạng Unicode, có tiền tố \"KHOA =\" và dấu nháy vẫn đọc được; không cần khởi động lại",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "server": 2,
+        "provider": "gemini",
+        "configured": true,
+        "keyHint": "…876X",
+        "models": [
+          "gemini-3.8-flash",
+          "gemini-3.5-flash-lite"
+        ],
+        "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
+        "lastOk": {
+          "at": "2026-10-11T11:53:02.124Z",
+          "model": "gemini-3.8-flash"
+        },
+        "lastError": null
+      }
+    },
+    {
+      "name": "A9 Mô hình đầu hết lượt (429) → tự chuyển mô hình dự phòng",
+      "pass": true,
+      "detail": [
+        {
+          "ok": true,
+          "text": "SẴN SÀNG",
+          "model": "gemini-3.5-flash-lite",
+          "truncated": false
+        },
+        [
+          {
+            "model": "gemini-3.8-flash",
+            "hasKeyInUrl": false
+          },
+          {
+            "model": "gemini-3.5-flash-lite",
+            "hasKeyInUrl": false
+          }
+        ]
+      ]
+    },
+    {
+      "name": "A10 Mô hình đầu không còn tồn tại (404) → tự chuyển mô hình dự phòng",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "text": "SẴN SÀNG",
+        "model": "gemini-3.5-flash-lite",
+        "truncated": false
+      }
+    },
+    {
+      "name": "A11 Cả hai mô hình hết lượt → báo RATE_LIMIT bằng tiếng Việt",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "code": "RATE_LIMIT",
+        "message": "Gemini đang giới hạn lượt dùng miễn phí. Hãy chờ khoảng một phút rồi thử lại."
+      }
+    },
+    {
+      "name": "A12 Khóa không hợp lệ → báo KEY_INVALID, dừng ngay không thử mô hình khác",
+      "pass": true,
+      "detail": [
+        {
+          "ok": false,
+          "code": "KEY_INVALID",
+          "message": "Khóa Gemini không hợp lệ hoặc bị Google từ chối. Hãy sao chép lại nguyên khóa, hoặc tạo khóa mới trong Google AI Studio. (Google báo: 400 INVALID_ARGUMENT – API key not valid. Please pass a valid API key.)"
+        },
+        1
+      ]
+    },
+    {
+      "name": "A13 Mô hình không nhận lược đồ JSON → thử lại không kèm lược đồ",
+      "pass": true,
+      "detail": [
+        {
+          "ok": true,
+          "text": "SẴN SÀNG",
+          "model": "gemini-3.8-flash",
+          "truncated": false
+        },
+        2
+      ]
+    },
+    {
+      "name": "A14 Gemini chặn nội dung → báo BLOCKED rõ ràng",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "code": "BLOCKED",
+        "message": "Gemini từ chối nội dung này vì lý do an toàn. Hãy sửa lại nguồn hoặc yêu cầu."
+      }
+    },
+    {
+      "name": "A15 Đọc to: trả về tệp WAV hợp lệ (RIFF/WAVE, 24 kHz, 16 bit)",
+      "pass": true,
+      "detail": [
+        200,
+        4844
+      ]
+    },
+    {
+      "name": "A16 Vẫn phục vụ ứng dụng như cũ; không tải được tệp khóa hay mã máy chủ qua web",
+      "pass": true,
+      "detail": [
+        200,
+        404,
+        404,
+        404,
+        200
+      ]
+    },
+    {
+      "name": "A17 Lọc nội dung gửi đi: cắt văn bản quá dài, bỏ tệp không phải ảnh, gỡ tiền tố data:",
+      "pass": true,
+      "detail": [
+        60000,
+        {
+          "mimeType": "image/jpeg",
+          "data": "AAAA"
+        }
+      ]
+    },
+    {
+      "name": "B1 Thanh bên có mục \"Trợ lý AI\" ngay sau Kho câu hỏi",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B2 Ô \"Trợ lý AI\" ở trang chủ mở đúng màn hình; nhãn báo chưa có khóa",
+      "pass": true,
+      "detail": "🔑 Chưa có khóa Gemini"
+    },
+    {
+      "name": "B3 Chưa có khóa mà bấm tạo: báo rõ, có nút mở Kết nối AI và nút dùng cách dán ChatGPT",
+      "pass": true,
+      "detail": "Chưa có khóa Gemini. Hãy vào Trợ lý AI → Kết nối AI để dán khóa. Mở Kết nối AI Dùng cách dán ChatGPT"
+    },
+    {
+      "name": "B4 Cách dán ChatGPT (không cần khóa) vẫn mở được làm dự phòng",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B5 Màn Kết nối AI: ô khóa là ô mật khẩu, không tự điền, có ba bước hướng dẫn",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B6 Lưu khóa từ giao diện: nhãn đổi sang \"đã có khóa (…9876)\"; khóa không còn trong trang, localStorage, sessionStorage",
+      "pass": true,
+      "detail": {
+        "html": false,
+        "ls": false,
+        "ss": false,
+        "field": ""
+      }
+    },
+    {
+      "name": "B7 Kiểm tra kết nối: báo kết nối tốt kèm tên mô hình",
+      "pass": true,
+      "detail": "✅ Kết nối tốt · mô hình gemini-3.5-flash-lite · 0.0 giây."
+    },
+    {
+      "name": "B8 Biểu mẫu nhớ lựa chọn lần trước; lớp mặc định theo lớp đang chọn",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B9 Câu lệnh gửi đi đúng yêu cầu: 5 câu, lớp 4, môn Toán, chủ đề, ba mức TT27, có lược đồ JSON",
+      "pass": true,
+      "detail": "Soạn đúng 5 câu hỏi cho học sinh lớp 4, môn Toán, bài/chủ đề: Phép cộng có nhớ.\nDạng câu: Tất cả là trắc nghiệm bốn phương án (kind \"ABCD\").\nMức độ: Phân bổ đủ ba mức theo Thông tư 27/2020/TT-BGDĐT: khoảng một nửa số câu ở Mức 1 (nhận biết, nhắc lại hoặc mô tả nội dung đã học, áp dụng trực tiếp vào "
+    },
+    {
+      "name": "B10 Tên học sinh trong nguồn được thay bằng bí danh trước khi gửi",
+      "pass": true,
+      "detail": "AI đã soạn 5 câu (bỏ 1 câu sai quy cách) · đã ẩn 1 tên học sinh trước khi gửi. Thầy cô kiểm tra rồi lưu."
+    },
+    {
+      "name": "B11 Hiện 5 câu để duyệt; câu sai quy cách (3 phương án) bị loại và có báo",
+      "pass": true,
+      "detail": [
+        5,
+        "AI đã soạn 5 câu (bỏ 1 câu sai quy cách) · đã ẩn 1 tên học sinh trước khi gửi. Thầy cô kiểm tra rồi lưu.",
+        "Toán · Phép cộng có nhớ (AI)"
+      ]
+    },
+    {
+      "name": "B12 Phương án được xáo trộn nhưng đáp án đúng vẫn đúng; bỏ tiền tố \"A.\" thừa",
+      "pass": true,
+      "detail": [
+        [
+          [
+            "1001",
+            "11",
+            "12",
+            "10"
+          ],
+          "1"
+        ],
+        [
+          [
+            "22",
+            "1002",
+            "21",
+            "23"
+          ],
+          "0"
+        ],
+        [
+          [
+            "33",
+            "1003",
+            "34",
+            "32"
+          ],
+          "0"
+        ],
+        [
+          [
+            "44",
+            "43",
+            "45",
+            "1004"
+          ],
+          "0"
+        ],
+        [
+          [
+            "55",
+            "1005",
+            "56",
+            "54"
+          ],
+          "0"
+        ]
+      ]
+    },
+    {
+      "name": "B13 AI rà soát: gửi đủ câu kèm đáp án, yêu cầu tự giải lại; mỗi câu có nhãn ổn / nên chỉnh / sai",
+      "pass": true,
+      "detail": [
+        {
+          "badge": "✅ AI: ổn",
+          "cls": "ta-draft",
+          "fix": false,
+          "issues": ""
+        },
+        {
+          "badge": "❌ AI: sai",
+          "cls": "ta-draft error",
+          "fix": true,
+          "issues": "Đáp án được ghi không đúng: tính lại ra kết quả khác.AI đề nghị sửa: Câu đã sửa: 20 + 2 = ? — A. 21 · B. 22 ✔ · C. 23 · D. 24 Áp dụng"
+        },
+        {
+          "badge": "⚠️ AI: nên chỉnh",
+          "cls": "ta-draft warn",
+          "fix": false,
+          "issues": "Câu hỏi hơi dài với học sinh lớp 4."
+        },
+        {
+          "badge": "✅ AI: ổn",
+          "cls": "ta-draft",
+          "fix": false,
+          "issues": ""
+        },
+        {
+          "badge": "✅ AI: ổn",
+          "cls": "ta-draft",
+          "fix": false,
+          "issues": ""
+        }
+      ]
+    },
+    {
+      "name": "B14 Bấm \"Áp dụng\": câu, phương án, đáp án và mức độ được sửa theo đề nghị của AI",
+      "pass": true,
+      "detail": {
+        "text": "Câu đã sửa: 20 + 2 = ?",
+        "answers": [
+          "21",
+          "22",
+          "23",
+          "24"
+        ],
+        "correct": "1",
+        "level": "Mức 2",
+        "badge": "✅ AI: ổn"
+      }
+    },
+    {
+      "name": "B15 Câu thiếu phương án không lưu được; báo đúng câu cần sửa",
+      "pass": true,
+      "detail": "Câu 1 còn thiếu hoặc sai quy cách; hãy sửa hoặc bỏ chọn trước khi lưu."
+    },
+    {
+      "name": "B16 \"Soạn thêm\": gửi kèm danh sách câu đã có để tránh trùng, nối thêm câu mới, giữ nguyên phần đã sửa và đã bỏ chọn",
+      "pass": true,
+      "detail": {
+        "n": 10,
+        "a0": "999",
+        "off": 1,
+        "texts": [
+          "Câu 1: 10 + 1 = ?",
+          "Câu đã sửa: 20 + 2 = ?",
+          "Câu 3: 30 + 3 = ?",
+          "Câu 4: 40 + 4 = ?",
+          "Câu 5: 50 + 5 = ?",
+          "Thêm Câu 1: 10 + 1 = ?",
+          "Thêm Câu 2: 20 + 2 = ?",
+          "Thêm Câu 3: 30 + 3 = ?",
+          "Thêm Câu 4: 40 + 4 = ?",
+          "Thêm Câu 5: 50 + 5 = ?"
+        ]
+      }
+    },
+    {
+      "name": "B17 \"Lưu và chơi ngay\": lưu bộ mới (chỉ câu được chọn) vào Kho với đủ lớp, môn, chủ đề, nguồn",
+      "pass": true,
+      "detail": {
+        "id": "ai-set-1791719586106-fbw3l7",
+        "name": "Bộ AI kiểm thử",
+        "n": 9,
+        "grade": "Lớp 4",
+        "subject": "Toán",
+        "topic": "Phép cộng có nhớ",
+        "source": "Trợ lý AI (Gemini)",
+        "selected": true,
+        "valid": true,
+        "kinds": "ABCD,ABCD,ABCD,ABCD,ABCD,ABCD,ABCD,ABCD,ABCD",
+        "modal": "Chơi ngay · Bộ AI kiểm thử\nĐóng\n\nChọn trò chơi. Ứng dụng dùng bộ này cùng cấu hình trò chơi đã lưu và vào chơi ngay.\n\nKéo co kiến thức\n9/9 câu dùng được\nHộp quà bí mật\n9/9 câu dùng được\nAi nhanh hơn\n9",
+        "games": [
+          [
+            "tug",
+            false,
+            "Kéo co kiến thức 9/9 câu dùng được"
+          ],
+          [
+            "gift",
+            false,
+            "Hộp quà bí mật 9/9 câu dùng được"
+          ],
+          [
+            "buzzer",
+            false,
+            "Ai nhanh hơn 9/9 câu dùng được"
+          ],
+          [
+            "millionaire",
+            false,
+            "Chinh phục tri thức 9/9 câu dùng được"
+          ],
+          [
+            "balloon",
+            false,
+            "Bóng bay tri thức 9/9 câu dùng được"
+          ],
+          [
+            "poll",
+            false,
+            "Bình chọn ngón tay 9/9 câu dùng được"
+          ],
+          [
+            "race",
+            false,
+            "Đường đua kiến thức 9/9 câu dùng được"
+          ],
+          [
+            "head-tilt",
+            true,
+            "Quiz Nghiêng Đầu 0/9 câu dùng được Không dùng được: Quiz Nghiêng Đầu chỉ nhận Đúng/Sai"
+          ]
+        ],
+        "view": "questions",
+        "q0": {
+          "id": "ai-q-1791719586117-5i1qin",
+          "text": "Câu 1: 10 + 1 = ?",
+          "question": "Câu 1: 10 + 1 = ?",
+          "kind": "ABCD",
+          "type": "ABCD",
+          "answers": [
+            "999",
+            "11",
+            "12",
+            "10"
+          ],
+          "options": [
+            "999",
+            "11",
+            "12",
+            "10"
+          ],
+          "optionLabels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "correct": 1,
+          "correctAnswers": [
+            1
+          ],
+          "correctAnswer": "11",
+          "answerText": "",
+          "explanation": "Cộng hàng đơn vị rồi hàng chục.",
+          "hint": "",
+          "pairs": [],
+          "grade": "Lớp 4",
+          "subject": "Toán",
+          "topic": "Phép cộng có nhớ",
+          "lesson": "Phép cộng có nhớ",
+          "difficulty": "Mức 2",
+          "level": "Mức 2",
+          "source": "Trợ lý AI (Gemini)",
+          "points": 1,
+          "time": 30,
+          "answerStatus": "Hợp lệ",
+          "reviewStatus": "Hợp lệ",
+          "classificationStatus": "Có căn cứ đã nhập",
+          "reviewErrors": [],
+          "answerKeyValid": true
+        }
+      }
+    },
+    {
+      "name": "B18 Mở ngay hộp \"Chơi ngay\" của Kho cho bộ vừa lưu; các trò trắc nghiệm đều dùng được đủ 9 câu (Quiz Nghiêng Đầu chỉ nhận Đúng/Sai)",
+      "pass": true,
+      "detail": [
+        [
+          "tug",
+          false,
+          "Kéo co kiến thức 9/9 câu dùng được"
+        ],
+        [
+          "gift",
+          false,
+          "Hộp quà bí mật 9/9 câu dùng được"
+        ],
+        [
+          "buzzer",
+          false,
+          "Ai nhanh hơn 9/9 câu dùng được"
+        ],
+        [
+          "millionaire",
+          false,
+          "Chinh phục tri thức 9/9 câu dùng được"
+        ],
+        [
+          "balloon",
+          false,
+          "Bóng bay tri thức 9/9 câu dùng được"
+        ],
+        [
+          "poll",
+          false,
+          "Bình chọn ngón tay 9/9 câu dùng được"
+        ],
+        [
+          "race",
+          false,
+          "Đường đua kiến thức 9/9 câu dùng được"
+        ],
+        [
+          "head-tilt",
+          true,
+          "Quiz Nghiêng Đầu 0/9 câu dùng được Không dùng được: Quiz Nghiêng Đầu chỉ nhận Đúng/Sai"
+        ]
+      ]
+    },
+    {
+      "name": "B19 Chọn Kéo co: vào trò chơi với câu hỏi của bộ AI vừa soạn",
+      "pass": true,
+      "detail": "🪢 KÉO CO KIẾN THỨC\n\nTrận 1 · Câu 1/9 · Đang thi đấu\n\n⚙ Câu hỏi\nⅡ Tạm dừng\n🎵 Nhạc nền: Bật\n🔊 Tiếng: Bật\n⛶ Toàn màn hình\n? Hướng dẫn\nTổ 1\n0\nĐang trả lời\nTổ 2\n0\nChờ lượt\n⚑\n29 giây\nLượt của: Tổ 1\nTự ch"
+    },
+    {
+      "name": "B20 Tải lại trang: bộ AI vẫn còn trong Kho (đã ghi vào bộ nhớ của trình duyệt)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B21 Dạng hỗn hợp, chỉ Mức 2, kết quả bọc trong ```json: vẫn đọc được; có cả A–B–C–D và Đúng/Sai với đáp án đúng",
+      "pass": true,
+      "detail": {
+        "kinds": [
+          "A–B–C–D",
+          "A–B–C–D",
+          "Đúng/Sai",
+          "A–B–C–D",
+          "A–B–C–D",
+          "Đúng/Sai",
+          "A–B–C–D",
+          "A–B–C–D",
+          "Đúng/Sai",
+          "A–B–C–D"
+        ],
+        "tf": [
+          "0",
+          "1",
+          "0"
+        ]
+      }
+    },
+    {
+      "name": "B22 Câu trả lời ngắn: lưu vào Kho đúng dạng; có dải báo đã lưu kèm nút Chơi ngay và Mở Kho",
+      "pass": true,
+      "detail": {
+        "n": 5,
+        "kinds": "SHORT,SHORT,SHORT,SHORT,SHORT",
+        "valid": true,
+        "banner": "✅ Đã lưu bộ Toán · Bảng nhân (AI) (5 câu) vào Kho. ▶ Chơi ngay Mở Kho câu hỏi",
+        "left": 0
+      }
+    },
+    {
+      "name": "B23 Ảnh trang sách: được đính kèm gửi AI (JPEG đã thu nhỏ); không cần nhập chủ đề khi có ảnh",
+      "pass": true,
+      "detail": [
+        "ng ý nhau.\nChỉ dùng kiến thức có trong NGUỒN BÀI HỌC (gồm 1 ảnh trang sách/vở đính kèm); không hỏi điều nằm ngoài nguồn.",
+        "image/jpeg"
+      ]
+    },
+    {
+      "name": "B24 Trợ lý Sư phạm có 6 thẻ việc; thẻ \"Câu hỏi cho trò chơi\" dẫn sang Tạo câu hỏi nhanh",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B25 Thẻ Ma trận: chưa nhập nội dung thì không gửi",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B26 Ma trận đề: câu lệnh có môn, lớp, thời điểm, tỉ lệ ba mức, yêu cầu bảng và soạn đề kèm đáp án",
+      "pass": true,
+      "detail": "Xây dựng ma trận đề kiểm tra định kì môn Toán lớp 4, giữa học kì I, thời gian 40 phút.\nCấu trúc: Trắc nghiệm 4 điểm, tự luận 6 điểm. Tỉ lệ điểm theo mức: Mức 1: 50% · Mức 2: 30% · Mức 3: 20%.\nNội dung"
+    },
+    {
+      "name": "B27 Câu trả lời hiển thị thành bảng, tiêu đề, danh sách; mã độc trong câu trả lời bị vô hiệu (hiện thành chữ)",
+      "pass": true,
+      "detail": {
+        "user": "Ma trận và đề kiểm tra: Xây dựng ma trận đề kiểm tra định kì môn Toán lớp 4, giữa học kì I, thời gian 40 phút.",
+        "rows": 3,
+        "cells": 5,
+        "h": true,
+        "ol": 2,
+        "bold": true,
+        "script": 0,
+        "scriptText": true,
+        "formHidden": true,
+        "again": true
+      }
+    },
+    {
+      "name": "B28 Bong bóng của giáo viên chỉ hiện tóm tắt yêu cầu, không hiện cả câu lệnh dài",
+      "pass": true,
+      "detail": "Ma trận và đề kiểm tra: Xây dựng ma trận đề kiểm tra định kì môn Toán lớp 4, giữa học kì I, thời gian 40 phút."
+    },
+    {
+      "name": "B29 \"Tải tệp Word\": tải về tệp .doc có bảng ma trận, mã hóa UTF-8, không có thẻ script",
+      "pass": true,
+      "detail": "tro-ly-su-pham-matrix-2026-10-11.doc"
+    },
+    {
+      "name": "B30 Hỏi tiếp: gửi kèm toàn bộ cuộc trao đổi trước đó (4 lượt, đúng vai)",
+      "pass": true,
+      "detail": [
+        "user",
+        "model",
+        "user"
+      ]
+    },
+    {
+      "name": "B31 \"Cuộc trao đổi mới\": xóa lượt cũ, hiện lại biểu mẫu",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B32 Lời nhận xét: tên học sinh trong danh sách lớp không rời khỏi máy (gửi [HS1]); trên màn hình thầy cô vẫn thấy đúng tên",
+      "pass": true,
+      "detail": "Gợi ý\nPhương án 1: Trần Gia Bảo tính nhẩm nhanh, cần cẩn thận hơn khi đặt tính.\nPhương án 2: Trần Gia Bảo có tiến bộ rõ.\n\nLưu ý: thầy cô chỉnh lại cho phù hợp."
+    },
+    {
+      "name": "B33 Thẻ Khởi động và thẻ Nghiên cứu bài học gửi đúng yêu cầu (việc học của học sinh, kèm dàn ý biên bản)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B34 Khi Gemini hết lượt: báo lỗi tiếng Việt, giữ lại câu vừa gõ để gửi lại",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B35 Bộ nhớ đệm ngoại tuyến: có tro-ly-ai.js, không lưu đệm yêu cầu /api",
+      "pass": true,
+      "detail": {
+        "names": [
+          "hmv-ban-chinh-2.4"
+        ],
+        "api": [],
+        "hasJs": true
+      }
+    },
+    {
+      "name": "B36 Trong Hoạt động: dòng \"sắp ra mắt\" đã thay bằng lối tắt mở Trợ lý AI",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B37 Ba thẻ của Trợ lý AI không tràn ngang ở 1366, 1774, 800, 420",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "B38 Máy chủ bản cũ chưa có AI: nhãn và thông báo chỉ rõ cần chạy KHOI-DONG-LAI-MAY-CHU.cmd; ô khóa bị khóa; phần còn lại của ứng dụng vẫn chạy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "B39 Không có lỗi JavaScript trong suốt quá trình",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

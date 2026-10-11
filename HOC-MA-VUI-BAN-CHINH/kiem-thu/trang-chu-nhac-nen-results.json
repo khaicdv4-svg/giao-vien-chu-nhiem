@@ -1,0 +1,207 @@
+{
+ "at": "2026-10-11T05:09:50.820Z",
+ "pass": 40,
+ "total": 40,
+ "results": [
+  {
+   "name": "[1774×934] Trang chủ: khối cũ (dải tiêu đề lặp, thẻ số liệu, \"Truy cập nhanh\") đã ẩn; có 3 ô lớn + 4 ô nhỏ mới",
+   "pass": true,
+   "detail": "{\"old\":[false,false,false],\"big\":3,\"small\":4}"
+  },
+  {
+   "name": "[1774×934] Biểu tượng là hình vẽ SVG riêng (12 chỗ dùng, 11 hình), không còn ký hiệu cờ vua/ký tự có sẵn",
+   "pass": true,
+   "detail": "{\"svgs\":12,\"glyphs\":false}"
+  },
+  {
+   "name": "[1774×934] Số liệu đúng với dữ liệu thật: học sinh, số bộ và số câu trong Kho, tên lớp",
+   "pass": true,
+   "detail": "{\"students\":\"32\",\"sets\":\"8\",\"qs\":\"142\",\"cls\":\"Lớp 4.1\"}"
+  },
+  {
+   "name": "[1774×934] Chữ không đè lên hình, không ô nào bị cắt chữ, không tràn ngang",
+   "pass": true,
+   "detail": "{\"textOverIcon\":false,\"clipped\":false,\"overflowX\":false}"
+  },
+  {
+   "name": "[1774×934] Màn hình của thầy (1774×934): toàn bộ trang chủ nằm trong một màn hình",
+   "pass": true,
+   "detail": "{\"bottom\":905}"
+  },
+  {
+   "name": "[1774×934] 6 ô mở đúng màn hình: Vòng quay, Trò chơi, Chia nhóm, Kho câu hỏi, Thi đua, AI tạo câu hỏi",
+   "pass": true,
+   "detail": "[\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"ok\"]"
+  },
+  {
+   "name": "[1774×934] Ô \"Nốt nhạc vui\" mở hoạt động Nốt nhạc vui",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1774×934] \"Chơi\" ở Bóng bay tri thức → mở màn thiết lập trò chơi",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1774×934] \"Chơi\" ở Quiz Nghiêng Đầu → mở thiết lập Quiz",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1774×934] Trang chủ: không có lỗi JavaScript",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "[1366×768] Trang chủ: khối cũ (dải tiêu đề lặp, thẻ số liệu, \"Truy cập nhanh\") đã ẩn; có 3 ô lớn + 4 ô nhỏ mới",
+   "pass": true,
+   "detail": "{\"old\":[false,false,false],\"big\":3,\"small\":4}"
+  },
+  {
+   "name": "[1366×768] Biểu tượng là hình vẽ SVG riêng (12 chỗ dùng, 11 hình), không còn ký hiệu cờ vua/ký tự có sẵn",
+   "pass": true,
+   "detail": "{\"svgs\":12,\"glyphs\":false}"
+  },
+  {
+   "name": "[1366×768] Số liệu đúng với dữ liệu thật: học sinh, số bộ và số câu trong Kho, tên lớp",
+   "pass": true,
+   "detail": "{\"students\":\"32\",\"sets\":\"8\",\"qs\":\"142\",\"cls\":\"Lớp 4.1\"}"
+  },
+  {
+   "name": "[1366×768] Chữ không đè lên hình, không ô nào bị cắt chữ, không tràn ngang",
+   "pass": true,
+   "detail": "{\"textOverIcon\":false,\"clipped\":false,\"overflowX\":false}"
+  },
+  {
+   "name": "[1366×768] 6 ô mở đúng màn hình: Vòng quay, Trò chơi, Chia nhóm, Kho câu hỏi, Thi đua, AI tạo câu hỏi",
+   "pass": true,
+   "detail": "[\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"ok\"]"
+  },
+  {
+   "name": "[1366×768] Ô \"Nốt nhạc vui\" mở hoạt động Nốt nhạc vui",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1366×768] \"Chơi\" ở Bóng bay tri thức → mở màn thiết lập trò chơi",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1366×768] \"Chơi\" ở Quiz Nghiêng Đầu → mở thiết lập Quiz",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1366×768] Trang chủ: không có lỗi JavaScript",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "Chưa vào trò nào: nhạc không phát",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Hộp quà bí mật: nhạc nền phát khi vào trận, đúng bản \"Bốc thăm trúng thưởng\", lặp đoạn 0,015 s → 12,015 s",
+   "pass": true,
+   "detail": "{\"game\":\"gift\",\"want\":\"boc-tham\",\"track\":\"boc-tham\",\"mode\":\"webaudio\",\"ctx\":\"running\",\"playing\":true,\"loop\":[0.015,12.015],\"gain\":0.44999998807907104,\"time\":2.5309750566893423}"
+  },
+  {
+   "name": "Hộp quà bí mật: có nút \"🎵 Nhạc nền: Bật\" trên màn chơi",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Hộp quà bí mật: đồng hồ âm thanh đang chạy",
+   "pass": true,
+   "detail": "{\"dt\":0.91}"
+  },
+  {
+   "name": "Hộp quà bí mật: Tạm dừng → nhạc ngưng",
+   "pass": true,
+   "detail": "suspended"
+  },
+  {
+   "name": "Hộp quà bí mật: Tiếp tục → nhạc phát lại",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Nút \"Nhạc nền\" tắt nhạc và ghi nhớ",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Nút \"Nhạc nền\" bật lại nhạc",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Rời màn hình trò chơi → nhạc ngưng",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Quay lại → nhạc phát tiếp",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Hộp quà bí mật: kết thúc trò chơi → nhạc tắt",
+   "pass": true,
+   "detail": "{\"playing\":false}"
+  },
+  {
+   "name": "Chinh phục tri thức: nhạc nền phát khi đang chơi (bản \"Bốc thăm trúng thưởng\"), có nút Nhạc nền",
+   "pass": true,
+   "detail": "{\"game\":\"millionaire\",\"want\":\"boc-tham\",\"track\":\"boc-tham\",\"mode\":\"webaudio\",\"ctx\":\"running\",\"playing\":true,\"loop\":[0.015,12.015],\"gain\":0.44999998807907104,\"time\":10.181950113378685}"
+  },
+  {
+   "name": "Chinh phục tri thức: kết thúc lượt chơi → nhạc tắt",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Về thư viện → nhạc tắt hẳn",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Quiz Nghiêng Đầu: đang ở hộp thiết lập thì chưa phát nhạc",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Quiz Nghiêng Đầu: bắt đầu → nhạc phát bản \"Vui vẻ nghịch ngợm\", lặp đoạn 1,015 s → 17,015 s (bỏ 1 giây im lặng đầu tệp)",
+   "pass": true,
+   "detail": "{\"game\":\"head-tilt\",\"want\":\"nghich-ngom\",\"track\":\"nghich-ngom\",\"mode\":\"webaudio\",\"ctx\":\"running\",\"playing\":true,\"loop\":[1.015,17.015],\"gain\":0.550000011920929,\"time\":14.631473922902494}"
+  },
+  {
+   "name": "Quiz Nghiêng Đầu: Thoát → nhạc tắt",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Kéo co (đã có nhạc riêng): chỉ nhạc của Kéo co phát, không phát chồng bản khác",
+   "pass": true,
+   "detail": "{\"tug\":true,\"shared\":false}"
+  },
+  {
+   "name": "Ai nhanh hơn (đã có nhạc riêng): không phát chồng",
+   "pass": true,
+   "detail": "{\"buzzer\":true,\"shared\":false}"
+  },
+  {
+   "name": "Phát lặp 45 giây theo đoạn đã chọn: hai bản mới không có khoảng lặng nào (phát lặp cả tệp thì hở ≥ 0,6 giây mỗi vòng)",
+   "pass": true,
+   "detail": "{\"boc-tham\":{\"seconds\":16.04,\"longestSilenceWithLoopRegion\":0,\"longestSilenceWholeFile\":1.2},\"nghich-ngom\":{\"seconds\":20.74,\"longestSilenceWithLoopRegion\":0,\"longestSilenceWholeFile\":1.8}}"
+  },
+  {
+   "name": "Nhạc nền: không có lỗi JavaScript / tải tệp",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

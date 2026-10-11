@@ -1,0 +1,5 @@
+(function(){'use strict';
+if(localStorage.getItem('hmv_backup_restore_pending')){location.replace('./backup.html');return}
+function mount(){const host=document.querySelector('#settings .card');if(!host||document.getElementById('fullBackupEntry'))return;const box=document.createElement('div');box.id='fullBackupEntry';const title=document.createElement('h3');title.textContent='Sao lưu đầy đủ dữ liệu và media';const note=document.createElement('p');note.textContent='ZIP lưu trên thiết bị, gồm mọi lớp, nhiệm vụ, câu hỏi, trò chơi, clip và âm thanh. JSON cũ ở trên vẫn tương thích.';const button=document.createElement('button');button.className='btn color';button.id='openFullBackup';button.textContent='🛡 Mở sao lưu / khôi phục đầy đủ';button.onclick=function(){if(typeof audioStopAll==='function')audioStopAll();if(typeof pickerCancelSpin==='function')pickerCancelSpin();if(typeof windCleanup==='function')windCleanup();location.assign('./backup.html')};box.append(title,note,button);host.appendChild(box)}
+mount();const root=document.getElementById('settings');if(root)new MutationObserver(mount).observe(root,{childList:true,subtree:true});
+})();

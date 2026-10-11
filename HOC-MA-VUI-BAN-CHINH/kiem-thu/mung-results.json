@@ -1,0 +1,348 @@
+{
+ "at": "2026-10-11T10:23:04.131Z",
+ "build": "HMV-BAN-CHINH-2.3-20261011",
+ "note": "Trình duyệt thử không có loa: kiểm việc tệp được phát, không nghe tiếng thật.",
+ "total": 25,
+ "passed": 25,
+ "results": [
+  {
+   "name": "1 Tệp tiếng mừng được máy chủ trả về đúng dạng âm thanh và đúng nguyên tệp thầy gửi (131 074 byte)",
+   "pass": true,
+   "detail": [
+    200,
+    "audio/mpeg",
+    131074
+   ]
+  },
+  {
+   "name": "2 Mở ứng dụng: tệp được nạp sẵn, chưa phát gì",
+   "pass": true,
+   "detail": {
+    "plays": 0,
+    "playing": false,
+    "time": 0,
+    "volume": 1,
+    "last": null,
+    "ready": 4,
+    "error": 0
+   }
+  },
+  {
+   "name": "3 Ai nhanh hơn: kết thúc trò → phát tiếng mừng (đúng tệp), âm lượng theo thanh \"Tiếng\" của trò",
+   "pass": true,
+   "detail": [
+    {
+     "plays": 1,
+     "playing": true,
+     "time": 0.055651,
+     "volume": 0.8,
+     "last": {
+      "at": 1791714097184,
+      "volume": 0.8,
+      "fallback": false
+     },
+     "ready": 4,
+     "error": 0
+    },
+    "GAME_FINISHED",
+    0.6
+   ]
+  },
+  {
+   "name": "4 Bấm \"Chơi lại\" khi tiếng mừng đang phát: tiếng tự tắt, ván mới bắt đầu",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "5 Bấm \"Về thư viện\" khi tiếng mừng đang phát: tiếng tự tắt",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "6 Ai nhanh hơn đang \"Tiếng: Tắt\": không phát tiếng mừng",
+   "pass": true,
+   "detail": {
+    "plays": 2,
+    "playing": false,
+    "time": 0,
+    "volume": 0.8,
+    "last": {
+     "at": 1791714097458,
+     "volume": 0.8,
+     "fallback": false
+    },
+    "ready": 4,
+    "error": 0
+   }
+  },
+  {
+   "name": "7 Đường đua: một đội về đích (chơi thật đến hết) → phát tiếng mừng; phát cả khi ô \"Tiếng hiệu ứng\" của trò đang tắt theo mặc định",
+   "pass": true,
+   "detail": [
+    {
+     "plays": 3,
+     "playing": true,
+     "time": 0.053168,
+     "volume": 0.8,
+     "last": {
+      "at": 1791714103591,
+      "volume": 0.8,
+      "fallback": false
+     },
+     "ready": 4,
+     "error": 0
+    },
+    14,
+    "🏁 ĐƯỜNG ĐUA KIẾN THỨC 🏁 · Câu 15/20 · Hoạt động offline ⚙ Câu hỏi 0 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn 🏎️ Tổ 1 10/10 chặng · 8 điểm 🏎️ 🏁 🛡️ 0 · đúng 8 · sai 0 🚂 Tổ 2 8/10 chặng · 7 điểm 🚂 🏁 🛡️ 0 · đúng 7 · sai 0 Chọn đội và sẵn sàng! Đội đang dẫn đầu được cập nhật sau mỗi lượt. ＋ "
+   ]
+  },
+  {
+   "name": "8 Đường đua: bấm Chơi lại thì tiếng tắt; giáo viên bấm \"Kết thúc\" giữa chừng (chưa có đội thắng) thì không phát tiếng mừng – giống Kéo co",
+   "pass": true,
+   "detail": {
+    "plays": 3,
+    "playing": false,
+    "time": 0,
+    "volume": 0.8,
+    "last": {
+     "at": 1791714103591,
+     "volume": 0.8,
+     "fallback": false
+    },
+    "ready": 4,
+    "error": 0
+   }
+  },
+  {
+   "name": "10 Hộp quà: mở hết hộp → phát tiếng mừng đúng một lần ở màn kết quả (không phát giữa chừng)",
+   "pass": true,
+   "detail": [
+    {
+     "plays": 4,
+     "playing": true,
+     "time": 0.077493,
+     "volume": 0.8,
+     "last": {
+      "at": 1791714110273,
+      "volume": 0.8,
+      "fallback": false
+     },
+     "ready": 4,
+     "error": 0
+    },
+    3,
+    3
+   ]
+  },
+  {
+   "name": "11 Hộp quà: Chơi lại thì tiếng tắt; giáo viên bấm \"Kết thúc\" giữa chừng thì không phát tiếng mừng",
+   "pass": true,
+   "detail": {
+    "plays": 4,
+    "playing": false,
+    "time": 0,
+    "volume": 0.8,
+    "last": {
+     "at": 1791714110273,
+     "volume": 0.8,
+     "fallback": false
+    },
+    "ready": 4,
+    "error": 0
+   }
+  },
+  {
+   "name": "12 Chinh phục tri thức: trả lời sai, thua cuộc → KHÔNG phát tiếng mừng",
+   "pass": true,
+   "detail": {
+    "plays": 4,
+    "playing": false,
+    "time": 0,
+    "volume": 0.8,
+    "last": {
+     "at": 1791714110273,
+     "volume": 0.8,
+     "fallback": false
+    },
+    "ready": 4,
+    "error": 0
+   }
+  },
+  {
+   "name": "13 Chinh phục tri thức: trả lời đúng cả 10 câu → phát tiếng mừng ở màn \"Xuất sắc!\" (không phát sau từng câu đúng)",
+   "pass": true,
+   "detail": [
+    {
+     "plays": 5,
+     "playing": true,
+     "time": 7.68075,
+     "volume": 0.9,
+     "last": {
+      "at": 1791714147891,
+      "volume": 0.9,
+      "fallback": false
+     },
+     "ready": 4,
+     "error": 0
+    },
+    4,
+    4
+   ]
+  },
+  {
+   "name": "14 Rời Chinh phục tri thức khi tiếng mừng đang phát: tiếng tự tắt",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "9 Chuyển sang màn hình khác khi tiếng mừng đang phát: tiếng tự tắt",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "15 Quiz Nghiêng Đầu: trả lời xong câu cuối → màn \"Hoàn thành\" có tiếng mừng (không phát giữa chừng)",
+   "pass": true,
+   "detail": [
+    {
+     "plays": 7,
+     "playing": true,
+     "time": 0.056541,
+     "volume": 0.9,
+     "last": {
+      "at": 1791714160961,
+      "volume": 0.9,
+      "fallback": false
+     },
+     "ready": 4,
+     "error": 0
+    },
+    6,
+    6
+   ]
+  },
+  {
+   "name": "16 Quiz Nghiêng Đầu: bỏ qua đến hết câu cũng tới màn \"Hoàn thành\" có tiếng mừng",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "17 Bóng bay: hết câu hỏi → màn kết quả có tiếng mừng",
+   "pass": true,
+   "detail": {
+    "plays": 9,
+    "playing": true,
+    "time": 0.183692,
+    "volume": 0.9,
+    "last": {
+     "at": 1791714169004,
+     "volume": 0.9,
+     "fallback": false
+    },
+    "ready": 4,
+    "error": 0
+   }
+  },
+  {
+   "name": "18 Bóng bay: bấm \"Chơi lại\" khi tiếng mừng đang phát: tiếng tự tắt",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "19 Bóng bay đặt \"Âm thanh: Tắt\": không phát tiếng mừng",
+   "pass": true,
+   "detail": {
+    "plays": 9,
+    "playing": false,
+    "time": 0,
+    "volume": 0.9,
+    "last": {
+     "at": 1791714169004,
+     "volume": 0.9,
+     "fallback": false
+    },
+    "ready": 4,
+    "error": 0
+   }
+  },
+  {
+   "name": "20 Kéo co (đã có tiếng mừng riêng win.mp3): vẫn dùng tiếng của mình, không phát thêm tiếng mới",
+   "pass": true,
+   "detail": {
+    "phase": "won",
+    "win": 1,
+    "mung": 9,
+    "playing": false
+   }
+  },
+  {
+   "name": "21 Bình chọn ngón tay (không có đội thắng): không phát tiếng mừng",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "22 Mã nguồn: Vòng quay và Kéo co không gọi tiếng mừng mới; sáu trò còn lại mỗi trò có lời gọi",
+   "pass": true,
+   "detail": 5
+  },
+  {
+   "name": "23 Không có lỗi JavaScript trong suốt quá trình",
+   "pass": true,
+   "detail": [
+    "DIALOG confirm: Kết thúc trò chơi?",
+    "DIALOG confirm: Kết thúc trò chơi?",
+    "DIALOG confirm: Kết thúc trò chơi?",
+    "DIALOG confirm: Kết thúc cuộc đua?",
+    "DIALOG confirm: Kết thúc trò chơi hiện tại?",
+    "DIALOG confirm: Bắt đầu lại ván với bộ câu hỏi mới? Tiến trình ván hiện tại sẽ kết thúc.",
+    "DIALOG confirm: Kết thúc trò chơi?"
+   ]
+  },
+  {
+   "name": "24 Thiếu tệp tiếng mừng (giả lập): trò vẫn kết thúc bình thường và kêu tiếng \"tin tin\" cũ thay thế",
+   "pass": true,
+   "detail": [
+    {
+     "last": {
+      "at": 1791714180336,
+      "volume": 0.8,
+      "fallback": true
+     },
+     "playing": false,
+     "osc": 6,
+     "phase": "GAME_FINISHED",
+     "shown": true
+    },
+    2
+   ]
+  },
+  {
+   "name": "25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.3) có tệp tiếng mừng và mã; ngắt mạng rồi tải lại vẫn phát được",
+   "pass": true,
+   "detail": [
+    {
+     "names": [
+      "hmv-ban-chinh-2.3"
+     ],
+     "mp3": true,
+     "js": true
+    },
+    {
+     "s": {
+      "plays": 1,
+      "playing": true,
+      "time": 0.808839,
+      "volume": 0.8,
+      "last": {
+       "at": 1791714183177,
+       "volume": 0.8,
+       "fallback": false
+      },
+      "ready": 4,
+      "error": 0
+     },
+     "marker": "HỌC MÀ VUI | HMV-BAN-CHINH-2.3-20261011"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,242 @@
+{
+ "at": "2026-10-11T04:19:57.909Z",
+ "pass": 47,
+ "total": 47,
+ "results": [
+  {
+   "name": "Mặc định: tự chấm + tự chuyển câu (3 giây), chờ bấm chuông tối đa 20 giây",
+   "pass": true,
+   "detail": "{\"auto\":true,\"d\":3,\"w\":20}"
+  },
+  {
+   "name": "Màn thiết lập: gõ được tên đội (trước đây mọi phím bị chặn và báo lỗi)",
+   "pass": true,
+   "detail": "Sao Mai"
+  },
+  {
+   "name": "Màn thiết lập có: Chấm điểm, Chờ trước khi chuyển câu, Chờ bấm chuông tối đa",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Kho → Chơi ngay → Ai nhanh hơn: vào trận, hiện câu hỏi và đáp án",
+   "pass": true,
+   "detail": "BUZZER_OPEN"
+  },
+  {
+   "name": "Chuông TỰ MỞ sau giây lát, không cần giáo viên bấm \"Mở chuông\"",
+   "pass": true,
+   "detail": "🔔 BẤM CHUÔNG NGAY! còn 20 giây"
+  },
+  {
+   "name": "1366×768: thẻ đội, câu hỏi, 4 đáp án và dòng hướng dẫn nằm trọn một màn hình",
+   "pass": true,
+   "detail": "{\"answersBottom\":672,\"feedbackBottom\":732,\"vh\":768}"
+  },
+  {
+   "name": "Chạm đáp án khi chưa giành quyền → chỉ nhắc \"giành quyền trước\", không chấm",
+   "pass": true,
+   "detail": "Hãy giành quyền trước: bấm phím của đội hoặc chạm vào thẻ đội."
+  },
+  {
+   "name": "CHẠM vào thẻ đội → đội đó giành quyền trả lời (không cần bàn phím)",
+   "pass": true,
+   "detail": "Tổ 2 giành quyền trả lời"
+  },
+  {
+   "name": "Tự chấm: không còn nút ✓ Đúng / ✗ Sai với câu trắc nghiệm",
+   "pass": true,
+   "detail": "Tổ 2 đang trả lời: chạm vào một đáp án (hoặc phím 1–4)."
+  },
+  {
+   "name": "Đội khác chạm khi đã có đội giành quyền → không cướp được",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Đội giành quyền chạm đáp án ĐÚNG → tự chấm đúng, +10 điểm",
+   "pass": true,
+   "detail": "{\"phase\":\"QUESTION_FINISHED\",\"scores\":[0,10]}"
+  },
+  {
+   "name": "Đáp án đúng tô xanh; báo \"trả lời đúng\" kèm đếm ngược tự chuyển câu",
+   "pass": true,
+   "detail": "✅ Tổ 2 trả lời đúng! +10 điểm. | Tự chuyển câu sau 3 giây"
+  },
+  {
+   "name": "Sau ~3 giây TỰ CHUYỂN sang câu 2, điểm giữ nguyên, trạng thái đặt lại",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Câu mới: chuông khóa khoảng 1 giây cho học sinh đọc đề (\"CHUẨN BỊ…\")",
+   "pass": true,
+   "detail": "CHUẨN BỊ…"
+  },
+  {
+   "name": "Câu 2: chuông lại tự mở",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Phím Q → đội 1 giành quyền",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Phím số chọn đáp án SAI → tự chấm sai, đội 1 mất quyền câu này, đáp án sai bị gạch",
+   "pass": true,
+   "detail": "❌ Tổ 1 trả lời chưa đúng. Chuông mở lại cho đội còn lại."
+  },
+  {
+   "name": "Chưa lộ đáp án đúng khi chuông còn mở lại cho đội kia",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chuông TỰ MỞ LẠI cho đội còn lại",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Đội vừa trả lời sai bấm lại → không giành được quyền",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Đội đã mất quyền chạm thẻ → được nhắc chờ câu sau",
+   "pass": true,
+   "detail": "Tổ 1 đã mất quyền ở câu này, chờ câu sau nhé."
+  },
+  {
+   "name": "Đáp án đã chọn sai bị khóa, không chọn lại được",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Đội 2 giành quyền (phím P) và trả lời đúng → đội 2 được điểm",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Phím Enter (hoặc nút \"Câu tiếp theo\") chuyển ngay, không cần chờ",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Cả hai đội sai → khóa chuông, HIỆN ĐÁP ÁN ĐÚNG (tô xanh), hai đáp án sai tô đỏ",
+   "pass": true,
+   "detail": "❌ Tổ 2 trả lời chưa đúng. Đáp án đúng: C. 20 | Tự chuyển câu sau 3 giây"
+  },
+  {
+   "name": "Cả hai sai xong cũng tự chuyển câu",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Tạm dừng (Space): đồng hồ chờ bấm chuông đứng yên",
+   "pass": true,
+   "detail": "{\"a\":20,\"b\":20}"
+  },
+  {
+   "name": "Đang tạm dừng: bấm chuông không có tác dụng",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Tiếp tục: đồng hồ chạy lại",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Hoàn tác lượt vừa chấm: điểm trả lại, đội đó trả lời lại, không tự chuyển câu",
+   "pass": true,
+   "detail": "{\"scores\":[0,20],\"phase\":\"TEAM_LOCKED\"}"
+  },
+  {
+   "name": "Hiện đếm ngược chờ bấm chuông trên băng trạng thái",
+   "pass": true,
+   "detail": "🔔 BẤM CHUÔNG NGAY! còn 10 giây"
+  },
+  {
+   "name": "Không đội nào bấm chuông trong 10 giây → báo, hiện đáp án đúng",
+   "pass": true,
+   "detail": "🔕 Không đội nào bấm chuông. Đáp án đúng: B. 7 | Tự chuyển câu sau 2 giây"
+  },
+  {
+   "name": "…rồi tự chuyển câu sau 2 giây (theo thiết lập)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Giành quyền nhưng không trả lời trong 5 giây → tự tính sai (hết giờ), mở lại cho đội kia",
+   "pass": true,
+   "detail": "⏰ Tổ 1 hết thời gian trả lời. Chuông mở lại cho đội còn lại."
+  },
+  {
+   "name": "Giáo viên bấm N khi chưa ai trả lời → hiện đáp án (bỏ qua câu)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Bấm N lần nữa → sang câu tiếp",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Bộ Đúng/Sai (2 đáp án): chạm thẻ đội, chạm đáp án → tự chấm đúng",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Câu hỏi mở: sau khi đội giành quyền, hiện nút ✓ Đúng / ✗ Sai cho giáo viên",
+   "pass": true,
+   "detail": "Tổ 2 đang trả lời: trả lời miệng, giáo viên bấm ✓ Đúng hoặc ✗ Sai."
+  },
+  {
+   "name": "Giáo viên bấm ✓ Đúng → cộng điểm, vẫn tự chuyển câu",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Câu hỏi mở: tự chuyển câu sau khi chấm",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chế độ \"Giáo viên chấm tay\": chuông KHÔNG tự mở",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chấm tay: chọn đáp án chưa chấm ngay, chờ giáo viên",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chấm tay: bấm D chấm đúng, không tự chuyển câu",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chơi hết 20 câu (toàn bằng bàn phím) → tự kết thúc, công bố đội thắng",
+   "pass": true,
+   "detail": "{\"scores\":[130,70],\"text\":\"🏆 Tổ 1 CHIẾN THẮNG!\"}"
+  },
+  {
+   "name": "Tải lại trang giữa trận: tiếp tục được, giữ điểm, mở đúng màn hình trò chơi",
+   "pass": true,
+   "detail": "{\"phase\":\"BUZZER_OPEN\",\"scores\":[10,0]}"
+  },
+  {
+   "name": "Sau khi tải lại, chuông lại tự mở",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Không có lỗi JavaScript",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

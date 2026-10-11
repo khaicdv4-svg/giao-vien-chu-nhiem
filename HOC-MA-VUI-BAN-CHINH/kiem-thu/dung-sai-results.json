@@ -1,0 +1,878 @@
+{
+ "at": "2026-10-11T14:06:15.473Z",
+ "build": "HMV-BAN-CHINH-2.7-20261011",
+ "note": "Trình duyệt thử không có loa: kiểm việc đúng tệp được phát đúng lúc, không nghe tiếng thật. Camera, bàn tay và giọng đọc là giả lập.",
+ "total": 26,
+ "passed": 26,
+ "results": [
+  {
+   "name": "1 Máy chủ trả về hai tệp tiếng ĐÚNG / SAI đúng dạng âm thanh, đúng nguyên tệp trong gói; có tệp mã dung-sai.js",
+   "pass": true,
+   "detail": [
+    200,
+    200,
+    "audio/mpeg",
+    44692,
+    44692
+   ]
+  },
+  {
+   "name": "2 Mở ứng dụng: hai tệp được nạp sẵn (mỗi tệp dài khoảng 2,4 giây), chưa phát gì",
+   "pass": true,
+   "detail": {
+    "right": {
+     "playing": false,
+     "time": 0,
+     "volume": 1,
+     "ready": 4,
+     "error": 0,
+     "duration": 2.429375
+    },
+    "wrong": {
+     "playing": false,
+     "time": 0,
+     "volume": 1,
+     "ready": 4,
+     "error": 0,
+     "duration": 2.429375
+    }
+   }
+  },
+  {
+   "name": "3 Ai nhanh hơn: đội trả lời SAI → phát tiếng SAI (đúng tệp), âm lượng theo thanh \"Tiếng\" của trò",
+   "pass": true,
+   "detail": {
+    "right": 0,
+    "wrong": 1,
+    "playing": "wrong",
+    "last": {
+     "ok": false,
+     "at": 1791727514299,
+     "volume": 0.8,
+     "fallback": false,
+     "skipped": ""
+    },
+    "audio": {
+     "right": {
+      "playing": false,
+      "time": 0,
+      "volume": 1,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     },
+     "wrong": {
+      "playing": true,
+      "time": 0.032576,
+      "volume": 0.8,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     }
+    },
+    "mung": false,
+    "srcs": [
+     "tra-loi-sai.mp3"
+    ]
+   }
+  },
+  {
+   "name": "4 Đội kia trả lời ĐÚNG ngay sau đó → tiếng SAI tắt, tiếng ĐÚNG phát (không chồng tiếng)",
+   "pass": true,
+   "detail": {
+    "right": 1,
+    "wrong": 1,
+    "playing": "right",
+    "last": {
+     "ok": true,
+     "at": 1791727515716,
+     "volume": 0.8,
+     "fallback": false,
+     "skipped": ""
+    },
+    "audio": {
+     "right": {
+      "playing": true,
+      "time": 0.032909,
+      "volume": 0.8,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     },
+     "wrong": {
+      "playing": false,
+      "time": 0,
+      "volume": 0.8,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     }
+    },
+    "mung": false,
+    "srcs": [
+     "tra-loi-dung.mp3"
+    ]
+   }
+  },
+  {
+   "name": "5 Ai nhanh hơn đang \"Tiếng: Tắt\": chấm câu không phát tiếng nào",
+   "pass": true,
+   "detail": {
+    "right": 1,
+    "wrong": 1,
+    "playing": "",
+    "last": {
+     "ok": true,
+     "at": 1791727515716,
+     "volume": 0.8,
+     "fallback": false,
+     "skipped": ""
+    },
+    "audio": {
+     "right": {
+      "playing": false,
+      "time": 0,
+      "volume": 0.8,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     },
+     "wrong": {
+      "playing": false,
+      "time": 0,
+      "volume": 0.8,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     }
+    },
+    "mung": false,
+    "srcs": []
+   }
+  },
+  {
+   "name": "6 Đường đua: xác nhận ĐÚNG → tiếng ĐÚNG; xác nhận SAI → tiếng SAI; phát cả khi ô \"Tiếng hiệu ứng\" của trò còn tắt theo mặc định (âm lượng vừa)",
+   "pass": true,
+   "detail": [
+    {
+     "right": 2,
+     "wrong": 1,
+     "playing": "right",
+     "last": {
+      "ok": true,
+      "at": 1791727518273,
+      "volume": 0.8,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": true,
+       "time": 0.038378,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-dung.mp3"
+     ]
+    },
+    {
+     "right": 2,
+     "wrong": 2,
+     "playing": "wrong",
+     "last": {
+      "ok": false,
+      "at": 1791727518420,
+      "volume": 0.8,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": true,
+       "time": 0.032418,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-sai.mp3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "7 Hộp quà: chọn đúng phương án đúng → sau gần 1 giây máy tự chấm và phát tiếng ĐÚNG (chưa phát lúc vừa bấm)",
+   "pass": true,
+   "detail": [
+    2,
+    {
+     "right": 3,
+     "wrong": 2,
+     "playing": "right",
+     "last": {
+      "ok": true,
+      "at": 1791727520894,
+      "volume": 0.8,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": true,
+       "time": 0.039512,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-dung.mp3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "8 Hộp quà: chọn phương án sai → tiếng SAI",
+   "pass": true,
+   "detail": {
+    "right": 3,
+    "wrong": 3,
+    "playing": "wrong",
+    "last": {
+     "ok": false,
+     "at": 1791727522259,
+     "volume": 0.8,
+     "fallback": false,
+     "skipped": ""
+    },
+    "audio": {
+     "right": {
+      "playing": false,
+      "time": 0,
+      "volume": 0.8,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     },
+     "wrong": {
+      "playing": true,
+      "time": 0.03637,
+      "volume": 0.8,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     }
+    },
+    "mung": false,
+    "srcs": [
+     "tra-loi-sai.mp3"
+    ]
+   }
+  },
+  {
+   "name": "9 Ai là triệu phú: tiếng vang đúng lúc CÔNG BỐ đáp án (không phải lúc vừa chọn) – đúng thì tiếng ĐÚNG, sai thì tiếng SAI; thua cuộc không có tiếng mừng",
+   "pass": true,
+   "detail": [
+    3,
+    3,
+    {
+     "right": 4,
+     "wrong": 3,
+     "playing": "right",
+     "last": {
+      "ok": true,
+      "at": 1791727525788,
+      "volume": 0.9,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": true,
+       "time": 0.043743,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-dung.mp3",
+      "df2c2e27-2599-497b-aa12-9a39a1743c65"
+     ]
+    },
+    {
+     "right": 4,
+     "wrong": 4,
+     "playing": "wrong",
+     "last": {
+      "ok": false,
+      "at": 1791727528761,
+      "volume": 0.9,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": true,
+       "time": 0.763542,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-sai.mp3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "10 Quiz Nghiêng Đầu: ghi nhận đáp án → phát đúng một tiếng, khớp với kết quả chấm của trò",
+   "pass": true,
+   "detail": [
+    {
+     "ok": false,
+     "at": 1791727533378,
+     "volume": 0.9,
+     "fallback": false,
+     "skipped": ""
+    },
+    "wrong",
+    false
+   ]
+  },
+  {
+   "name": "11 Bóng bay: chạm bóng ĐÚNG → tiếng ĐÚNG; chạm bóng SAI → tiếng SAI",
+   "pass": true,
+   "detail": [
+    {
+     "right": 5,
+     "wrong": 5,
+     "playing": "right",
+     "last": {
+      "ok": true,
+      "at": 1791727537371,
+      "volume": 0.9,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": true,
+       "time": 0.04247,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-dung.mp3"
+     ]
+    },
+    {
+     "right": 5,
+     "wrong": 6,
+     "playing": "wrong",
+     "last": {
+      "ok": false,
+      "at": 1791727537536,
+      "volume": 0.9,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": true,
+       "time": 0.040225,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-sai.mp3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "12 Bóng bay đặt \"Âm thanh: Tắt\": không phát tiếng đúng/sai",
+   "pass": true,
+   "detail": {
+    "right": 5,
+    "wrong": 6,
+    "playing": "",
+    "last": {
+     "ok": false,
+     "at": 1791727537536,
+     "volume": 0.9,
+     "fallback": false,
+     "skipped": ""
+    },
+    "audio": {
+     "right": {
+      "playing": false,
+      "time": 0,
+      "volume": 0.9,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     },
+     "wrong": {
+      "playing": false,
+      "time": 0,
+      "volume": 0.9,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     }
+    },
+    "mung": false,
+    "srcs": []
+   }
+  },
+  {
+   "name": "13 Kéo co: chọn đáp án ĐÚNG → tiếng ĐÚNG; chọn SAI → tiếng SAI",
+   "pass": true,
+   "detail": [
+    {
+     "right": 6,
+     "wrong": 6,
+     "playing": "right",
+     "last": {
+      "ok": true,
+      "at": 1791727539826,
+      "volume": 0.8,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": true,
+       "time": 0.039565,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-dung.mp3",
+      "bd490653-4829-4556-b122-c1c3e3a9b281"
+     ]
+    },
+    {
+     "right": 6,
+     "wrong": 7,
+     "playing": "wrong",
+     "last": {
+      "ok": false,
+      "at": 1791727540059,
+      "volume": 0.8,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": true,
+       "time": 0.040737,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-sai.mp3",
+      "bd490653-4829-4556-b122-c1c3e3a9b281"
+     ]
+    },
+    0.6
+   ]
+  },
+  {
+   "name": "14 Kéo co: câu quyết định thắng cuộc → tiếng mừng win.mp3 của trò vang lên, tiếng đúng/sai nhường chỗ (không chồng)",
+   "pass": true,
+   "detail": {
+    "right": 8,
+    "wrong": 8,
+    "playing": "",
+    "last": {
+     "ok": true,
+     "at": 1791727540728,
+     "volume": 0.8,
+     "fallback": true,
+     "skipped": ""
+    },
+    "audio": {
+     "right": {
+      "playing": false,
+      "time": 0,
+      "volume": 0.8,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     },
+     "wrong": {
+      "playing": false,
+      "time": 0,
+      "volume": 0.8,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     }
+    },
+    "mung": false,
+    "srcs": [
+     "win.mp3"
+    ]
+   }
+  },
+  {
+   "name": "15 Bình chọn ngón tay (câu có đáp án): hết giờ đếm, đáp án đúng được nhiều phiếu nhất → tiếng ĐÚNG; phương án sai nhiều phiếu hơn → tiếng SAI",
+   "pass": true,
+   "detail": [
+    {
+     "right": 9,
+     "wrong": 8,
+     "playing": "right",
+     "last": {
+      "ok": true,
+      "at": 1791727549305,
+      "volume": 0.9,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": true,
+       "time": 0.052848,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.8,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-dung.mp3"
+     ]
+    },
+    {
+     "right": 9,
+     "wrong": 9,
+     "playing": "wrong",
+     "last": {
+      "ok": false,
+      "at": 1791727555998,
+      "volume": 0.9,
+      "fallback": false,
+      "skipped": ""
+     },
+     "audio": {
+      "right": {
+       "playing": false,
+       "time": 0,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      },
+      "wrong": {
+       "playing": true,
+       "time": 0.044785,
+       "volume": 0.9,
+       "ready": 4,
+       "error": 0,
+       "duration": 2.429375
+      }
+     },
+     "mung": false,
+     "srcs": [
+      "tra-loi-sai.mp3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "16 Bình chọn: thầy cô nhập phiếu bằng phím số (không đếm bằng camera) → không phát tiếng đúng/sai sau mỗi lần bấm",
+   "pass": true,
+   "detail": {
+    "right": 9,
+    "wrong": 9,
+    "playing": "",
+    "last": {
+     "ok": false,
+     "at": 1791727555998,
+     "volume": 0.9,
+     "fallback": false,
+     "skipped": ""
+    },
+    "audio": {
+     "right": {
+      "playing": false,
+      "time": 0,
+      "volume": 0.9,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     },
+     "wrong": {
+      "playing": false,
+      "time": 2.429375,
+      "volume": 0.9,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     }
+    },
+    "mung": false,
+    "srcs": []
+   }
+  },
+  {
+   "name": "17 Bình chọn kiểu \"Hỏi nhanh\" (khảo sát ý kiến, không có đáp án đúng): giữ tiếng báo cũ, không phát tiếng đúng/sai",
+   "pass": true,
+   "detail": {
+    "right": 9,
+    "wrong": 9,
+    "playing": "",
+    "last": {
+     "ok": false,
+     "at": 1791727555998,
+     "volume": 0.9,
+     "fallback": false,
+     "skipped": ""
+    },
+    "audio": {
+     "right": {
+      "playing": false,
+      "time": 0,
+      "volume": 0.9,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     },
+     "wrong": {
+      "playing": false,
+      "time": 2.429375,
+      "volume": 0.9,
+      "ready": 4,
+      "error": 0,
+      "duration": 2.429375
+     }
+    },
+    "mung": false,
+    "srcs": []
+   }
+  },
+  {
+   "name": "18 Hai câu chấm liên tiếp rất nhanh: chỉ tiếng sau cùng còn phát",
+   "pass": true,
+   "detail": {
+    "right": {
+     "playing": false,
+     "time": 0,
+     "volume": 0.8,
+     "ready": 4,
+     "error": 0,
+     "duration": 2.429375
+    },
+    "wrong": {
+     "playing": true,
+     "time": 0.037605,
+     "volume": 0.8,
+     "ready": 4,
+     "error": 0,
+     "duration": 2.429375
+    }
+   }
+  },
+  {
+   "name": "19 Tiếng mừng chiến thắng vang lên → tiếng đúng/sai đang phát tắt ngay; đang có tiếng mừng thì không chen tiếng đúng/sai vào",
+   "pass": true,
+   "detail": [
+    "",
+    {
+     "ok": false,
+     "at": 1791727564416,
+     "volume": 0.8,
+     "fallback": false,
+     "skipped": "đang phát tiếng mừng"
+    }
+   ]
+  },
+  {
+   "name": "20 Suốt các trò trên không có lỗi JavaScript",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "21 Máy cất giọng đọc câu kế tiếp khi tiếng đúng/sai còn ngân → tiếng tự tắt, giọng đọc vẫn đọc hết câu",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "22 Học sinh trả lời khi máy còn đang đọc câu hỏi → tiếng đúng/sai vẫn phát trọn (không bị giọng đọc cắt)",
+   "pass": true,
+   "detail": [
+    "wrong",
+    0.611266
+   ]
+  },
+  {
+   "name": "23 Thiếu tệp tiếng đúng/sai (giả lập): trò vẫn chấm điểm bình thường và kêu tiếng \"bíp\" cũ thay thế",
+   "pass": true,
+   "detail": [
+    {
+     "last": {
+      "ok": true,
+      "at": 1791727570993,
+      "volume": 0.8,
+      "fallback": true,
+      "skipped": ""
+     },
+     "playing": "",
+     "osc": 8,
+     "score": [
+      10,
+      0
+     ],
+     "phase": "QUESTION_FINISHED"
+    },
+    4
+   ]
+  },
+  {
+   "name": "24 Trường hợp thiếu tệp không gây lỗi JavaScript",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.7) có hai tệp tiếng và mã; ngắt mạng rồi tải lại vẫn phát được cả hai",
+   "pass": true,
+   "detail": [
+    {
+     "names": [
+      "hmv-ban-chinh-2.7"
+     ],
+     "right": true,
+     "wrong": true,
+     "js": true
+    },
+    {
+     "a": "right",
+     "af": false,
+     "w": "wrong",
+     "wf": false,
+     "marker": "HỌC MÀ VUI | HMV-BAN-CHINH-2.7-20261011"
+    }
+   ]
+  },
+  {
+   "name": "26 Mã nguồn: sáu trò trong index.html (Kéo co, Ai nhanh hơn, Đường đua, Hộp quà, Nghiêng Đầu, Triệu phú) + Bóng bay + Bình chọn đều có lời gọi; Vòng quay (không có câu trả lời) không gọi",
+   "pass": true,
+   "detail": 6
+  }
+ ]
+}

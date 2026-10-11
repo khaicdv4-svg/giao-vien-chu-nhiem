@@ -1,0 +1,267 @@
+{
+ "at": "2026-10-11T03:16:40.494Z",
+ "pass": 52,
+ "total": 52,
+ "results": [
+  {
+   "name": "Kéo co kiến thức · thiết lập: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Kéo co kiến thức · thiết lập: bấm → toàn màn hình, ẩn thanh bên và thanh chọn lớp, trò chơi rộng hết màn",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"tug\"}"
+  },
+  {
+   "name": "Kéo co kiến thức · thiết lập: bấm lần nữa → trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Hộp quà bí mật · thiết lập: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Hộp quà bí mật · thiết lập: bấm → toàn màn hình, ẩn thanh bên và thanh chọn lớp, trò chơi rộng hết màn",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"gift\"}"
+  },
+  {
+   "name": "Hộp quà bí mật · thiết lập: bấm lần nữa → trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Ai nhanh hơn · thiết lập: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Ai nhanh hơn · thiết lập: bấm → toàn màn hình, ẩn thanh bên và thanh chọn lớp, trò chơi rộng hết màn",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"buzzer\"}"
+  },
+  {
+   "name": "Ai nhanh hơn · thiết lập: bấm lần nữa → trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Chinh phục tri thức · thiết lập: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Chinh phục tri thức · thiết lập: bấm → toàn màn hình, ẩn thanh bên và thanh chọn lớp, trò chơi rộng hết màn",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"millionaire\"}"
+  },
+  {
+   "name": "Chinh phục tri thức · thiết lập: bấm lần nữa → trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Lật mảnh ghép · thiết lập: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Lật mảnh ghép · thiết lập: bấm → toàn màn hình, ẩn thanh bên và thanh chọn lớp, trò chơi rộng hết màn",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"tiles\"}"
+  },
+  {
+   "name": "Lật mảnh ghép · thiết lập: bấm lần nữa → trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Quiz Nghiêng Đầu · thiết lập: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Quiz Nghiêng Đầu · thiết lập: bấm → toàn màn hình, ẩn thanh bên và thanh chọn lớp, trò chơi rộng hết màn",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"head-tilt\"}"
+  },
+  {
+   "name": "Quiz Nghiêng Đầu · thiết lập: bấm lần nữa → trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Đường đua kiến thức · thiết lập: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Đường đua kiến thức · thiết lập: bấm → toàn màn hình, ẩn thanh bên và thanh chọn lớp, trò chơi rộng hết màn",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"race\"}"
+  },
+  {
+   "name": "Đường đua kiến thức · thiết lập: bấm lần nữa → trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Ống kính may mắn · thiết lập: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Ống kính may mắn · thiết lập: bấm → toàn màn hình, ẩn thanh bên và thanh chọn lớp, trò chơi rộng hết màn",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"lens\"}"
+  },
+  {
+   "name": "Ống kính may mắn · thiết lập: bấm lần nữa → trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Kéo co kiến thức · đang chơi: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"locked\":false,\"type\":\"tug\",\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Kéo co kiến thức · đang chơi: toàn màn hình hoạt động",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"tug\"}"
+  },
+  {
+   "name": "Kéo co · toàn màn hình: trả lời xong (màn hình vẽ lại) vẫn ở toàn màn hình, nút vẫn là \"Thoát\"",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"tug\"}"
+  },
+  {
+   "name": "Kéo co · toàn màn hình 1366×768: câu hỏi, 4 đáp án và hàng nút nằm trọn một màn hình",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Toàn màn hình: thông báo (toast) vẫn hiện được",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Kéo co kiến thức · nhấn Esc (trình duyệt thoát fullscreen) → bố cục trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Hộp quà bí mật · đang chơi: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"locked\":false,\"type\":\"gift\",\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Hộp quà bí mật · đang chơi: toàn màn hình hoạt động",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"gift\"}"
+  },
+  {
+   "name": "Hộp quà bí mật · nhấn Esc (trình duyệt thoát fullscreen) → bố cục trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Ai nhanh hơn · đang chơi: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"locked\":false,\"type\":\"buzzer\",\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Ai nhanh hơn · đang chơi: toàn màn hình hoạt động",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"buzzer\"}"
+  },
+  {
+   "name": "Ai nhanh hơn · nhấn Esc (trình duyệt thoát fullscreen) → bố cục trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Chinh phục tri thức · đang chơi: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"locked\":false,\"type\":\"millionaire\",\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Chinh phục tri thức · đang chơi: toàn màn hình hoạt động",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"millionaire\"}"
+  },
+  {
+   "name": "Chinh phục tri thức · nhấn Esc (trình duyệt thoát fullscreen) → bố cục trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Lật mảnh ghép · đang chơi: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"locked\":false,\"type\":\"tiles\",\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Lật mảnh ghép · đang chơi: toàn màn hình hoạt động",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"tiles\"}"
+  },
+  {
+   "name": "Lật mảnh ghép · nhấn Esc (trình duyệt thoát fullscreen) → bố cục trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Đường đua kiến thức · đang chơi: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"locked\":false,\"type\":\"race\",\"n\":1,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Đường đua kiến thức · đang chơi: toàn màn hình hoạt động",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"race\"}"
+  },
+  {
+   "name": "Đường đua kiến thức · nhấn Esc (trình duyệt thoát fullscreen) → bố cục trở lại bình thường",
+   "pass": true,
+   "detail": "{\"fs\":false,\"cls\":false,\"label\":\"⛶ Toàn màn hình\"}"
+  },
+  {
+   "name": "Quiz Nghiêng Đầu · đang chơi: có đúng 1 nút \"Toàn màn hình\"",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"⛶ Toàn màn hình\",\"inView\":true,\"fs\":false,\"fsEl\":\"\",\"cls\":false,\"sidebar\":true,\"topbar\":true,\"gamesW\":1068,\"vw\":1366,\"type\":\"head-tilt\"}"
+  },
+  {
+   "name": "Quiz Nghiêng Đầu · đang chơi: toàn màn hình hoạt động",
+   "pass": true,
+   "detail": "{\"n\":1,\"label\":\"✕ Thoát toàn màn\",\"inView\":true,\"fs\":true,\"fsEl\":\"HTML\",\"cls\":true,\"sidebar\":false,\"topbar\":false,\"gamesW\":1314,\"vw\":1366,\"type\":\"head-tilt\"}"
+  },
+  {
+   "name": "Quiz · toàn màn hình: hộp Thiết lập vẫn mở và nhìn thấy được",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Thoát trò chơi về thư viện khi đang toàn màn hình → tự trở lại bình thường (thanh bên hiện lại)",
+   "pass": true,
+   "detail": "{\"n\":0,\"label\":\"\",\"inView\":false,\"fs\":false,\"fsEl\":\"\",\"cls\":false,\"sidebar\":true,\"topbar\":true,\"gamesW\":1068,\"vw\":1366,\"type\":null}"
+  },
+  {
+   "name": "Chuyển sang màn hình khác khi đang toàn màn hình → tự trở lại bình thường",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Vòng quay: toàn màn hình riêng vẫn hoạt động, không dính chế độ của trò chơi",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Không có lỗi JavaScript",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

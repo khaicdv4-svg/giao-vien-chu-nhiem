@@ -1,0 +1,293 @@
+{
+ "at": "2026-10-11T13:03:14.195Z",
+ "build": "HMV-BAN-CHINH-2.6-20261011",
+ "note": "Giọng đọc, camera và bộ nhận diện bàn tay đều là giả lập.",
+ "total": 18,
+ "passed": 18,
+ "results": [
+  {
+   "name": "1 Hộp quà, câu có đáp án đúng: mặc định \"Tự chấm\" – không còn nút Xác nhận đúng/sai, có ghi chú \"Tự chấm\", vẫn còn nút Chuyển quyền",
+   "pass": true,
+   "detail": {
+    "note": "Tự chấm · chọn đáp án là chấm ngay",
+    "btns": [
+     "↔ Chuyển quyền"
+    ],
+    "n": 4
+   }
+  },
+  {
+   "name": "2 Bấm đúng phương án đúng: phương án hiện XANH ngay (chưa chấm vội, các phương án khóa lại), gần 1 giây sau tự chấm ĐÚNG → cộng điểm, mở phần quà; bấm thêm trong lúc chờ không có tác dụng",
+   "pass": true,
+   "detail": [
+    {
+     "cls": "gift-answer selected right",
+     "dis": true,
+     "bg": "rgb(220, 252, 231)"
+    },
+    {
+     "q": true,
+     "r": false,
+     "a": false,
+     "sel": 1,
+     "scores": [
+      0
+     ],
+     "correct": [
+      0
+     ],
+     "wrong": [
+      0
+     ],
+     "cur": 0,
+     "box": 0,
+     "opened": 0
+    },
+    {
+     "q": false,
+     "r": true,
+     "a": true,
+     "sel": 1,
+     "scores": [
+      10
+     ],
+     "correct": [
+      1
+     ],
+     "wrong": [
+      0
+     ],
+     "cur": 0,
+     "box": 0,
+     "opened": 1
+    },
+    "🎉 Chính xác! Mở hộp quà nào."
+   ]
+  },
+  {
+   "name": "3 Lượt tự chấm được ghi cho \"Phân tích sau trò chơi\": đúng một lượt, đúng phương án đã chọn, kết quả đúng",
+   "pass": true,
+   "detail": [
+    {
+     "t": 1791723758937,
+     "g": "gift",
+     "k": "wqni0e",
+     "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
+     "o": 1,
+     "x": 1
+    }
+   ]
+  },
+  {
+   "name": "4 Chọn SAI (bằng phím A–D): phương án hiện ĐỎ, không lộ đáp án đúng; gần 1 giây sau tự chấm SAI → không cộng điểm, hộp chưa mở, báo \"Chưa đúng\"",
+   "pass": true,
+   "detail": [
+    {
+     "cls": "gift-answer selected wrong",
+     "right": 0
+    },
+    {
+     "q": false,
+     "r": false,
+     "a": true,
+     "sel": 2,
+     "scores": [
+      10
+     ],
+     "correct": [
+      1
+     ],
+     "wrong": [
+      1
+     ],
+     "cur": 0,
+     "box": 1,
+     "opened": 1
+    },
+    "Chưa đúng, hộp quà chưa được mở.",
+    [
+     {
+      "t": 1791723760327,
+      "g": "gift",
+      "k": "1fmay1b",
+      "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
+      "o": 0,
+      "x": 2
+     }
+    ]
+   ]
+  },
+  {
+   "name": "5 Đóng câu hỏi (Esc) trong lúc đang chờ chấm: không chấm, điểm giữ nguyên, không kẹt",
+   "pass": true,
+   "detail": [
+    {
+     "q": false,
+     "r": false,
+     "a": true,
+     "sel": 2,
+     "scores": [
+      10
+     ],
+     "correct": [
+      1
+     ],
+     "wrong": [
+      1
+     ],
+     "cur": 0,
+     "box": 1,
+     "opened": 1
+    },
+    {
+     "q": false,
+     "r": false,
+     "a": false,
+     "sel": 2,
+     "scores": [
+      10
+     ],
+     "correct": [
+      1
+     ],
+     "wrong": [
+      1
+     ],
+     "cur": 0,
+     "box": 2,
+     "opened": 1
+    }
+   ]
+  },
+  {
+   "name": "6 Mở lại hộp đó: các phương án bấm được bình thường, không còn màu của lượt trước",
+   "pass": true,
+   "detail": {
+    "dis": false,
+    "marked": 0
+   }
+  },
+  {
+   "name": "7 Thiết lập có ô \"Tự chấm khi chọn đáp án\" (mặc định bật). Tắt đi thì như trước: chọn đáp án chỉ tô đậm, giáo viên bấm \"Xác nhận đúng/sai\" mới chấm",
+   "pass": true,
+   "detail": [
+    true,
+    {
+     "note": false,
+     "btns": [
+      "✓ Xác nhận đúng",
+      "✗ Xác nhận sai",
+      "↔ Chuyển quyền"
+     ]
+    },
+    {
+     "q": true,
+     "r": false,
+     "a": false,
+     "sel": 1,
+     "scores": [
+      0
+     ],
+     "correct": [
+      0
+     ],
+     "wrong": [
+      0
+     ],
+     "cur": 0,
+     "box": 0,
+     "opened": 0
+    },
+    1
+   ]
+  },
+  {
+   "name": "8 Bật lại được ghi nhớ; bộ câu Đúng/Sai cũng tự chấm",
+   "pass": true,
+   "detail": [
+    true,
+    [
+     "A. Đúng",
+     "B. Sai"
+    ],
+    0
+   ]
+  },
+  {
+   "name": "9 Câu không có đáp án đúng để so (trả lời ngắn / câu mở): vẫn do giáo viên bấm Xác nhận – hoặc trò chơi không nhận bộ đó",
+   "pass": true,
+   "detail": [
+    "mau-4-dien-khuyet",
+    {
+     "locked": true
+    }
+   ]
+  },
+  {
+   "name": "10 Thiết lập Bình chọn có mục \"Sau khi máy đọc xong câu hỏi\" (mặc định: Tự bắt đầu đếm)",
+   "pass": true,
+   "detail": {
+    "has": true,
+    "val": "1",
+    "label": "Sau khi máy đọc xong câu hỏiTự bắt đầu đ"
+   }
+  },
+  {
+   "name": "11 Bấm nút loa: trong lúc máy đọc chưa đếm; ĐỌC XONG thì tự bắt đầu đếm ngược đủ số giây đã đặt (4 giây), không cần bấm \"Bắt đầu đếm\"",
+   "pass": true,
+   "detail": [
+    "ready",
+    true,
+    "count",
+    {
+     "speak": "idle",
+     "hold": false,
+     "timer": "4"
+    }
+   ]
+  },
+  {
+   "name": "12 Hết giờ đếm: tự chốt kết quả với số phiếu camera đếm được (A:1, B:2)",
+   "pass": true,
+   "detail": "1,2,0,0"
+  },
+  {
+   "name": "13 Đọc lại câu hỏi khi đã có kết quả: không tự đếm lại (kết quả giữ nguyên)",
+   "pass": true,
+   "detail": "result"
+  },
+  {
+   "name": "14 Thầy cô bấm DỪNG giữa chừng (máy chưa đọc xong): không tự đếm",
+   "pass": true,
+   "detail": "ready"
+  },
+  {
+   "name": "15 Bật \"Tự đọc khi sang câu mới\": sang câu → máy tự đọc → đọc xong tự đếm → hết giờ tự chốt kết quả, thầy cô không phải bấm gì",
+   "pass": true,
+   "detail": [
+    "count",
+    "result",
+    2,
+    2
+   ]
+  },
+  {
+   "name": "16 Chọn \"Chờ thầy cô bấm\": đọc xong không tự đếm (như bản trước); lựa chọn được ghi nhớ",
+   "pass": true,
+   "detail": "ready"
+  },
+  {
+   "name": "17 Không dùng camera (thầy cô nhập phiếu bằng phím): đọc xong không có đếm ngược và không hiện thông báo thừa",
+   "pass": true,
+   "detail": [
+    "ready",
+    ""
+   ]
+  },
+  {
+   "name": "18 Không có lỗi JavaScript trong suốt quá trình",
+   "pass": true,
+   "detail": []
+  }
+ ]
+}

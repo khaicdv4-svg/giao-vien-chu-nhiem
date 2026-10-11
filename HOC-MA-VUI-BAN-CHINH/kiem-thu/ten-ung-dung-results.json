@@ -1,0 +1,605 @@
+{
+  "build": "HMV-BAN-CHINH-1.8-20261011",
+  "total": 55,
+  "passed": 55,
+  "results": [
+    {
+      "name": "1366: ảnh bìa không còn dòng \"Tổ chuyên môn\"",
+      "pass": true,
+      "detail": "TRƯỜNG TIỂU HỌC TRẦN VĂN ƠN HỌC MÀ VUI Nền tảng lớp học số thông minh Tiểu học NGÀY HỘI 2026 CHUYỂN ĐỔI SỐ"
+    },
+    {
+      "name": "1366: tên trên ảnh bìa là \"HỌC MÀ VUI\"",
+      "pass": true,
+      "detail": "HỌC MÀ VUI"
+    },
+    {
+      "name": "1366: dưới tên chính có dòng \"Nền tảng lớp học số thông minh Tiểu học\"",
+      "pass": true,
+      "detail": {
+        "text": "Nền tảng lớp học số thông minh Tiểu học",
+        "font": "\"HMV Viet Tay\", \"Segoe Script\", \"Brush Script MT\", cursive",
+        "size": "32.088px",
+        "top": 245,
+        "bottom": 304,
+        "left": 519,
+        "right": 1089,
+        "copyLeft": 410,
+        "copyRight": 1198,
+        "coverBottom": 483,
+        "lines": 1,
+        "faceLoaded": true,
+        "widthDiffers": true,
+        "widths": [
+          665,
+          939,
+          732
+        ]
+      }
+    },
+    {
+      "name": "1366: dòng phụ dùng phông viết tay đã tải xong (không rơi về phông thường)",
+      "pass": true,
+      "detail": {
+        "text": "Nền tảng lớp học số thông minh Tiểu học",
+        "font": "\"HMV Viet Tay\", \"Segoe Script\", \"Brush Script MT\", cursive",
+        "size": "32.088px",
+        "top": 245,
+        "bottom": 304,
+        "left": 519,
+        "right": 1089,
+        "copyLeft": 410,
+        "copyRight": 1198,
+        "coverBottom": 483,
+        "lines": 1,
+        "faceLoaded": true,
+        "widthDiffers": true,
+        "widths": [
+          665,
+          939,
+          732
+        ]
+      }
+    },
+    {
+      "name": "1366: dòng phụ nằm trên một dòng, không tràn khỏi khối chữ ảnh bìa",
+      "pass": true,
+      "detail": {
+        "text": "Nền tảng lớp học số thông minh Tiểu học",
+        "font": "\"HMV Viet Tay\", \"Segoe Script\", \"Brush Script MT\", cursive",
+        "size": "32.088px",
+        "top": 245,
+        "bottom": 304,
+        "left": 519,
+        "right": 1089,
+        "copyLeft": 410,
+        "copyRight": 1198,
+        "coverBottom": 483,
+        "lines": 1,
+        "faceLoaded": true,
+        "widthDiffers": true,
+        "widths": [
+          665,
+          939,
+          732
+        ]
+      }
+    },
+    {
+      "name": "1366: ảnh bìa có nhãn \"Ngày hội Chuyển đổi số 2026\"",
+      "pass": true,
+      "detail": {
+        "text": "NGÀY HỘI 2026 CHUYỂN ĐỔI SỐ",
+        "label": "Ngày hội Chuyển đổi số 2026",
+        "box": [
+          1147,
+          225,
+          1315,
+          292
+        ],
+        "visible": true,
+        "inside": true,
+        "overTitle": false,
+        "overName": false,
+        "overSub": false,
+        "overLogo": false,
+        "clickThrough": true
+      }
+    },
+    {
+      "name": "1366: nhãn nằm trọn trong ảnh bìa, không che tên trường, tên chính, dòng phụ và hai ô logo",
+      "pass": true,
+      "detail": {
+        "text": "NGÀY HỘI 2026 CHUYỂN ĐỔI SỐ",
+        "label": "Ngày hội Chuyển đổi số 2026",
+        "box": [
+          1147,
+          225,
+          1315,
+          292
+        ],
+        "visible": true,
+        "inside": true,
+        "overTitle": false,
+        "overName": false,
+        "overSub": false,
+        "overLogo": false,
+        "clickThrough": true
+      }
+    },
+    {
+      "name": "1366: dòng phụ nằm trọn trong ảnh bìa",
+      "pass": true,
+      "detail": [
+        304,
+        483
+      ]
+    },
+    {
+      "name": "1366: vẫn còn tên trường trên ảnh bìa",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1366: phông viết tay được máy chủ trả về",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1366: tiêu đề thẻ trình duyệt không còn ThayKhaiEdu",
+      "pass": true,
+      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-1.8-20261011"
+    },
+    {
+      "name": "1366: cột trái khôi phục \"HỌC MÀ VUI / ThayKhaiEdu\" và logo",
+      "pass": true,
+      "detail": [
+        "HỌC MÀ VUI ThayKhaiEdu",
+        true
+      ]
+    },
+    {
+      "name": "1366: ngoài khối logo cột trái, không còn chữ ThayKhaiEdu / chuyên môn đang hiển thị ở trang chủ",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1366: tên trường và tên ứng dụng không chồng nhau",
+      "pass": true,
+      "detail": 9
+    },
+    {
+      "name": "1366: tên không tràn, trang không cuộn ngang",
+      "pass": true,
+      "detail": [
+        1366,
+        1366
+      ]
+    },
+    {
+      "name": "Cài đặt: không còn \"ThayKhaiEdu\" và dòng \"Tổ chuyên môn Khối 4 · …\"",
+      "pass": true,
+      "detail": [
+        "Nhận diện lớp học / HỌC MÀ VUI / Trường Tiểu học Trần Văn Ơn"
+      ]
+    },
+    {
+      "name": "Cài đặt: tiêu đề thẻ vẫn đúng sau khi mở Cài đặt",
+      "pass": true,
+      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-1.8-20261011"
+    },
+    {
+      "name": "Màn hình picker: ảnh bìa và nội dung không còn chữ cũ, khối logo cột trái đúng",
+      "pass": true,
+      "detail": {
+        "hits": [],
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-1.8-20261011",
+        "brand": "HỌC MÀ VUI ThayKhaiEdu"
+      }
+    },
+    {
+      "name": "Màn hình games: ảnh bìa và nội dung không còn chữ cũ, khối logo cột trái đúng",
+      "pass": true,
+      "detail": {
+        "hits": [],
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-1.8-20261011",
+        "brand": "HỌC MÀ VUI ThayKhaiEdu"
+      }
+    },
+    {
+      "name": "Màn hình questions: ảnh bìa và nội dung không còn chữ cũ, khối logo cột trái đúng",
+      "pass": true,
+      "detail": {
+        "hits": [],
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-1.8-20261011",
+        "brand": "HỌC MÀ VUI ThayKhaiEdu"
+      }
+    },
+    {
+      "name": "Màn hình scores: ảnh bìa và nội dung không còn chữ cũ, khối logo cột trái đúng",
+      "pass": true,
+      "detail": {
+        "hits": [],
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-1.8-20261011",
+        "brand": "HỌC MÀ VUI ThayKhaiEdu"
+      }
+    },
+    {
+      "name": "Màn hình students: ảnh bìa và nội dung không còn chữ cũ, khối logo cột trái đúng",
+      "pass": true,
+      "detail": {
+        "hits": [],
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-1.8-20261011",
+        "brand": "HỌC MÀ VUI ThayKhaiEdu"
+      }
+    },
+    {
+      "name": "Màn hình dashboard: ảnh bìa và nội dung không còn chữ cũ, khối logo cột trái đúng",
+      "pass": true,
+      "detail": {
+        "hits": [],
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-1.8-20261011",
+        "brand": "HỌC MÀ VUI ThayKhaiEdu"
+      }
+    },
+    {
+      "name": "Hồ sơ giáo viên giữ nguyên trường \"Tổ chuyên môn\" (dữ liệu, không phải tên sản phẩm)",
+      "pass": true,
+      "detail": {
+        "team": "Tổ chuyên môn Khối 4",
+        "school": "Trường Tiểu học Trần Văn Ơn"
+      }
+    },
+    {
+      "name": "1774: ảnh bìa không còn dòng \"Tổ chuyên môn\"",
+      "pass": true,
+      "detail": "TRƯỜNG TIỂU HỌC TRẦN VĂN ƠN HỌC MÀ VUI Nền tảng lớp học số thông minh Tiểu học NGÀY HỘI 2026 CHUYỂN ĐỔI SỐ"
+    },
+    {
+      "name": "1774: tên trên ảnh bìa là \"HỌC MÀ VUI\"",
+      "pass": true,
+      "detail": "HỌC MÀ VUI"
+    },
+    {
+      "name": "1774: dưới tên chính có dòng \"Nền tảng lớp học số thông minh Tiểu học\"",
+      "pass": true,
+      "detail": {
+        "text": "Nền tảng lớp học số thông minh Tiểu học",
+        "font": "\"HMV Viet Tay\", \"Segoe Script\", \"Brush Script MT\", cursive",
+        "size": "36px",
+        "top": 256,
+        "bottom": 323,
+        "left": 688,
+        "right": 1328,
+        "copyLeft": 512,
+        "copyRight": 1504,
+        "coverBottom": 483,
+        "lines": 1,
+        "faceLoaded": true,
+        "widthDiffers": true,
+        "widths": [
+          665,
+          939,
+          732
+        ]
+      }
+    },
+    {
+      "name": "1774: dòng phụ dùng phông viết tay đã tải xong (không rơi về phông thường)",
+      "pass": true,
+      "detail": {
+        "text": "Nền tảng lớp học số thông minh Tiểu học",
+        "font": "\"HMV Viet Tay\", \"Segoe Script\", \"Brush Script MT\", cursive",
+        "size": "36px",
+        "top": 256,
+        "bottom": 323,
+        "left": 688,
+        "right": 1328,
+        "copyLeft": 512,
+        "copyRight": 1504,
+        "coverBottom": 483,
+        "lines": 1,
+        "faceLoaded": true,
+        "widthDiffers": true,
+        "widths": [
+          665,
+          939,
+          732
+        ]
+      }
+    },
+    {
+      "name": "1774: dòng phụ nằm trên một dòng, không tràn khỏi khối chữ ảnh bìa",
+      "pass": true,
+      "detail": {
+        "text": "Nền tảng lớp học số thông minh Tiểu học",
+        "font": "\"HMV Viet Tay\", \"Segoe Script\", \"Brush Script MT\", cursive",
+        "size": "36px",
+        "top": 256,
+        "bottom": 323,
+        "left": 688,
+        "right": 1328,
+        "copyLeft": 512,
+        "copyRight": 1504,
+        "coverBottom": 483,
+        "lines": 1,
+        "faceLoaded": true,
+        "widthDiffers": true,
+        "widths": [
+          665,
+          939,
+          732
+        ]
+      }
+    },
+    {
+      "name": "1774: ảnh bìa có nhãn \"Ngày hội Chuyển đổi số 2026\"",
+      "pass": true,
+      "detail": {
+        "text": "NGÀY HỘI 2026 CHUYỂN ĐỔI SỐ",
+        "label": "Ngày hội Chuyển đổi số 2026",
+        "box": [
+          1521,
+          224,
+          1715,
+          302
+        ],
+        "visible": true,
+        "inside": true,
+        "overTitle": false,
+        "overName": false,
+        "overSub": false,
+        "overLogo": false,
+        "clickThrough": true
+      }
+    },
+    {
+      "name": "1774: nhãn nằm trọn trong ảnh bìa, không che tên trường, tên chính, dòng phụ và hai ô logo",
+      "pass": true,
+      "detail": {
+        "text": "NGÀY HỘI 2026 CHUYỂN ĐỔI SỐ",
+        "label": "Ngày hội Chuyển đổi số 2026",
+        "box": [
+          1521,
+          224,
+          1715,
+          302
+        ],
+        "visible": true,
+        "inside": true,
+        "overTitle": false,
+        "overName": false,
+        "overSub": false,
+        "overLogo": false,
+        "clickThrough": true
+      }
+    },
+    {
+      "name": "1774: dòng phụ nằm trọn trong ảnh bìa",
+      "pass": true,
+      "detail": [
+        323,
+        483
+      ]
+    },
+    {
+      "name": "1774: vẫn còn tên trường trên ảnh bìa",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1774: phông viết tay được máy chủ trả về",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1774: tiêu đề thẻ trình duyệt không còn ThayKhaiEdu",
+      "pass": true,
+      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-1.8-20261011"
+    },
+    {
+      "name": "1774: cột trái khôi phục \"HỌC MÀ VUI / ThayKhaiEdu\" và logo",
+      "pass": true,
+      "detail": [
+        "HỌC MÀ VUI ThayKhaiEdu",
+        true
+      ]
+    },
+    {
+      "name": "1774: ngoài khối logo cột trái, không còn chữ ThayKhaiEdu / chuyên môn đang hiển thị ở trang chủ",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1774: tên trường và tên ứng dụng không chồng nhau",
+      "pass": true,
+      "detail": 9
+    },
+    {
+      "name": "1774: tên không tràn, trang không cuộn ngang",
+      "pass": true,
+      "detail": [
+        1774,
+        1774
+      ]
+    },
+    {
+      "name": "420: ảnh bìa không còn dòng \"Tổ chuyên môn\"",
+      "pass": true,
+      "detail": "TRƯỜNG TIỂU HỌC TRẦN VĂN ƠN HỌC MÀ VUI Nền tảng lớp học số thông minh Tiểu học NGÀY HỘI 2026 CHUYỂN ĐỔI SỐ"
+    },
+    {
+      "name": "420: tên trên ảnh bìa là \"HỌC MÀ VUI\"",
+      "pass": true,
+      "detail": "HỌC MÀ VUI"
+    },
+    {
+      "name": "420: dưới tên chính có dòng \"Nền tảng lớp học số thông minh Tiểu học\"",
+      "pass": true,
+      "detail": {
+        "text": "Nền tảng lớp học số thông minh Tiểu học",
+        "font": "\"HMV Viet Tay\", \"Segoe Script\", \"Brush Script MT\", cursive",
+        "size": "15.12px",
+        "top": 758,
+        "bottom": 786,
+        "left": 80,
+        "right": 340,
+        "copyLeft": 26,
+        "copyRight": 394,
+        "coverBottom": 901,
+        "lines": 1,
+        "faceLoaded": true,
+        "widthDiffers": true,
+        "widths": [
+          665,
+          939,
+          732
+        ]
+      }
+    },
+    {
+      "name": "420: dòng phụ dùng phông viết tay đã tải xong (không rơi về phông thường)",
+      "pass": true,
+      "detail": {
+        "text": "Nền tảng lớp học số thông minh Tiểu học",
+        "font": "\"HMV Viet Tay\", \"Segoe Script\", \"Brush Script MT\", cursive",
+        "size": "15.12px",
+        "top": 758,
+        "bottom": 786,
+        "left": 80,
+        "right": 340,
+        "copyLeft": 26,
+        "copyRight": 394,
+        "coverBottom": 901,
+        "lines": 1,
+        "faceLoaded": true,
+        "widthDiffers": true,
+        "widths": [
+          665,
+          939,
+          732
+        ]
+      }
+    },
+    {
+      "name": "420: dòng phụ nằm trên một dòng, không tràn khỏi khối chữ ảnh bìa",
+      "pass": true,
+      "detail": {
+        "text": "Nền tảng lớp học số thông minh Tiểu học",
+        "font": "\"HMV Viet Tay\", \"Segoe Script\", \"Brush Script MT\", cursive",
+        "size": "15.12px",
+        "top": 758,
+        "bottom": 786,
+        "left": 80,
+        "right": 340,
+        "copyLeft": 26,
+        "copyRight": 394,
+        "coverBottom": 901,
+        "lines": 1,
+        "faceLoaded": true,
+        "widthDiffers": true,
+        "widths": [
+          665,
+          939,
+          732
+        ]
+      }
+    },
+    {
+      "name": "420: ảnh bìa có nhãn \"Ngày hội Chuyển đổi số 2026\"",
+      "pass": true,
+      "detail": {
+        "text": "NGÀY HỘI 2026 CHUYỂN ĐỔI SỐ",
+        "label": "Ngày hội Chuyển đổi số 2026",
+        "box": [
+          156,
+          613,
+          264,
+          653
+        ],
+        "visible": true,
+        "inside": true,
+        "overTitle": false,
+        "overName": false,
+        "overSub": false,
+        "overLogo": false,
+        "clickThrough": true
+      }
+    },
+    {
+      "name": "420: nhãn nằm trọn trong ảnh bìa, không che tên trường, tên chính, dòng phụ và hai ô logo",
+      "pass": true,
+      "detail": {
+        "text": "NGÀY HỘI 2026 CHUYỂN ĐỔI SỐ",
+        "label": "Ngày hội Chuyển đổi số 2026",
+        "box": [
+          156,
+          613,
+          264,
+          653
+        ],
+        "visible": true,
+        "inside": true,
+        "overTitle": false,
+        "overName": false,
+        "overSub": false,
+        "overLogo": false,
+        "clickThrough": true
+      }
+    },
+    {
+      "name": "420: dòng phụ nằm trọn trong ảnh bìa",
+      "pass": true,
+      "detail": [
+        786,
+        901
+      ]
+    },
+    {
+      "name": "420: vẫn còn tên trường trên ảnh bìa",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "420: phông viết tay được máy chủ trả về",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "420: tiêu đề thẻ trình duyệt không còn ThayKhaiEdu",
+      "pass": true,
+      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-1.8-20261011"
+    },
+    {
+      "name": "420: cột trái khôi phục \"HỌC MÀ VUI / ThayKhaiEdu\" và logo",
+      "pass": true,
+      "detail": [
+        "HỌC MÀ VUI ThayKhaiEdu",
+        true
+      ]
+    },
+    {
+      "name": "420: ngoài khối logo cột trái, không còn chữ ThayKhaiEdu / chuyên môn đang hiển thị ở trang chủ",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420: tên trường và tên ứng dụng không chồng nhau",
+      "pass": true,
+      "detail": 9
+    },
+    {
+      "name": "420: tên không tràn, trang không cuộn ngang",
+      "pass": true,
+      "detail": [
+        420,
+        420
+      ]
+    },
+    {
+      "name": "Không có lỗi JavaScript khi chạy",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

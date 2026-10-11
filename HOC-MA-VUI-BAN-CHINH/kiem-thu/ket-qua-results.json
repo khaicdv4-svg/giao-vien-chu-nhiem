@@ -1,0 +1,492 @@
+{
+  "build": "HMV-BAN-CHINH-2.1-20261011",
+  "note": "Gemini giả cho phần AI nhận xét",
+  "total": 28,
+  "passed": 28,
+  "results": [
+    {
+      "name": "1 Lúc đầu chưa có số liệu; thẻ Phân tích báo rõ và nêu các trò được ghi",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "2 Kéo co: chọn phương án A → ghi 1 lượt (trò, câu hỏi, 4 phương án, phương án đã chọn, đúng/sai khớp với đáp án, tên bộ)",
+      "pass": true,
+      "detail": {
+        "t": 1791706410344,
+        "g": "tug",
+        "k": "14sxjbj",
+        "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
+        "o": 0,
+        "x": 0,
+        "q": {
+          "text": "Số gồm 5 chục nghìn, 3 nghìn, 2 trăm và 4 đơn vị là:",
+          "answers": [
+            "53 240",
+            "53 204",
+            "50 324",
+            "5 324"
+          ],
+          "correct": 1,
+          "kind": "ABCD",
+          "grade": "Lớp 4",
+          "subject": "Toán",
+          "topic": "Số có nhiều chữ số",
+          "key": "53 204"
+        },
+        "n": 1
+      }
+    },
+    {
+      "name": "3 Ai nhanh hơn: đội giành chuông chọn B → ghi 1 lượt",
+      "pass": true,
+      "detail": {
+        "t": 1791706412279,
+        "g": "buzzer",
+        "k": "wqni0e",
+        "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
+        "o": 1,
+        "x": 1,
+        "q": {
+          "text": "3 + 4 = ?",
+          "answers": [
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "correct": 1,
+          "kind": "ABCD",
+          "grade": "Lớp 1",
+          "subject": "Toán",
+          "topic": "Phép cộng, phép trừ trong phạm vi 10",
+          "key": "7"
+        },
+        "n": 2
+      }
+    },
+    {
+      "name": "4 Hộp quà: chọn C, giáo viên xác nhận sai → ghi 1 lượt sai, phương án C",
+      "pass": true,
+      "detail": {
+        "t": 1791706414996,
+        "g": "gift",
+        "k": "wqni0e",
+        "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
+        "o": 0,
+        "x": 2,
+        "q": {
+          "text": "3 + 4 = ?",
+          "answers": [
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "correct": 1,
+          "kind": "ABCD",
+          "grade": "Lớp 1",
+          "subject": "Toán",
+          "topic": "Phép cộng, phép trừ trong phạm vi 10",
+          "key": "7"
+        },
+        "n": 3
+      }
+    },
+    {
+      "name": "5 Chinh phục tri thức: chọn đúng → ghi 1 lượt đúng, quy về đúng vị trí phương án trong câu gốc dù màn hình đã xáo trộn",
+      "pass": true,
+      "detail": [
+        {
+          "t": 1791706418926,
+          "g": "millionaire",
+          "k": "wqni0e",
+          "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
+          "o": 1,
+          "x": 1,
+          "q": {
+            "text": "3 + 4 = ?",
+            "answers": [
+              "6",
+              "7",
+              "8",
+              "9"
+            ],
+            "correct": 1,
+            "kind": "ABCD",
+            "grade": "Lớp 1",
+            "subject": "Toán",
+            "topic": "Phép cộng, phép trừ trong phạm vi 10",
+            "key": "7"
+          },
+          "n": 4
+        },
+        "7"
+      ]
+    },
+    {
+      "name": "6 Quiz Nghiêng Đầu: chọn thẻ bên trái → ghi 1 lượt Đúng/Sai",
+      "pass": true,
+      "detail": {
+        "t": 1791706422369,
+        "g": "head-tilt",
+        "k": "1e1yjrw",
+        "s": "Mẫu 2 · Đúng/Sai · Toán lớp 1–5",
+        "o": 0,
+        "x": 1,
+        "q": {
+          "text": "5 + 3 = 8.",
+          "answers": [
+            "Đúng",
+            "Sai"
+          ],
+          "correct": 0,
+          "kind": "TRUEFALSE",
+          "grade": "Lớp 1",
+          "subject": "Toán",
+          "topic": "Phép cộng, phép trừ trong phạm vi 10",
+          "key": "Đúng"
+        },
+        "n": 5
+      }
+    },
+    {
+      "name": "7 Bóng bay: chạm bóng sai → ghi 1 lượt sai kèm phương án đã chọn",
+      "pass": true,
+      "detail": {
+        "t": 1791706424484,
+        "g": "balloon",
+        "k": "jntvje",
+        "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
+        "o": 0,
+        "x": 2,
+        "q": {
+          "text": "35 + 27 = ?",
+          "answers": [
+            "52",
+            "62",
+            "63",
+            "512"
+          ],
+          "correct": 1,
+          "kind": "ABCD",
+          "grade": "Lớp 2",
+          "subject": "Toán",
+          "topic": "Phép cộng, phép trừ có nhớ",
+          "key": "62"
+        },
+        "n": 6
+      }
+    },
+    {
+      "name": "8 Bình chọn ngón tay: 8 phiếu cho một câu → ghi một lượt kèm số phiếu từng phương án",
+      "pass": true,
+      "detail": {
+        "t": 1791706426490,
+        "g": "poll",
+        "k": "wqni0e",
+        "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
+        "c": [
+          0,
+          3,
+          1,
+          4
+        ],
+        "q": {
+          "text": "3 + 4 = ?",
+          "answers": [
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "correct": 1,
+          "kind": "ABCD",
+          "grade": "Lớp 1",
+          "subject": "Toán",
+          "topic": "Phép cộng, phép trừ trong phạm vi 10",
+          "key": "7"
+        },
+        "n": 7
+      }
+    },
+    {
+      "name": "9 Bình chọn \"Hỏi nhanh\" (không có đáp án đúng): không tính vào phân tích",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "10 Số liệu không chứa tên học sinh hay tên đội; chỉ có câu hỏi, phương án, số lượt",
+      "pass": true,
+      "detail": 1514
+    },
+    {
+      "name": "11 Tổng hợp theo câu: số lượt, tỉ lệ đúng, phương án sai hay chọn nhất; xếp câu yếu nhất lên đầu",
+      "pass": true,
+      "detail": {
+        "attempts": 40,
+        "right": 19,
+        "pct": 48,
+        "n": 7,
+        "weak": 6,
+        "order": [
+          3,
+          5,
+          6
+        ],
+        "A": {
+          "key": "e5dwbz",
+          "text": "27 + 15 = ?",
+          "answers": [
+            "32",
+            "42",
+            "41",
+            "52"
+          ],
+          "correct": 1,
+          "kind": "",
+          "grade": "Lớp 4",
+          "subject": "Toán",
+          "topic": "Phép cộng",
+          "answerText": "",
+          "attempts": 10,
+          "right": 2,
+          "wrong": [
+            6,
+            0,
+            0,
+            2
+          ],
+          "games": {
+            "tug": 1
+          },
+          "last": 1791706427403,
+          "pct": 20,
+          "topWrong": 0
+        },
+        "B": {
+          "key": "1y40iky",
+          "text": "38 + 26 = ?",
+          "answers": [
+            "54",
+            "64",
+            "514",
+            "63"
+          ],
+          "correct": 1,
+          "kind": "",
+          "grade": "Lớp 4",
+          "subject": "Toán",
+          "topic": "Phép cộng",
+          "answerText": "",
+          "attempts": 6,
+          "right": 3,
+          "wrong": [
+            0,
+            0,
+            3,
+            0
+          ],
+          "games": {
+            "tug": 1
+          },
+          "last": 1791706427403,
+          "pct": 50,
+          "topWrong": 2
+        },
+        "C": {
+          "key": "1j3j8qw",
+          "text": "40 + 20 = ?",
+          "answers": [
+            "60",
+            "50",
+            "70",
+            "80"
+          ],
+          "correct": 0,
+          "kind": "",
+          "grade": "Lớp 4",
+          "subject": "Toán",
+          "topic": "Phép cộng",
+          "answerText": "",
+          "attempts": 10,
+          "right": 9,
+          "wrong": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "games": {
+            "tug": 1
+          },
+          "last": 1791706427404,
+          "pct": 90,
+          "topWrong": 1
+        }
+      }
+    },
+    {
+      "name": "12 Phiếu bình chọn được tính theo số phiếu (8 phiếu = 8 lượt)",
+      "pass": true,
+      "detail": 40
+    },
+    {
+      "name": "13 Thẻ Phân tích: bốn ô số liệu, bảng câu hỏi xếp từ yếu nhất, cột \"Hay chọn sai\", danh sách trò đã chơi",
+      "pass": true,
+      "detail": {
+        "stats": [
+          "40",
+          "48%",
+          "7",
+          "6"
+        ],
+        "rows": 7,
+        "first": "1 35 + 27 = ? Đáp án: 62 1 0% 63 (1 lượt)",
+        "games": "Trò đã chơi: Kéo co kiến thức, Ai nhanh hơn, Hộp quà bí mật, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay tri thức, Bình chọn ngón tay. Trong trò chơi theo đội, mỗi lượt là câu trả lời của một đội hoặc một bạn, không phải của cả lớp; hãy xem đây là gợi ý để hỏi lại, không phải điểm số.",
+        "sets": [
+          "Tất cả các bộ",
+          "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
+          "Mẫu 2 · Đúng/Sai · Toán lớp 1–5"
+        ],
+        "lowRows": 6
+      }
+    },
+    {
+      "name": "14 Dòng \"27 + 15 = ?\": 10 lượt, đúng 20%, hay chọn sai \"32\" (6 lượt), kèm đáp án đúng",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "15 Lọc \"Chỉ hiện câu đúng dưới 60%\" và lọc theo bộ câu hỏi",
+      "pass": true,
+      "detail": [
+        6,
+        {
+          "v": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
+          "attempts": "39"
+        }
+      ]
+    },
+    {
+      "name": "16 Lọc theo thời gian: \"Hôm nay\" bỏ các lượt của 3 ngày trước, \"7 ngày qua\" có đủ",
+      "pass": true,
+      "detail": [
+        37,
+        40
+      ]
+    },
+    {
+      "name": "17 \"Tạo bộ Ôn lại chỗ sai\": lưu vào Kho bộ mới gồm các câu đúng dưới 60% (không lấy câu lớp đã làm tốt), câu nào cũng hợp lệ",
+      "pass": true,
+      "detail": {
+        "name": "Ôn lại chỗ sai · 11/10/2026",
+        "n": 6,
+        "texts": [
+          "35 + 27 = ?",
+          "5 + 3 = 8.",
+          "Số gồm 5 chục nghìn, 3 nghìn, 2 trăm và 4 đơn vị là:",
+          "27 + 15 = ?",
+          "3 + 4 = ?",
+          "38 + 26 = ?"
+        ],
+        "valid": true,
+        "has90": false,
+        "purpose": "Củng cố",
+        "banner": "✅ Đã lưu bộ Ôn lại chỗ sai · 11/10/2026 (6 câu) vào Kho. ▶ Chơi ngay"
+      }
+    },
+    {
+      "name": "18 \"Chơi ngay\" mở hộp chọn trò cho bộ ôn",
+      "pass": true,
+      "detail": {
+        "t": "Chơi ngay · Ôn lại chỗ sai · 11/10/2026\nĐóng\n\nChọn trò chơi. Ứng dụng dùng bộ nà",
+        "tug": true
+      }
+    },
+    {
+      "name": "19 \"AI nhận xét\": gửi câu hỏi kèm số lượt, tỉ lệ đúng, phương án sai hay chọn; không gửi tên; yêu cầu ba mục nhận xét và câu ôn mới",
+      "pass": true,
+      "detail": "Dưới đây là các câu hỏi mà lớp trả lời sai nhiều trong các trò chơi môn Toán. Toàn bộ: 40 lượt trả lời, đúng 48%.\n[{\"stt\":1,\"cau_hoi\":\"35 + 27 = ?\",\"phuong_an\":[\"52\",\"62\",\"63\",\"512\"],\"dap_an_dung\":\"62\",\"so_luot\":1,\"ti_le_dung\":\"0%\",\"hay_chon_sai\":\"63 (1 lượt)\"},{\"stt\":2,\"cau_hoi\":\"5 + 3 = 8.\",\"phuon"
+    },
+    {
+      "name": "20 Nhận xét của AI hiện thành ba mục có gạch đầu dòng; có nút xem các câu ôn AI soạn; có lời nhắc AI có thể chưa đúng",
+      "pass": true,
+      "detail": {
+        "h": 3,
+        "li": 4,
+        "btn": "Xem và duyệt 6 câu ôn AI vừa soạn ▶",
+        "note": "AI chỉ thấy câu hỏi và số lượt đúng, sai; không thấy tên học sinh. Nhận xét có thể chưa đúng — thầy cô là người quyết định."
+      }
+    },
+    {
+      "name": "21 Các câu ôn chuyển sang thẻ Tạo câu hỏi nhanh để duyệt, sửa, lưu và chơi như thường",
+      "pass": true,
+      "detail": {
+        "tab": "quick",
+        "n": 6,
+        "name": "Toán · Ôn lại chỗ sai (AI)",
+        "note": "AI đã soạn 6 câu ôn lại từ kết quả trò chơi. Thầy cô kiểm tra rồi lưu.",
+        "first": "Ôn: Câu 1: 10 + 1 = ?"
+      }
+    },
+    {
+      "name": "22 Lưu bộ câu ôn do AI soạn vào Kho",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "23 Chưa có khóa Gemini: báo rõ kèm nút mở Kết nối AI; thống kê và bộ ôn vẫn dùng được không cần AI",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "24 Tải lại trang: số liệu vẫn còn",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "25 Giữ tối đa 3000 lượt gần nhất; câu hỏi không còn lượt nào thì dọn khỏi bộ nhớ; dung lượng nhỏ",
+      "pass": true,
+      "detail": {
+        "n": 3000,
+        "q": 1,
+        "kb": 305
+      }
+    },
+    {
+      "name": "26 \"Xóa số liệu\" phải bấm xác nhận lần hai; chỉ xóa số liệu phân tích, Kho câu hỏi và dữ liệu khác giữ nguyên",
+      "pass": true,
+      "detail": [
+        {
+          "n": 3000,
+          "confirm": true
+        },
+        3000,
+        {
+          "n": 0,
+          "ls": null,
+          "sets": 10,
+          "note": "Đã xóa số liệu phân tích trên máy này. Câu hỏi trong Kho không bị ảnh hưởng.",
+          "other": [
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "name": "27 Thẻ Phân tích không tràn ngang ở 1366, 800, 420",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "28 Không có lỗi JavaScript trong suốt quá trình",
+      "pass": true,
+      "detail": [
+        "HTTP 503 http://127.0.0.1:8780/api/ai/generate",
+        "console.error: Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ]
+    }
+  ]
+}

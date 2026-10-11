@@ -1,0 +1,602 @@
+{
+  "build": "HMV-BAN-CHINH-2.0-20261011",
+  "note": "Bộ nhận diện bàn tay giả lập",
+  "total": 43,
+  "passed": 43,
+  "results": [
+    {
+      "name": "1 Thư viện có thẻ \"Bình chọn ngón tay\" (nhãn Mới, ghi rõ dùng camera AI); thư viện có 8 thẻ",
+      "pass": true,
+      "detail": {
+        "tags": [
+          "👥 Theo nhóm, cộng dồn cả lớp",
+          "📷 Camera AI · đếm ngón tay"
+        ],
+        "badge": true,
+        "n": 8
+      }
+    },
+    {
+      "name": "2 Trang chủ, mục \"Chơi bằng camera\": dòng Bình chọn ngón tay mở màn thiết lập",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "3 Màn thiết lập: bảng quy ước 1 ngón = A … 4 ngón = D (hình vẽ riêng), 3 bước, cam kết không lưu hình; có nút Toàn màn hình",
+      "pass": true,
+      "detail": {
+        "legend": [
+          "A 1 ngón",
+          "B 2 ngón",
+          "C 3 ngón",
+          "D 4 ngón"
+        ],
+        "svgs": 4,
+        "steps": 3,
+        "privacy": true,
+        "source": "quick",
+        "bankHidden": true,
+        "quickShown": true,
+        "full": true
+      }
+    },
+    {
+      "name": "4 Đổi \"Cách hỏi\": Hỏi nhanh hiện Số lựa chọn; Dùng bộ trong Kho hiện Số câu và tên bộ",
+      "pass": true,
+      "detail": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "name": "5 Bắt đầu: mở camera, nạp bộ nhận diện ở chế độ ảnh tĩnh, tối đa 12 bàn tay mỗi lượt dò, hạ ngưỡng để thấy tay nhỏ",
+      "pass": true,
+      "detail": [
+        "ready",
+        {
+          "mode": "IMAGE",
+          "n": 12,
+          "conf": 0.4
+        }
+      ]
+    },
+    {
+      "name": "6 Mỗi lượt dò: cả khung hình + 6 ô phóng to chồng mép (3 cột × 2 hàng)",
+      "pass": true,
+      "detail": [
+        "0,0,1,1",
+        "0,0,0.5,0.6",
+        "0.25,0,0.5,0.6",
+        "0.5,0,0.5,0.6",
+        "0,0.4,0.5,0.6",
+        "0.25,0.4,0.5,0.6",
+        "0.5,0.4,0.5,0.6"
+      ]
+    },
+    {
+      "name": "7 Đếm ngón: 1→A, 2→B, 2→B, 3→C, 4→D; nắm tay, tay chúc xuống, chỉ giơ ngón cái đều KHÔNG tính",
+      "pass": true,
+      "detail": {
+        "counts": [
+          1,
+          2,
+          1,
+          1
+        ],
+        "marks": [
+          {
+            "id": 1,
+            "x": 0.15,
+            "y": 0.338,
+            "n": 1,
+            "vote": 0,
+            "down": false
+          },
+          {
+            "id": 2,
+            "x": 0.29999999999999993,
+            "y": 0.28800000000000003,
+            "n": 2,
+            "vote": 1,
+            "down": false
+          },
+          {
+            "id": 3,
+            "x": 0.45,
+            "y": 0.338,
+            "n": 2,
+            "vote": 1,
+            "down": false
+          },
+          {
+            "id": 4,
+            "x": 0.5999999999999999,
+            "y": 0.28800000000000003,
+            "n": 3,
+            "vote": 2,
+            "down": false
+          },
+          {
+            "id": 5,
+            "x": 0.75,
+            "y": 0.338,
+            "n": 4,
+            "vote": 3,
+            "down": false
+          },
+          {
+            "id": 6,
+            "x": 0.8799999999999999,
+            "y": 0.338,
+            "n": 0,
+            "vote": -1,
+            "down": false
+          },
+          {
+            "id": 7,
+            "x": 0.9,
+            "y": 0.6619999999999999,
+            "n": -1,
+            "vote": -1,
+            "down": true
+          },
+          {
+            "id": 8,
+            "x": 0.1,
+            "y": 0.788,
+            "n": 0,
+            "vote": -1,
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "8 Cùng một bàn tay bị thấy ở nhiều ô vẫn chỉ là một phiếu (8 bàn tay → 8 vết, không nhân đôi)",
+      "pass": true,
+      "detail": [
+        8,
+        [
+          1,
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "9 Trên hình camera (soi gương): mỗi bàn tay có nhãn A/B/C/D; nắm tay ✊, tay chúc xuống ↓; vị trí lật theo gương",
+      "pass": true,
+      "detail": [
+        {
+          "t": "A",
+          "left": 85,
+          "idle": false
+        },
+        {
+          "t": "B",
+          "left": 70,
+          "idle": false
+        },
+        {
+          "t": "B",
+          "left": 55,
+          "idle": false
+        },
+        {
+          "t": "C",
+          "left": 40,
+          "idle": false
+        },
+        {
+          "t": "D",
+          "left": 25,
+          "idle": false
+        },
+        {
+          "t": "✊",
+          "left": 12,
+          "idle": true
+        },
+        {
+          "t": "↓",
+          "left": 10,
+          "idle": true
+        },
+        {
+          "t": "✊",
+          "left": 90,
+          "idle": true
+        }
+      ]
+    },
+    {
+      "name": "10 \"Bắt đầu đếm\": đếm ngược 4 giây, biểu đồ chạy theo số phiếu đang thấy, khóa nút +/− trong lúc đếm",
+      "pass": true,
+      "detail": {
+        "timer": "4",
+        "plusOff": true,
+        "nums": [
+          "1",
+          "2",
+          "1",
+          "1"
+        ]
+      }
+    },
+    {
+      "name": "11 Đang đếm thì phím số không cộng phiếu",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "12 Hết giờ tự chốt: A 1 · B 2 · C 1 · D 1 kèm phần trăm; cột dài theo tỉ lệ; nêu lựa chọn nhiều nhất",
+      "pass": true,
+      "detail": {
+        "nums": [
+          "120%",
+          "240%",
+          "120%",
+          "120%"
+        ],
+        "sum": "Tổng 5 phiếu. Nhiều nhất: B (2 phiếu).",
+        "ctl": [
+          "＋ Đếm thêm nhóm khác",
+          "↺ Đếm lại",
+          "Câu hỏi mới ▶"
+        ],
+        "widths": [
+          "50%",
+          "100%",
+          "50%",
+          "50%"
+        ]
+      }
+    },
+    {
+      "name": "13 Sau khi chốt có ba nút: Đếm thêm nhóm khác, Đếm lại, Câu hỏi mới",
+      "pass": true,
+      "detail": [
+        "＋ Đếm thêm nhóm khác",
+        "↺ Đếm lại",
+        "Câu hỏi mới ▶"
+      ]
+    },
+    {
+      "name": "14 \"Đếm thêm nhóm khác\": cộng dồn vào kết quả cũ; tay lắc lư lấy số ngón xuất hiện nhiều nhất; tay hạ sớm không tính",
+      "pass": true,
+      "detail": {
+        "mode": "quick",
+        "q": 0,
+        "total": null,
+        "phase": "result",
+        "left": 0,
+        "tally": [
+          1,
+          2,
+          3,
+          1
+        ],
+        "rounds": 2,
+        "results": [],
+        "question": null,
+        "source": "Hỏi nhanh",
+        "options": 4
+      }
+    },
+    {
+      "name": "15 Sửa tay: nút + và −, phím 1–4 hoặc A–D cộng phiếu, Shift + số trừ phiếu",
+      "pass": true,
+      "detail": [
+        3,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "name": "16 Số phiếu không xuống dưới 0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "17 \"Đếm lại\": xóa phiếu của câu này, quay về chờ đếm",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "18 \"Câu hỏi mới\": ghi lại kết quả câu trước, sang câu 2, phiếu về 0",
+      "pass": true,
+      "detail": [
+        {
+          "no": 1,
+          "text": "Câu hỏi 1",
+          "answers": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "correct": null,
+          "counts": [
+            1,
+            2,
+            1,
+            1
+          ],
+          "total": 5,
+          "right": null
+        }
+      ]
+    },
+    {
+      "name": "19 Phím cách: bắt đầu đếm, bấm lần nữa chốt ngay",
+      "pass": true,
+      "detail": [
+        "count",
+        "result",
+        [
+          1,
+          2,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "20 \"Kết thúc\": bảng tổng kết 2 lần bình chọn với số phiếu từng lựa chọn; camera tắt, bộ nhận diện được giải phóng",
+      "pass": true,
+      "detail": {
+        "rows": 2,
+        "head": "Đã ghi 2 lần bình chọn.",
+        "cells": [
+          "1",
+          "Câu hỏi 1",
+          "1",
+          "2",
+          "1",
+          "1",
+          "5",
+          "–"
+        ],
+        "cam": "off",
+        "closed": 1
+      }
+    },
+    {
+      "name": "21 Chỉ có 2 lựa chọn: tay giơ 3 hoặc 4 ngón không được tính; biểu đồ chỉ có A và B",
+      "pass": true,
+      "detail": [
+        1,
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "22 Ngón cái duỗi ra không làm sai phiếu (2 ngón + ngón cái vẫn là B; 1 ngón + ngón cái vẫn là A)",
+      "pass": true,
+      "detail": [
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "23 Thiếu tọa độ không gian: vẫn đếm được bằng tọa độ ảnh",
+      "pass": true,
+      "detail": [
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "24 Máy chậm (mỗi lượt dò quá 1,1 giây): tự chuyển sang chỉ dò cả khung, có báo trên màn hình, vẫn đếm",
+      "pass": true,
+      "detail": {
+        "crops": [
+          "0,0,1,1"
+        ],
+        "seen": "Đang thấy 2 bàn tay · 2 phiếu · máy chậm nên chỉ dò nhanh",
+        "live": "1,1,0,0"
+      }
+    },
+    {
+      "name": "25 Rời mục Hoạt động khi đang bình chọn: camera tắt hẳn",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "26 Kho → Chơi ngay: có \"Bình chọn ngón tay\", dùng được 20/20 câu A–B–C–D",
+      "pass": true,
+      "detail": {
+        "text": "Bình chọn ngón tay 20/20 câu dùng được",
+        "disabled": false
+      }
+    },
+    {
+      "name": "27 Vào thẳng bình chọn với bộ đã chọn: hiện câu hỏi và bốn phương án, đúng thứ tự của bộ",
+      "pass": true,
+      "detail": {
+        "q": "3 + 4 = ?",
+        "labels": [
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "sub": "Câu 1/10 · Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+      }
+    },
+    {
+      "name": "28 Chốt câu có đáp án: tô xanh phương án đúng, làm mờ phương án sai, báo \"3/5 bạn chọn đúng (60%)\"",
+      "pass": true,
+      "detail": {
+        "right": [
+          false,
+          true,
+          false,
+          false
+        ],
+        "dim": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "sum": "3/5 bạn chọn đúng (60%).",
+        "mark": "✔ Đáp án đúng",
+        "next": "Câu tiếp theo ▶"
+      }
+    },
+    {
+      "name": "29 Phím Enter sang câu tiếp theo; kết quả câu 1 được ghi kèm đáp án đúng",
+      "pass": true,
+      "detail": [
+        {
+          "no": 1,
+          "text": "3 + 4 = ?",
+          "answers": [
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "correct": 1,
+          "counts": [
+            0,
+            3,
+            2,
+            0
+          ],
+          "total": 5,
+          "right": 3
+        }
+      ]
+    },
+    {
+      "name": "30 \"Bỏ qua câu này\" khi chưa có phiếu: sang câu sau, không ghi kết quả rỗng",
+      "pass": true,
+      "detail": [
+        3,
+        2
+      ]
+    },
+    {
+      "name": "31 Tổng kết bộ câu hỏi: tỉ lệ đúng chung (4/9 lượt, 44%), nêu câu cần ôn nhất (câu 2: 25%), tô ô đáp án đúng",
+      "pass": true,
+      "detail": {
+        "head": "Cả nhóm chọn đúng 4/9 lượt (44%). Câu cần ôn lại nhất: câu 2.",
+        "rows": [
+          "1 | 3 + 4 = ?Đáp án: B. 7 | 0 | 3 | 2 | 0 | 5 | 60%",
+          "2 | 9 − 5 = ?Đáp án: A. 4 | 1 | 2 | 1 | 0 | 4 | 25%"
+        ],
+        "okCells": 2
+      }
+    },
+    {
+      "name": "32 \"Bình chọn tiếp\" từ màn tổng kết: bắt đầu lượt mới với cùng bộ",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "33 Câu Đúng/Sai: 1 ngón = Đúng, 2 ngón = Sai; tay 4 ngón không tính",
+      "pass": true,
+      "detail": {
+        "labels": [
+          "Đúng",
+          "Sai"
+        ],
+        "keys": [
+          "",
+          ""
+        ],
+        "live": "2,1,0,0"
+      }
+    },
+    {
+      "name": "34 Màn 1366×768: khung bình chọn vừa một màn hình, nút điều khiển luôn thấy, không cuộn ngang",
+      "pass": true,
+      "detail": {
+        "ctlBottom": 742,
+        "stageBottom": 754,
+        "h": 768,
+        "scrollX": 0,
+        "panelScroll": 0,
+        "barsScroll": 0
+      }
+    },
+    {
+      "name": "34 Màn 1774×934: khung bình chọn vừa một màn hình, nút điều khiển luôn thấy, không cuộn ngang",
+      "pass": true,
+      "detail": {
+        "ctlBottom": 868,
+        "stageBottom": 920,
+        "h": 934,
+        "scrollX": 0,
+        "panelScroll": 0,
+        "barsScroll": 0
+      }
+    },
+    {
+      "name": "35 Toàn màn hình: ẩn thanh bên, khung bình chọn mở rộng và vẫn vừa màn hình",
+      "pass": true,
+      "detail": {
+        "cls": true,
+        "side": "none",
+        "bottom": 755,
+        "h": 768
+      }
+    },
+    {
+      "name": "36 Không tải được bộ nhận diện bàn tay: báo rõ, tắt camera, chuyển sang nhập phiếu bằng phím",
+      "pass": true,
+      "detail": "Chưa dùng được camera: không tải được bộ nhận diện bàn tay (cần Internet ở lần đầu, hoặc chạy tệp TAI-BO-NHAN-DIEN-CAMERA). Thầy cô nhập phiếu bằng phím 1–4."
+    },
+    {
+      "name": "37 Không camera: \"Bắt đầu đếm\" không chạy; phím 1–3 cộng phiếu, phím 4 bị bỏ qua vì chỉ có 3 lựa chọn",
+      "pass": true,
+      "detail": [
+        "ready",
+        [
+          2,
+          1,
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "38 Chọn \"Thầy cô nhập phiếu\": không mở camera",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "39 Nút Camera bật lại được camera giữa chừng",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "40 Chuyển sang trò khác: camera của Bình chọn tắt",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "41 Bóng bay tri thức vẫn dùng bộ nhận diện ở chế độ video, 2 bàn tay như trước",
+      "pass": true,
+      "detail": {
+        "mode": "VIDEO",
+        "n": 2
+      }
+    },
+    {
+      "name": "42 Không có lỗi JavaScript trong suốt quá trình",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

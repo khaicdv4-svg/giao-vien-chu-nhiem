@@ -1,0 +1,228 @@
+{
+ "at": "2026-10-11T02:26:35.282Z",
+ "build": "HỌC MÀ VUI – ThayKhaiEdu | HMV-BAN-CHINH-1.1-20261011",
+ "pass": 44,
+ "total": 44,
+ "results": [
+  {
+   "name": "Mặc định: tự chấm, nhạc nền, tiếng hiệu ứng đều bật",
+   "pass": true,
+   "detail": "{\"v\":2,\"teams\":2,\"names\":[\"Tổ 1\",\"Tổ 2\",\"Tổ 3\",\"Tổ 4\"],\"colors\":[\"#2563eb\",\"#f97316\",\"#16a34a\",\"#9333ea\"],\"order\":\"random\",\"shuffle\":true,\"winMoves\":3,\"time\":30,\"correctStep\":1,\"wrong\":\"stay\",\"showAnswer\":true,\"explain\":true,\"sound\":true,\"volume\":0.6,\"music\":true,\"musicVolume\":0.35,\"auto\":true,\"autoDelay\":3,\"format\":\"auto\"}"
+  },
+  {
+   "name": "Kho → Chơi ngay → Kéo co: vào thẳng trận",
+   "pass": true,
+   "detail": "{\"phase\":\"playing\",\"order\":20}"
+  },
+  {
+   "name": "Nhạc nền đang phát khi vào trận",
+   "pass": true,
+   "detail": "blob:http://127.0.0.1:8780/95dc9bb4-b667-4d7b-90aa-a0195939c"
+  },
+  {
+   "name": "Nhạc nền vẫn phát sau 0,6 giây",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chọn đáp án đúng → tự chấm đúng ngay (không cần bấm xác nhận)",
+   "pass": true,
+   "detail": "{\"answered\":true,\"outcome\":{\"ok\":true,\"reason\":\"pick\",\"slot\":0},\"pos\":-1}"
+  },
+  {
+   "name": "Đáp án đúng được tô xanh, có thông báo Chính xác",
+   "pass": true,
+   "detail": "✅ Chính xác! Tổ 1 kéo được 1 bước.\nTự chuyển câu sau 3 giây"
+  },
+  {
+   "name": "Không còn nút Xác nhận đúng/sai khi tự chấm",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Hiện đếm ngược tự chuyển câu",
+   "pass": true,
+   "detail": "Tự chuyển câu sau 3 giây"
+  },
+  {
+   "name": "Sau ~3 giây tự chuyển sang câu tiếp theo, đổi lượt đội",
+   "pass": true,
+   "detail": "{\"q\":1,\"current\":1}"
+  },
+  {
+   "name": "Đồng hồ câu mới được đặt lại đủ thời gian",
+   "pass": true,
+   "detail": "30"
+  },
+  {
+   "name": "Chọn đáp án sai → tự chấm sai, dây không dịch chuyển",
+   "pass": true,
+   "detail": "{\"ok\":false,\"reason\":\"pick\",\"slot\":1}"
+  },
+  {
+   "name": "Báo Chưa đúng kèm đáp án đúng; tô đỏ câu chọn, tô xanh đáp án đúng",
+   "pass": true,
+   "detail": "❌ Chưa đúng. Đáp án đúng: A. 4\nTự chuyển câu sau 3 giây"
+  },
+  {
+   "name": "Nút \"Câu tiếp theo\" chuyển ngay không cần chờ",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Phím số 1–4 chọn đáp án và tự chấm",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Phím Enter sang câu tiếp theo",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Tạm dừng: đồng hồ đứng yên, nhạc tạm dừng",
+   "pass": true,
+   "detail": "{\"q1\":30,\"q2\":30,\"music\":false}"
+  },
+  {
+   "name": "Tiếp tục: đồng hồ chạy lại, nhạc phát lại",
+   "pass": true,
+   "detail": "{\"q\":29.534000000000002,\"music\":true}"
+  },
+  {
+   "name": "Nút \"Nhạc nền\" tắt nhạc",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Nút \"Nhạc nền\" bật lại nhạc",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Rời màn hình Hoạt động: nhạc dừng, đồng hồ không trôi",
+   "pass": true,
+   "detail": "{\"m\":false,\"q1\":28.934000000000005,\"q2\":28.934000000000005}"
+  },
+  {
+   "name": "Quay lại Hoạt động: nhạc phát lại",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Một đội kéo đủ số bước → thắng trận, hiện bảng chiến thắng",
+   "pass": true,
+   "detail": "🏆 | Tổ 1 CHIẾN THẮNG! | Đúng 3 câu · Thời gian 7 giây | ↻ Chơi lại← Về thư viện"
+  },
+  {
+   "name": "Thắng trận: nhạc nền dừng",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chơi lại: trận mới, điểm về 0, nhạc phát",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Bộ Đúng/Sai chơi được Kéo co (2 phương án)",
+   "pass": true,
+   "detail": "[\"Đúng\",\"Sai\"]"
+  },
+  {
+   "name": "Thời gian mỗi câu theo thiết lập (10 giây)",
+   "pass": true,
+   "detail": "8.8"
+  },
+  {
+   "name": "Hết giờ → tự chấm sai, báo Hết giờ",
+   "pass": true,
+   "detail": "⏰ Hết giờ. Đáp án đúng: A. Đúng\nTự chuyển câu sau 2 giây"
+  },
+  {
+   "name": "Hết giờ xong tự chuyển câu sau 2 giây (theo thiết lập)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Đúng/Sai: chọn đúng → tự chấm đúng",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Bộ câu hỏi mở: hiện nút ✓ Đúng / ✗ Sai cho giáo viên",
+   "pass": true,
+   "detail": "Câu hỏi mở: học sinh trả lời miệng, giáo viên bấm Đúng hoặc Sai."
+  },
+  {
+   "name": "Câu hỏi mở: \"Hiện đáp án\" cho xem đáp án gợi ý",
+   "pass": true,
+   "detail": "Đáp án gợi ý: Lấy quãng đường chia cho thời gian: 90 : 2 = 45 (km/giờ)."
+  },
+  {
+   "name": "Giáo viên bấm Đúng → ghi điểm",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Câu hỏi mở: sau khi chấm cũng tự chuyển câu",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Hoàn tác lượt vừa chấm",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chế độ \"Giáo viên chấm tay\": chọn đáp án chưa chấm ngay",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chấm tay: không tự chuyển câu",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Sai + \"Đội bạn được trả lời\": cùng câu đó chuyển cho đội kia, khóa phương án đã chọn",
+   "pass": true,
+   "detail": "❌ Chưa đúng. Quyền trả lời chuyển cho Tổ 2."
+  },
+  {
+   "name": "Đội bạn trả lời đúng → đội bạn được kéo",
+   "pass": true,
+   "detail": "{\"pos\":1,\"score\":[0,1]}"
+  },
+  {
+   "name": "Màn hình thiết lập có Chấm điểm, Chờ chuyển câu, Nhạc nền, Âm lượng nhạc",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Bấm Bắt đầu trận tự lưu thiết lập đang chọn (không cần bấm Lưu)",
+   "pass": true,
+   "detail": "{\"d\":5,\"m\":false}"
+  },
+  {
+   "name": "Hết 20 câu: đội dẫn trước thắng, không bị treo màn hình",
+   "pass": true,
+   "detail": "🏆 | Tổ 2 CHIẾN THẮNG! | Hết câu hỏi · thắng nhờ dẫn trước · Đúng 10 câu · Thời gian 3 giây | ↻ Chơi lại← Về thư viện"
+  },
+  {
+   "name": "Tải lại trang giữa trận: tiếp tục được trận đang lưu",
+   "pass": true,
+   "detail": "{\"phase\":\"playing\"}"
+  },
+  {
+   "name": "Sau khi tải lại vẫn tự chuyển câu",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Không có lỗi JavaScript / tải tệp trong suốt quá trình",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

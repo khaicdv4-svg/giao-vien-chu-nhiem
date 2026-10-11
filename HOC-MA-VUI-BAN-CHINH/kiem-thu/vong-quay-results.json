@@ -1,0 +1,322 @@
+{
+ "at": "2026-10-11T03:17:48.879Z",
+ "pass": 63,
+ "total": 63,
+ "results": [
+  {
+   "name": "[1366×768] Thường: mọi thẻ và nút điều khiển nằm trong cột phải",
+   "pass": true,
+   "detail": "9/9"
+  },
+  {
+   "name": "[1366×768] Thường: không nút nào bị che/khuất khỏi màn hình",
+   "pass": true,
+   "detail": "tất cả hiện đủ"
+  },
+  {
+   "name": "[1366×768] Thường: vòng quay tròn, nằm trọn trong màn hình và trong khung trái",
+   "pass": true,
+   "detail": "{\"l\":362,\"t\":151,\"r\":902,\"b\":691,\"w\":540,\"h\":540}"
+  },
+  {
+   "name": "[1366×768] Thường: vòng quay và cột phải không chồng lên nhau; không còn hàng tiêu đề/thẻ phía trên",
+   "pass": true,
+   "detail": "{\"stage\":994,\"side\":1010}"
+  },
+  {
+   "name": "[1366×768] Thường: trang không phải cuộn dọc",
+   "pass": true,
+   "detail": "768"
+  },
+  {
+   "name": "[1366×768] Thường: vòng quay vẽ lại đúng kích thước mới (không nhòe)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1366×768] Toàn màn hình: mọi thẻ và nút điều khiển nằm trong cột phải",
+   "pass": true,
+   "detail": "9/9"
+  },
+  {
+   "name": "[1366×768] Toàn màn hình: không nút nào bị che/khuất khỏi màn hình",
+   "pass": true,
+   "detail": "tất cả hiện đủ"
+  },
+  {
+   "name": "[1366×768] Toàn màn hình: vòng quay tròn, nằm trọn trong màn hình và trong khung trái",
+   "pass": true,
+   "detail": "{\"l\":169,\"t\":42,\"r\":853,\"b\":726,\"w\":684,\"h\":684}"
+  },
+  {
+   "name": "[1366×768] Toàn màn hình: vòng quay và cột phải không chồng lên nhau; không còn hàng tiêu đề/thẻ phía trên",
+   "pass": true,
+   "detail": "{\"stage\":1004,\"side\":1020}"
+  },
+  {
+   "name": "[1366×768] Toàn màn hình: trang không phải cuộn dọc",
+   "pass": true,
+   "detail": "768"
+  },
+  {
+   "name": "[1366×768] Toàn màn hình: vòng quay vẽ lại đúng kích thước mới (không nhòe)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1366×768] Toàn màn hình: bấm QUAY NGAY (ở cột phải) → vòng quay chạy, nút tạm khóa",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1366×768] Toàn màn hình: quay xong có kết quả ở \"Kết quả gần đây\" (cột phải)",
+   "pass": true,
+   "detail": "1 Lê Hoàng Chi 10:17"
+  },
+  {
+   "name": "[1366×768] Toàn màn hình: thẻ người được chọn hiện trọn trong màn hình",
+   "pass": true,
+   "detail": "{\"c\":\"winner-float\",\"l\":299,\"t\":230,\"r\":723,\"b\":428,\"text\":\"🎉 Lê Hoàng Chi ĐÃ THAM GIA 🔄 QUAY TIẾP ✕ THOÁT\"}"
+  },
+  {
+   "name": "[1366×768] Chuyển thẻ \"Nhiệm vụ bất ngờ\" ngay trong cột phải; bảng kho nhiệm vụ cũng nằm ở cột phải",
+   "pass": true,
+   "detail": "{\"active\":\"tasks\",\"panel\":\"🧩 Kho nhiệm vụ · 0 mục⚙ Cài đặt Kho nhiệm vụ đang trống. Mở cài đặt để thêm nhi\",\"panelIn\":true,\"count\":\"0 nhiệm vụ sẵn sàng\"}"
+  },
+  {
+   "name": "[1366×768] Chế độ Nhiệm vụ: nút QUAY NGAY vẫn hiện trọn",
+   "pass": true,
+   "detail": "{\"l\":1032,\"t\":301,\"r\":1336,\"b\":357,\"w\":304,\"h\":56}"
+  },
+  {
+   "name": "[1366×768] Toàn màn hình: bấm \"Âm thanh\" mở hộp cài đặt, nằm trọn màn hình",
+   "pass": true,
+   "detail": "{\"l\":373,\"t\":16,\"r\":993,\"b\":752,\"w\":620,\"h\":736}"
+  },
+  {
+   "name": "[1366×768] Bấm nút lần nữa → thoát toàn màn hình, nhãn nút đổi lại, cột phải vẫn hiện",
+   "pass": true,
+   "detail": "{\"fs\":false,\"label\":\"⛶ Toàn màn hình\",\"sideVisible\":true}"
+  },
+  {
+   "name": "[1366×768] Rời sang Trang chủ rồi quay lại: bố cục giữ nguyên",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1366×768] Không có lỗi JavaScript",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "[1657×1000] Thường: mọi thẻ và nút điều khiển nằm trong cột phải",
+   "pass": true,
+   "detail": "9/9"
+  },
+  {
+   "name": "[1657×1000] Thường: không nút nào bị che/khuất khỏi màn hình",
+   "pass": true,
+   "detail": "tất cả hiện đủ"
+  },
+  {
+   "name": "[1657×1000] Thường: vòng quay tròn, nằm trọn trong màn hình và trong khung trái",
+   "pass": true,
+   "detail": "{\"l\":371,\"t\":151,\"r\":1143,\"b\":923,\"w\":772,\"h\":772}"
+  },
+  {
+   "name": "[1657×1000] Thường: vòng quay và cột phải không chồng lên nhau; không còn hàng tiêu đề/thẻ phía trên",
+   "pass": true,
+   "detail": "{\"stage\":1243,\"side\":1259}"
+  },
+  {
+   "name": "[1657×1000] Thường: trang không phải cuộn dọc",
+   "pass": true,
+   "detail": "1000"
+  },
+  {
+   "name": "[1657×1000] Thường: vòng quay vẽ lại đúng kích thước mới (không nhòe)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1657×1000] Toàn màn hình: mọi thẻ và nút điều khiển nằm trong cột phải",
+   "pass": true,
+   "detail": "9/9"
+  },
+  {
+   "name": "[1657×1000] Toàn màn hình: không nút nào bị che/khuất khỏi màn hình",
+   "pass": true,
+   "detail": "tất cả hiện đủ"
+  },
+  {
+   "name": "[1657×1000] Toàn màn hình: vòng quay tròn, nằm trọn trong màn hình và trong khung trái",
+   "pass": true,
+   "detail": "{\"l\":178,\"t\":42,\"r\":1094,\"b\":958,\"w\":916,\"h\":916}"
+  },
+  {
+   "name": "[1657×1000] Toàn màn hình: vòng quay và cột phải không chồng lên nhau; không còn hàng tiêu đề/thẻ phía trên",
+   "pass": true,
+   "detail": "{\"stage\":1253,\"side\":1269}"
+  },
+  {
+   "name": "[1657×1000] Toàn màn hình: trang không phải cuộn dọc",
+   "pass": true,
+   "detail": "1000"
+  },
+  {
+   "name": "[1657×1000] Toàn màn hình: vòng quay vẽ lại đúng kích thước mới (không nhòe)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1657×1000] Toàn màn hình: bấm QUAY NGAY (ở cột phải) → vòng quay chạy, nút tạm khóa",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1657×1000] Toàn màn hình: quay xong có kết quả ở \"Kết quả gần đây\" (cột phải)",
+   "pass": true,
+   "detail": "1 Học sinh 20 10:17"
+  },
+  {
+   "name": "[1657×1000] Toàn màn hình: thẻ người được chọn hiện trọn trong màn hình",
+   "pass": true,
+   "detail": "{\"c\":\"winner-float\",\"l\":424,\"t\":328,\"r\":847,\"b\":526,\"text\":\"🎉 Học sinh 20 ĐÃ THAM GIA 🔄 QUAY TIẾP ✕ THOÁT\"}"
+  },
+  {
+   "name": "[1657×1000] Chuyển thẻ \"Nhiệm vụ bất ngờ\" ngay trong cột phải; bảng kho nhiệm vụ cũng nằm ở cột phải",
+   "pass": true,
+   "detail": "{\"active\":\"tasks\",\"panel\":\"🧩 Kho nhiệm vụ · 0 mục⚙ Cài đặt Kho nhiệm vụ đang trống. Mở cài đặt để thêm nhi\",\"panelIn\":true,\"count\":\"0 nhiệm vụ sẵn sàng\"}"
+  },
+  {
+   "name": "[1657×1000] Chế độ Nhiệm vụ: nút QUAY NGAY vẫn hiện trọn",
+   "pass": true,
+   "detail": "{\"l\":1285,\"t\":343,\"r\":1623,\"b\":405,\"w\":338,\"h\":62}"
+  },
+  {
+   "name": "[1657×1000] Toàn màn hình: bấm \"Âm thanh\" mở hộp cài đặt, nằm trọn màn hình",
+   "pass": true,
+   "detail": "{\"l\":519,\"t\":91,\"r\":1139,\"b\":910,\"w\":620,\"h\":819}"
+  },
+  {
+   "name": "[1657×1000] Bấm nút lần nữa → thoát toàn màn hình, nhãn nút đổi lại, cột phải vẫn hiện",
+   "pass": true,
+   "detail": "{\"fs\":false,\"label\":\"⛶ Toàn màn hình\",\"sideVisible\":true}"
+  },
+  {
+   "name": "[1657×1000] Rời sang Trang chủ rồi quay lại: bố cục giữ nguyên",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1657×1000] Không có lỗi JavaScript",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "[1920×1080] Thường: mọi thẻ và nút điều khiển nằm trong cột phải",
+   "pass": true,
+   "detail": "9/9"
+  },
+  {
+   "name": "[1920×1080] Thường: không nút nào bị che/khuất khỏi màn hình",
+   "pass": true,
+   "detail": "tất cả hiện đủ"
+  },
+  {
+   "name": "[1920×1080] Thường: vòng quay tròn, nằm trọn trong màn hình và trong khung trái",
+   "pass": true,
+   "detail": "{\"l\":462,\"t\":151,\"r\":1314,\"b\":1003,\"w\":852,\"h\":852}"
+  },
+  {
+   "name": "[1920×1080] Thường: vòng quay và cột phải không chồng lên nhau; không còn hàng tiêu đề/thẻ phía trên",
+   "pass": true,
+   "detail": "{\"stage\":1506,\"side\":1522}"
+  },
+  {
+   "name": "[1920×1080] Thường: trang không phải cuộn dọc",
+   "pass": true,
+   "detail": "1080"
+  },
+  {
+   "name": "[1920×1080] Thường: vòng quay vẽ lại đúng kích thước mới (không nhòe)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1920×1080] Toàn màn hình: mọi thẻ và nút điều khiển nằm trong cột phải",
+   "pass": true,
+   "detail": "9/9"
+  },
+  {
+   "name": "[1920×1080] Toàn màn hình: không nút nào bị che/khuất khỏi màn hình",
+   "pass": true,
+   "detail": "tất cả hiện đủ"
+  },
+  {
+   "name": "[1920×1080] Toàn màn hình: vòng quay tròn, nằm trọn trong màn hình và trong khung trái",
+   "pass": true,
+   "detail": "{\"l\":269,\"t\":42,\"r\":1265,\"b\":1038,\"w\":996,\"h\":996}"
+  },
+  {
+   "name": "[1920×1080] Toàn màn hình: vòng quay và cột phải không chồng lên nhau; không còn hàng tiêu đề/thẻ phía trên",
+   "pass": true,
+   "detail": "{\"stage\":1516,\"side\":1532}"
+  },
+  {
+   "name": "[1920×1080] Toàn màn hình: trang không phải cuộn dọc",
+   "pass": true,
+   "detail": "1080"
+  },
+  {
+   "name": "[1920×1080] Toàn màn hình: vòng quay vẽ lại đúng kích thước mới (không nhòe)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1920×1080] Toàn màn hình: bấm QUAY NGAY (ở cột phải) → vòng quay chạy, nút tạm khóa",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1920×1080] Toàn màn hình: quay xong có kết quả ở \"Kết quả gần đây\" (cột phải)",
+   "pass": true,
+   "detail": "1 Nguyễn Khánh Linh 10:17"
+  },
+  {
+   "name": "[1920×1080] Toàn màn hình: thẻ người được chọn hiện trọn trong màn hình",
+   "pass": true,
+   "detail": "{\"c\":\"winner-float\",\"l\":490,\"t\":361,\"r\":1044,\"b\":559,\"text\":\"🎉 Nguyễn Khánh Linh ĐÃ THAM GIA 🔄 QUAY TIẾP ✕ THOÁT\"}"
+  },
+  {
+   "name": "[1920×1080] Chuyển thẻ \"Nhiệm vụ bất ngờ\" ngay trong cột phải; bảng kho nhiệm vụ cũng nằm ở cột phải",
+   "pass": true,
+   "detail": "{\"active\":\"tasks\",\"panel\":\"🧩 Kho nhiệm vụ · 0 mục⚙ Cài đặt Kho nhiệm vụ đang trống. Mở cài đặt để thêm nhi\",\"panelIn\":true,\"count\":\"0 nhiệm vụ sẵn sàng\"}"
+  },
+  {
+   "name": "[1920×1080] Chế độ Nhiệm vụ: nút QUAY NGAY vẫn hiện trọn",
+   "pass": true,
+   "detail": "{\"l\":1548,\"t\":343,\"r\":1886,\"b\":405,\"w\":338,\"h\":62}"
+  },
+  {
+   "name": "[1920×1080] Toàn màn hình: bấm \"Âm thanh\" mở hộp cài đặt, nằm trọn màn hình",
+   "pass": true,
+   "detail": "{\"l\":650,\"t\":131,\"r\":1270,\"b\":950,\"w\":620,\"h\":819}"
+  },
+  {
+   "name": "[1920×1080] Bấm nút lần nữa → thoát toàn màn hình, nhãn nút đổi lại, cột phải vẫn hiện",
+   "pass": true,
+   "detail": "{\"fs\":false,\"label\":\"⛶ Toàn màn hình\",\"sideVisible\":true}"
+  },
+  {
+   "name": "[1920×1080] Rời sang Trang chủ rồi quay lại: bố cục giữ nguyên",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "[1920×1080] Không có lỗi JavaScript",
+   "pass": true,
+   "detail": "[]"
+  }
+ ]
+}

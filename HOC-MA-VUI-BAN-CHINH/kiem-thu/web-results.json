@@ -1,0 +1,185 @@
+{
+ "at": "2026-10-11T14:37:13.533Z",
+ "build": "HMV-BAN-CHINH-2.8-20261011",
+ "note": "Máy chủ tệp tĩnh giả lập trên máy thử (không phải Vercel thật); camera giả của Chromium.",
+ "total": 16,
+ "passed": 16,
+ "results": [
+  {
+   "name": "A1 Bản cũ (nhánh main 2/9) chạy ở địa chỉ thử; đã lưu 3 học sinh, điểm 4 tổ, 2 câu hỏi; bản cũ đã cài bộ nhớ ngoại tuyến của nó",
+   "pass": true,
+   "detail": [
+    "GIÁO VIÊN CHỦ NHIỆM · ThayKhaiEdu",
+    [
+     "tk_competition_local-device_2026%E2%80%932027_4_4.1",
+     "tk_competition_local-device_2026%E2%80%932027_4_4.1_legacy_backup",
+     "tk_question_source_v3",
+     "tk_questions",
+     "tk_scores",
+     "tk_students"
+    ],
+    [
+     "gvc-app-v9-audio-bundled"
+    ]
+   ]
+  },
+  {
+   "name": "A2 Sau khi bản mới lên cùng địa chỉ: mở lại trang lần đầu đã thấy HỌC MÀ VUI 2.8 (không kẹt bản cũ trong bộ nhớ đệm)",
+   "pass": true,
+   "detail": [
+    "HỌC MÀ VUI | HMV-BAN-CHINH-2.8-20261011",
+    "HỌC MÀ VUI | HMV-BAN-CHINH-2.8-20261011",
+    [
+     "gvc-app-v9-audio-bundled",
+     "hmv-ban-chinh-2.8"
+    ]
+   ]
+  },
+  {
+   "name": "A3 Học sinh đã lưu ở bản cũ còn nguyên (tên, tổ, trạng thái)",
+   "pass": true,
+   "detail": [
+    "Học sinh Thử Một|1|Có mặt",
+    "Học sinh Thử Hai|2|Vắng",
+    "Học sinh Thử Ba|3|Có mặt"
+   ]
+  },
+  {
+   "name": "A4 Điểm thi đua (đã cộng trừ ở bản cũ: tổ 1 +5, tổ 3 +2, tổ 2 −1) còn nguyên: bảng điểm giống hệt, sổ ghi thi đua không đổi một ký tự",
+   "pass": true,
+   "detail": [
+    [
+     133,
+     114,
+     108,
+     98
+    ],
+    [
+     133,
+     114,
+     108,
+     98
+    ],
+    -1,
+    "",
+    true
+   ]
+  },
+  {
+   "name": "A5 Câu hỏi đã nhập ở bản cũ còn nguyên và vẫn nằm trong dữ liệu lớp",
+   "pass": true,
+   "detail": [
+    "CÂU CŨ 1: 7 x 8 = ?",
+    "CÂU CŨ 2: Từ nào là động từ?"
+   ]
+  },
+  {
+   "name": "A6 Không khóa dữ liệu nào của bản cũ bị xóa; học sinh, điểm, câu hỏi trong bộ nhớ trình duyệt vẫn đủ",
+   "pass": true,
+   "detail": [
+    [],
+    [
+     "tk_students",
+     "tk_questions"
+    ],
+    "Học sinh Thử Một,Học sinh Thử Hai,Học sinh Thử Ba",
+    "CÂU CŨ 1: 7 x 8 = ?,CÂU CŨ 2: Từ nào là động từ?",
+    [
+     "tk_students",
+     "hmv_demo_sets_v1",
+     "tk_question_source_v3",
+     "tk_questions",
+     "tk_picker_round_v1_%5B%22local-device%22%2C%222026%E2%80%932027%22%2C%224.1%22%5D",
+     "tk_picker_legacy_round_context",
+     "tk_competition_local-device_2026%E2%80%932027_4_4.1",
+     "tk_scores",
+     "tk_competition_local-device_2026%E2%80%932027_4_4.1_legacy_backup"
+    ]
+   ]
+  },
+  {
+   "name": "A7 Màn hình Học sinh của bản mới hiện đúng 3 học sinh cũ",
+   "pass": true,
+   "detail": "Danh sách học sinh\n\nQuản lý nhanh, rõ ràng và dùng được khi không có mạng.\n\n＋ Thêm học sinh\nXóa danh sách\nLớp 4.1 · 2026–2027\n⇩ Xuất danh sách\n⇧ Nhập danh sách\n\nMỗi dòng một tên, hoặc dán cột Họ và tên từ Excel.\n\n＋ Thêm từ nội dung dán\n📄 Chọn file\nTXT/CSV dùng offline. DOCX/XLSX/XLS cần Internet mộ"
+  },
+  {
+   "name": "A8 Quá trình nâng cấp không có lỗi JavaScript",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "B1 Trang web (tên miền không phải localhost, chỉ có tệp tĩnh): mở được, đúng nhãn 2.8, có 7 bộ câu hỏi mẫu, không thiếu tệp nào của ứng dụng",
+   "pass": true,
+   "detail": [
+    {
+     "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.8-20261011",
+     "sets": 8,
+     "host": "hocmavui.localhost",
+     "secure": true
+    },
+    []
+   ]
+  },
+  {
+   "name": "B2 Trợ lý AI trên web: báo rõ \"bản web chưa có AI Gemini, chỉ có ở bản cài trên máy\" – không bảo khởi động lại máy chủ",
+   "pass": true,
+   "detail": [
+    "🌐 Bản web: AI Gemini chỉ có ở bản cài trên máy",
+    "Kết nối Gemini\nBản trên web chưa có AI Gemini. Tạo câu hỏi bằng AI, rà soát câu hỏi, Trợ lý Sư phạm và giọng đọc Gemini chỉ chạy ở bản cài trên máy tính (mở bằng tệp MO-HOC-MA-VUI.cmd). Trò chơi, Kho câu hỏi và các phần khác trên web vẫn dùng bình thường.\nCần biết khi dùng AI\nAI cần Internet. Mọi ph"
+   ]
+  },
+  {
+   "name": "B3 Trang web công khai KHÔNG có ô dán khóa Gemini; vẫn còn cách soạn câu hỏi bằng dán ChatGPT và phần cài đặt Đọc to",
+   "pass": true,
+   "detail": {
+    "text": "Kết nối Gemini\nBản trên web chưa có AI Gemini. Tạo câu hỏi bằng AI, rà soát câu hỏi, Trợ lý Sư phạm và giọng đọc Gemini chỉ chạy ở bản cài trên máy tính (mở bằng tệp MO-HOC-MA-VUI.cmd). Trò chơi, Kho câu hỏi và các phần khác trên web vẫn dùng bình thường.\nCần biết khi dùng AI\nAI cần Internet. Mọi phần khác của ứng dụng vẫn chạy khi mất mạng.\nVới khóa miễn phí, nội dung gửi đi có thể được Google dùng để cải tiến sản phẩm. Vì vậy không gửi tên, điểm, hoàn cảnh hay ảnh bài làm của học sinh.\nỨng dụng tự thay họ tên có trong danh sách lớp bằng bí danh trước khi gửi, rồi trả lại tên trên màn hình của thầy cô.\nAI có thể sai. Câu hỏi, đề kiểm tra, lời nhận xét đều cần thầy cô đọc lại trước khi dùng.\nKhóa miễn phí có giới hạn số lượt mỗi phút và mỗi ngày; khi hết lượt, hãy chờ rồi thử lại.\nKhông dùng khóa?\n\nThầy cô vẫn soạn được câu hỏi bằng cách tạo câu lệnh, dán sang ChatGPT rồi dán kết quả về.\n\nMở cách dán ChatGPT\n🔊 Đọc to câu hỏi\nMáy này chưa có giọng đọc tiếng Việt nên nút loa chưa hiện trong trò chơi. Có hai cách bật, chọn một:\nGiọng AI Gemini (tự nhiên nhất, cần Internet): làm xong phần Kết nối Gemini ở trên là dùng được ngay.\nGiọng tiếng Việt của Windows (miễn phí, không cần mạng): mở Cài đặt Windows → Thời gian & ngôn ngữ → Giọng nói (Speech) → Thêm giọng nói (Add voices), chọn Tiếng Việt. Tải xong thì đóng hẳn trình duyệt rồi mở lại ứng dụng.\nNguồn giọng\nTự chọn (khuyên dùng)\nGiọng tiếng Việt của máy\nGiọng AI Gemini\nGiọng của máy\nChưa có giọng tiếng Việt\nGiọng AI\nKore – nữ, rõ ràng\nLeda – nữ, trẻ trung\nAoede – nữ, nhẹ nhàng\nPuck – nam, vui tươi\nCharon – nam, điềm đạm\nTốc độ đọc\nChậm\nVừa\nNhanh\nĐọc cả các phương án A, B, C, D\nTự đọc mỗi khi sang câu mới (không cần bấm nút loa)\nChờ đọc xong mới tính giờ (đồng hồ và việc tự chuyển câu của trò chơi tạm chờ trong lúc máy đọc)\n▶ Nghe thử\n\nDùng được trong: Kéo co, Ai nhanh hơn, Hộp quà, Đường đua, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay, Bình chọn ngón tay, Chế độ giấy. Chỉ câu hỏi và phương án được đọc, không có lời dẫn; không gửi tên học sinh. Trong trò chơi, nút bánh răng cạnh nút loa mở nhanh các lựa chọn này.",
+    "key": false,
+    "save": false,
+    "dt": true,
+    "paste": true
+   }
+  },
+  {
+   "name": "B4 Không có khóa trên web nên phần AI ở trạng thái tắt; Đọc to không chọn giọng Gemini",
+   "pass": true,
+   "detail": [
+    false,
+    ""
+   ]
+  },
+  {
+   "name": "B5 Trò chơi chạy trên web: Ai nhanh hơn chấm đúng → cộng điểm và phát tiếng ĐÚNG",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "B6 Trang web xin được camera (cần địa chỉ https hoặc tương đương; Vercel luôn là https)",
+   "pass": true,
+   "detail": [
+    true,
+    {
+     "cam": "loading",
+     "streaming": true
+    }
+   ]
+  },
+  {
+   "name": "B7 Đã mở trang một lần thì lần sau mất mạng vẫn mở được (bộ nhớ ngoại tuyến hmv-ban-chinh-2.8)",
+   "pass": true,
+   "detail": [
+    {
+     "names": [
+      "hmv-ban-chinh-2.8"
+     ],
+     "n": 46
+    },
+    "HỌC MÀ VUI | HMV-BAN-CHINH-2.8-20261011"
+   ]
+  },
+  {
+   "name": "B8 Không có lỗi JavaScript khi chạy trên web",
+   "pass": true,
+   "detail": []
+  }
+ ]
+}

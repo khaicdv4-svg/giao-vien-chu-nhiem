@@ -1,0 +1,257 @@
+{
+ "at": "2026-10-11T05:00:07.145Z",
+ "pass": 50,
+ "total": 50,
+ "results": [
+  {
+   "name": "Thư viện: có \"Bóng bay tri thức\" (gắn nhãn Mới), KHÔNG còn \"Lật mảnh ghép\" và khu \"Thử nghiệm\"",
+   "pass": true,
+   "detail": "{\"titles\":[\"Nốt nhạc vui\",\"Kéo co kiến thức\",\"Bóng bay tri thức\",\"Hộp quà bí mật\",\"Ai nhanh hơn\",\"Quiz Nghiêng Đầu\",\"Chinh phục tri thức\"],\"lab\":false,\"tags\":[\"👥 Cả lớp hoặc 2 đội\",\"📷 Camera AI · chạm bằng tay\"],\"badge\":\"Mới\"}"
+  },
+  {
+   "name": "Kho → Chơi ngay: danh sách trò có \"Bóng bay tri thức\", không còn \"Lật mảnh ghép\"",
+   "pass": true,
+   "detail": "[\"Kéo co kiến thức 20/20 câu dùng được\",\"Hộp quà bí mật 20/20 câu dùng được\",\"Ai nhanh hơn 20/20 câu dùng được\",\"Chinh phục tri thức 20/20 câu dùng được\",\"Bóng bay tri thức 20/20 câu dùng được\",\"Đường đua kiến thức 20/20 câu dùng được\",\"Quiz Nghiêng Đầu 0/20 câu dùng được Không dùng được: Quiz Nghiêng Đầu chỉ nhận Đúng/Sai\"]"
+  },
+  {
+   "name": "Màn thiết lập: tự chọn sẵn một bộ câu hỏi dùng được, có nút Bắt đầu",
+   "pass": true,
+   "detail": "Bộ câu hỏi: Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5 · 20 câu dùng được (A–B–C–D, Đúng/Sai). Chọn bộ khác trong Kho"
+  },
+  {
+   "name": "Tên đội chỉ hiện khi chọn \"Hai đội luân phiên\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Bắt đầu: hiện câu hỏi và mỗi đáp án là một quả bóng",
+   "pass": true,
+   "detail": "{\"q\":\"Số liền trước của 100 là:\",\"n\":4}"
+  },
+  {
+   "name": "1366×768: sân khấu nằm trọn màn hình; bóng không đè lên câu hỏi, không đè nhau",
+   "pass": true,
+   "detail": "{\"stageBottom\":720,\"vh\":768,\"inside\":true,\"overlapQ\":false,\"overlapEach\":false}"
+  },
+  {
+   "name": "Không dùng camera: hướng dẫn \"bấm chuột hoặc chạm\"; camera không bật",
+   "pass": true,
+   "detail": "Bấm chuột hoặc chạm vào quả bóng có đáp án đúng"
+  },
+  {
+   "name": "Nhạc nền phát khi đang chơi (bản \"Giai điệu trống vui nhộn\")",
+   "pass": true,
+   "detail": "{\"game\":\"balloon\",\"want\":\"vui-nhon\",\"track\":\"vui-nhon\",\"mode\":\"webaudio\",\"ctx\":\"running\",\"playing\":true,\"loop\":[1,13],\"gain\":0.30000001192092896,\"time\":0.39183673469387753}"
+  },
+  {
+   "name": "Có nút Nhạc nền, Toàn màn hình, Câu hỏi trên màn chơi",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chạm/bấm quả bóng ĐÚNG → tự chấm, +10 điểm, bóng đúng nổi bật, báo \"Chính xác\"",
+   "pass": true,
+   "detail": "✅ Chính xác! +10 điểm | Câu tiếp theo sau 3 giây · Chuyển ngay"
+  },
+  {
+   "name": "Tự chuyển sang câu 2 sau ~2,4 giây",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chạm quả bóng SAI → không cộng điểm, bóng sai xám đi, bóng đúng sáng lên, báo đáp án đúng",
+   "pass": true,
+   "detail": "❌ Chưa đúng. Đáp án đúng: C. 12 cm² | Câu tiếp theo sau 4 giây · Chuyển ngay"
+  },
+  {
+   "name": "\"Chuyển ngay\" sang câu tiếp mà không cần chờ",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Phím số 1–4 chọn bóng",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Phím Enter sang câu tiếp",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Phím A–D chọn bóng",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Tạm dừng: đồng hồ đứng yên, nhạc ngưng, bóng không bấm được",
+   "pass": true,
+   "detail": "{\"left\":19.8,\"after\":19.8,\"music\":false}"
+  },
+  {
+   "name": "Tiếp tục (Space): chạy lại, nhạc phát lại",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Câu cuối: đếm ngược ghi \"Xem kết quả sau…\"",
+   "pass": true,
+   "detail": "✅ Chính xác! +10 điểm | Xem kết quả sau 3 giây · Xem kết quả ngay"
+  },
+  {
+   "name": "Hết 5 câu → màn kết quả: Đúng 4/5, 40 điểm, 3 sao; nhạc tắt",
+   "pass": true,
+   "detail": "★★★ | 🎉 Làm tốt lắm! | Đúng 4/5 câu · 40 điểm | ↻ Chơi lại | ← Về thư viện"
+  },
+  {
+   "name": "Chơi lại: ván mới, điểm về 0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Hết giờ → tự tính sai, báo \"Hết giờ\" kèm đáp án đúng",
+   "pass": true,
+   "detail": "⏰ Hết giờ. Đáp án đúng: D. 6,25 | Câu tiếp theo sau 4 giây · Chuyển ngay"
+  },
+  {
+   "name": "Hết giờ xong cũng tự chuyển câu",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Thoát → về thư viện trò chơi",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Kho → Chơi ngay → Bóng bay với bộ Đúng/Sai: vào thẳng trận, 2 quả bóng, đủ 20 câu",
+   "pass": true,
+   "detail": "{\"total\":20,\"src\":\"Mẫu 2 · Đúng/Sai · Toán lớp 1–5\"}"
+  },
+  {
+   "name": "Hai đội: hiện tên và điểm hai đội, đội đến lượt được tô viền; không có đồng hồ khi chọn Không giới hạn",
+   "pass": true,
+   "detail": "Câu 1/20 · Lượt của Sao Mai · Mẫu 2 · Đúng/Sai · Toán lớp 1–5"
+  },
+  {
+   "name": "Hai đội: đội 1 đúng +10, sang câu sau đổi lượt cho đội 2",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Hai đội chơi hết 20 câu → công bố đội thắng và điểm từng đội",
+   "pass": true,
+   "detail": "★★★ | 🏆 Sao Mai chiến thắng! | Sao Mai: 100 điểm · đúng 10 câu | Mặt Trời: 0 điểm · đúng 0 câu | ↻ Chơi lại | ← Về thư viện"
+  },
+  {
+   "name": "Bộ câu hỏi mở: Kho báo không hợp với Bóng bay (nút bị khóa, có lý do)",
+   "pass": true,
+   "detail": "{\"disabled\":true,\"text\":\"Bóng bay tri thức 0/20 câu dùng được Không dùng được: Trò này cần câu có lựa chọn và khóa đáp án\"}"
+  },
+  {
+   "name": "Phần A: không có lỗi JavaScript",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "Bắt đầu với điều khiển Camera → camera tự bật, nạp bộ nhận diện BÀN TAY trong ./vendor/mediapipe (VIDEO, tối đa 2 bàn tay)",
+   "pass": true,
+   "detail": "{\"opts\":{\"baseOptions\":{\"modelAssetPath\":\"./vendor/mediapipe/hand_landmarker.task\",\"delegate\":\"GPU\"},\"runningMode\":\"VIDEO\",\"numHands\":2},\"wasm\":\"./vendor/mediapipe/wasm\"}"
+  },
+  {
+   "name": "Hình camera hiện làm nền (lật như gương)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chưa thấy bàn tay → nhắc \"Giơ tay lên trước camera\"",
+   "pass": true,
+   "detail": "Giơ tay lên trước camera để điều khiển"
+  },
+  {
+   "name": "Thấy bàn tay → chấm sáng hiện đúng vị trí đầu ngón tay (đã lật gương)",
+   "pass": true,
+   "detail": "{\"want\":{\"px\":534,\"py\":484},\"got\":{\"x\":534,\"y\":484}}"
+  },
+  {
+   "name": "Tay để ở chỗ trống 2 giây → không chọn gì",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Tay lướt qua một quả bóng 0,35 giây rồi rời đi → không chọn (vòng tròn chờ lùi về 0)",
+   "pass": true,
+   "detail": "{\"during\":351,\"after\":0}"
+  },
+  {
+   "name": "Giữ tay trên quả bóng ĐÚNG ~0,8 giây → vòng tròn chờ đầy dần rồi bóng nổ, tự chấm đúng +10",
+   "pass": true,
+   "detail": "{\"ringAt450ms\":0.502,\"outcome\":{\"ok\":true,\"why\":\"camera\",\"team\":0}}"
+  },
+  {
+   "name": "Câu mới hiện ra khi tay còn nằm trên một quả bóng → KHÔNG tự chọn (phải đưa tay ra ngoài trước)",
+   "pass": true,
+   "detail": "{\"armed\":false,\"phase\":\"ask\"}"
+  },
+  {
+   "name": "Đưa tay ra rồi chạm lại, giữ trên bóng SAI → tự chấm sai, điểm giữ nguyên",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Hai bàn tay cùng lúc → hai chấm sáng; bàn tay nào chạm bóng cũng được tính",
+   "pass": true,
+   "detail": "{\"pointers\":2}"
+  },
+  {
+   "name": "Bấm \"Camera\" để tắt → camera tắt hẳn, bộ nhận diện được giải phóng, vẫn chơi tiếp bằng chuột",
+   "pass": true,
+   "detail": "{\"tracks\":[\"ended\"],\"running\":false,\"closed\":1}"
+  },
+  {
+   "name": "…và bấm chuột vẫn chọn được",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Bấm lần nữa → camera bật lại",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chuyển sang màn hình khác khi đang chơi → camera tắt, trò chơi đóng",
+   "pass": true,
+   "detail": "{\"tracks\":[\"ended\"],\"running\":false,\"type\":null,\"match\":null}"
+  },
+  {
+   "name": "Mở thẳng trò khác khi Bóng bay đang bật camera → camera cũng tắt",
+   "pass": true,
+   "detail": "{\"tracks\":[\"ended\"],\"running\":false,\"type\":\"tug\"}"
+  },
+  {
+   "name": "Phần B: không có lỗi JavaScript",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "Không tải được bộ nhận diện → camera tự tắt, báo rõ lý do và cách chơi thay thế",
+   "pass": true,
+   "detail": "Chưa dùng được camera: không tải được bộ nhận diện bàn tay (cần Internet ở lần đầu, hoặc chạy tệp TAI-BO-NHAN-DIEN-CAMERA). Bấm chuột hoặc chạm vào bóng để chơi."
+  },
+  {
+   "name": "…vẫn chơi được bằng chuột/chạm",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Phần C: không có lỗi JavaScript chưa bắt",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "Máy không có camera → báo \"Không tìm thấy camera\", chơi bằng chuột/chạm",
+   "pass": true,
+   "detail": "Không tìm thấy camera. Bấm chuột hoặc chạm vào bóng để chơi."
+  }
+ ]
+}

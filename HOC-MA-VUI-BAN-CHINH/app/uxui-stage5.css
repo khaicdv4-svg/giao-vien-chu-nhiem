@@ -1,0 +1,49 @@
+/* HMV Stage 5: cohesive layout tokens and responsive alignment; keeps game-specific visuals. */
+:root{--ux-gap-1:8px;--ux-gap-2:12px;--ux-gap-3:16px;--ux-gap-4:24px;--ux-gap-5:32px;--ux-control-h:42px;--ux-card-radius:18px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:var(--ux-gap-3);min-width:0;flex-wrap:wrap}
+.topbar .crumb{min-width:0;flex:1 1 280px;line-height:1.35;overflow-wrap:anywhere}
+.topbar .actions{display:flex;align-items:center;justify-content:flex-end;gap:var(--ux-gap-2);flex:0 0 auto;min-width:0;flex-wrap:wrap}
+.topbar .actions .icon-btn{min-height:var(--ux-control-h);height:var(--ux-control-h);padding:0 14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;line-height:1.2}
+.topbar .avatar{flex:0 0 40px;width:40px;height:40px;display:grid;place-items:center}
+.view .page-title{display:flex;align-items:center;justify-content:space-between;gap:var(--ux-gap-3);flex-wrap:wrap;margin-bottom:var(--ux-gap-4)}
+.cards,.grid,.game-library,.game-cards{gap:var(--ux-gap-3)}
+.game-library{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));align-items:stretch}
+.game-library-card{height:100%;min-height:245px;box-sizing:border-box;display:flex;flex-direction:column;gap:var(--ux-gap-2)}
+.game-library-card h3,.game-library-card h4{line-height:1.25;min-height:2.5em;margin:0}
+.game-library-card p{flex:1 1 auto;min-height:0;line-height:1.5;margin:0}
+.game-library-card .game-tags{margin:0;min-height:26px;align-content:flex-start}
+.game-card-actions{display:flex;align-items:center;gap:var(--ux-gap-1);flex-wrap:wrap;margin-top:auto}
+.game-card-actions .btn{min-height:var(--ux-control-h);display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+.game-cards{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));align-items:stretch}
+.game-card{height:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:var(--ux-gap-1)}
+.game-card p{flex:1 1 auto;line-height:1.5}
+.game-card>.btn{align-self:flex-start;min-height:var(--ux-control-h);display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+.question-hub-toolbar,.question-toolbar,.game-filterbar,.game-setup{gap:var(--ux-gap-2);align-items:center}
+.question-hub-toolbar>* ,.question-toolbar>*{min-width:0;max-width:100%}
+.question-shell,.card,.game-play,.game-stage{box-sizing:border-box;max-width:100%;min-width:0}
+button,select,input,textarea{max-width:100%}
+.modal,.hub-ai-modal,.qb-modal,.flip-modal{z-index:15000}
+@media(max-width:760px){.topbar{align-items:flex-start}.topbar .crumb{flex-basis:100%}.topbar .actions{width:100%;justify-content:flex-start}.game-library,.game-cards{grid-template-columns:1fr}.game-library-card{min-height:0}.game-library-card h3,.game-library-card h4{min-height:0}.game-card-actions{width:100%}.game-card-actions .btn{flex:1 1 auto}.question-hub-toolbar .question-search,.question-toolbar .question-search{flex:1 1 100%;min-width:0}}
+@media(max-width:420px){.topbar .actions{gap:8px}.topbar .actions .icon-btn{padding:0 10px;font-size:13px}.view .page-title{align-items:flex-start}.game-card-actions .btn{flex:1 1 100%}}
+
+/* Stage 5 measured fixes: grouped workspace controls, compact save action, and uncut school title. */
+html body .main .topbar .actions{display:grid!important;width:100%;grid-template-columns:minmax(0,1fr) 124px 40px!important;grid-template-areas:"workspace save avatar"!important;align-items:center!important;gap:12px!important;flex-wrap:nowrap!important}
+html body .main .topbar .actions>.workspace-controls{grid-area:workspace;display:grid!important;grid-template-columns:minmax(0,1.5fr) minmax(0,.75fr) minmax(0,.9fr)!important;align-items:center!important;gap:12px!important;width:100%!important;min-width:0!important}
+html body .main .topbar .actions>#workspaceYear{grid-area:workspace}
+html body .main .topbar .actions>.icon-btn{grid-area:save;min-width:0!important;width:124px!important;height:42px!important;min-height:42px!important;padding:0 10px!important;white-space:nowrap!important;font-size:14px!important;line-height:1!important}
+html body .main .topbar .actions>.avatar{grid-area:avatar}
+html body .main .topbar .actions .workspace-controls select{width:100%!important;min-width:0!important;max-width:100%!important;height:42px!important;min-height:42px!important;box-sizing:border-box!important;padding:0 10px!important;font-size:clamp(12px,1vw,16px)!important;white-space:nowrap!important;text-overflow:ellipsis!important}
+html body .school-cover-title .cover-copy{min-width:0!important;max-width:100%!important}
+html body .school-cover-title h1.main-title{max-width:100%!important;font-size:clamp(24px,1.85vw,30px)!important;line-height:1.2!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:anywhere!important;text-align:center!important}
+#questionImportModal .hub-ai-card{background:#fff!important;color:#29243d!important}
+#questionImportModal .hub-ai-card .page-title h2,#questionImportModal .hub-ai-card .page-title p,#questionImportModal .hub-ai-card .qb-context,#questionImportModal .hub-ai-card .qb-import-topic{color:#29243d!important}
+#questionImportModal .hub-ai-card .qb-batch-review{color:#29243d}
+@media(max-width:760px){html body .main .topbar .actions{grid-template-columns:minmax(0,1fr) 40px!important;grid-template-areas:"workspace workspace" "save avatar"!important;gap:8px!important}html body .main .topbar .actions>.workspace-controls{grid-template-columns:minmax(0,1.25fr) minmax(0,.65fr) minmax(0,.85fr)!important;gap:6px!important}html body .main .topbar .actions>.icon-btn{width:auto!important;justify-self:start;min-width:124px!important}html body .main .topbar .actions .workspace-controls select{padding:0 6px!important;font-size:12px!important}}
+@media(max-width:360px){html body .main .topbar .actions>.workspace-controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}html body .main .topbar .actions>.workspace-controls #workspaceYear{grid-column:1/-1}}
+
+html body .sidebar .nav button{min-width:0!important;height:auto!important;min-height:48px!important;white-space:normal!important;line-height:1.2!important;overflow-wrap:anywhere!important;font-size:clamp(13px,1.05vw,16px)!important;padding:9px 10px!important;gap:8px!important}
+html body .sidebar .nav button span,html body .sidebar .nav button em{flex:0 0 auto}
+html body .sidebar .nav button>*{min-width:0}
+@media(max-width:760px){html body .sidebar .nav button{font-size:clamp(12px,3.3vw,15px)!important;padding:8px 7px!important;gap:6px!important;align-items:center!important}}
+html,body{max-width:100%;overflow-x:hidden}
+html body .app,html body .main,html body .sidebar{min-width:0;max-width:100%}

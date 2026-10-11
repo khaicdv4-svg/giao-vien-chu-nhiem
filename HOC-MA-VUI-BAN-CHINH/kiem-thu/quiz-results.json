@@ -1,0 +1,257 @@
+[
+ {
+  "id": "QA1",
+  "name": "Chơi ngay → Quiz mở thẳng hộp thiết lập, báo đúng bộ Đúng/Sai 20 câu",
+  "status": "PASS",
+  "detail": " → hoặc chạm vào thẻ. Đóng ▶ Bắt đầu Câu hỏi Bộ đang dùng: Mẫu 2 · Đúng/Sai · Toán lớp 1–5 · 20 câu hai phương án. Số câu mỗi lượt"
+ },
+ {
+  "id": "QA2",
+  "name": "Thẻ TRÁI là SAI, thẻ PHẢI là ĐÚNG; chọn 5 câu mỗi lượt",
+  "status": "PASS",
+  "detail": "{\"left\":\"← SAI\",\"right\":\"ĐÚNG →\",\"q\":1,\"total\":5}"
+ },
+ {
+  "id": "QA3",
+  "name": "Câu 1 đúng là ĐÚNG: phím → (phải) → chính xác, +10 điểm",
+  "status": "PASS",
+  "detail": "✅ Chính xác! Đáp án đúng: Đúng · Điểm 10"
+ },
+ {
+  "id": "QA4",
+  "name": "Đã ghi nhận rồi thì bấm thêm không đổi điểm (chống chọn lặp)",
+  "status": "PASS",
+  "detail": "Điểm 10 · câu 1"
+ },
+ {
+  "id": "QA5",
+  "name": "Phím Enter sang đúng một câu",
+  "status": "PASS",
+  "detail": "câu 2 · 10 − 4 = 5."
+ },
+ {
+  "id": "QA6",
+  "name": "Câu 2 đúng là SAI: chọn ĐÚNG → chưa chính xác, không cộng điểm, hiện đáp án đúng",
+  "status": "PASS",
+  "detail": "❌ Chưa chính xác. Đáp án đúng: Sai"
+ },
+ {
+  "id": "QA7",
+  "name": "Câu 3 đúng là SAI: chạm thẻ trái (SAI) → chính xác",
+  "status": "PASS",
+  "detail": "câu 3 · Điểm 20"
+ },
+ {
+  "id": "QA8",
+  "name": "Câu cuối: ghi nhận xong vẫn hiện kết quả câu, nút đổi thành “Xem kết quả”",
+  "status": "PASS",
+  "detail": "Điểm 40"
+ },
+ {
+  "id": "QA9",
+  "name": "Màn kết thúc: Đúng 4/5, Điểm 40",
+  "status": "PASS",
+  "detail": "🎉 Hoàn thành Quiz Nghiêng Đầu Chơi tự do · Mẫu 2 · Đúng/Sai · Toán lớp 1–5 Đúng: 4/5 Điểm: 40 Thời gian: 5 giây ↻ Chơi lại ⚙ Thiết lập ← Thư viện"
+ },
+ {
+  "id": "QA10",
+  "name": "Chơi lại đặt lại điểm và về câu 1",
+  "status": "PASS",
+  "detail": "câu 1 · Điểm 0"
+ },
+ {
+  "id": "QA11",
+  "name": "Thoát về thư viện trò chơi",
+  "status": "PASS"
+ },
+ {
+  "id": "QA12",
+  "name": "Không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "QB0",
+  "name": "Bấm Bắt đầu → camera TỰ BẬT, không cần bấm nút Bật camera",
+  "status": "PASS"
+ },
+ {
+  "id": "QB1",
+  "name": "Camera bật → nạp bộ nhận diện trong ./vendor/mediapipe (chế độ VIDEO, tối đa 2 khuôn mặt)",
+  "status": "PASS",
+  "detail": "{\"opts\":{\"baseOptions\":{\"modelAssetPath\":\"./vendor/mediapipe/face_landmarker.task\",\"delegate\":\"GPU\"},\"runningMode\":\"VIDEO\",\"numFaces\":2},\"wasm\":\"./vendor/mediapipe/wasm\",\"calls\":7}"
+ },
+ {
+  "id": "QB2",
+  "name": "Chưa thấy khuôn mặt → “Đang tìm khuôn mặt”, không chọn đáp án",
+  "status": "PASS",
+  "detail": "Đang tìm khuôn mặt…"
+ },
+ {
+  "id": "QB3",
+  "name": "Không có khuôn mặt thì không ghi nhận dù “góc” lớn",
+  "status": "PASS",
+  "detail": "Đang tìm khuôn mặt…"
+ },
+ {
+  "id": "QB4",
+  "name": "Thấy một khuôn mặt, giữ thẳng → tự hiệu chỉnh xong, báo “Đã nhận diện”",
+  "status": "PASS",
+  "detail": "Đã nhận diện – nghiêng đầu sang trái hoặc phải để chọn"
+ },
+ {
+  "id": "QB5",
+  "name": "Giữ đầu thẳng thêm 2,5 giây → không chọn đáp án",
+  "status": "PASS",
+  "detail": "Đã nhận diện – nghiêng đầu sang trái hoặc phải để chọn"
+ },
+ {
+  "id": "QB6",
+  "name": "Nghiêng phải chớp nhoáng 0,3 giây rồi thẳng lại → hủy, không ghi nhận",
+  "status": "PASS",
+  "detail": "Nghiêng phải – giữ nguyên… → Đã nhận diện – nghiêng đầu sang trái hoặc phải để chọn"
+ },
+ {
+  "id": "QB7",
+  "name": "Hai khuôn mặt trong khung → cảnh báo, không ghi nhận",
+  "status": "PASS",
+  "detail": "Có nhiều khuôn mặt – chỉ một người chơi đứng trước camera"
+ },
+ {
+  "id": "QB8",
+  "name": "Câu 1 (đúng là ĐÚNG): nghiêng PHẢI và giữ → “Nghiêng phải”, ghi nhận ĐÚNG, +10",
+  "status": "PASS",
+  "detail": "Nghiêng phải – giữ nguyên… → Đã ghi nhận đáp án – đưa đầu về giữa"
+ },
+ {
+  "id": "QB9",
+  "name": "Vẫn giữ nghiêng 3 giây sau khi ghi nhận → không sang câu, không cộng thêm (chống lặp)",
+  "status": "PASS",
+  "detail": "câu 1 · Điểm 10 · Đã ghi nhận đáp án – đưa đầu về giữa"
+ },
+ {
+  "id": "QB10",
+  "name": "Đưa đầu về giữa → tự sang câu 2",
+  "status": "PASS",
+  "detail": "câu 2 · Đã nhận diện – nghiêng đầu sang trái hoặc phải để chọn"
+ },
+ {
+  "id": "QB11",
+  "name": "Câu 2 (đúng là SAI): nghiêng TRÁI và giữ → ghi nhận SAI, +10",
+  "status": "PASS",
+  "detail": "Điểm 20 · ✅ Chính xác! Đáp án đúng: Sai"
+ },
+ {
+  "id": "QB12",
+  "name": "Chưa về giữa thì chưa sang câu 3",
+  "status": "PASS",
+  "detail": "câu 2 · Đã ghi nhận đáp án – đưa đầu về giữa"
+ },
+ {
+  "id": "QB13",
+  "name": "Câu 3 (đúng là SAI): nghiêng PHẢI → chưa chính xác, điểm giữ nguyên",
+  "status": "PASS",
+  "detail": "Điểm 20 · ❌ Chưa chính xác. Đáp án đúng: Sai"
+ },
+ {
+  "id": "QB14",
+  "name": "Sang câu 4 sau khi về giữa",
+  "status": "PASS",
+  "detail": "câu 4"
+ },
+ {
+  "id": "QB15",
+  "name": "Hiệu chỉnh lại ở tư thế lệch 10°; nghiêng thêm 12° (dưới ngưỡng 15°) → không ghi nhận",
+  "status": "PASS",
+  "detail": "Đã nhận diện – nghiêng đầu sang trái hoặc phải để chọn → Đã nhận diện – nghiêng đầu sang trái hoặc phải để chọn"
+ },
+ {
+  "id": "QB16",
+  "name": "Nghiêng thêm 20° so với tư thế đã hiệu chỉnh → ghi nhận",
+  "status": "PASS",
+  "detail": "✅ Chính xác! Đáp án đúng: Đúng"
+ },
+ {
+  "id": "QB17",
+  "name": "Thoát → camera tắt hẳn, vòng nhận diện dừng, bộ nhận diện được giải phóng",
+  "status": "PASS",
+  "detail": "{\"tracks\":[\"ended\"],\"running\":false,\"closed\":1,\"type\":null}"
+ },
+ {
+  "id": "QB18",
+  "name": "Sau khi thoát không còn khung hình nào được xử lý",
+  "status": "PASS",
+  "detail": "458 → 458"
+ },
+ {
+  "id": "QB19",
+  "name": "Không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "QC1",
+  "name": "Chuyển sang Kho khi đang chơi → camera tắt, trò chơi đóng",
+  "status": "PASS",
+  "detail": "{\"tracks\":[\"ended\"],\"running\":false,\"type\":null}"
+ },
+ {
+  "id": "QC2",
+  "name": "Lần chơi sau tự bật lại camera vì lần trước đã chọn dùng camera",
+  "status": "PASS",
+  "detail": "Camera đang nhận diện (bộ nhận diện có sẵn trong máy). Không lưu hình ảnh."
+ },
+ {
+  "id": "QC3",
+  "name": "Tắt camera giữa ván → vẫn chơi tiếp được bằng phím",
+  "status": "PASS",
+  "detail": "Điểm 10"
+ },
+ {
+  "id": "QC4",
+  "name": "Không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "QD1",
+  "name": "Không có bộ nhận diện → báo rõ lý do, tự tắt camera, hướng dẫn dùng phím/chạm",
+  "status": "PASS",
+  "detail": "Chưa dùng được camera: không tải được bộ nhận diện khuôn mặt (cần Internet ở lần đầu, hoặc chạy tệp TAI-BO-NHAN-DIEN-CAMERA). Dùng phím ←/→ hoặc chạm vào thẻ."
+ },
+ {
+  "id": "QD2",
+  "name": "Vẫn chơi được bằng phím khi không có bộ nhận diện",
+  "status": "PASS",
+  "detail": "Điểm 10"
+ },
+ {
+  "id": "QD3",
+  "name": "Không có lỗi JavaScript chưa bắt",
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "QE1",
+  "name": "Mở Quiz từ thư viện khi chưa gắn bộ nào → tự lấy bộ Đúng/Sai có trong Kho, không dùng câu mẫu cứng",
+  "status": "PASS",
+  "detail": " → hoặc chạm vào thẻ. Đóng ▶ Bắt đầu Câu hỏi Bộ đang dùng: Mẫu 2 · Đúng/Sai · Toán lớp 1–5 · 20 câu "
+ },
+ {
+  "id": "QE2",
+  "name": "Đóng hộp thiết lập khi chưa chơi → trả về thư viện, không để trò chơi treo",
+  "status": "PASS"
+ },
+ {
+  "id": "QE3",
+  "name": "Quy tắc đặt thẻ: Đúng/Sai luôn SAI trái – ĐÚNG phải; cặp khác giữ thứ tự soạn",
+  "status": "PASS",
+  "detail": "[[1,0],[0,1],[0,1],[1,0]]"
+ },
+ {
+  "id": "QE4",
+  "name": "Không lỗi JavaScript",
+  "status": "PASS",
+  "detail": ""
+ }
+]

@@ -1,0 +1,78 @@
+[
+ {
+  "file": "sample.txt",
+  "label": "TXT",
+  "status": "PASS",
+  "summary": "Nhận 1 · hợp lệ 1 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: A–B–C–D: 1",
+  "savedAfterReload": "1 câu · {\"ABCD\":1}"
+ },
+ {
+  "file": "sample.csv",
+  "label": "CSV",
+  "status": "PASS",
+  "summary": "Nhận 1 · hợp lệ 1 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: A–B–C–D: 1",
+  "savedAfterReload": "1 câu · {\"ABCD\":1}"
+ },
+ {
+  "file": "sample.json",
+  "label": "JSON",
+  "status": "PASS",
+  "summary": "Nhận 1 · hợp lệ 1 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: A–B–C–D: 1",
+  "savedAfterReload": "1 câu · {\"ABCD\":1}"
+ },
+ {
+  "file": "sample.xlsx",
+  "label": "XLSX",
+  "status": "PASS",
+  "summary": "Nhận 1 · hợp lệ 1 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: A–B–C–D: 1",
+  "savedAfterReload": "1 câu · {\"ABCD\":1}"
+ },
+ {
+  "file": "sample.docx",
+  "label": "DOCX",
+  "status": "PASS",
+  "summary": "Nhận 1 · hợp lệ 1 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: A–B–C–D: 1",
+  "savedAfterReload": "1 câu · {\"ABCD\":1}"
+ },
+ {
+  "file": "multi20.txt",
+  "label": "20 câu nhiều đáp án (TXT)",
+  "status": "PASS",
+  "summary": "Nhận 20 · hợp lệ 20 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: Trắc nghiệm nhiều đáp án: 20",
+  "savedAfterReload": "20 câu · {\"MULTI\":20}"
+ },
+ {
+  "file": "ds20-cham.docx",
+  "label": "Word: đáp án “Đúng.”",
+  "status": "PASS",
+  "summary": "Nhận 20 · hợp lệ 20 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: Đúng/Sai: 20",
+  "savedAfterReload": "20 câu · {\"TRUEFALSE\":20}"
+ },
+ {
+  "file": "ds20-tieu-de-het.docx",
+  "label": "Word: có “--- HẾT ---”",
+  "status": "PASS",
+  "summary": "Nhận 20 · hợp lệ 20 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: Đúng/Sai: 20",
+  "savedAfterReload": "20 câu · {\"TRUEFALSE\":20}"
+ },
+ {
+  "file": "ds20-cung-doan.docx",
+  "label": "Word: câu và đáp án chung đoạn",
+  "status": "PASS",
+  "summary": "Nhận 20 · hợp lệ 20 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: Đúng/Sai: 20",
+  "savedAfterReload": "20 câu · {\"TRUEFALSE\":20}"
+ },
+ {
+  "file": "ds20-khong-tieu-de.docx",
+  "label": "Word: không tiêu đề",
+  "status": "PASS",
+  "summary": "Nhận 20 · hợp lệ 20 · rà soát 0 · trùng 0 · thiếu đáp án 0  —  Tự phân loại: Đúng/Sai: 20",
+  "savedAfterReload": "20 câu · {\"TRUEFALSE\":20}"
+ },
+ {
+  "file": "gia.pdf",
+  "label": "PDF",
+  "status": "BLOCKED (từ chối rõ ràng)",
+  "summary": "PDF chưa có bộ đọc văn bản offline được đóng gói. PDF scan hoặc không đọc được không được phân tích âm thầm; hãy xuất sang TXT/CSV."
+ }
+]
