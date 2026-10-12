@@ -1,6 +1,6 @@
 {
- "at": "2026-10-12T11:18:21.243Z",
- "build": "HMV-BAN-CHINH-2.9-20261012",
+ "at": "2026-10-12T14:42:54.903Z",
+ "build": "HMV-BAN-CHINH-2.10-20261012",
  "note": "Giọng đọc của trình duyệt và Gemini đều là GIẢ trong bài kiểm này.",
  "total": 66,
  "passed": 66,
@@ -68,26 +68,26 @@
    "name": "7 Kéo co: đúng một nút loa nằm ngay sau câu hỏi, trong khung câu hỏi; chữ câu hỏi không bị đổi; nút có nhãn cho trình đọc màn hình và đủ lớn để chạm",
    "pass": true,
    "detail": {
-    "h2": "Số lớn nhất trong các số 7, 12, 9, 10 là:",
+    "h2": "25% của 80 là:",
     "cur": {
      "game": "tug",
-     "text": "Số lớn nhất trong các số 7, 12, 9, 10 là:",
+     "text": "25% của 80 là:",
      "answers": [
       {
        "letter": "A",
-       "text": "7"
+       "text": "20"
       },
       {
        "letter": "B",
-       "text": "9"
+       "text": "25"
       },
       {
        "letter": "C",
-       "text": "10"
+       "text": "40"
       },
       {
        "letter": "D",
-       "text": "12"
+       "text": "55"
       }
      ]
     },
@@ -106,14 +106,14 @@
    "name": "8 Bấm nút loa: đọc đúng câu hỏi rồi lần lượt A, B, C, D bằng giọng tiếng Việt của máy, tốc độ vừa",
    "pass": true,
    "detail": [
-    "Số lớn nhất trong các số 7, 12, 9, 10 là: A, 7. B, 9. C, 10. D, 12.",
+    "25 phần trăm của 80 là: A, 20. B, 25. C, 40. D, 55.",
     [
      {
-      "text": "Số lớn nhất trong các số 7, 12, 9, 10 là: A, 7. B, 9. C, 10. D, 12.",
+      "text": "25 phần trăm của 80 là: A, 20. B, 25. C, 40. D, 55.",
       "voice": "Microsoft An - Vietnamese (Vietnam)",
       "rate": 0.95,
       "lang": "vi-VN",
-      "at": 1791803774676
+      "at": 1791816048995
      }
     ]
    ]
@@ -131,7 +131,7 @@
     {
      "cls": "hmv-dt-btn",
      "duck": 1,
-     "match": "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[3,10,16,1,2,15,0,19,17,4,14,6,11,7,5,13,9,18,8,12],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791803772812,\"elapsed\":1.2,\"lastAction\":null,\"result\":null,\"draw\":false,\"byPoints\":false,\"outcome\":null,\"autoLeft\":null,\"tried\":[],\"steal\":false,\"note\":\"\",\"shown\":false,\"qLeft\":28.799999999999997}"
+     "match": "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[17,4,14,9,8,16,3,13,15,1,19,18,2,0,12,6,5,11,10,7],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791816047154,\"elapsed\":1.2,\"lastAction\":null,\"result\":null,\"draw\":false,\"byPoints\":false,\"outcome\":null,\"autoLeft\":null,\"tried\":[],\"steal\":false,\"note\":\"\",\"shown\":false,\"qLeft\":28.800000000000004}"
     }
    ]
   },
@@ -139,8 +139,8 @@
    "name": "10 Bấm nút loa không chọn đáp án, không đổi lượt, không đổi điểm của trận đang chơi",
    "pass": true,
    "detail": [
-    "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[3,10,16,1,2,15,0,19,17,4,14,6,11,7,5,13,9,18,8,12],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791803772812,\"el",
-    "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[3,10,16,1,2,15,0,19,17,4,14,6,11,7,5,13,9,18,8,12],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791803772812,\"el"
+    "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[17,4,14,9,8,16,3,13,15,1,19,18,2,0,12,6,5,11,10,7],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791816047154,\"el",
+    "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[17,4,14,9,8,16,3,13,15,1,19,18,2,0,12,6,5,11,10,7],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791816047154,\"el"
    ]
   },
   {
@@ -313,15 +313,15 @@
    "pass": true,
    "detail": [
     {
-     "want": "3 cộng 4 bằng bao nhiêu? A, 9. B, 7. C, 8. D, 6.",
-     "got": "3 cộng 4 bằng bao nhiêu? A, 9. B, 7. C, 8. D, 6.",
+     "want": "3 cộng 4 bằng bao nhiêu? A, 6. B, 7. C, 8. D, 9.",
+     "got": "3 cộng 4 bằng bao nhiêu? A, 6. B, 7. C, 8. D, 9.",
      "cur": {
       "game": "millionaire",
       "text": "3 + 4 = ?",
       "answers": [
        {
         "letter": "A",
-        "text": "9"
+        "text": "6"
        },
        {
         "letter": "B",
@@ -333,16 +333,16 @@
        },
        {
         "letter": "D",
-        "text": "6"
+        "text": "9"
        }
       ]
      }
     },
     [
-     "A. 9",
+     "A. 6",
      "B. 7",
      "C. 8",
-     "D. 6"
+     "D. 9"
     ]
    ]
   },
@@ -351,15 +351,15 @@
    "pass": true,
    "detail": [
     {
-     "want": "3 cộng 4 bằng bao nhiêu? A, 9. B, 7.",
-     "got": "3 cộng 4 bằng bao nhiêu? A, 9. B, 7.",
+     "want": "3 cộng 4 bằng bao nhiêu? A, 6. B, 7.",
+     "got": "3 cộng 4 bằng bao nhiêu? A, 6. B, 7.",
      "cur": {
       "game": "millionaire",
       "text": "3 + 4 = ?",
       "answers": [
        {
         "letter": "A",
-        "text": "9"
+        "text": "6"
        },
        {
         "letter": "B",
@@ -390,7 +390,7 @@
       12.015
      ],
      "gain": 0.11249999701976776,
-     "time": 5.352199546485261
+     "time": 5.421859410430839
     },
     {
      "game": "millionaire",
@@ -404,7 +404,7 @@
       12.015
      ],
      "gain": 0.44999998807907104,
-     "time": 6.191020408163265
+     "time": 6.260680272108844
     }
    ]
   },
@@ -426,27 +426,27 @@
    "pass": true,
    "detail": [
     {
-     "want": "Góc có số đo 90° là: A, góc nhọn. B, góc tù. C, góc vuông. D, góc bẹt.",
-     "got": "Góc có số đo 90° là: A, góc nhọn. B, góc tù. C, góc vuông. D, góc bẹt.",
+     "want": "Số liền sau của 19 là: A, 18. B, 21. C, 20. D, 29.",
+     "got": "Số liền sau của 19 là: A, 18. B, 21. C, 20. D, 29.",
      "cur": {
       "game": "balloon",
-      "text": "Góc có số đo 90° là:",
+      "text": "Số liền sau của 19 là:",
       "answers": [
        {
         "letter": "A",
-        "text": "góc nhọn"
+        "text": "18"
        },
        {
         "letter": "B",
-        "text": "góc tù"
+        "text": "21"
        },
        {
         "letter": "C",
-        "text": "góc vuông"
+        "text": "20"
        },
        {
         "letter": "D",
-        "text": "góc bẹt"
+        "text": "29"
        }
       ]
      }
@@ -454,8 +454,8 @@
     "ask",
     {
      "phase": "ask",
-     "q": "Góc có số đo 90° là:",
-     "dom": "Góc có số đo 90° là:"
+     "q": "Số liền sau của 19 là:",
+     "dom": "Số liền sau của 19 là:"
     }
    ]
   },
@@ -542,7 +542,7 @@
       "voice": "Microsoft An - Vietnamese (Vietnam)",
       "rate": 0.8,
       "lang": "vi-VN",
-      "at": 1791803808309
+      "at": 1791816082528
      }
     ],
     "q": "3 cộng 4 bằng bao nhiêu?",
@@ -822,7 +822,7 @@
     },
     "Máy này chưa có giọng đọc tiếng Việt. Xem cách bật ở Trợ lý AI → Kết nối AI.",
     [
-     "HTTP 404 http://127.0.0.1:8782/api/ai/status?t=1791803832979",
+     "HTTP 404 http://127.0.0.1:8782/api/ai/status?t=1791816106963",
      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
     ]
    ]
@@ -849,8 +849,8 @@
     "text": "",
     "label": "Cài đặt đọc to",
     "w": 37.796875,
-    "h2": "Số liền sau của 19 là:",
-    "cur": "Số liền sau của 19 là:",
+    "h2": "Hình vuông có cạnh 5 cm. Chu vi hình vuông đó là:",
+    "cur": "Hình vuông có cạnh 5 cm. Chu vi hình vuông đó là:",
     "def": {
      "engine": "auto",
      "voice": "",
@@ -909,23 +909,23 @@
    "name": "54 Kéo co: trong lúc máy đọc, đồng hồ câu hỏi đứng yên (và mờ nhấp nháy); đọc xong đồng hồ chạy tiếp từ đúng chỗ cũ",
    "pass": true,
    "detail": [
-    28.000000000000007,
+    27.999000000000006,
     {
-     "q": 27.800000000000008,
-     "el": 2.1999999999999997,
+     "q": 27.999000000000006,
+     "el": 2.001,
      "hold": true,
      "cls": true
     },
     {
-     "q": 27.800000000000008,
-     "el": 2.1999999999999997
+     "q": 27.999000000000006,
+     "el": 2.001
     },
     {
-     "q": 27.60000000000001,
+     "q": 27.799000000000007,
      "hold": false,
      "cls": false
     },
-    26.000000000000014
+    26.199000000000012
    ]
   },
   {
@@ -933,10 +933,10 @@
    "pass": true,
    "detail": [
     {
-     "q": 25.800000000000015,
+     "q": 25.999000000000013,
      "hold": false
     },
-    23.800000000000022
+    23.99900000000002
    ]
   },
   {
@@ -972,9 +972,9 @@
    "name": "59 Bóng bay: đồng hồ đứng yên trong lúc đọc, đọc xong chạy tiếp",
    "pass": true,
    "detail": [
-    18.200000000000003,
-    18.200000000000003,
-    16.60000000000001
+    18.199,
+    18.199,
+    16.599000000000007
    ]
   },
   {

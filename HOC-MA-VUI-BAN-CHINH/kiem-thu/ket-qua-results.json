@@ -1,5 +1,5 @@
 {
-  "build": "HMV-BAN-CHINH-2.9-20261012",
+  "build": "HMV-BAN-CHINH-2.10-20261012",
   "note": "Gemini giả cho phần AI nhận xét",
   "total": 28,
   "passed": 28,
@@ -13,26 +13,26 @@
       "name": "2 Kéo co: chọn phương án A → ghi 1 lượt (trò, câu hỏi, 4 phương án, phương án đã chọn, đúng/sai khớp với đáp án, tên bộ)",
       "pass": true,
       "detail": {
-        "t": 1791803268916,
+        "t": 1791814674098,
         "g": "tug",
-        "k": "6kdh8z",
+        "k": "1bkq6cx",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
         "o": 0,
         "x": 0,
         "q": {
-          "text": "Số lớn nhất trong các số 7, 12, 9, 10 là:",
+          "text": "Hình tam giác có đáy 6 cm, chiều cao 4 cm. Diện tích hình tam giác đó là:",
           "answers": [
-            "7",
-            "9",
-            "10",
-            "12"
+            "24 cm²",
+            "10 cm²",
+            "12 cm²",
+            "20 cm²"
           ],
-          "correct": 3,
+          "correct": 2,
           "kind": "ABCD",
-          "grade": "Lớp 1",
+          "grade": "Lớp 5",
           "subject": "Toán",
-          "topic": "Các số đến 100",
-          "key": "12"
+          "topic": "Diện tích hình tam giác",
+          "key": "12 cm²"
         },
         "n": 1
       }
@@ -41,7 +41,7 @@
       "name": "3 Ai nhanh hơn: đội giành chuông chọn B → ghi 1 lượt",
       "pass": true,
       "detail": {
-        "t": 1791803270874,
+        "t": 1791814676050,
         "g": "buzzer",
         "k": "wqni0e",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -69,7 +69,7 @@
       "name": "4 Hộp quà: chọn C, giáo viên xác nhận sai → ghi 1 lượt sai, phương án C",
       "pass": true,
       "detail": {
-        "t": 1791803273625,
+        "t": 1791814678814,
         "g": "gift",
         "k": "wqni0e",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -98,7 +98,7 @@
       "pass": true,
       "detail": [
         {
-          "t": 1791803277566,
+          "t": 1791814682709,
           "g": "millionaire",
           "k": "wqni0e",
           "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -128,7 +128,7 @@
       "name": "6 Quiz Nghiêng Đầu: chọn thẻ bên trái → ghi 1 lượt Đúng/Sai",
       "pass": true,
       "detail": {
-        "t": 1791803281056,
+        "t": 1791814686189,
         "g": "head-tilt",
         "k": "1e1yjrw",
         "s": "Mẫu 2 · Đúng/Sai · Toán lớp 1–5",
@@ -154,26 +154,26 @@
       "name": "7 Bóng bay: chạm bóng sai → ghi 1 lượt sai kèm phương án đã chọn",
       "pass": true,
       "detail": {
-        "t": 1791803283202,
+        "t": 1791814688318,
         "g": "balloon",
-        "k": "1o9scoe",
+        "k": "7s0oti",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
         "o": 0,
-        "x": 3,
+        "x": 1,
         "q": {
-          "text": "Góc có số đo 90° là:",
+          "text": "Trung bình cộng của 12, 15 và 18 là:",
           "answers": [
-            "góc nhọn",
-            "góc tù",
-            "góc vuông",
-            "góc bẹt"
+            "15",
+            "14",
+            "16",
+            "45"
           ],
-          "correct": 2,
+          "correct": 0,
           "kind": "ABCD",
           "grade": "Lớp 4",
           "subject": "Toán",
-          "topic": "Góc",
-          "key": "góc vuông"
+          "topic": "Trung bình cộng",
+          "key": "15"
         },
         "n": 6
       }
@@ -182,7 +182,7 @@
       "name": "8 Bình chọn ngón tay: 8 phiếu cho một câu → ghi một lượt kèm số phiếu từng phương án",
       "pass": true,
       "detail": {
-        "t": 1791803285260,
+        "t": 1791814690375,
         "g": "poll",
         "k": "wqni0e",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -218,7 +218,7 @@
     {
       "name": "10 Số liệu không chứa tên học sinh hay tên đội; chỉ có câu hỏi, phương án, số lượt",
       "pass": true,
-      "detail": 1492
+      "detail": 1554
     },
     {
       "name": "11 Tổng hợp theo câu: số lượt, tỉ lệ đúng, phương án sai hay chọn nhất; xếp câu yếu nhất lên đầu",
@@ -260,7 +260,7 @@
           "games": {
             "tug": 1
           },
-          "last": 1791803286199,
+          "last": 1791814691282,
           "pct": 20,
           "topWrong": 0
         },
@@ -290,7 +290,7 @@
           "games": {
             "tug": 1
           },
-          "last": 1791803286200,
+          "last": 1791814691283,
           "pct": 50,
           "topWrong": 2
         },
@@ -320,7 +320,7 @@
           "games": {
             "tug": 1
           },
-          "last": 1791803286201,
+          "last": 1791814691283,
           "pct": 90,
           "topWrong": 1
         }
@@ -384,8 +384,8 @@
         "n": 6,
         "texts": [
           "5 + 3 = 8.",
-          "Góc có số đo 90° là:",
-          "Số lớn nhất trong các số 7, 12, 9, 10 là:",
+          "Hình tam giác có đáy 6 cm, chiều cao 4 cm. Diện tích hình tam giác đó là:",
+          "Trung bình cộng của 12, 15 và 18 là:",
           "27 + 15 = ?",
           "3 + 4 = ?",
           "38 + 26 = ?"
@@ -407,7 +407,7 @@
     {
       "name": "19 \"AI nhận xét\": gửi câu hỏi kèm số lượt, tỉ lệ đúng, phương án sai hay chọn; không gửi tên; yêu cầu ba mục nhận xét và câu ôn mới",
       "pass": true,
-      "detail": "Dưới đây là các câu hỏi mà lớp trả lời sai nhiều trong các trò chơi môn Toán. Toàn bộ: 40 lượt trả lời, đúng 48%.\n[{\"stt\":1,\"cau_hoi\":\"5 + 3 = 8.\",\"phuong_an\":[\"Đúng\",\"Sai\"],\"dap_an_dung\":\"Đúng\",\"so_luot\":1,\"ti_le_dung\":\"0%\",\"hay_chon_sai\":\"Sai (1 lượt)\"},{\"stt\":2,\"cau_hoi\":\"Góc có số đo 90° là:\",\"p"
+      "detail": "Dưới đây là các câu hỏi mà lớp trả lời sai nhiều trong các trò chơi môn Toán. Toàn bộ: 40 lượt trả lời, đúng 48%.\n[{\"stt\":1,\"cau_hoi\":\"5 + 3 = 8.\",\"phuong_an\":[\"Đúng\",\"Sai\"],\"dap_an_dung\":\"Đúng\",\"so_luot\":1,\"ti_le_dung\":\"0%\",\"hay_chon_sai\":\"Sai (1 lượt)\"},{\"stt\":2,\"cau_hoi\":\"Hình tam giác có đáy 6 c"
     },
     {
       "name": "20 Nhận xét của AI hiện thành ba mục có gạch đầu dòng; có nút xem các câu ôn AI soạn; có lời nhắc AI có thể chưa đúng",

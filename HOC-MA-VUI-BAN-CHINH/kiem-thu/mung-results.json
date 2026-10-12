@@ -1,6 +1,6 @@
 {
- "at": "2026-10-12T11:15:50.346Z",
- "build": "HMV-BAN-CHINH-2.9-20261012",
+ "at": "2026-10-12T14:46:20.888Z",
+ "build": "HMV-BAN-CHINH-2.10-20261012",
  "note": "Trình duyệt thử không có loa: kiểm việc tệp được phát, không nghe tiếng thật.",
  "total": 25,
  "passed": 25,
@@ -34,10 +34,10 @@
     {
      "plays": 1,
      "playing": true,
-     "time": 0.069267,
+     "time": 0.059597,
      "volume": 0.8,
      "last": {
-      "at": 1791803662537,
+      "at": 1791816293631,
       "volume": 0.8,
       "fallback": false
      },
@@ -67,7 +67,7 @@
     "time": 0,
     "volume": 0.8,
     "last": {
-     "at": 1791803662795,
+     "at": 1791816293902,
      "volume": 0.8,
      "fallback": false
     },
@@ -82,10 +82,10 @@
     {
      "plays": 3,
      "playing": true,
-     "time": 0.057038,
+     "time": 0.063723,
      "volume": 0.8,
      "last": {
-      "at": 1791803669012,
+      "at": 1791816300094,
       "volume": 0.8,
       "fallback": false
      },
@@ -93,7 +93,7 @@
      "error": 0
     },
     14,
-    "🏁 ĐƯỜNG ĐUA KIẾN THỨC 🏁 · Câu 15/20 · Hoạt động offline ⚙ Câu hỏi 0 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn 🏎️ Tổ 1 8/10 chặng · 7 điểm 🏎️ 🏁 🛡️ 0 · đúng 7 · sai 0 🚂 Tổ 2 10/10 chặng · 8 điểm 🚂 🏁 🛡️ 0 · đúng 8 · sai 0 Chọn đội và sẵn sàng! Đội đang dẫn đầu được cập nhật sau mỗi lượt. ＋ "
+    "🏁 ĐƯỜNG ĐUA KIẾN THỨC 🏁 · Câu 15/20 · Hoạt động offline ⚙ Câu hỏi 0 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn 🏎️ Tổ 1 10/10 chặng · 8 điểm 🏎️ 🏁 🛡️ 0 · đúng 8 · sai 0 🚂 Tổ 2 8/10 chặng · 7 điểm 🚂 🏁 🛡️ 0 · đúng 7 · sai 0 Chọn đội và sẵn sàng! Đội đang dẫn đầu được cập nhật sau mỗi lượt. ＋ "
    ]
   },
   {
@@ -105,7 +105,7 @@
     "time": 0,
     "volume": 0.8,
     "last": {
-     "at": 1791803669012,
+     "at": 1791816300094,
      "volume": 0.8,
      "fallback": false
     },
@@ -120,10 +120,10 @@
     {
      "plays": 4,
      "playing": true,
-     "time": 0.072294,
+     "time": 0.079586,
      "volume": 0.8,
      "last": {
-      "at": 1791803675770,
+      "at": 1791816306792,
       "volume": 0.8,
       "fallback": false
      },
@@ -143,7 +143,7 @@
     "time": 0,
     "volume": 0.8,
     "last": {
-     "at": 1791803675770,
+     "at": 1791816306792,
      "volume": 0.8,
      "fallback": false
     },
@@ -160,7 +160,7 @@
     "time": 0,
     "volume": 0.8,
     "last": {
-     "at": 1791803675770,
+     "at": 1791816306792,
      "volume": 0.8,
      "fallback": false
     },
@@ -175,10 +175,10 @@
     {
      "plays": 5,
      "playing": true,
-     "time": 7.668963,
+     "time": 7.686805,
      "volume": 0.9,
      "last": {
-      "at": 1791803713425,
+      "at": 1791816344386,
       "volume": 0.9,
       "fallback": false
      },
@@ -206,10 +206,10 @@
     {
      "plays": 7,
      "playing": true,
-     "time": 0.058148,
+     "time": 0.061899,
      "volume": 0.9,
      "last": {
-      "at": 1791803726577,
+      "at": 1791816357512,
       "volume": 0.9,
       "fallback": false
      },
@@ -231,10 +231,10 @@
    "detail": {
     "plays": 9,
     "playing": true,
-    "time": 0.200493,
+    "time": 0.208586,
     "volume": 0.9,
     "last": {
-     "at": 1791803734829,
+     "at": 1791816365785,
      "volume": 0.9,
      "fallback": false
     },
@@ -256,7 +256,7 @@
     "time": 0,
     "volume": 0.9,
     "last": {
-     "at": 1791803734829,
+     "at": 1791816365785,
      "volume": 0.9,
      "fallback": false
     },
@@ -303,7 +303,7 @@
    "detail": [
     {
      "last": {
-      "at": 1791803746399,
+      "at": 1791816377089,
       "volume": 0.8,
       "fallback": true
      },
@@ -316,12 +316,12 @@
    ]
   },
   {
-   "name": "25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.9) có tệp tiếng mừng và mã; ngắt mạng rồi tải lại vẫn phát được",
+   "name": "25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.10) có tệp tiếng mừng và mã; ngắt mạng rồi tải lại vẫn phát được",
    "pass": true,
    "detail": [
     {
      "names": [
-      "hmv-ban-chinh-2.9"
+      "hmv-ban-chinh-2.10"
      ],
      "mp3": true,
      "js": true
@@ -330,17 +330,17 @@
      "s": {
       "plays": 1,
       "playing": true,
-      "time": 0.804968,
+      "time": 0.81959,
       "volume": 0.8,
       "last": {
-       "at": 1791803749383,
+       "at": 1791816379924,
        "volume": 0.8,
        "fallback": false
       },
       "ready": 4,
       "error": 0
      },
-     "marker": "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012"
+     "marker": "HỌC MÀ VUI | HMV-BAN-CHINH-2.10-20261012"
     }
    ]
   }

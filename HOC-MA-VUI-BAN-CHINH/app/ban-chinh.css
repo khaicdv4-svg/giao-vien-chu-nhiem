@@ -919,3 +919,10 @@ html body .rh-table th,html body .rh-table td{padding:10px 14px;border-bottom:1p
 @keyframes rhFlash{0%{scale:.6;opacity:0}15%{scale:1.08;opacity:1}75%{opacity:1}100%{scale:1;opacity:0}}
 @media(max-height:820px) and (min-width:901px){.rh-controls,.rh-banner{bottom:134px}html body .rh-zone-name{bottom:54px}html body .rh-zone-state{bottom:96px}html body .rh-go{min-height:58px}.rh-ans{min-height:44px;padding:6px 12px}}
 @media(prefers-reduced-motion:reduce){.rh-zone.waiting,.rh-big,.mh-card.fresh{animation:none}}
+
+/* BAN-CHINH 2.10 · Khóa Gemini riêng trên bản web */
+#troLyAI .ta-web-key{margin:0 0 10px}
+#troLyAI .ta-key-opts{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end;margin:0 0 10px}
+#troLyAI .ta-check{display:flex;gap:8px;align-items:center;cursor:pointer}
+#troLyAI .ta-check input{width:20px;height:20px}
+#troLyAI .ta-model{flex:1 1 260px;min-width:0}

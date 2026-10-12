@@ -1,8 +1,8 @@
-// Kiểm thử bản 2.8: ứng dụng đặt trên web kiểu Vercel (chỉ có tệp tĩnh, KHÔNG có máy chủ AI nội bộ, tên miền không phải localhost),
+// Kiểm thử bản 2.8 (cập nhật 2.10): ứng dụng đặt trên web kiểu Vercel (chỉ có tệp tĩnh, KHÔNG có máy chủ AI nội bộ, tên miền không phải localhost),
 // và việc nâng cấp từ bản cũ đang chạy ở cùng địa chỉ (nhánh main ngày 2/9) lên bản mới mà không mất dữ liệu đã lưu trong trình duyệt.
 // Đây là máy chủ GIẢ LẬP trên máy thử, không phải Vercel thật.
 const { chromium } = require('/opt/npm-tools/node_modules/playwright'); const fs = require('fs'), path = require('path'), http = require('http'), cp = require('child_process');
-const S = path.join(__dirname, '..'), NEW = path.join(S, process.env.HMV_DIR || 'main29', 'app'), OLD = process.env.HMV_OLD_DIR || '/home/claude/khaicdv4-svg/giao-vien-chu-nhiem';
+const S = path.join(__dirname, '..'), NEW = path.join(S, process.env.HMV_DIR || 'main30', 'app'), OLD = process.env.HMV_OLD_DIR || '/home/claude/khaicdv4-svg/giao-vien-chu-nhiem';
 const PORT = 8790, HOST = 'hocmavui.localhost', BASE = 'http://' + HOST + ':' + PORT + '/';
 const res = []; const ok = (n, c, d) => { res.push({ name: n, pass: !!c, detail: d === undefined ? '' : d }); console.log((c ? 'PASS ' : 'FAIL ') + n + (d !== undefined && !c ? ' :: ' + JSON.stringify(d).slice(0, 1200) : '')); };
 const get = p => new Promise((resolve, reject) => http.get('http://127.0.0.1:' + PORT + p, r => { const c = []; r.on('data', d => c.push(d)); r.on('end', () => resolve({ status: r.statusCode, body: Buffer.concat(c).toString() })); }).on('error', reject));
@@ -39,7 +39,7 @@ const play = async (page, setId, g) => { await page.evaluate(() => openView('que
     await page.waitForFunction(() => window.hmvDungSai && Array.isArray(window.questionBankSets) && window.questionBankSets.filter(s => /^mau-/.test(s.id)).length === 7, null, { timeout: 20000 }).catch(() => {});
     await page.waitForTimeout(1200);
     const up = await page.evaluate(async () => ({ title: document.title, students: (typeof students !== 'undefined' ? students : []).map(s => s.name + '|' + s.team + '|' + s.status), scores: (typeof scoreData !== 'undefined' ? scoreData : []).map(s => s.points), questions: (typeof questionData !== 'undefined' ? questionData : []).map(q => q.text), store: Object.fromEntries(Object.keys(localStorage).map(k => [k, localStorage.getItem(k)])), caches: await caches.keys(), sets: questionBankSets.length }));
-    ok('A2 Sau khi bản mới lên cùng địa chỉ: mở lại trang lần đầu đã thấy HỌC MÀ VUI 2.8 (không kẹt bản cũ trong bộ nhớ đệm)', /HỌC MÀ VUI \| HMV-BAN-CHINH-2\.9/.test(firstTitle) && /HỌC MÀ VUI \| HMV-BAN-CHINH-2\.9/.test(up.title) && up.caches.indexOf('hmv-ban-chinh-2.9') >= 0, [firstTitle, up.title, up.caches]);
+    ok('A2 Sau khi bản mới lên cùng địa chỉ: mở lại trang lần đầu đã thấy HỌC MÀ VUI 2.8 (không kẹt bản cũ trong bộ nhớ đệm)', /HỌC MÀ VUI \| HMV-BAN-CHINH-2\.10/.test(firstTitle) && /HỌC MÀ VUI \| HMV-BAN-CHINH-2\.10/.test(up.title) && up.caches.indexOf('hmv-ban-chinh-2.10') >= 0, [firstTitle, up.title, up.caches]);
     ok('A3 Học sinh đã lưu ở bản cũ còn nguyên (tên, tổ, trạng thái)', up.students.join(';') === 'Học sinh Thử Một|1|Có mặt;Học sinh Thử Hai|2|Vắng;Học sinh Thử Ba|3|Có mặt', up.students);
     const compSame = Object.keys(oldAfter.comp).every(k => up.store[k] === oldAfter.comp[k]);
     ok('A4 Điểm thi đua (đã cộng trừ ở bản cũ: tổ 1 +5, tổ 3 +2, tổ 2 −1) còn nguyên: bảng điểm giống hệt, sổ ghi thi đua không đổi một ký tự', !oldAfter.err && oldAfter.scores.join() === '133,114,108,98' && up.scores.join() === oldAfter.scores.join() && compSame, [oldAfter.scores, up.scores, oldAfter.tx, oldAfter.err, compSame]);
@@ -57,12 +57,13 @@ const play = async (page, setId, g) => { await page.evaluate(() => openView('que
     const bad = []; page.on('response', r => { const u = new URL(r.url()); if (r.status() >= 400 && u.host === HOST + ':' + PORT && !/^\/api\/|^\/vendor\/mediapipe\//.test(u.pathname)) bad.push(r.status() + ' ' + u.pathname); });
     await page.goto(BASE, { waitUntil: 'load' }); await page.waitForFunction(() => window.hmvDungSai && window.hmvTroLyAI && Array.isArray(window.questionBankSets) && window.questionBankSets.filter(s => /^mau-/.test(s.id)).length === 7, null, { timeout: 20000 }); await page.waitForTimeout(1500);
     const first = await page.evaluate(() => ({ title: document.title, sets: questionBankSets.length, host: location.hostname, secure: window.isSecureContext }));
-    ok('B1 Trang web (tên miền không phải localhost, chỉ có tệp tĩnh): mở được, đúng nhãn 2.8, có 7 bộ câu hỏi mẫu, không thiếu tệp nào của ứng dụng', /HMV-BAN-CHINH-2\.9-20261012/.test(first.title) && first.sets >= 7 && first.host === HOST && bad.length === 0, [first, bad]);
+    ok('B1 Trang web (tên miền không phải localhost, chỉ có tệp tĩnh): mở được, đúng nhãn 2.8, có 7 bộ câu hỏi mẫu, không thiếu tệp nào của ứng dụng', /HMV-BAN-CHINH-2\.10-20261012/.test(first.title) && first.sets >= 7 && first.host === HOST && bad.length === 0, [first, bad]);
     await page.evaluate(() => openView('troLyAI')); await page.waitForSelector('#taStatus'); await page.waitForFunction(() => !/Đang kiểm tra/.test(document.getElementById('taStatus').textContent), null, { timeout: 8000 }).catch(() => {});
     const chip = await page.textContent('#taStatus'); await page.click('[data-ta-tab="setup"]'); await page.waitForTimeout(500);
     const setup = await page.evaluate(() => ({ text: document.getElementById('taBody').innerText, key: !!document.getElementById('taKey'), save: !!document.getElementById('taKeySave'), dt: !!document.getElementById('dtSettings'), paste: !!document.querySelector('[data-ta-paste]') }));
-    ok('B2 Trợ lý AI trên web: báo rõ "bản web chưa có AI Gemini, chỉ có ở bản cài trên máy" – không bảo khởi động lại máy chủ', /Bản web/.test(chip) && /Bản trên web chưa có AI Gemini/.test(setup.text) && !/KHOI-DONG-LAI|khởi động lại máy chủ/i.test(chip + setup.text), [chip, setup.text.slice(0, 300)]);
-    ok('B3 Trang web công khai KHÔNG có ô dán khóa Gemini; vẫn còn cách soạn câu hỏi bằng dán ChatGPT và phần cài đặt Đọc to', !setup.key && !setup.save && setup.paste && setup.dt, setup);
+    /* 2.10: thầy yêu cầu mỗi người dùng bản web tự dán khóa Gemini RIÊNG (lưu trong trình duyệt của họ) – xem qa21/t-khoa-web.cjs. */
+    ok('B2 Trợ lý AI trên web (2.10): mời người dùng dán khóa Gemini của chính mình – không bảo khởi động lại máy chủ, không nhắc tệp CAI-DAT-AI', /Dán khóa Gemini của thầy cô/.test(chip) && /chỉ được lưu trong trình duyệt trên máy này/.test(setup.text) && !/KHOI-DONG-LAI|khởi động lại máy chủ|CAI-DAT-AI/i.test(chip + setup.text), [chip, setup.text.slice(0, 300)]);
+    ok('B3 Trang web có ô dán khóa riêng (2.10); vẫn còn cách soạn câu hỏi bằng dán ChatGPT và phần cài đặt Đọc to', setup.key && setup.save && setup.paste && setup.dt, setup);
     const st = await page.evaluate(() => ({ ready: hmvTroLyAI.ready(), dt: hmvDocTo.state() }));
     ok('B4 Không có khóa trên web nên phần AI ở trạng thái tắt; Đọc to không chọn giọng Gemini', st.ready === false && st.dt.engine !== 'ai', [st.ready, st.dt && st.dt.engine]);
     // Trò chơi + tiếng đúng/sai trên web
@@ -75,13 +76,13 @@ const play = async (page, setId, g) => { await page.evaluate(() => openView('que
     await page.evaluate(() => pollBack());
     // Ngoại tuyến
     await page.waitForFunction(() => navigator.serviceWorker && navigator.serviceWorker.controller, null, { timeout: 15000 }).catch(() => {}); await page.waitForTimeout(1500);
-    const sw = await page.evaluate(async () => { const names = await caches.keys(); const c = await caches.open('hmv-ban-chinh-2.9'); return { names, n: (await c.keys()).length }; });
+    const sw = await page.evaluate(async () => { const names = await caches.keys(); const c = await caches.open('hmv-ban-chinh-2.10'); return { names, n: (await c.keys()).length }; });
     await ctx2.setOffline(true); await page.reload({ waitUntil: 'load' }); const off = await page.waitForFunction(() => window.hmvDungSai && window.questionBankSets && questionBankSets.length >= 7, null, { timeout: 15000 }).then(() => page.evaluate(() => document.title), () => '');
-    ok('B7 Đã mở trang một lần thì lần sau mất mạng vẫn mở được (bộ nhớ ngoại tuyến hmv-ban-chinh-2.9)', sw.names.indexOf('hmv-ban-chinh-2.9') >= 0 && sw.n >= 40 && /2\.9/.test(off), [sw, off]);
+    ok('B7 Đã mở trang một lần thì lần sau mất mạng vẫn mở được (bộ nhớ ngoại tuyến hmv-ban-chinh-2.10)', sw.names.indexOf('hmv-ban-chinh-2.10') >= 0 && sw.n >= 40 && /2\.10/.test(off), [sw, off]);
     await ctx2.setOffline(false);
     ok('B8 Không có lỗi JavaScript khi chạy trên web', logs.length === 0, logs);
     await ctx2.close();
   } finally { await browser.close(); srv.kill(); }
-  fs.writeFileSync(path.join(__dirname, 'web-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.9-20261012', note: 'Máy chủ tệp tĩnh giả lập trên máy thử (không phải Vercel thật); camera giả của Chromium.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
+  fs.writeFileSync(path.join(__dirname, 'web-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.10-20261012', note: 'Máy chủ tệp tĩnh giả lập trên máy thử (không phải Vercel thật); camera giả của Chromium.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
   console.log('TOTAL ' + res.filter(x => x.pass).length + '/' + res.length); process.exit(res.every(x => x.pass) ? 0 : 1);
 })().catch(e => { console.error(e); process.exit(1); });

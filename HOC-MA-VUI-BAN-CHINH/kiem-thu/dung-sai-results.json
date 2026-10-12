@@ -1,6 +1,6 @@
 {
- "at": "2026-10-12T11:12:33.440Z",
- "build": "HMV-BAN-CHINH-2.9-20261012",
+ "at": "2026-10-12T14:47:24.685Z",
+ "build": "HMV-BAN-CHINH-2.10-20261012",
  "note": "Trình duyệt thử không có loa: kiểm việc đúng tệp được phát đúng lúc, không nghe tiếng thật. Camera, bàn tay và giọng đọc là giả lập.",
  "total": 26,
  "passed": 26,
@@ -47,7 +47,7 @@
     "playing": "wrong",
     "last": {
      "ok": false,
-     "at": 1791803492098,
+     "at": 1791816383978,
      "volume": 0.8,
      "fallback": false,
      "skipped": ""
@@ -63,7 +63,7 @@
      },
      "wrong": {
       "playing": true,
-      "time": 0.042308,
+      "time": 0.044739,
       "volume": 0.8,
       "ready": 4,
       "error": 0,
@@ -85,7 +85,7 @@
     "playing": "right",
     "last": {
      "ok": true,
-     "at": 1791803493521,
+     "at": 1791816385405,
      "volume": 0.8,
      "fallback": false,
      "skipped": ""
@@ -93,7 +93,7 @@
     "audio": {
      "right": {
       "playing": true,
-      "time": 0.042079,
+      "time": 0.045121,
       "volume": 0.8,
       "ready": 4,
       "error": 0,
@@ -123,7 +123,7 @@
     "playing": "",
     "last": {
      "ok": true,
-     "at": 1791803493521,
+     "at": 1791816385405,
      "volume": 0.8,
      "fallback": false,
      "skipped": ""
@@ -160,7 +160,7 @@
      "playing": "right",
      "last": {
       "ok": true,
-      "at": 1791803496091,
+      "at": 1791816387955,
       "volume": 0.8,
       "fallback": false,
       "skipped": ""
@@ -168,7 +168,7 @@
      "audio": {
       "right": {
        "playing": true,
-       "time": 0.046714,
+       "time": 0.039971,
        "volume": 0.8,
        "ready": 4,
        "error": 0,
@@ -194,7 +194,7 @@
      "playing": "wrong",
      "last": {
       "ok": false,
-      "at": 1791803496251,
+      "at": 1791816388099,
       "volume": 0.8,
       "fallback": false,
       "skipped": ""
@@ -210,7 +210,7 @@
       },
       "wrong": {
        "playing": true,
-       "time": 0.034591,
+       "time": 0.034029,
        "volume": 0.8,
        "ready": 4,
        "error": 0,
@@ -235,7 +235,7 @@
      "playing": "right",
      "last": {
       "ok": true,
-      "at": 1791803498806,
+      "at": 1791816390530,
       "volume": 0.8,
       "fallback": false,
       "skipped": ""
@@ -243,7 +243,7 @@
      "audio": {
       "right": {
        "playing": true,
-       "time": 0.046948,
+       "time": 0.048337,
        "volume": 0.8,
        "ready": 4,
        "error": 0,
@@ -274,7 +274,7 @@
     "playing": "wrong",
     "last": {
      "ok": false,
-     "at": 1791803500218,
+     "at": 1791816391916,
      "volume": 0.8,
      "fallback": false,
      "skipped": ""
@@ -290,7 +290,7 @@
      },
      "wrong": {
       "playing": true,
-      "time": 0.037149,
+      "time": 0.036101,
       "volume": 0.8,
       "ready": 4,
       "error": 0,
@@ -315,7 +315,7 @@
      "playing": "right",
      "last": {
       "ok": true,
-      "at": 1791803503749,
+      "at": 1791816395431,
       "volume": 0.9,
       "fallback": false,
       "skipped": ""
@@ -323,7 +323,7 @@
      "audio": {
       "right": {
        "playing": true,
-       "time": 0.047426,
+       "time": 0.041071,
        "volume": 0.9,
        "ready": 4,
        "error": 0,
@@ -341,7 +341,7 @@
      "mung": false,
      "srcs": [
       "tra-loi-dung.mp3",
-      "b765aa56-3265-4b49-8390-49d723111723"
+      "68f82635-73a5-4766-b224-5c88f2f33484"
      ]
     },
     {
@@ -350,7 +350,7 @@
      "playing": "wrong",
      "last": {
       "ok": false,
-      "at": 1791803506712,
+      "at": 1791816398398,
       "volume": 0.9,
       "fallback": false,
       "skipped": ""
@@ -366,7 +366,7 @@
       },
       "wrong": {
        "playing": true,
-       "time": 0.786225,
+       "time": 0.780121,
        "volume": 0.9,
        "ready": 4,
        "error": 0,
@@ -386,7 +386,7 @@
    "detail": [
     {
      "ok": false,
-     "at": 1791803511318,
+     "at": 1791816402977,
      "volume": 0.9,
      "fallback": false,
      "skipped": ""
@@ -405,7 +405,7 @@
      "playing": "right",
      "last": {
       "ok": true,
-      "at": 1791803515340,
+      "at": 1791816406985,
       "volume": 0.9,
       "fallback": false,
       "skipped": ""
@@ -413,7 +413,7 @@
      "audio": {
       "right": {
        "playing": true,
-       "time": 0.039026,
+       "time": 0.039501,
        "volume": 0.9,
        "ready": 4,
        "error": 0,
@@ -439,7 +439,7 @@
      "playing": "wrong",
      "last": {
       "ok": false,
-      "at": 1791803515509,
+      "at": 1791816407146,
       "volume": 0.9,
       "fallback": false,
       "skipped": ""
@@ -455,7 +455,7 @@
       },
       "wrong": {
        "playing": true,
-       "time": 0.03652,
+       "time": 0.038347,
        "volume": 0.9,
        "ready": 4,
        "error": 0,
@@ -478,7 +478,7 @@
     "playing": "",
     "last": {
      "ok": false,
-     "at": 1791803515509,
+     "at": 1791816407146,
      "volume": 0.9,
      "fallback": false,
      "skipped": ""
@@ -515,7 +515,7 @@
      "playing": "right",
      "last": {
       "ok": true,
-      "at": 1791803517769,
+      "at": 1791816409413,
       "volume": 0.8,
       "fallback": false,
       "skipped": ""
@@ -523,7 +523,7 @@
      "audio": {
       "right": {
        "playing": true,
-       "time": 0.048925,
+       "time": 0.034831,
        "volume": 0.8,
        "ready": 4,
        "error": 0,
@@ -541,7 +541,7 @@
      "mung": false,
      "srcs": [
       "tra-loi-dung.mp3",
-      "ee747030-01cc-4a77-a887-1abd144c2880"
+      "554ac148-4815-4e8e-9da1-91d6bbbf11bd"
      ]
     },
     {
@@ -550,7 +550,7 @@
      "playing": "wrong",
      "last": {
       "ok": false,
-      "at": 1791803517985,
+      "at": 1791816409613,
       "volume": 0.8,
       "fallback": false,
       "skipped": ""
@@ -566,7 +566,7 @@
       },
       "wrong": {
        "playing": true,
-       "time": 0.033038,
+       "time": 0.042241,
        "volume": 0.8,
        "ready": 4,
        "error": 0,
@@ -576,7 +576,7 @@
      "mung": false,
      "srcs": [
       "tra-loi-sai.mp3",
-      "ee747030-01cc-4a77-a887-1abd144c2880"
+      "554ac148-4815-4e8e-9da1-91d6bbbf11bd"
      ]
     },
     0.6
@@ -591,7 +591,7 @@
     "playing": "",
     "last": {
      "ok": true,
-     "at": 1791803518601,
+     "at": 1791816410214,
      "volume": 0.8,
      "fallback": true,
      "skipped": ""
@@ -630,7 +630,7 @@
      "playing": "right",
      "last": {
       "ok": true,
-      "at": 1791803527146,
+      "at": 1791816418794,
       "volume": 0.9,
       "fallback": false,
       "skipped": ""
@@ -638,7 +638,7 @@
      "audio": {
       "right": {
        "playing": true,
-       "time": 0.033482,
+       "time": 0.037122,
        "volume": 0.9,
        "ready": 4,
        "error": 0,
@@ -664,7 +664,7 @@
      "playing": "wrong",
      "last": {
       "ok": false,
-      "at": 1791803533939,
+      "at": 1791816425505,
       "volume": 0.9,
       "fallback": false,
       "skipped": ""
@@ -680,7 +680,7 @@
       },
       "wrong": {
        "playing": true,
-       "time": 0.048899,
+       "time": 0.059211,
        "volume": 0.9,
        "ready": 4,
        "error": 0,
@@ -703,7 +703,7 @@
     "playing": "",
     "last": {
      "ok": false,
-     "at": 1791803533939,
+     "at": 1791816425505,
      "volume": 0.9,
      "fallback": false,
      "skipped": ""
@@ -739,7 +739,7 @@
     "playing": "",
     "last": {
      "ok": false,
-     "at": 1791803533939,
+     "at": 1791816425505,
      "volume": 0.9,
      "fallback": false,
      "skipped": ""
@@ -780,7 +780,7 @@
     },
     "wrong": {
      "playing": true,
-     "time": 0.039857,
+     "time": 0.048813,
      "volume": 0.8,
      "ready": 4,
      "error": 0,
@@ -795,7 +795,7 @@
     "",
     {
      "ok": false,
-     "at": 1791803542376,
+     "at": 1791816433772,
      "volume": 0.8,
      "fallback": false,
      "skipped": "đang phát tiếng mừng"
@@ -817,7 +817,7 @@
    "pass": true,
    "detail": [
     "wrong",
-    0.627384
+    0.627339
    ]
   },
   {
@@ -827,7 +827,7 @@
     {
      "last": {
       "ok": true,
-      "at": 1791803548934,
+      "at": 1791816440336,
       "volume": 0.8,
       "fallback": true,
       "skipped": ""
@@ -849,12 +849,12 @@
    "detail": []
   },
   {
-   "name": "25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.9) có hai tệp tiếng và mã; ngắt mạng rồi tải lại vẫn phát được cả hai",
+   "name": "25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.10) có hai tệp tiếng và mã; ngắt mạng rồi tải lại vẫn phát được cả hai",
    "pass": true,
    "detail": [
     {
      "names": [
-      "hmv-ban-chinh-2.9"
+      "hmv-ban-chinh-2.10"
      ],
      "right": true,
      "wrong": true,
@@ -865,7 +865,7 @@
      "af": false,
      "w": "wrong",
      "wf": false,
-     "marker": "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012"
+     "marker": "HỌC MÀ VUI | HMV-BAN-CHINH-2.10-20261012"
     }
    ]
   },

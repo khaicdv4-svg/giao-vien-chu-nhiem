@@ -122,6 +122,7 @@
     return S.voices;
   }
   function voice() { var l = S.voices; if (!l.length) return null; for (var i = 0; i < l.length; i++) if (l[i].voiceURI === cfg.voice || l[i].name === cfg.voice) return l[i]; return l[0]; }
+  function dsBusy() { try { return !!(win.hmvDungSai && win.hmvDungSai.state().playing); } catch (e) { return false; } }
   function aiReady() { return !!(win.hmvTroLyAI && typeof win.hmvTroLyAI.ready === 'function' && win.hmvTroLyAI.ready()); }
   function engine() {
     var v = !!voice(), ai = aiReady();
@@ -162,7 +163,7 @@
   function b64Blob(b64, mime) { var bin = win.atob(b64), n = bin.length, u = new Uint8Array(n); for (var i = 0; i < n; i++) u[i] = bin.charCodeAt(i); return new Blob([u], { type: mime || 'audio/wav' }); }
   function fetchAi(text) {
     var ctl = typeof win.AbortController === 'function' ? new win.AbortController() : null, timer = ctl ? win.setTimeout(function () { ctl.abort(); }, 70000) : 0;
-    return win.fetch('./api/ai/tts', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ text: text, voice: cfg.aiVoice, style: ' ' }),   /* style rỗng: chỉ đọc đúng nội dung, không kèm lời dẫn */ signal: ctl ? ctl.signal : undefined, cache: 'no-store' })
+    return (win.hmvAiFetch || win.fetch)('./api/ai/tts', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ text: text, voice: cfg.aiVoice, style: ' ' }),   /* style rỗng: chỉ đọc đúng nội dung, không kèm lời dẫn */ signal: ctl ? ctl.signal : undefined, cache: 'no-store' })
       .then(function (r) { return r.text().then(function (t) { var j = null; try { j = JSON.parse(t); } catch (e) {} return { r: r, j: j }; }); })
       .then(function (x) {
         if (timer) win.clearTimeout(timer);
@@ -281,7 +282,8 @@
       var first = S.last === null; S.last = key;
       if (S.state !== 'idle' && !S.trying) stop();                                    /* sang câu khác hoặc rời trò: thôi đọc câu cũ */
       if (S.autoTimer) { win.clearTimeout(S.autoTimer); S.autoTimer = 0; }
-      if (key && ready && cfg.auto && !first && !doc.hidden) S.autoTimer = win.setTimeout(function () { S.autoTimer = 0; var n = current(); if (n && n.g.id + '|' + n.text === key && S.state === 'idle') readCurrent(); syncHold(); }, 700);
+      /* 2.10: tiếng ĐÚNG/SAI của câu vừa chấm còn ngân thì chờ tiếng dứt (tối đa 3 giây) rồi mới đọc câu mới – trước đây giọng đọc cắt ngang làm học sinh gần như không nghe thấy tiếng đúng/sai. Đồng hồ trò chơi vẫn được giữ trong lúc chờ. */
+      if (key && ready && cfg.auto && !first && !doc.hidden) { var since = Date.now(); S.autoTimer = win.setTimeout(function fire() { S.autoTimer = 0; var n = current(); if (n && n.g.id + '|' + n.text === key && S.state === 'idle') { if (dsBusy() && Date.now() - since < 3700) { S.autoTimer = win.setTimeout(fire, 100); return; } readCurrent(); } syncHold(); }, 700); }
       syncHold();
     }
   }

@@ -1,6 +1,6 @@
 {
- "at": "2026-10-12T11:12:52.687Z",
- "build": "HMV-BAN-CHINH-2.9-20261012",
+ "at": "2026-10-12T14:47:47.106Z",
+ "build": "HMV-BAN-CHINH-2.10-20261012",
  "note": "Máy chủ tệp tĩnh giả lập trên máy thử (không phải Vercel thật); camera giả của Chromium.",
  "total": 16,
  "passed": 16,
@@ -27,11 +27,11 @@
    "name": "A2 Sau khi bản mới lên cùng địa chỉ: mở lại trang lần đầu đã thấy HỌC MÀ VUI 2.8 (không kẹt bản cũ trong bộ nhớ đệm)",
    "pass": true,
    "detail": [
-    "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012",
-    "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012",
+    "HỌC MÀ VUI | HMV-BAN-CHINH-2.10-20261012",
+    "HỌC MÀ VUI | HMV-BAN-CHINH-2.10-20261012",
     [
      "gvc-app-v9-audio-bundled",
-     "hmv-ban-chinh-2.9"
+     "hmv-ban-chinh-2.10"
     ]
    ]
   },
@@ -112,7 +112,7 @@
    "pass": true,
    "detail": [
     {
-     "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012",
+     "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.10-20261012",
      "sets": 8,
      "host": "hocmavui.localhost",
      "secure": true
@@ -121,20 +121,20 @@
    ]
   },
   {
-   "name": "B2 Trợ lý AI trên web: báo rõ \"bản web chưa có AI Gemini, chỉ có ở bản cài trên máy\" – không bảo khởi động lại máy chủ",
+   "name": "B2 Trợ lý AI trên web (2.10): mời người dùng dán khóa Gemini của chính mình – không bảo khởi động lại máy chủ, không nhắc tệp CAI-DAT-AI",
    "pass": true,
    "detail": [
-    "🌐 Bản web: AI Gemini chỉ có ở bản cài trên máy",
-    "Kết nối Gemini\nBản trên web chưa có AI Gemini. Tạo câu hỏi bằng AI, rà soát câu hỏi, Trợ lý Sư phạm và giọng đọc Gemini chỉ chạy ở bản cài trên máy tính (mở bằng tệp MO-HOC-MA-VUI.cmd). Trò chơi, Kho câu hỏi và các phần khác trên web vẫn dùng bình thường.\nCần biết khi dùng AI\nAI cần Internet. Mọi ph"
+    "🔑 Dán khóa Gemini của thầy cô để dùng AI",
+    "Kết nối Gemini\nChưa có khóa Gemini nên AI chưa hoạt động.\nMở aistudio.google.com, đăng nhập tài khoản Google của chính thầy cô, chọn Get API key → Create API key.\nSao chép khóa, dán vào ô dưới đây và bấm Lưu khóa.\nBấm Kiểm tra kết nối.\n🔒 Mỗi người dùng một khóa riêng. Khóa chỉ được lưu trong trình "
    ]
   },
   {
-   "name": "B3 Trang web công khai KHÔNG có ô dán khóa Gemini; vẫn còn cách soạn câu hỏi bằng dán ChatGPT và phần cài đặt Đọc to",
+   "name": "B3 Trang web có ô dán khóa riêng (2.10); vẫn còn cách soạn câu hỏi bằng dán ChatGPT và phần cài đặt Đọc to",
    "pass": true,
    "detail": {
-    "text": "Kết nối Gemini\nBản trên web chưa có AI Gemini. Tạo câu hỏi bằng AI, rà soát câu hỏi, Trợ lý Sư phạm và giọng đọc Gemini chỉ chạy ở bản cài trên máy tính (mở bằng tệp MO-HOC-MA-VUI.cmd). Trò chơi, Kho câu hỏi và các phần khác trên web vẫn dùng bình thường.\nCần biết khi dùng AI\nAI cần Internet. Mọi phần khác của ứng dụng vẫn chạy khi mất mạng.\nVới khóa miễn phí, nội dung gửi đi có thể được Google dùng để cải tiến sản phẩm. Vì vậy không gửi tên, điểm, hoàn cảnh hay ảnh bài làm của học sinh.\nỨng dụng tự thay họ tên có trong danh sách lớp bằng bí danh trước khi gửi, rồi trả lại tên trên màn hình của thầy cô.\nAI có thể sai. Câu hỏi, đề kiểm tra, lời nhận xét đều cần thầy cô đọc lại trước khi dùng.\nKhóa miễn phí có giới hạn số lượt mỗi phút và mỗi ngày; khi hết lượt, hãy chờ rồi thử lại.\nKhông dùng khóa?\n\nThầy cô vẫn soạn được câu hỏi bằng cách tạo câu lệnh, dán sang ChatGPT rồi dán kết quả về.\n\nMở cách dán ChatGPT\n🔊 Đọc to câu hỏi\nMáy này chưa có giọng đọc tiếng Việt nên nút loa chưa hiện trong trò chơi. Có hai cách bật, chọn một:\nGiọng AI Gemini (tự nhiên nhất, cần Internet): làm xong phần Kết nối Gemini ở trên là dùng được ngay.\nGiọng tiếng Việt của Windows (miễn phí, không cần mạng): mở Cài đặt Windows → Thời gian & ngôn ngữ → Giọng nói (Speech) → Thêm giọng nói (Add voices), chọn Tiếng Việt. Tải xong thì đóng hẳn trình duyệt rồi mở lại ứng dụng.\nNguồn giọng\nTự chọn (khuyên dùng)\nGiọng tiếng Việt của máy\nGiọng AI Gemini\nGiọng của máy\nChưa có giọng tiếng Việt\nGiọng AI\nKore – nữ, rõ ràng\nLeda – nữ, trẻ trung\nAoede – nữ, nhẹ nhàng\nPuck – nam, vui tươi\nCharon – nam, điềm đạm\nTốc độ đọc\nChậm\nVừa\nNhanh\nĐọc cả các phương án A, B, C, D\nTự đọc mỗi khi sang câu mới (không cần bấm nút loa)\nChờ đọc xong mới tính giờ (đồng hồ và việc tự chuyển câu của trò chơi tạm chờ trong lúc máy đọc)\n▶ Nghe thử\n\nDùng được trong: Kéo co, Ai nhanh hơn, Hộp quà, Đường đua, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay, Bình chọn ngón tay, Chế độ giấy. Chỉ câu hỏi và phương án được đọc, không có lời dẫn; không gửi tên học sinh. Trong trò chơi, nút bánh răng cạnh nút loa mở nhanh các lựa chọn này.",
-    "key": false,
-    "save": false,
+    "text": "Kết nối Gemini\nChưa có khóa Gemini nên AI chưa hoạt động.\nMở aistudio.google.com, đăng nhập tài khoản Google của chính thầy cô, chọn Get API key → Create API key.\nSao chép khóa, dán vào ô dưới đây và bấm Lưu khóa.\nBấm Kiểm tra kết nối.\n🔒 Mỗi người dùng một khóa riêng. Khóa chỉ được lưu trong trình duyệt trên máy này và chỉ gửi tới Google (Gemini). Khóa không gửi về trang web, không gửi cho người chia sẻ ứng dụng, và lượt dùng AI tính vào khóa của thầy cô. Trên máy dùng chung (phòng máy, máy mượn), hãy bỏ chọn “Ghi nhớ khóa” hoặc bấm “Xóa khóa” khi dùng xong.\nLưu khóa\nKiểm tra kết nối\nGhi nhớ khóa trên trình duyệt này (bỏ chọn: đóng trình duyệt là khóa tự xóa)\nTên mô hình (không bắt buộc – để trống nếu không chắc)\nCần biết khi dùng AI\nAI cần Internet. Mọi phần khác của ứng dụng vẫn chạy khi mất mạng.\nVới khóa miễn phí, nội dung gửi đi có thể được Google dùng để cải tiến sản phẩm. Vì vậy không gửi tên, điểm, hoàn cảnh hay ảnh bài làm của học sinh.\nỨng dụng tự thay họ tên có trong danh sách lớp bằng bí danh trước khi gửi, rồi trả lại tên trên màn hình của thầy cô.\nAI có thể sai. Câu hỏi, đề kiểm tra, lời nhận xét đều cần thầy cô đọc lại trước khi dùng.\nKhóa miễn phí có giới hạn số lượt mỗi phút và mỗi ngày; khi hết lượt, hãy chờ rồi thử lại.\nKhông dùng khóa?\n\nThầy cô vẫn soạn được câu hỏi bằng cách tạo câu lệnh, dán sang ChatGPT rồi dán kết quả về.\n\nMở cách dán ChatGPT\n🔊 Đọc to câu hỏi\nMáy này chưa có giọng đọc tiếng Việt nên nút loa chưa hiện trong trò chơi. Có hai cách bật, chọn một:\nGiọng AI Gemini (tự nhiên nhất, cần Internet): làm xong phần Kết nối Gemini ở trên là dùng được ngay.\nGiọng tiếng Việt của Windows (miễn phí, không cần mạng): mở Cài đặt Windows → Thời gian & ngôn ngữ → Giọng nói (Speech) → Thêm giọng nói (Add voices), chọn Tiếng Việt. Tải xong thì đóng hẳn trình duyệt rồi mở lại ứng dụng.\nNguồn giọng\nTự chọn (khuyên dùng)\nGiọng tiếng Việt của máy\nGiọng AI Gemini\nGiọng của máy\nChưa có giọng tiếng Việt\nGiọng AI\nKore – nữ, rõ ràng\nLeda – nữ, trẻ trung\nAoede – nữ, nhẹ nhàng\nPuck – nam, vui tươi\nCharon – nam, điềm đạm\nTốc độ đọc\nChậm\nVừa\nNhanh\nĐọc cả các phương án A, B, C, D\nTự đọc mỗi khi sang câu mới (không cần bấm nút loa)\nChờ đọc xong mới tính giờ (đồng hồ và việc tự chuyển câu của trò chơi tạm chờ trong lúc máy đọc)\n▶ Nghe thử\n\nDùng được trong: Kéo co, Ai nhanh hơn, Hộp quà, Đường đua, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay, Bình chọn ngón tay, Chế độ giấy. Chỉ câu hỏi và phương án được đọc, không có lời dẫn; không gửi tên học sinh. Trong trò chơi, nút bánh răng cạnh nút loa mở nhanh các lựa chọn này.",
+    "key": true,
+    "save": true,
     "dt": true,
     "paste": true
    }
@@ -164,16 +164,16 @@
    ]
   },
   {
-   "name": "B7 Đã mở trang một lần thì lần sau mất mạng vẫn mở được (bộ nhớ ngoại tuyến hmv-ban-chinh-2.9)",
+   "name": "B7 Đã mở trang một lần thì lần sau mất mạng vẫn mở được (bộ nhớ ngoại tuyến hmv-ban-chinh-2.10)",
    "pass": true,
    "detail": [
     {
      "names": [
-      "hmv-ban-chinh-2.9"
+      "hmv-ban-chinh-2.10"
      ],
-     "n": 48
+     "n": 49
     },
-    "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012"
+    "HỌC MÀ VUI | HMV-BAN-CHINH-2.10-20261012"
    ]
   },
   {

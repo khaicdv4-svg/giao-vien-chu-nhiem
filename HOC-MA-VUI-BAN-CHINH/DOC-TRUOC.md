@@ -1,12 +1,80 @@
-# HỌC MÀ VUI · BẢN CHÍNH 2.9
+# HỌC MÀ VUI · BẢN CHÍNH 2.10
 
-**Ngày:** 12/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.9-20261012`
+**Ngày:** 12/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.10-20261012`
 
 Đây là bản hợp nhất duy nhất. Nó gồm toàn bộ nội dung của các bản thử trước (03B → 09, Chặng 1 → 7B) cùng ba phần mới: Quiz Nghiêng Đầu hoàn chỉnh, Kho câu hỏi thiết kế lại và 140 câu hỏi mẫu.
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
-## 0. Cập nhật 2.9 (12/10/2026) – Hai trò chơi camera mới: Bàn tay phép thuật, Giơ tay giành quyền
+## 0. Cập nhật 2.10 (12/10/2026) – Khóa AI riêng cho người dùng bản web; tiếng đúng/sai không còn bị giọng đọc cắt
+
+### 1. Mỗi người dùng bản web tự dán khóa Gemini của mình
+- **Ai dùng được:** người mở `giao-vien-chu-nhiem.vercel.app`.
+- **Cách bật:**
+  1. Vào **Trợ lý AI → ⚙️ Kết nối AI**.
+  2. Dán khóa Gemini lấy từ tài khoản Google của chính họ (aistudio.google.com → Get API key).
+  3. Bấm **Lưu khóa**, rồi bấm **Kiểm tra kết nối**.
+- **Phần AI chạy được trên web:** Tạo câu hỏi nhanh, AI rà soát, Trợ lý Sư phạm, Phân tích, giọng đọc Gemini.
+- **Khóa nằm ở đâu:**
+  - Khóa chỉ lưu **trong trình duyệt của người đó**.
+  - Trình duyệt gửi yêu cầu **thẳng tới Google** (`generativelanguage.googleapis.com`). Khóa nằm trong tiêu đề yêu cầu, không nằm trong địa chỉ.
+  - Khóa **không** gửi về trang web (Vercel), GitHub hay máy của thầy. Lượt dùng AI tính vào khóa của người đó.
+  - Máy hay trình duyệt khác không thấy khóa này.
+- **Ô “Ghi nhớ khóa trên trình duyệt này”:** bỏ chọn thì đóng trình duyệt là khóa tự xóa. Nên bỏ chọn khi dùng **máy dùng chung** (phòng máy, máy mượn), hoặc bấm **Xóa khóa** khi dùng xong.
+- **Ô “Tên mô hình”:** không bắt buộc. Chỉ cần điền khi Google đổi tên mô hình.
+- **Tên học sinh vẫn được che như bản trên máy:** họ tên trong danh sách lớp được thay bằng [HS1], [HS2]… trước khi gửi.
+- **Bản cài trên máy thầy (cổng 8780) không đổi:** vẫn dùng tệp `CAI-DAT-AI\khoa-gemini.txt` và máy chủ nội bộ, không dùng khóa lưu trong trình duyệt.
+- **Lưu ý:** khóa lưu trong trình duyệt thì bất kỳ ai dùng chung trình duyệt đó đều đọc được. Vì vậy:
+  - Mỗi người chỉ dán khóa của mình.
+  - Không dán khóa vào máy của người khác.
+
+### 2. Tiếng ĐÚNG/SAI bị mất ở một số trò – nguyên nhân và cách sửa
+- **Cách rà soát:** đã chạy từng trò, chấm cả câu đúng lẫn câu sai, và đo tiếng mp3 thực sự phát được bao lâu. Các trò được rà: Kéo co, Ai nhanh hơn, Đường đua, Hộp quà, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay, Bình chọn (camera và nhập tay), Bàn tay phép thuật, Giơ tay giành quyền.
+- **Khi “Tự đọc câu hỏi” TẮT:** mọi trò đều phát trọn tiếng (~2,4 giây).
+- **Khi “Tự đọc câu hỏi” BẬT:** máy bắt đầu đọc câu mới chỉ 0,7 giây sau khi câu mới hiện ra, và tiếng đúng/sai bị cắt ngay lúc đó.
+  - Ở **Đường đua** và **Quiz Nghiêng Đầu**, học sinh chỉ nghe được chưa tới 1 giây đầu, gần như không nghe thấy.
+  - **Bóng bay** cũng có lúc bị cắt.
+- **Đã sửa (`app\doc-to.js`):**
+  - Khi đang tự đọc, nếu tiếng đúng/sai còn ngân thì máy **chờ tiếng dứt** (tối đa khoảng 3 giây) rồi mới đọc câu mới.
+  - Trong lúc chờ, đồng hồ trò chơi vẫn được giữ, học sinh không mất giờ.
+  - Nếu thầy cô **tự bấm nút loa** khi tiếng còn ngân thì máy vẫn đọc ngay như trước.
+- **Những trường hợp vẫn không có tiếng – đây là thiết kế, không phải lỗi:**
+  - Nút **“🔊 Tiếng: Tắt”** của Kéo co, Ai nhanh hơn, hoặc “Âm thanh: Tắt” của Bóng bay. Nếu thầy thấy một trò im lặng, hãy kiểm tra nút này trước.
+  - Bình chọn kiểu **Hỏi nhanh** (khảo sát ý kiến, không có đáp án đúng).
+  - Lúc học sinh mới bấm chọn phương án ở Đường đua (tiếng vang khi thầy cô bấm “Xác nhận đúng/sai”).
+  - Ở Hộp quà và Chinh phục tri thức, tiếng vang lúc **công bố** đáp án, chậm khoảng 1–1,5 giây sau khi bấm.
+
+### 3. Tệp
+- **Mới:**
+  - `app\ai-tren-web.js`
+  - `kiem-thu\t-khoa-web.cjs`
+  - `kiem-thu\t-dung-sai-doc.cjs`
+- **Thay đổi:**
+  - `app\tro-ly-ai.js`: Kết nối AI trên web.
+  - `app\doc-to.js`: chờ tiếng đúng/sai, giọng AI trên web.
+  - `app\ban-chinh.css`.
+  - `app\index.html`: nạp tệp mới, nhãn.
+  - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.10`.
+  - `MO-HOC-MA-VUI.ps1`.
+  - `kiem-thu\t-web.cjs`: trên web nay có ô dán khóa riêng.
+  - Các bài kiểm thử cũ: đổi nhãn sang 2.10.
+- Bản trước nằm ở `backups\truoc-2.10\`.
+
+### 4. Kiểm thử bản 2.10 – và phần CHƯA kiểm
+- **`kiem-thu\t-khoa-web.cjs`: 20/20.** Trang web giả lập, Google Gemini giả: yêu cầu tới Google bị chặn lại trong trình duyệt thử, không gọi Google thật. Bài này kiểm:
+  - Lưu khóa và kiểm tra kết nối; khóa nằm trong tiêu đề, không nằm trong địa chỉ.
+  - Tạo câu hỏi; tên học sinh được che; giọng AI.
+  - Không yêu cầu nào về trang web chứa khóa.
+  - Đổi mô hình; khóa sai; tùy chọn ghi nhớ hoặc giữ tạm; đóng trình duyệt thì khóa tạm mất.
+  - Người dùng thứ hai không dùng được khóa của người thứ nhất; nút Xóa khóa; hết lượt (429).
+  - Bản trên máy thầy không đổi.
+- **`kiem-thu\t-dung-sai-doc.cjs`: 9/9.** Tự đọc BẬT thì tiếng đúng/sai phát trọn ở Đường đua, Nghiêng Đầu, Bóng bay, Kéo co, Ai nhanh hơn, Hộp quà, Chinh phục tri thức, Bàn tay phép thuật. Máy đọc câu mới sau khi tiếng dứt; đồng hồ được giữ. Cùng bài này chạy trên bản 2.9 thì trượt 4 phép thử.
+- **Chạy lại toàn bộ bài cũ trên bản 2.10:** Kho 70/70, Quiz 43/43, Kéo co 44/44, Vòng quay 63/63, toàn màn hình 52/52, Ai nhanh hơn 47/47 + nhạc 25/25, Bóng bay 50/50, trang chủ + nhạc 40/40, tên 55/55, AI 58/58, Bình chọn 43/43, Phân tích 28/28, Tiếng mừng 25/25, Đọc to 66/66, Bố cục 22/22, Tự chấm/tự đếm 18/18, Tiếng đúng/sai 26/26, Web 16/16, Hai trò camera mới 39/39 – tất cả đạt.
+- **Chưa kiểm:**
+  - **Google Gemini thật** với khóa thật trên trang Vercel. Máy thử không được gọi Google. Đây là phần cần thầy thử đầu tiên: dán khóa, bấm “Kiểm tra kết nối”.
+  - Loa thật trên máy thầy.
+
+## 0-19. Cập nhật 2.9 (12/10/2026) – Hai trò chơi camera mới: Bàn tay phép thuật, Giơ tay giành quyền
 
 Thầy yêu cầu viết thêm hai trò chơi số 1 và số 2 trong danh sách gợi ý. Cả hai nằm trong **Thư viện trò chơi** (có nhãn “Mới”). Trang chủ giữ nguyên như bản 2.8, vì thêm một hàng nữa thì trang chủ tràn khỏi màn hình 1774×934.
 

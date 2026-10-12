@@ -1,0 +1,186 @@
+{
+  "version": "2.10",
+  "at": "2026-10-12T14:43:07.309Z",
+  "pass": 20,
+  "total": 20,
+  "results": [
+    {
+      "name": "1 Bản web, chưa có khóa: Kết nối AI hiện ô dán khóa riêng (ô kiểu mật khẩu), ô \"Ghi nhớ khóa\" (mặc định chọn), ô tên mô hình, lời giải thích khóa chỉ lưu trong trình duyệt và chỉ gửi tới Google; không còn nhắc tệp CAI-DAT-AI hay \"chỉ có ở bản cài trên máy\"",
+      "pass": true,
+      "detail": [
+        {
+          "text": "Kết nối Gemini\nChưa có khóa Gemini nên AI chưa hoạt động.\nMở aistudio.google.com, đăng nhập tài khoản Google của chính thầy cô, chọn Get API key → Create API key.\nSao chép khóa, dán vào ô dưới đây và bấm Lưu khóa.\nBấm Kiểm tra kết nối.\n🔒 Mỗi người dùng một khóa riêng. Khóa chỉ được lưu trong trình duyệt trên máy này và chỉ gửi tới Google (Gemini). Khóa không gửi về trang web, không gửi cho người chia sẻ ứng dụng, và lượt dùng AI tính vào khóa của thầy cô. Trên máy dùng chung (phòng máy, máy mượn), hãy bỏ chọn “Ghi nhớ khóa” hoặc bấm “Xóa khóa” khi dùng xong.\nLưu khóa\nKiểm tra kết nối\nGhi nhớ khóa trên trình duyệt này (bỏ chọn: đóng trình duyệt là khóa tự xóa)\nTên mô hình (không bắt buộc – để trống nếu không chắc)\nCần biết khi dùng AI\nAI cần Internet. Mọi phần khác của ứng dụng vẫn chạy khi mất mạng.\nVới khóa miễn phí, nội dung gửi đi có thể được Google dùng để cải tiến sản phẩm. Vì vậy không gửi tên, điểm, hoàn cảnh hay ảnh bài làm của học sinh.\nỨng dụng tự thay họ tên có trong danh sách lớp bằng bí danh trước khi gửi, rồi trả lại tên trên màn hình của thầy cô.\nAI có thể sai. Câu hỏi, đề kiểm tra, lời nhận xét đều cần thầy cô đọc lại trước khi dùng.\nKhóa miễn phí có giới hạn số lượt mỗi phút và mỗi ngày; khi hết lượt, hãy chờ rồi thử lại.\nKhông dùng khóa?\n\nThầy cô vẫn soạn được câu hỏi bằng cách tạo câu lệnh, dán sang ChatGPT rồi dán kết quả về.\n\nMở cách dán ChatGPT\n🔊 Đọc to câu hỏi\nMáy này chưa có giọng đọc tiếng Việt nên nút loa chưa hiện trong trò chơi. Có hai cách bật, chọn một:\nGiọng AI Gemini (tự nhiên nhất, cần Internet): làm xong phần Kết nối Gemini ở trên là dùng được ngay.\nGiọng tiếng Việt của Windows (miễn phí, không cần mạng): mở Cài đặt Windows → Thời gian & ngôn ngữ → Giọng nói (Speech) → Thêm giọng nói (Add voices), chọn Tiếng Việt. Tải xong thì đóng hẳn trình duyệt rồi mở lại ứng dụng.\nNguồn giọng\nTự chọn (khuyên dùng)\nGiọng tiếng Việt của máy\nGiọng AI Gemini\nGiọng của máy\nChưa có giọng tiếng Việt\nGiọng AI\nKore – nữ, rõ ràng\nLeda – nữ, trẻ trung\nAoede – nữ, nhẹ nhàng\nPuck – nam, vui tươi\nCharon – nam, điềm đạm\nTốc độ đọc\nChậm\nVừa\nNhanh\nĐọc cả các phương án A, B, C, D\nTự đọc mỗi khi sang câu mới (không cần bấm nút loa)\nChờ đọc xong mới tính giờ (đồng hồ và việc tự chuyển câu của trò chơi tạm chờ trong lúc máy đọc)\n▶ Nghe thử\n\nDùng được trong: Kéo co, Ai nhanh hơn, Hộp quà, Đường đua, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay, Bình chọn ngón tay, Chế độ giấy. Chỉ câu hỏi và phương án được đọc, không có lời dẫn; không gửi tên học sinh. Trong trò chơi, nút bánh răng cạnh nút loa mở nhanh các lựa chọn này.",
+          "key": true,
+          "rem": true,
+          "model": true,
+          "keyType": "password"
+        },
+        "🔑 Dán khóa Gemini của thầy cô để dùng AI"
+      ]
+    },
+    {
+      "name": "2 Lưu khóa (có ghi nhớ): khóa nằm trong localStorage của trình duyệt này; chip báo \"khóa riêng của thầy cô (…AAAA)\"; ô dán khóa được xóa trắng",
+      "pass": true,
+      "detail": [
+        {
+          "l": "{\"key\":\"AIzaSyTEST-nguoi-dung-A-0000000000AAAA\",\"model\":\"\",\"at\":\"2026-10-12T14:42:57.478Z\"}",
+          "s": null
+        },
+        "🟢 Gemini: khóa riêng của thầy cô (…AAAA)"
+      ]
+    },
+    {
+      "name": "3 Kiểm tra kết nối: trình duyệt gọi THẲNG generativelanguage.googleapis.com, khóa nằm trong tiêu đề x-goog-api-key, KHÔNG nằm trong địa chỉ URL, không gửi cookie hay địa chỉ trang (referrer)",
+      "pass": true,
+      "detail": [
+        "✅ Kết nối tốt · mô hình gemini-3.5-flash-lite · 0.0 giây.",
+        {
+          "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent",
+          "ref": "",
+          "cookie": ""
+        }
+      ]
+    },
+    {
+      "name": "4 Trợ lý AI → Tạo câu hỏi nhanh chạy trên web bằng khóa riêng: ra câu hỏi nháp để duyệt",
+      "pass": true,
+      "detail": [
+        5,
+        1
+      ]
+    },
+    {
+      "name": "5 Trợ lý Sư phạm trên web: họ tên học sinh trong danh sách lớp được thay bằng [HS1], [HS2] TRƯỚC khi gửi tới Google; màn hình thầy cô vẫn thấy tên thật",
+      "pass": true,
+      "detail": [
+        "{\"contents\":[{\"role\":\"user\",\"parts\":[{\"text\":\"Viết lời nhận xét cho em [HS1] và em [HS2] về môn Toán.\"}]}],\"generationConfig\":{\"temperature\":0.6,\"maxOutputTokens\":8192},\"systemInstruction\":{\"parts\":[{\"text\":\"Bạn là Trợ lý Sư phạm của ứng dụng HỌC MÀ VUI, hỗ trợ giáo viên tiểu học Việt Nam trong công",
+        "Gợi ýPhương án 1: Nguyễn Minh Khang tính nhẩm nhanh, cần cẩn thận hơn khi đặt tính.Phương án 2: Nguyễn Minh Khang có tiến bộ rõ.Lưu ý: thầy cô chỉnh lại cho phù hợp."
+      ]
+    },
+    {
+      "name": "6 Giọng đọc AI Gemini chạy trên web bằng khóa riêng (âm thanh PCM được đóng thành WAV ngay trong trình duyệt và phát được)",
+      "pass": true,
+      "detail": [
+        {
+          "done": true,
+          "ms": 172,
+          "engine": "ai"
+        },
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash-tts:generateContent"
+      ]
+    },
+    {
+      "name": "7 Không một yêu cầu nào về máy chủ của trang web (Vercel giả lập) chứa khóa, gọi /api/… hay gửi dữ liệu (POST)",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "8 Ô \"Tên mô hình\": đổi tên mô hình không phải dán lại khóa; lần gọi sau dùng mô hình đó trước tiên",
+      "pass": true,
+      "detail": [
+        "gemini-tu-chon-9",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-tu-chon-9:generateContent"
+      ]
+    },
+    {
+      "name": "9 Khóa sai: báo rõ \"Khóa Gemini không hợp lệ…\", thông báo không chứa khóa",
+      "pass": true,
+      "detail": "❌ Khóa Gemini không hợp lệ hoặc bị Google từ chối. Hãy sao chép lại nguyên khóa, hoặc tạo khóa mới trong Google AI Studio. (Google báo: 400 INVALID_ARGUMENT – API key not valid. Please pass a valid API key.)"
+    },
+    {
+      "name": "10 Dán chuỗi không phải khóa (có khoảng trắng): từ chối, giữ nguyên khóa đang có",
+      "pass": true,
+      "detail": [
+        "Khóa không đúng định dạng. Hãy sao chép lại nguyên khóa từ Google AI Studio.",
+        {
+          "l": "{\"key\":\"BADKEY-khong-hop-le-22222222222222\",\"model\":\"\",\"at\":\"2026-10-12T14:42:58.990Z\"}",
+          "s": null
+        }
+      ]
+    },
+    {
+      "name": "11 Bỏ chọn \"Ghi nhớ khóa\": khóa chỉ giữ tạm trong phiên (sessionStorage), localStorage không còn khóa",
+      "pass": true,
+      "detail": {
+        "l": null,
+        "s": "{\"key\":\"AIzaSyTEST-nguoi-dung-A-0000000000AAAA\",\"model\":\"\",\"at\":\"2026-10-12T14:42:59.813Z\"}"
+      }
+    },
+    {
+      "name": "12 Chọn lại \"Ghi nhớ khóa\" khi đã có khóa: chuyển sang ghi nhớ mà không phải dán lại",
+      "pass": true,
+      "detail": {
+        "l": "{\"key\":\"AIzaSyTEST-nguoi-dung-A-0000000000AAAA\",\"model\":\"\",\"at\":\"2026-10-12T14:43:00.145Z\"}",
+        "s": null
+      }
+    },
+    {
+      "name": "13 Đóng trình duyệt rồi mở lại (khóa không ghi nhớ): khóa đã tự xóa, AI báo cần dán khóa",
+      "pass": true,
+      "detail": [
+        {
+          "l": null,
+          "s": null
+        },
+        "🔑 Dán khóa Gemini của thầy cô để dùng AI"
+      ]
+    },
+    {
+      "name": "14 Người dùng khác (trình duyệt khác) KHÔNG dùng được khóa của người A: chưa có khóa, bấm Tạo câu hỏi thì được nhắc dán khóa của mình, không có yêu cầu nào tới Google",
+      "pass": true,
+      "detail": [
+        {
+          "l": null,
+          "s": null
+        },
+        "🔑 Dán khóa Gemini của thầy cô để dùng AI",
+        "Chưa có khóa Gemini. Hãy vào Trợ lý AI → Kết nối AI để dán khóa của thầy cô. Mở Kết nối AI Dùng cách dán ChatGPT",
+        0
+      ]
+    },
+    {
+      "name": "15 Người dùng B dán khóa của mình → các yêu cầu của B dùng khóa B",
+      "pass": true,
+      "detail": "BBBB"
+    },
+    {
+      "name": "16 Nút \"Xóa khóa\": khóa bị xóa khỏi trình duyệt (cả localStorage lẫn sessionStorage)",
+      "pass": true,
+      "detail": [
+        {
+          "l": null,
+          "s": null
+        },
+        "🔑 Dán khóa Gemini của thầy cô để dùng AI"
+      ]
+    },
+    {
+      "name": "17 Google báo hết lượt (429): thông báo dễ hiểu \"đang giới hạn lượt dùng của khóa này… chờ khoảng một phút\"",
+      "pass": true,
+      "detail": "❌ Gemini đang giới hạn lượt dùng của khóa này. Hãy chờ khoảng một phút rồi thử lại."
+    },
+    {
+      "name": "18 Bản cài trên máy (127.0.0.1): vẫn dùng máy chủ nội bộ và tệp CAI-DAT-AI\\khoa-gemini.txt; không có ô \"Ghi nhớ khóa\"; không dùng khóa web lưu trong trình duyệt; không gọi Google trực tiếp từ trình duyệt",
+      "pass": true,
+      "detail": [
+        false,
+        false,
+        null,
+        "✅ Kết nối tốt · mô hình gemini-3.5-flash-lite · 0.0 giây.",
+        0
+      ]
+    },
+    {
+      "name": "19 Mã nguồn: ai-tren-web.js chỉ gọi đúng một địa chỉ ngoài (generativelanguage.googleapis.com); nạp trước tro-ly-ai.js; có trong bộ nhớ ngoại tuyến; không có khóa nào viết sẵn trong mã",
+      "pass": true,
+      "detail": [
+        "https://generativelanguage.googleapis.com"
+      ]
+    },
+    {
+      "name": "20 Không có lỗi JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

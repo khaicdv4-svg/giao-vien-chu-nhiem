@@ -1,6 +1,6 @@
 {
- "at": "2026-10-12T11:11:28.779Z",
- "build": "HMV-BAN-CHINH-2.9-20261012",
+ "at": "2026-10-12T14:21:36.369Z",
+ "build": "HMV-BAN-CHINH-2.10-20261012",
  "note": "Giọng đọc, camera và bộ nhận diện bàn tay đều là giả lập.",
  "total": 18,
  "passed": 18,
@@ -69,7 +69,7 @@
    "pass": true,
    "detail": [
     {
-     "t": 1791803454920,
+     "t": 1791814857392,
      "g": "gift",
      "k": "wqni0e",
      "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -107,7 +107,7 @@
     "Chưa đúng, hộp quà chưa được mở.",
     [
      {
-      "t": 1791803456296,
+      "t": 1791814858780,
       "g": "gift",
       "k": "1fmay1b",
       "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",

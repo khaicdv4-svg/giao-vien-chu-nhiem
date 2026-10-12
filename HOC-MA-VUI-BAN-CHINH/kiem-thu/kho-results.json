@@ -207,7 +207,7 @@
   "id": "D1-millionaire",
   "name": "Bộ mẫu A–B–C–D → millionaire: vào chơi thẳng với 20 câu của bộ",
   "status": "PASS",
-  "detail": "{\"view\":\"games\",\"type\":\"millionaire\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"💰 Chinh phục tri thức Toán · Kết nối tri thức ⏱ 00:01 ⛶ Toàn màn hình 🎵 Nhạc nền: Bật CÂU 1/10 · MỨC NHẬN BIẾT 3 + 4 = ? A. 7 B.\"}"
+  "detail": "{\"view\":\"games\",\"type\":\"millionaire\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"💰 Chinh phục tri thức Toán · Kết nối tri thức ⏱ 00:01 ⛶ Toàn màn hình 🎵 Nhạc nền: Bật CÂU 1/10 · MỨC NHẬN BIẾT 3 + 4 = ? A. 8 B.\"}"
  },
  {
   "id": "D1-balloon",
@@ -363,13 +363,13 @@
   "id": "G1",
   "name": "Service worker cài xong và lưu đủ 26 tệp ứng dụng",
   "status": "PASS",
-  "detail": "{\"caches\":[\"hmv-ban-chinh-2.9\"],\"n\":47}"
+  "detail": "{\"caches\":[\"hmv-ban-chinh-2.10\"],\"n\":48}"
  },
  {
   "id": "G2",
   "name": "Ngắt mạng rồi tải lại: ứng dụng, Kho và 7 bộ mẫu vẫn mở đúng bản chính",
   "status": "PASS",
-  "detail": "{\"online\":false,\"marker\":\"Build kiểm tra: HMV-BAN-CHINH-2.9-20261012\",\"demo\":7,\"styled\":\"rgb(243, 240, 255)\",\"cam\":true}"
+  "detail": "{\"online\":false,\"marker\":\"Build kiểm tra: HMV-BAN-CHINH-2.10-20261012\",\"demo\":7,\"styled\":\"rgb(243, 240, 255)\",\"cam\":true}"
  },
  {
   "id": "G3",

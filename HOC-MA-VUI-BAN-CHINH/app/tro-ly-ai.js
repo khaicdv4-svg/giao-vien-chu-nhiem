@@ -1,5 +1,6 @@
 /* BAN-CHINH 1.9 · Trợ lý AI: tạo câu hỏi nhanh → chơi ngay, AI rà soát câu hỏi, Trợ lý Sư phạm, kết nối Gemini.
  * Trang chỉ gọi máy chủ nội bộ (./api/ai/…); khóa Gemini nằm trong tệp trên máy giáo viên, không nằm trong trang.
+ * 2.10: trên bản web, ./api/ai/… được ai-tren-web.js trả lời ngay trong trình duyệt bằng khóa riêng của từng người dùng.
  * Câu lệnh (prompt) nằm ở tệp này nên sửa được mà không phải khởi động lại máy chủ.
  * Không gửi tên học sinh: tên trong danh sách lớp được thay bằng bí danh [HS1], [HS2]… trước khi gửi.
  */
@@ -28,7 +29,7 @@
   function call(path, body, timeoutMs) {
     var ctl = typeof win.AbortController === 'function' ? new win.AbortController() : null, timer = ctl ? win.setTimeout(function () { ctl.abort(); }, timeoutMs || 110000) : 0;
     function done() { if (timer) win.clearTimeout(timer); }
-    return win.fetch('./api/ai/' + path, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body || {}), signal: ctl ? ctl.signal : undefined, cache: 'no-store' })
+    return (win.hmvAiFetch || win.fetch)('./api/ai/' + path, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body || {}), signal: ctl ? ctl.signal : undefined, cache: 'no-store' })
       .then(function (r) { return r.text().then(function (t) { var j = null; try { j = JSON.parse(t); } catch (e) {} return { r: r, j: j }; }); })
       .then(function (x) {
         done();
@@ -38,7 +39,7 @@
       }, function (e) { done(); throw fail(e && e.name === 'AbortError' ? 'TIMEOUT' : 'OFFLINE', e && e.name === 'AbortError' ? 'AI xử lý quá lâu. Hãy thử lại với ít nội dung hơn.' : 'Không gọi được máy chủ nội bộ. Hãy kiểm tra ứng dụng còn đang chạy.'); });
   }
   function loadStatus() {
-    return win.fetch('./api/ai/status?t=' + Date.now(), { cache: 'no-store', headers: { Accept: 'application/json' } })
+    return (win.hmvAiFetch || win.fetch)('./api/ai/status?t=' + Date.now(), { cache: 'no-store', headers: { Accept: 'application/json' } })
       .then(function (r) { return r.ok ? r.json() : { server: 0 }; })
       .catch(function () { return { server: 0 }; })
       .then(function (s) { S.status = s && s.server ? s : { server: 0 }; paintStatus(); return S.status; });
@@ -309,8 +310,8 @@
     var c = $('taStatus'); if (!c) return; var s = S.status;
     if (!s) { c.textContent = 'Đang kiểm tra kết nối AI…'; c.className = 'ta-chip'; return; }
     if (!s.server) { c.textContent = WEB ? '🌐 Bản web: AI Gemini chỉ có ở bản cài trên máy' : '⚠️ Cần khởi động lại máy chủ để bật AI'; c.className = 'ta-chip warn'; }
-    else if (!s.configured) { c.textContent = '🔑 Chưa có khóa Gemini'; c.className = 'ta-chip warn'; }
-    else { c.textContent = '🟢 Gemini đã có khóa (' + (s.keyHint || '') + ')'; c.className = 'ta-chip ok'; }
+    else if (!s.configured) { c.textContent = s.web ? '🔑 Dán khóa Gemini của thầy cô để dùng AI' : '🔑 Chưa có khóa Gemini'; c.className = 'ta-chip warn'; }
+    else { c.textContent = s.web ? '🟢 Gemini: khóa riêng của thầy cô (' + (s.keyHint || '') + ')' : '🟢 Gemini đã có khóa (' + (s.keyHint || '') + ')'; c.className = 'ta-chip ok'; }
     if (S.tab === 'setup') renderSetup();
   }
   function shell() {
@@ -394,11 +395,16 @@
   }
   function renderSetup() {
     var body = $('taBody'), s = S.status || { server: 0 };
-    var state = !s.server ? '<div class="ta-note bad">' + esc(OLD_MSG) + '</div>' : s.configured ? '<div class="ta-note">Đã có khóa Gemini (' + esc(s.keyHint) + '). Mô hình ưu tiên: <b>' + esc((s.models || [])[0] || '') + '</b>.' + (s.lastError ? ' Lần gọi gần nhất báo: ' + esc(s.lastError.message) : '') + '</div>' : '<div class="ta-note bad">Chưa có khóa Gemini nên AI chưa hoạt động.</div>';
+    var state = !s.server ? '<div class="ta-note bad">' + esc(OLD_MSG) + '</div>' : s.configured ? '<div class="ta-note">' + (s.web ? 'Đang dùng khóa Gemini <b>riêng của thầy cô</b> (' + esc(s.keyHint) + '), lưu ' + (s.remember ? 'trong trình duyệt này' : 'tạm đến khi đóng trình duyệt') + '.' : 'Đã có khóa Gemini (' + esc(s.keyHint) + ').') + ' Mô hình ưu tiên: <b>' + esc((s.models || [])[0] || '') + '</b>.' + (s.lastError ? ' Lần gọi gần nhất báo: ' + esc(s.lastError.message) : '') + '</div>' : '<div class="ta-note bad">Chưa có khóa Gemini nên AI chưa hoạt động.</div>';
     body.innerHTML = '<div class="ta-setup"><section class="card"><h3>Kết nối Gemini</h3>' + state
       + (WEB && !s.server ? '</section>' : ''
-      + '<ol class="ta-steps"><li>Mở <b>aistudio.google.com</b>, đăng nhập tài khoản Google, chọn <b>Get API key</b> → <b>Create API key</b>.</li><li>Sao chép khóa, dán vào ô dưới đây và bấm <b>Lưu khóa</b>. Khóa được ghi vào tệp <code>CAI-DAT-AI\\khoa-gemini.txt</code> trên máy này, không lưu trong trình duyệt.</li><li>Bấm <b>Kiểm tra kết nối</b>.</li></ol>'
-      + '<div class="ta-key"><input type="password" id="taKey" class="input" autocomplete="off" spellcheck="false" placeholder="Dán khóa Gemini vào đây"' + (s.server ? '' : ' disabled') + '><button type="button" class="btn color" id="taKeySave"' + (s.server ? '' : ' disabled data-ta-off') + '>Lưu khóa</button><button type="button" class="btn soft" id="taKeyTest"' + (s.server && s.configured ? '' : ' disabled data-ta-off') + '>Kiểm tra kết nối</button>' + (s.configured ? '<button type="button" class="btn soft" id="taKeyClear">Xóa khóa</button>' : '') + '</div><div id="taTest" class="ta-note' + (S.test ? '' : ' empty') + '">' + esc(S.test) + '</div></section>')
+      + (s.web
+        ? '<ol class="ta-steps"><li>Mở <b>aistudio.google.com</b>, đăng nhập <b>tài khoản Google của chính thầy cô</b>, chọn <b>Get API key</b> → <b>Create API key</b>.</li><li>Sao chép khóa, dán vào ô dưới đây và bấm <b>Lưu khóa</b>.</li><li>Bấm <b>Kiểm tra kết nối</b>.</li></ol>'
+          + '<div class="ta-note ta-web-key">🔒 Mỗi người dùng một khóa riêng. Khóa chỉ được lưu <b>trong trình duyệt trên máy này</b> và chỉ gửi tới Google (Gemini). Khóa không gửi về trang web, không gửi cho người chia sẻ ứng dụng, và lượt dùng AI tính vào khóa của thầy cô. Trên máy dùng chung (phòng máy, máy mượn), hãy bỏ chọn “Ghi nhớ khóa” hoặc bấm “Xóa khóa” khi dùng xong.</div>'
+        : '<ol class="ta-steps"><li>Mở <b>aistudio.google.com</b>, đăng nhập tài khoản Google, chọn <b>Get API key</b> → <b>Create API key</b>.</li><li>Sao chép khóa, dán vào ô dưới đây và bấm <b>Lưu khóa</b>. Khóa được ghi vào tệp <code>CAI-DAT-AI\\khoa-gemini.txt</code> trên máy này, không lưu trong trình duyệt.</li><li>Bấm <b>Kiểm tra kết nối</b>.</li></ol>')
+      + '<div class="ta-key"><input type="password" id="taKey" class="input" autocomplete="off" spellcheck="false" placeholder="Dán khóa Gemini vào đây"' + (s.server ? '' : ' disabled') + '><button type="button" class="btn color" id="taKeySave"' + (s.server ? '' : ' disabled data-ta-off') + '>Lưu khóa</button><button type="button" class="btn soft" id="taKeyTest"' + (s.server && s.configured ? '' : ' disabled data-ta-off') + '>Kiểm tra kết nối</button>' + (s.configured ? '<button type="button" class="btn soft" id="taKeyClear">Xóa khóa</button>' : '') + '</div>'
+      + (s.web ? '<div class="ta-key-opts"><label class="ta-check"><input type="checkbox" id="taKeyRemember"' + (s.configured && !s.remember ? '' : ' checked') + '> Ghi nhớ khóa trên trình duyệt này (bỏ chọn: đóng trình duyệt là khóa tự xóa)</label><label class="ta-f ta-model"><span>Tên mô hình <small>(không bắt buộc – để trống nếu không chắc)</small></span><input id="taModel" class="input" autocomplete="off" spellcheck="false" placeholder="' + esc(((s.models || [])[0]) || '') + '" value="' + esc(s.model || '') + '"></label></div>' : '')
+      + '<div id="taTest" class="ta-note' + (S.test ? '' : ' empty') + '">' + esc(S.test) + '</div></section>')
       + '<section class="card"><h3>Cần biết khi dùng AI</h3><ul class="ta-list"><li>AI cần Internet. Mọi phần khác của ứng dụng vẫn chạy khi mất mạng.</li><li>Với khóa miễn phí, nội dung gửi đi có thể được Google dùng để cải tiến sản phẩm. Vì vậy không gửi tên, điểm, hoàn cảnh hay ảnh bài làm của học sinh.</li><li>Ứng dụng tự thay họ tên có trong danh sách lớp bằng bí danh trước khi gửi, rồi trả lại tên trên màn hình của thầy cô.</li><li>AI có thể sai. Câu hỏi, đề kiểm tra, lời nhận xét đều cần thầy cô đọc lại trước khi dùng.</li><li>Khóa miễn phí có giới hạn số lượt mỗi phút và mỗi ngày; khi hết lượt, hãy chờ rồi thử lại.</li></ul><h3>Không dùng khóa?</h3><p>Thầy cô vẫn soạn được câu hỏi bằng cách tạo câu lệnh, dán sang ChatGPT rồi dán kết quả về.</p><button type="button" class="btn soft" data-ta-paste>Mở cách dán ChatGPT</button></section><div id="dtSettings" class="dt-host"></div></div>';
     if (win.hmvDocTo) win.hmvDocTo.renderSettings($('dtSettings'));   /* 2.2: phần Đọc to câu hỏi */
     setBusy(S.busy);
@@ -436,9 +442,10 @@
     if (d.taWord) { i = +d.taWord; var task2 = taskOf(S.task); download('tro-ly-su-pham-' + task2.id + '-' + new Date().toISOString().slice(0, 10) + '.doc', 'application/msword', wordDoc(task2.title, md(chatOf(S.task).messages[i].shown))); return; }
     if (t.id === 'taKeySave') {
       var k = ($('taKey').value || '').trim(); if (!k) return toast('Hãy dán khóa vào ô trước.');
-      setBusy('key'); call('key', { key: k }, 15000).then(function (s) { S.status = s; S.test = 'Đã lưu khóa. Hãy bấm “Kiểm tra kết nối”.'; setBusy(''); $('taKey').value = ''; paintStatus(); }).catch(function (e2) { S.test = e2.message; setBusy(''); renderSetup(); }); return;
+      var rem = $('taKeyRemember'), mdl = $('taModel');
+      setBusy('key'); call('key', { key: k, remember: rem ? rem.checked : true, model: mdl ? mdl.value.trim() : '' }, 15000).then(function (s) { S.status = s; S.test = s.web ? 'Đã lưu khóa riêng của thầy cô ' + (s.remember ? 'trong trình duyệt này' : 'tạm thời (đóng trình duyệt là xóa)') + '. Hãy bấm “Kiểm tra kết nối”.' : 'Đã lưu khóa. Hãy bấm “Kiểm tra kết nối”.'; setBusy(''); $('taKey').value = ''; paintStatus(); }).catch(function (e2) { S.test = e2.message; setBusy(''); renderSetup(); }); return;
     }
-    if (t.id === 'taKeyClear') { setBusy('key'); call('key', { key: '' }, 15000).then(function (s) { S.status = s; S.test = 'Đã xóa khóa khỏi máy này.'; setBusy(''); paintStatus(); }).catch(function (e3) { S.test = e3.message; setBusy(''); renderSetup(); }); return; }
+    if (t.id === 'taKeyClear') { setBusy('key'); call('key', { key: '' }, 15000).then(function (s) { S.status = s; S.test = s.web ? 'Đã xóa khóa khỏi trình duyệt này.' : 'Đã xóa khóa khỏi máy này.'; setBusy(''); paintStatus(); }).catch(function (e3) { S.test = e3.message; setBusy(''); renderSetup(); }); return; }
     if (t.id === 'taKeyTest') {
       var started = Date.now(); S.test = 'Đang gọi thử Gemini…'; setBusy('test'); renderSetup();
       generate({ tier: 'fast', contents: [{ role: 'user', parts: [{ text: 'Trả lời đúng hai từ: SẴN SÀNG' }] }], temperature: 0, maxOutputTokens: 512, timeoutMs: 30000 })
@@ -449,6 +456,12 @@
   }
   function onChange(e) {
     var t = e.target, d = t.dataset || {};
+    if ((t.id === 'taKeyRemember' || t.id === 'taModel') && S.status && S.status.web && S.status.configured) {
+      var opt = { keep: true }; if (t.id === 'taKeyRemember') opt.remember = t.checked; else opt.model = t.value.trim();
+      /* Không vẽ lại cả khung (để không xóa khóa thầy cô đang dán dở trong ô) – chỉ cập nhật dòng báo. */
+      call('key', opt, 15000).then(function (s2) { S.status = s2; S.test = t.id === 'taModel' ? (s2.model ? 'Đã đặt mô hình ưu tiên: ' + s2.model + '.' : 'Dùng mô hình mặc định.') : s2.remember ? 'Khóa được ghi nhớ trên trình duyệt này.' : 'Khóa chỉ giữ tạm, đóng trình duyệt là tự xóa.'; var n = $('taTest'); if (n) { n.textContent = S.test; n.className = 'ta-note'; } }).catch(function (e5) { S.test = e5.message; var n = $('taTest'); if (n) { n.textContent = S.test; n.className = 'ta-note bad'; } });
+      return;
+    }
     if (t.id === 'taSubject') { var w = $('taOtherWrap'); if (w) w.hidden = t.value !== '__other'; return; }
     if (t.id === 'taImages') { addImages(t.files); t.value = ''; return; }
     if (d.taPick) { S.drafts[+d.taPick].pick = t.checked; var art = t.closest('.ta-draft'); if (art) art.classList.toggle('off', !t.checked); var c = $('taPicked'); if (c) c.textContent = 'Đã chọn ' + S.drafts.filter(function (x) { return x.pick; }).length + '/' + S.drafts.length + ' câu'; return; }
