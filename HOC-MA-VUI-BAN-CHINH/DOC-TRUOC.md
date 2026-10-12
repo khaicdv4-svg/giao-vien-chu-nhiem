@@ -1,12 +1,90 @@
-# HỌC MÀ VUI · BẢN CHÍNH 2.8
+# HỌC MÀ VUI · BẢN CHÍNH 2.9
 
-**Ngày:** 11/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.8-20261011`
+**Ngày:** 12/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.9-20261012`
 
 Đây là bản hợp nhất duy nhất. Nó gồm toàn bộ nội dung của các bản thử trước (03B → 09, Chặng 1 → 7B) cùng ba phần mới: Quiz Nghiêng Đầu hoàn chỉnh, Kho câu hỏi thiết kế lại và 140 câu hỏi mẫu.
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
-## 0. Cập nhật 2.8 (22 giờ ngày 11/10/2026) – Chuẩn bị đưa lên GitHub và Vercel
+## 0. Cập nhật 2.9 (12/10/2026) – Hai trò chơi camera mới: Bàn tay phép thuật, Giơ tay giành quyền
+
+Thầy yêu cầu viết thêm hai trò chơi số 1 và số 2 trong danh sách gợi ý. Cả hai nằm trong **Thư viện trò chơi** (có nhãn “Mới”). Trang chủ giữ nguyên như bản 2.8, vì thêm một hàng nữa thì trang chủ tràn khỏi màn hình 1774×934.
+
+### 1. Bàn tay phép thuật (phân loại thẻ bằng tay)
+- Màn hình có 2–4 ô nhóm ở dưới và một thẻ ở giữa. Học sinh đứng trước camera, **chụm ngón cái với ngón trỏ** để cầm thẻ, kéo tới ô đúng rồi **mở tay** để thả.
+- Thả đúng được 10 điểm. Nếu lần đầu sai, lần sau đúng thì được 5 điểm. Sai 2 lần thì máy chỉ ô đúng.
+- **Bộ phân loại có sẵn:** Từ loại (danh từ / động từ / tính từ), Góc (nhọn / vuông / tù / bẹt), Phân số (bé hơn / bằng / lớn hơn 1), Vật dẫn nhiệt tốt / kém.
+- **Bộ thầy cô tự gõ:** mỗi dòng có dạng `Tên nhóm: mục 1, mục 2, …`, gõ từ 2 đến 4 dòng.
+- **Câu Đúng/Sai trong Kho câu hỏi:** thẻ là câu hỏi, hai ô là ĐÚNG và SAI. Từ Kho cũng mở được bằng nút “Chơi ngay”.
+- **Cài đặt:**
+  - Cách chơi: cả lớp chung điểm, hoặc hai đội luân phiên.
+  - Số thẻ.
+  - Cách cầm thẻ: chụm ngón, hoặc giữ ngón trỏ yên trên thẻ hay trên ô (cho bạn khó chụm).
+  - Thời gian mỗi thẻ.
+  - Điều khiển: camera hoặc chuột.
+  - Tiếng hiệu ứng.
+- **Không có camera vẫn chơi được:** kéo thẻ bằng chuột hoặc bảng tương tác, hay bấm phím 1–4 để chọn ô.
+- Có tiếng đúng/sai và nhạc nền. Kết thúc có tiếng mừng và bảng liệt kê thẻ theo từng nhóm. Kết quả được ghi vào Phân tích sau trò chơi.
+
+### 2. Giơ tay giành quyền (camera xem đội nào giơ tay trước)
+- Khung camera chia thành 2–4 vùng màu, mỗi vùng là một đội. **Mỗi đội cử một bạn đứng vào vùng của đội mình.**
+- Máy đọc câu hỏi rồi đếm 3-2-1 và hô “GIƠ TAY!”. Đội đầu tiên **giơ thẳng tay lên cao hơn đầu** và giữ tay một chút thì giành quyền trả lời.
+- Giơ tay trước hiệu lệnh thì đội đó mất lượt ở câu ấy. Có thể tắt luật này.
+- **Cách chấm:**
+  - Câu có lựa chọn A–D: thầy cô bấm đáp án đội nói, hoặc phím A–F.
+  - Câu Đúng/Sai: bấm Y hoặc N.
+  - Câu tự luận: bấm ✓ hoặc ✗.
+- Trả lời sai thì các đội khác được giành quyền lại; cũng có thể chọn công bố đáp án luôn.
+- **Cài đặt:**
+  - Số đội và tên đội.
+  - Số câu.
+  - Thời gian trả lời.
+  - Thời gian chờ giơ tay.
+  - Xử lý khi trả lời sai.
+  - Phạt giơ tay sớm.
+  - Sau khi đọc xong: tự đếm, hoặc chờ thầy cô bấm.
+  - Điều khiển: camera, hoặc thầy cô bấm ô của đội.
+  - Giữ tay bao lâu thì tính: 0,2 / 0,3 / 0,5 giây.
+  - Tiếng hiệu ứng.
+- Câu hỏi lấy từ Kho câu hỏi, giống các trò khác. Có đọc to, tiếng đúng/sai, nhạc nền, bảng xếp hạng cuối trận và tiếng mừng cho đội thắng. Kết quả được ghi vào Phân tích.
+
+### 3. Tệp
+- **Mới:**
+  - `app\ban-tay-phep-thuat.js`
+  - `app\gio-tay-gianh-quyen.js`
+  - `kiem-thu\t-tro-moi.cjs`
+  - `kiem-thu\fake-hands2.mjs`
+- **Thay đổi:**
+  - `app\index.html`: thêm vào thư viện, nhãn mới.
+  - `app\ban-chinh.css`: giao diện.
+  - `app\kho-cau-hoi.js`, `app\question-quick-stage6.js`: nút Chơi ngay.
+  - `app\ket-qua.js`: tên trò trong Phân tích.
+  - `app\doc-to.js`: đọc to.
+  - `app\nhac-nen.js`: nhạc nền.
+  - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.9`.
+  - `MO-HOC-MA-VUI.ps1`: nhãn mới.
+- Bản trước nằm ở `backups\truoc-2.9\`.
+
+### 4. Kiểm thử bản 2.9 – và phần CHƯA kiểm
+- **`kiem-thu\t-tro-moi.cjs`: 39/39.** Bài này dùng **camera và bàn tay giả lập** (máy thử đưa vào tọa độ ngón tay) để kiểm:
+  - Cầm, thả, chấm điểm, chụm ngón và giữ yên.
+  - Hai đội luân phiên.
+  - Bộ tự gõ và câu Đúng/Sai từ Kho.
+  - Đội giơ tay trước giành quyền, giơ sớm bị phạt, trả lời sai thì đội khác giành quyền.
+  - Đọc to xong mới đếm, tiếng đúng/sai, nhạc nền.
+  - Nút Chơi ngay từ Kho và bố cục ở các màn hình 1280–1774.
+- **Chạy lại toàn bộ bài cũ: tất cả đạt.** Kho 70/70, Quiz 43/43, Kéo co 44/44, Vòng quay 63/63, toàn màn hình 52/52, Ai nhanh hơn 47/47 + nhạc 25/25, Bóng bay 50/50, trang chủ + nhạc 40/40, tên 55/55, AI 58/58, Bình chọn 43/43, Phân tích 28/28, Tiếng mừng 25/25, Đọc to 66/66, Bố cục 22/22, Tự chấm/tự đếm 18/18, Tiếng đúng/sai 26/26, Web 16/16.
+- **Chưa kiểm:**
+  - Webcam thật và bàn tay thật của học sinh.
+  - Chụm ngón có nhận ra chắc chắn khi học sinh đứng xa 1,5–2 m hay không.
+  - Camera có tách đúng 3–4 bạn đứng cạnh nhau hay không.
+  - Ánh sáng lớp học.
+- **Đề nghị thầy thử trước:**
+  - Mỗi trò chơi 2–3 lượt với 1–2 học sinh.
+  - Nếu chụm ngón khó nhận, chọn cách cầm “giữ ngón trỏ yên”.
+  - Nếu giơ tay nhận nhầm, chọn giữ tay 0,5 giây, hoặc chuyển sang “thầy cô bấm ô của đội”.
+
+## 0-18. Cập nhật 2.8 (22 giờ ngày 11/10/2026) – Chuẩn bị đưa lên GitHub và Vercel
 
 Thầy yêu cầu lưu bản chính lên GitHub (`khaicdv4-svg/giao-vien-chu-nhiem`, nhánh `main`) và để Vercel (`giao-vien-chu-nhiem.vercel.app`) lấy bản mới từ đó.
 

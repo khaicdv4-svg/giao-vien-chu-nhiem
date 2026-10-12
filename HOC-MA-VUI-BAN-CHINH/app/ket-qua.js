@@ -9,7 +9,7 @@
 (function (win) {
   'use strict';
   var doc = win.document, KEY = 'hmv_ket_qua_v1', MAX = 3000;
-  var GAMES = { tug: 'Kéo co kiến thức', buzzer: 'Ai nhanh hơn', gift: 'Hộp quà bí mật', millionaire: 'Chinh phục tri thức', 'head-tilt': 'Quiz Nghiêng Đầu', balloon: 'Bóng bay tri thức', poll: 'Bình chọn ngón tay' };
+  var GAMES = { tug: 'Kéo co kiến thức', buzzer: 'Ai nhanh hơn', gift: 'Hộp quà bí mật', millionaire: 'Chinh phục tri thức', 'head-tilt': 'Quiz Nghiêng Đầu', balloon: 'Bóng bay tri thức', poll: 'Bình chọn ngón tay', 'magic-hand': 'Bàn tay phép thuật', 'raise-hand': 'Giơ tay giành quyền' };
   var data = load(), V = { period: 'today', set: 'ALL', weak: false, busy: '', note: '', bad: false, comment: '', ai: null, saved: null, confirm: false };
 
   function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }

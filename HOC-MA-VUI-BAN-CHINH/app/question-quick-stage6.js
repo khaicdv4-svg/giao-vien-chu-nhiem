@@ -15,7 +15,7 @@
   function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]; }); }
   function appType() { return window.classroomGame && window.classroomGame.type || ''; }
   function gameName(t) {
-    var names = { millionaire: 'Chinh phục tri thức', tug: 'Kéo co kiến thức', gift: 'Hộp quà bí mật', buzzer: 'Ai nhanh hơn', tiles: 'Lật mảnh ghép', balloon: 'Bóng bay tri thức', poll: 'Bình chọn ngón tay', 'head-tilt': 'Quiz Nghiêng Đầu', lens: 'Ống kính may mắn', race: 'Đường đua kiến thức', 'paper-mode': 'Chế độ giấy' };
+    var names = { millionaire: 'Chinh phục tri thức', tug: 'Kéo co kiến thức', gift: 'Hộp quà bí mật', buzzer: 'Ai nhanh hơn', tiles: 'Lật mảnh ghép', balloon: 'Bóng bay tri thức', poll: 'Bình chọn ngón tay', 'magic-hand': 'Bàn tay phép thuật', 'raise-hand': 'Giơ tay giành quyền', 'head-tilt': 'Quiz Nghiêng Đầu', lens: 'Ống kính may mắn', race: 'Đường đua kiến thức', 'paper-mode': 'Chế độ giấy' };
     return names[t] || t || 'Trò chơi';
   }
   function sets() { return Array.isArray(window.questionBankSets) ? window.questionBankSets : []; }
@@ -123,6 +123,7 @@
       if (!Number.isInteger(q.correct) || q.correct < 0 || q.correct > 3) e.push('Thiếu khóa đáp án A/B/C/D rõ ràng');
     }
     if (game === 'head-tilt' && q.kind !== 'TRUEFALSE') e.push('Quiz Nghiêng Đầu chỉ nhận Đúng/Sai');
+    if (game === 'magic-hand' && q.kind !== 'TRUEFALSE') e.push('Bàn tay phép thuật dùng câu Đúng/Sai (xếp thẻ vào ô Đúng hoặc Sai)');
     return e;
   }
   function duplicateIndexes(items) {
@@ -264,7 +265,7 @@
   }
   function close() { var m = document.getElementById('c6QuestionModal'); if (m) m.remove(); }
   function gameInProgress(type) {
-    var selectors = { tug: '.tug-game .tug-question', millionaire: '#millionaireTimer', lens: '.lens-board .lens-answer', tiles: '.flip-layout .flip-question', balloon: '#bbStage', poll: '#bcStage', gift: '.gift-question', race: '.race-question', buzzer: '.buzz-status' };
+    var selectors = { tug: '.tug-game .tug-question', millionaire: '#millionaireTimer', lens: '.lens-board .lens-answer', tiles: '.flip-layout .flip-question', balloon: '#bbStage', poll: '#bcStage', 'magic-hand': '#mhStage', 'raise-hand': '#rhStage', gift: '.gift-question', race: '.race-question', buzzer: '.buzz-status' };
     return !!(selectors[type] && document.querySelector(selectors[type]));
   }
   function startNow() {
@@ -272,7 +273,7 @@
     if (type === 'head-tilt' || type === 'paper-mode') { close(); /* 7B-FIX1: mở luôn màn hình của trò, không để giáo viên phải tự tìm trong thư viện. */ if ((!window.classroomGame || window.classroomGame.type !== type) && typeof window.gameSetup === 'function') window.gameSetup(type); if (window.showToast) showToast(type === 'head-tilt' ? 'Đã gắn bộ câu hỏi. Bấm ▶ Bắt đầu để chơi.' : 'Câu hỏi đã gắn. Hoàn tất hiệu chỉnh thẻ trong thiết lập trước khi bắt đầu.'); return; }
     if (window.classroomGame && window.classroomGame.type === type && gameInProgress(type)) {
       if (!confirm('Bắt đầu lại ván với bộ câu hỏi mới? Tiến trình ván hiện tại sẽ kết thúc.')) return;
-      var backs = { balloon: 'balloonBack', poll: 'pollBack', tug: 'tugBack', gift: 'giftBack', buzzer: 'buzzBack', race: 'raceBack', tiles: 'flipBack', lens: 'lensBack' };
+      var backs = { balloon: 'balloonBack', poll: 'pollBack', 'magic-hand': 'magicHandBack', 'raise-hand': 'raiseHandBack', tug: 'tugBack', gift: 'giftBack', buzzer: 'buzzBack', race: 'raceBack', tiles: 'flipBack', lens: 'lensBack' };
       if (backs[type] && typeof window[backs[type]] === 'function') window[backs[type]](); else if (typeof window.gameBack === 'function') window.gameBack();
       if (typeof window.gameSetup === 'function') window.gameSetup(type);
     } else if (!window.classroomGame || window.classroomGame.type !== type) {

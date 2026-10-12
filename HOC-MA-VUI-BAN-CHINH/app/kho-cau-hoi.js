@@ -19,7 +19,7 @@
     OPEN: { label: 'Câu hỏi mở', icon: '🗣️', hint: 'Trả lời miệng, giáo viên nhận xét' },
     SINGLE: { label: 'Một đáp án', icon: '🔘', hint: 'Hai, ba hoặc hơn bốn lựa chọn, một đáp án đúng' }
   };
-  var GAMES = [['tug', 'Kéo co kiến thức'], ['gift', 'Hộp quà bí mật'], ['buzzer', 'Ai nhanh hơn'], ['millionaire', 'Chinh phục tri thức'], ['balloon', 'Bóng bay tri thức'], ['poll', 'Bình chọn ngón tay'], ['race', 'Đường đua kiến thức'], ['head-tilt', 'Quiz Nghiêng Đầu']];
+  var GAMES = [['tug', 'Kéo co kiến thức'], ['gift', 'Hộp quà bí mật'], ['buzzer', 'Ai nhanh hơn'], ['millionaire', 'Chinh phục tri thức'], ['balloon', 'Bóng bay tri thức'], ['poll', 'Bình chọn ngón tay'], ['raise-hand', 'Giơ tay giành quyền'], ['magic-hand', 'Bàn tay phép thuật (câu Đúng/Sai)'], ['race', 'Đường đua kiến thức'], ['head-tilt', 'Quiz Nghiêng Đầu']];
   var META = [['grade', 'Khối/lớp', 'Chưa xác định lớp'], ['subject', 'Môn', 'Chưa xác định môn'], ['topic', 'Chủ đề', 'Chưa xác định chủ đề'], ['lesson', 'Bài học', 'Chưa xác định bài học'], ['difficulty', 'Mức độ', 'Chưa xác định mức độ']];
 
   function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }

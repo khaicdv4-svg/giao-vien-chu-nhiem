@@ -1,5 +1,5 @@
 {
-  "build": "HMV-BAN-CHINH-2.1-20261011",
+  "build": "HMV-BAN-CHINH-2.9-20261012",
   "note": "Gemini giả cho phần AI nhận xét",
   "total": 28,
   "passed": 28,
@@ -13,26 +13,26 @@
       "name": "2 Kéo co: chọn phương án A → ghi 1 lượt (trò, câu hỏi, 4 phương án, phương án đã chọn, đúng/sai khớp với đáp án, tên bộ)",
       "pass": true,
       "detail": {
-        "t": 1791706410344,
+        "t": 1791803268916,
         "g": "tug",
-        "k": "14sxjbj",
+        "k": "6kdh8z",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
         "o": 0,
         "x": 0,
         "q": {
-          "text": "Số gồm 5 chục nghìn, 3 nghìn, 2 trăm và 4 đơn vị là:",
+          "text": "Số lớn nhất trong các số 7, 12, 9, 10 là:",
           "answers": [
-            "53 240",
-            "53 204",
-            "50 324",
-            "5 324"
+            "7",
+            "9",
+            "10",
+            "12"
           ],
-          "correct": 1,
+          "correct": 3,
           "kind": "ABCD",
-          "grade": "Lớp 4",
+          "grade": "Lớp 1",
           "subject": "Toán",
-          "topic": "Số có nhiều chữ số",
-          "key": "53 204"
+          "topic": "Các số đến 100",
+          "key": "12"
         },
         "n": 1
       }
@@ -41,7 +41,7 @@
       "name": "3 Ai nhanh hơn: đội giành chuông chọn B → ghi 1 lượt",
       "pass": true,
       "detail": {
-        "t": 1791706412279,
+        "t": 1791803270874,
         "g": "buzzer",
         "k": "wqni0e",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -69,7 +69,7 @@
       "name": "4 Hộp quà: chọn C, giáo viên xác nhận sai → ghi 1 lượt sai, phương án C",
       "pass": true,
       "detail": {
-        "t": 1791706414996,
+        "t": 1791803273625,
         "g": "gift",
         "k": "wqni0e",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -98,7 +98,7 @@
       "pass": true,
       "detail": [
         {
-          "t": 1791706418926,
+          "t": 1791803277566,
           "g": "millionaire",
           "k": "wqni0e",
           "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -128,7 +128,7 @@
       "name": "6 Quiz Nghiêng Đầu: chọn thẻ bên trái → ghi 1 lượt Đúng/Sai",
       "pass": true,
       "detail": {
-        "t": 1791706422369,
+        "t": 1791803281056,
         "g": "head-tilt",
         "k": "1e1yjrw",
         "s": "Mẫu 2 · Đúng/Sai · Toán lớp 1–5",
@@ -154,26 +154,26 @@
       "name": "7 Bóng bay: chạm bóng sai → ghi 1 lượt sai kèm phương án đã chọn",
       "pass": true,
       "detail": {
-        "t": 1791706424484,
+        "t": 1791803283202,
         "g": "balloon",
-        "k": "jntvje",
+        "k": "1o9scoe",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
         "o": 0,
-        "x": 2,
+        "x": 3,
         "q": {
-          "text": "35 + 27 = ?",
+          "text": "Góc có số đo 90° là:",
           "answers": [
-            "52",
-            "62",
-            "63",
-            "512"
+            "góc nhọn",
+            "góc tù",
+            "góc vuông",
+            "góc bẹt"
           ],
-          "correct": 1,
+          "correct": 2,
           "kind": "ABCD",
-          "grade": "Lớp 2",
+          "grade": "Lớp 4",
           "subject": "Toán",
-          "topic": "Phép cộng, phép trừ có nhớ",
-          "key": "62"
+          "topic": "Góc",
+          "key": "góc vuông"
         },
         "n": 6
       }
@@ -182,7 +182,7 @@
       "name": "8 Bình chọn ngón tay: 8 phiếu cho một câu → ghi một lượt kèm số phiếu từng phương án",
       "pass": true,
       "detail": {
-        "t": 1791706426490,
+        "t": 1791803285260,
         "g": "poll",
         "k": "wqni0e",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -218,7 +218,7 @@
     {
       "name": "10 Số liệu không chứa tên học sinh hay tên đội; chỉ có câu hỏi, phương án, số lượt",
       "pass": true,
-      "detail": 1514
+      "detail": 1492
     },
     {
       "name": "11 Tổng hợp theo câu: số lượt, tỉ lệ đúng, phương án sai hay chọn nhất; xếp câu yếu nhất lên đầu",
@@ -260,7 +260,7 @@
           "games": {
             "tug": 1
           },
-          "last": 1791706427403,
+          "last": 1791803286199,
           "pct": 20,
           "topWrong": 0
         },
@@ -290,7 +290,7 @@
           "games": {
             "tug": 1
           },
-          "last": 1791706427403,
+          "last": 1791803286200,
           "pct": 50,
           "topWrong": 2
         },
@@ -320,7 +320,7 @@
           "games": {
             "tug": 1
           },
-          "last": 1791706427404,
+          "last": 1791803286201,
           "pct": 90,
           "topWrong": 1
         }
@@ -342,7 +342,7 @@
           "6"
         ],
         "rows": 7,
-        "first": "1 35 + 27 = ? Đáp án: 62 1 0% 63 (1 lượt)",
+        "first": "1 5 + 3 = 8. Đáp án: Đúng 1 0% Sai (1 lượt)",
         "games": "Trò đã chơi: Kéo co kiến thức, Ai nhanh hơn, Hộp quà bí mật, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay tri thức, Bình chọn ngón tay. Trong trò chơi theo đội, mỗi lượt là câu trả lời của một đội hoặc một bạn, không phải của cả lớp; hãy xem đây là gợi ý để hỏi lại, không phải điểm số.",
         "sets": [
           "Tất cả các bộ",
@@ -380,12 +380,12 @@
       "name": "17 \"Tạo bộ Ôn lại chỗ sai\": lưu vào Kho bộ mới gồm các câu đúng dưới 60% (không lấy câu lớp đã làm tốt), câu nào cũng hợp lệ",
       "pass": true,
       "detail": {
-        "name": "Ôn lại chỗ sai · 11/10/2026",
+        "name": "Ôn lại chỗ sai · 12/10/2026",
         "n": 6,
         "texts": [
-          "35 + 27 = ?",
           "5 + 3 = 8.",
-          "Số gồm 5 chục nghìn, 3 nghìn, 2 trăm và 4 đơn vị là:",
+          "Góc có số đo 90° là:",
+          "Số lớn nhất trong các số 7, 12, 9, 10 là:",
           "27 + 15 = ?",
           "3 + 4 = ?",
           "38 + 26 = ?"
@@ -393,21 +393,21 @@
         "valid": true,
         "has90": false,
         "purpose": "Củng cố",
-        "banner": "✅ Đã lưu bộ Ôn lại chỗ sai · 11/10/2026 (6 câu) vào Kho. ▶ Chơi ngay"
+        "banner": "✅ Đã lưu bộ Ôn lại chỗ sai · 12/10/2026 (6 câu) vào Kho. ▶ Chơi ngay"
       }
     },
     {
       "name": "18 \"Chơi ngay\" mở hộp chọn trò cho bộ ôn",
       "pass": true,
       "detail": {
-        "t": "Chơi ngay · Ôn lại chỗ sai · 11/10/2026\nĐóng\n\nChọn trò chơi. Ứng dụng dùng bộ nà",
+        "t": "Chơi ngay · Ôn lại chỗ sai · 12/10/2026\nĐóng\n\nChọn trò chơi. Ứng dụng dùng bộ nà",
         "tug": true
       }
     },
     {
       "name": "19 \"AI nhận xét\": gửi câu hỏi kèm số lượt, tỉ lệ đúng, phương án sai hay chọn; không gửi tên; yêu cầu ba mục nhận xét và câu ôn mới",
       "pass": true,
-      "detail": "Dưới đây là các câu hỏi mà lớp trả lời sai nhiều trong các trò chơi môn Toán. Toàn bộ: 40 lượt trả lời, đúng 48%.\n[{\"stt\":1,\"cau_hoi\":\"35 + 27 = ?\",\"phuong_an\":[\"52\",\"62\",\"63\",\"512\"],\"dap_an_dung\":\"62\",\"so_luot\":1,\"ti_le_dung\":\"0%\",\"hay_chon_sai\":\"63 (1 lượt)\"},{\"stt\":2,\"cau_hoi\":\"5 + 3 = 8.\",\"phuon"
+      "detail": "Dưới đây là các câu hỏi mà lớp trả lời sai nhiều trong các trò chơi môn Toán. Toàn bộ: 40 lượt trả lời, đúng 48%.\n[{\"stt\":1,\"cau_hoi\":\"5 + 3 = 8.\",\"phuong_an\":[\"Đúng\",\"Sai\"],\"dap_an_dung\":\"Đúng\",\"so_luot\":1,\"ti_le_dung\":\"0%\",\"hay_chon_sai\":\"Sai (1 lượt)\"},{\"stt\":2,\"cau_hoi\":\"Góc có số đo 90° là:\",\"p"
     },
     {
       "name": "20 Nhận xét của AI hiện thành ba mục có gạch đầu dòng; có nút xem các câu ôn AI soạn; có lời nhắc AI có thể chưa đúng",

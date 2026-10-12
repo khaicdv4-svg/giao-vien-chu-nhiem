@@ -261,6 +261,6 @@ const readOnce = async (page, sel) => { await clearSpoken(page); const want = aw
   await rq('POST', '/api/ai/key', { key: '' });
   }
 
-  fs.writeFileSync(path.join(__dirname, 'doc-to-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.8-20261011', note: 'Giọng đọc của trình duyệt và Gemini đều là GIẢ trong bài kiểm này.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
+  fs.writeFileSync(path.join(__dirname, 'doc-to-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.9-20261012', note: 'Giọng đọc của trình duyệt và Gemini đều là GIẢ trong bài kiểm này.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
   console.log('TOTAL ' + res.filter(x => x.pass).length + '/' + res.length); process.exit(res.every(x => x.pass) ? 0 : 1);
 })().catch(e => { console.error(e); process.exit(1); });

@@ -15,7 +15,7 @@
     'nghich-ngom': { name: 'Vui vẻ nghịch ngợm', url: 'assets/audio/nhac-nghich-ngom.mp3', loop: [1.015, 17.015], start: 1.0, gain: 0.55 },
     'vui-nhon': { name: 'Giai điệu trống vui nhộn', url: 'assets/audio/ai-nhanh-hon.mp3', loop: [1, 13], start: 0.03, gain: 0.3 }
   };
-  var GAMES = { gift: 'boc-tham', millionaire: 'boc-tham', 'head-tilt': 'nghich-ngom', balloon: 'vui-nhon' };
+  var GAMES = { gift: 'boc-tham', millionaire: 'boc-tham', 'head-tilt': 'nghich-ngom', balloon: 'vui-nhon', 'magic-hand': 'nghich-ngom', 'raise-hand': 'boc-tham' };
 
   var ctx = null, gain = null, buffers = {}, loading = {}, broken = {}, src = null, srcTrack = '', want = '', el = null, elTrack = '';
 
@@ -67,6 +67,8 @@
     if (type === 'millionaire') { if (!g.querySelector('.millionaire')) return 'stop'; var st = window.millionaireState; return st && st.result ? 'stop' : 'play'; }
     if (type === 'head-tilt') return g.querySelector('.tilt-options') && !g.querySelector('.tilt-finish') ? 'play' : 'stop';
     if (type === 'balloon') return window.hmvBalloon && typeof window.hmvBalloon.musicState === 'function' ? window.hmvBalloon.musicState() : 'stop';
+    if (type === 'magic-hand') return window.hmvMagicHand && typeof window.hmvMagicHand.musicState === 'function' ? window.hmvMagicHand.musicState() : 'stop';
+    if (type === 'raise-hand') return window.hmvRaiseHand && typeof window.hmvRaiseHand.musicState === 'function' ? window.hmvRaiseHand.musicState() : 'stop';
     return 'stop';
   }
 

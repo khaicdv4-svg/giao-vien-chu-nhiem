@@ -1,6 +1,6 @@
 {
- "at": "2026-10-11T14:37:13.533Z",
- "build": "HMV-BAN-CHINH-2.8-20261011",
+ "at": "2026-10-12T11:12:52.687Z",
+ "build": "HMV-BAN-CHINH-2.9-20261012",
  "note": "Máy chủ tệp tĩnh giả lập trên máy thử (không phải Vercel thật); camera giả của Chromium.",
  "total": 16,
  "passed": 16,
@@ -27,11 +27,11 @@
    "name": "A2 Sau khi bản mới lên cùng địa chỉ: mở lại trang lần đầu đã thấy HỌC MÀ VUI 2.8 (không kẹt bản cũ trong bộ nhớ đệm)",
    "pass": true,
    "detail": [
-    "HỌC MÀ VUI | HMV-BAN-CHINH-2.8-20261011",
-    "HỌC MÀ VUI | HMV-BAN-CHINH-2.8-20261011",
+    "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012",
+    "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012",
     [
      "gvc-app-v9-audio-bundled",
-     "hmv-ban-chinh-2.8"
+     "hmv-ban-chinh-2.9"
     ]
    ]
   },
@@ -112,7 +112,7 @@
    "pass": true,
    "detail": [
     {
-     "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.8-20261011",
+     "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012",
      "sets": 8,
      "host": "hocmavui.localhost",
      "secure": true
@@ -164,16 +164,16 @@
    ]
   },
   {
-   "name": "B7 Đã mở trang một lần thì lần sau mất mạng vẫn mở được (bộ nhớ ngoại tuyến hmv-ban-chinh-2.8)",
+   "name": "B7 Đã mở trang một lần thì lần sau mất mạng vẫn mở được (bộ nhớ ngoại tuyến hmv-ban-chinh-2.9)",
    "pass": true,
    "detail": [
     {
      "names": [
-      "hmv-ban-chinh-2.8"
+      "hmv-ban-chinh-2.9"
      ],
-     "n": 46
+     "n": 48
     },
-    "HỌC MÀ VUI | HMV-BAN-CHINH-2.8-20261011"
+    "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012"
    ]
   },
   {

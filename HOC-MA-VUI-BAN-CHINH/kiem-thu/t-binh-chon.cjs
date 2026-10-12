@@ -25,7 +25,7 @@ const G = [{ x: .15, y: .3, n: 1 }, { x: .3, y: .25, n: 2 }, { x: .45, y: .3, n:
   // ---------- Lối vào ----------
   await page.evaluate(() => openView('games')); await page.waitForTimeout(400);
   const card = await page.evaluate(() => { const c = Array.from(document.querySelectorAll('#games .game-library-card')).find(x => x.querySelector('h3') && x.querySelector('h3').textContent.trim() === 'Bình chọn ngón tay'); return c ? { tags: Array.from(c.querySelectorAll('.game-tags span')).map(s => s.textContent), badge: !!c.querySelector('.bb-new'), n: document.querySelectorAll('#games .game-library-card').length } : null; });
-  ok('1 Thư viện có thẻ "Bình chọn ngón tay" (nhãn Mới, ghi rõ dùng camera AI); thư viện có 8 thẻ', card && card.badge && /Camera AI/.test(card.tags.join()) && card.n === 8, card);
+  ok('1 Thư viện có thẻ "Bình chọn ngón tay" (nhãn Mới, ghi rõ dùng camera AI); thư viện có 10 thẻ (2.9: thêm Bàn tay phép thuật, Giơ tay giành quyền)', card && card.badge && /Camera AI/.test(card.tags.join()) && card.n === 10, card);
   await page.evaluate(() => openView('dashboard')); await page.waitForTimeout(200); await page.click('#thHome .th-try .th-row >> nth=0'); await page.waitForSelector('#bcSetup');
   ok('2 Trang chủ, mục "Chơi bằng camera": dòng Bình chọn ngón tay mở màn thiết lập', /Bình chọn ngón tay/.test(await page.textContent('#thHome .th-try .th-row >> nth=0')) && await page.evaluate(() => classroomGame.type === 'poll'));
   const su = await page.evaluate(() => ({ legend: Array.from(document.querySelectorAll('#bcSetup .bc-legend span')).map(s => s.innerText.replace(/\s+/g, ' ').trim()), svgs: document.querySelectorAll('#bcSetup .bc-legend svg').length, steps: document.querySelectorAll('#bcSetup .bc-how li').length, privacy: /không lưu và không gửi hình ảnh/.test(document.querySelector('#bcSetup .bc-privacy').textContent), source: document.getElementById('bcSource').value, bankHidden: Array.from(document.querySelectorAll('#bcSetup .bc-only-bank')).every(e => e.hidden), quickShown: Array.from(document.querySelectorAll('#bcSetup .bc-only-quick')).every(e => !e.hidden), full: !!document.querySelector('#games .hmv-full-btn') }));
@@ -134,6 +134,6 @@ const G = [{ x: .15, y: .3, n: 1 }, { x: .3, y: .25, n: 2 }, { x: .45, y: .3, n:
   await ctx.close();
   ok('42 Không có lỗi JavaScript trong suốt quá trình', logs.length === 0, logs.slice(0, 6));
   await browser.close();
-  fs.writeFileSync(path.join(__dirname, 'binh-chon-results.json'), JSON.stringify({ build: 'HMV-BAN-CHINH-2.8-20261011', note: 'Bộ nhận diện bàn tay giả lập', total: res.length, passed: res.filter(r => r.pass).length, results: res }, null, 2));
+  fs.writeFileSync(path.join(__dirname, 'binh-chon-results.json'), JSON.stringify({ build: 'HMV-BAN-CHINH-2.9-20261012', note: 'Bộ nhận diện bàn tay giả lập', total: res.length, passed: res.filter(r => r.pass).length, results: res }, null, 2));
   console.log('TOTAL ' + res.filter(r => r.pass).length + '/' + res.length); process.exit(res.every(r => r.pass) ? 0 : 1);
 })().catch(e => { console.error(e); process.exit(2); });

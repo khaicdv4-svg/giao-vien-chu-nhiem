@@ -1,5 +1,5 @@
 {
-  "build": "HMV-BAN-CHINH-2.4-20261011",
+  "build": "HMV-BAN-CHINH-2.9-20261012",
   "note": "Gemini giả, không gọi Google",
   "total": 58,
   "passed": 58,
@@ -19,7 +19,7 @@
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
         "lastOk": {
-          "at": "2026-10-11T11:51:18.434Z",
+          "at": "2026-10-12T11:08:07.608Z",
           "model": "gemini-3.8-flash"
         },
         "lastError": null
@@ -79,7 +79,7 @@
           ],
           "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
           "lastOk": {
-            "at": "2026-10-11T11:51:18.434Z",
+            "at": "2026-10-12T11:08:07.608Z",
             "model": "gemini-3.8-flash"
           },
           "lastError": null
@@ -96,7 +96,7 @@
           ],
           "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
           "lastOk": {
-            "at": "2026-10-11T11:51:18.434Z",
+            "at": "2026-10-12T11:08:07.608Z",
             "model": "gemini-3.8-flash"
           },
           "lastError": null
@@ -128,7 +128,7 @@
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
         "lastOk": {
-          "at": "2026-10-11T11:53:02.119Z",
+          "at": "2026-10-12T11:15:50.719Z",
           "model": "gemini-3.8-flash"
         },
         "lastError": null
@@ -159,7 +159,7 @@
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
         "lastOk": {
-          "at": "2026-10-11T11:53:02.124Z",
+          "at": "2026-10-12T11:15:50.725Z",
           "model": "gemini-3.8-flash"
         },
         "lastError": null
@@ -340,48 +340,48 @@
       "detail": [
         [
           [
-            "1001",
             "11",
-            "12",
-            "10"
+            "1001",
+            "10",
+            "12"
+          ],
+          "0"
+        ],
+        [
+          [
+            "21",
+            "23",
+            "22",
+            "1002"
+          ],
+          "2"
+        ],
+        [
+          [
+            "32",
+            "34",
+            "33",
+            "1003"
+          ],
+          "2"
+        ],
+        [
+          [
+            "1004",
+            "44",
+            "43",
+            "45"
           ],
           "1"
         ],
         [
           [
-            "22",
-            "1002",
-            "21",
-            "23"
-          ],
-          "0"
-        ],
-        [
-          [
-            "33",
-            "1003",
-            "34",
-            "32"
-          ],
-          "0"
-        ],
-        [
-          [
-            "44",
-            "43",
-            "45",
-            "1004"
-          ],
-          "0"
-        ],
-        [
-          [
+            "54",
             "55",
-            "1005",
             "56",
-            "54"
+            "1005"
           ],
-          "0"
+          "1"
         ]
       ]
     },
@@ -467,7 +467,7 @@
       "name": "B17 \"Lưu và chơi ngay\": lưu bộ mới (chỉ câu được chọn) vào Kho với đủ lớp, môn, chủ đề, nguồn",
       "pass": true,
       "detail": {
-        "id": "ai-set-1791719586106-fbw3l7",
+        "id": "ai-set-1791803754842-tr1gmn",
         "name": "Bộ AI kiểm thử",
         "n": 9,
         "grade": "Lớp 4",
@@ -510,6 +510,16 @@
             "Bình chọn ngón tay 9/9 câu dùng được"
           ],
           [
+            "raise-hand",
+            false,
+            "Giơ tay giành quyền 9/9 câu dùng được"
+          ],
+          [
+            "magic-hand",
+            true,
+            "Bàn tay phép thuật (câu Đúng/Sai) 0/9 câu dùng được Không dùng được: Bàn tay phép thuật dùng câu Đúng/Sai (xếp thẻ vào ô Đúng hoặc Sai)"
+          ],
+          [
             "race",
             false,
             "Đường đua kiến thức 9/9 câu dùng được"
@@ -522,22 +532,22 @@
         ],
         "view": "questions",
         "q0": {
-          "id": "ai-q-1791719586117-5i1qin",
+          "id": "ai-q-1791803754857-i64soy",
           "text": "Câu 1: 10 + 1 = ?",
           "question": "Câu 1: 10 + 1 = ?",
           "kind": "ABCD",
           "type": "ABCD",
           "answers": [
             "999",
-            "11",
-            "12",
-            "10"
+            "1001",
+            "10",
+            "12"
           ],
           "options": [
             "999",
-            "11",
-            "12",
-            "10"
+            "1001",
+            "10",
+            "12"
           ],
           "optionLabels": [
             "A",
@@ -545,11 +555,11 @@
             "C",
             "D"
           ],
-          "correct": 1,
+          "correct": 0,
           "correctAnswers": [
-            1
+            0
           ],
-          "correctAnswer": "11",
+          "correctAnswer": "999",
           "answerText": "",
           "explanation": "Cộng hàng đơn vị rồi hàng chục.",
           "hint": "",
@@ -604,6 +614,16 @@
           "poll",
           false,
           "Bình chọn ngón tay 9/9 câu dùng được"
+        ],
+        [
+          "raise-hand",
+          false,
+          "Giơ tay giành quyền 9/9 câu dùng được"
+        ],
+        [
+          "magic-hand",
+          true,
+          "Bàn tay phép thuật (câu Đúng/Sai) 0/9 câu dùng được Không dùng được: Bàn tay phép thuật dùng câu Đúng/Sai (xếp thẻ vào ô Đúng hoặc Sai)"
         ],
         [
           "race",
@@ -708,7 +728,7 @@
     {
       "name": "B29 \"Tải tệp Word\": tải về tệp .doc có bảng ma trận, mã hóa UTF-8, không có thẻ script",
       "pass": true,
-      "detail": "tro-ly-su-pham-matrix-2026-10-11.doc"
+      "detail": "tro-ly-su-pham-matrix-2026-10-12.doc"
     },
     {
       "name": "B30 Hỏi tiếp: gửi kèm toàn bộ cuộc trao đổi trước đó (4 lượt, đúng vai)",
@@ -744,7 +764,7 @@
       "pass": true,
       "detail": {
         "names": [
-          "hmv-ban-chinh-2.4"
+          "hmv-ban-chinh-2.9"
         ],
         "api": [],
         "hasJs": true

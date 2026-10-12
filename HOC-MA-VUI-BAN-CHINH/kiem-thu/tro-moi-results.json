@@ -1,0 +1,1408 @@
+{
+ "at": "2026-10-12T11:07:40.891Z",
+ "build": "HMV-BAN-CHINH-2.9-20261012",
+ "note": "Camera giả của Chromium, bộ nhận diện bàn tay giả (vị trí bàn tay đặt bằng mã), giọng đọc giả. Chưa thử với bàn tay và webcam thật.",
+ "total": 39,
+ "passed": 39,
+ "results": [
+  {
+   "name": "1 Thư viện có 10 thẻ (kể cả Nốt nhạc vui), thêm \"Bàn tay phép thuật\" và \"Giơ tay giành quyền\" (nhãn Mới, ghi rõ dùng camera AI)",
+   "pass": true,
+   "detail": [
+    {
+     "t": "Nốt nhạc vui",
+     "isNew": false,
+     "tags": ""
+    },
+    {
+     "t": "Kéo co kiến thức",
+     "isNew": false,
+     "tags": "👥 2–4 đội|✓ Dùng được ngoại tuyến"
+    },
+    {
+     "t": "Bình chọn ngón tay",
+     "isNew": true,
+     "tags": "👥 Theo nhóm, cộng dồn cả lớp|📷 Camera AI · đếm ngón tay"
+    },
+    {
+     "t": "Bóng bay tri thức",
+     "isNew": true,
+     "tags": "👥 Cả lớp hoặc 2 đội|📷 Camera AI · chạm bằng tay"
+    },
+    {
+     "t": "Bàn tay phép thuật",
+     "isNew": true,
+     "tags": "👥 Cả lớp hoặc 2 đội|📷 Camera AI · cầm thẻ bằng tay"
+    },
+    {
+     "t": "Giơ tay giành quyền",
+     "isNew": true,
+     "tags": "👥 2–4 đội|📷 Camera AI · giơ tay thay chuông"
+    },
+    {
+     "t": "Hộp quà bí mật",
+     "isNew": false,
+     "tags": "👥 Cá nhân|✓ Dùng được ngoại tuyến"
+    },
+    {
+     "t": "Ai nhanh hơn",
+     "isNew": false,
+     "tags": "👥 2–4 đội|✓ Dùng được ngoại tuyến"
+    },
+    {
+     "t": "Quiz Nghiêng Đầu",
+     "isNew": false,
+     "tags": "👥 Cá nhân|📷 Camera hoặc phím ←/→"
+    },
+    {
+     "t": "Chinh phục tri thức",
+     "isNew": false,
+     "tags": "👥 Cá nhân|✓ Dùng được ngoại tuyến"
+    }
+   ]
+  },
+  {
+   "name": "2 Thẻ \"Bàn tay phép thuật\" trong thư viện: bấm \"Chơi ngay\" vào chơi ngay với bộ mẫu",
+   "pass": true,
+   "detail": [
+    "magic-hand",
+    "ask"
+   ]
+  },
+  {
+   "name": "3 Màn thiết lập: 4 bộ mẫu (từ loại, góc, phân số, dẫn nhiệt) + bộ tự gõ + câu Đúng/Sai trong Kho; 3 bước; cam kết không lưu hình; có nút Toàn màn hình",
+   "pass": true,
+   "detail": {
+    "sets": [
+     "tu-loai",
+     "goc",
+     "phan-so",
+     "dan-nhiet",
+     "custom",
+     "kho"
+    ],
+    "custom": true,
+    "steps": 3,
+    "privacy": true,
+    "start": true,
+    "full": true
+   }
+  },
+  {
+   "name": "4 Bộ tự gõ: sai mẫu thì báo và khóa nút Bắt đầu; đúng mẫu \"Nhóm: mục, mục\" thì nhận 2 nhóm, 7 thẻ",
+   "pass": true,
+   "detail": [
+    {
+     "dis": true,
+     "warn": "Bộ tự gõ chưa đúng mẫu: mỗi dòng “Tên nhóm: mục 1, mục 2, …”, ít nhất 2 nhóm."
+    },
+    {
+     "dis": false,
+     "src": "Bộ: Bộ của thầy cô · 2 nhóm · 7 thẻ. Dùng câu Đúng/Sai trong Kho"
+    }
+   ]
+  },
+  {
+   "name": "5 Bắt đầu: mở camera, bộ nhận diện chế độ video, tối đa 2 bàn tay; 3 ô Danh từ – Động từ – Tính từ; thẻ hiện ở giữa; lời nhắc \"chụm ngón\"",
+   "pass": true,
+   "detail": [
+    {
+     "q": 0,
+     "total": 5,
+     "phase": "ask",
+     "paused": false,
+     "score": [
+      0,
+      0
+     ],
+     "right": [
+      0,
+      0
+     ],
+     "turn": 0,
+     "tries": 0,
+     "held": "",
+     "armed": false,
+     "card": {
+      "x": 491,
+      "y": 202
+     },
+     "item": {
+      "text": "con mèo",
+      "g": 0
+     },
+     "groups": [
+      "Danh từ",
+      "Động từ",
+      "Tính từ"
+     ],
+     "placed": [
+      [],
+      [],
+      []
+     ],
+     "outcome": null,
+     "name": "Danh từ – Động từ – Tính từ (Tiếng Việt 4)"
+    },
+    {
+     "bins": [
+      "Danh từ",
+      "Động từ",
+      "Tính từ"
+     ],
+     "card": "con mèo",
+     "prompt": "con mèo",
+     "status": "🤏 Chụm ngón cái và ngón trỏ vào thẻ để nhặt thẻ",
+     "numHands": 2,
+     "mode": "VIDEO"
+    }
+   ]
+  },
+  {
+   "name": "6 Bàn tay MỞ đặt trên thẻ: chưa nhặt; CHỤM ngón cái – ngón trỏ: nhặt được thẻ (chấm tròn đổi màu, thẻ nổi lên)",
+   "pass": true,
+   "detail": [
+    "",
+    "hand",
+    {
+     "n": 1,
+     "closed": true,
+     "cls": "mh-card held"
+    }
+   ]
+  },
+  {
+   "name": "7 Giữ chụm và di tay: thẻ đi theo tay tới ô nhóm (ô sáng lên); mở tay trên ĐÚNG nhóm → +10 điểm, thẻ vào ô, tiếng ĐÚNG",
+   "pass": true,
+   "detail": [
+    15.221228301803539,
+    true,
+    {
+     "q": 0,
+     "total": 5,
+     "phase": "done",
+     "paused": false,
+     "score": [
+      10,
+      0
+     ],
+     "right": [
+      1,
+      0
+     ],
+     "turn": 0,
+     "tries": 0,
+     "held": "",
+     "armed": true,
+     "card": {
+      "x": 174,
+      "y": 446
+     },
+     "item": {
+      "text": "con mèo",
+      "g": 0
+     },
+     "groups": [
+      "Danh từ",
+      "Động từ",
+      "Tính từ"
+     ],
+     "placed": [
+      [
+       "con mèo"
+      ],
+      [],
+      []
+     ],
+     "outcome": {
+      "ok": true,
+      "pts": 10,
+      "team": 0,
+      "how": "camera"
+     },
+     "name": "Danh từ – Động từ – Tính từ (Tiếng Việt 4)"
+    },
+    {
+     "r": 0,
+     "w": 0
+    },
+    {
+     "r": 1,
+     "w": 0
+    }
+   ]
+  },
+  {
+   "name": "8 Thả SAI nhóm: tiếng SAI, thẻ quay về chỗ cũ, nhắc \"thử lại\"; sai lần hai: lộ nhóm đúng (ô đúng sáng xanh), không cộng điểm",
+   "pass": true,
+   "detail": [
+    true,
+    {
+     "q": 1,
+     "total": 5,
+     "phase": "done",
+     "paused": false,
+     "score": [
+      10,
+      0
+     ],
+     "right": [
+      1,
+      0
+     ],
+     "turn": 0,
+     "tries": 2,
+     "held": "",
+     "armed": true,
+     "card": {
+      "x": 808,
+      "y": 452
+     },
+     "item": {
+      "text": "xanh biếc",
+      "g": 2
+     },
+     "groups": [
+      "Danh từ",
+      "Động từ",
+      "Tính từ"
+     ],
+     "placed": [
+      [
+       "con mèo"
+      ],
+      [],
+      [
+       "xanh biếc"
+      ]
+     ],
+     "outcome": {
+      "ok": false,
+      "team": 0,
+      "how": "camera"
+     },
+     "name": "Danh từ – Động từ – Tính từ (Tiếng Việt 4)"
+    },
+    {
+     "right": true,
+     "banner": "❌ Chưa đúng. “xanh biếc” thuộc nhóm Tính từThẻ tiếp theo sau 3 giây · Chuyển ngay"
+    }
+   ]
+  },
+  {
+   "name": "9 Thẻ mới hiện ra khi tay đang chụm sẵn: KHÔNG tự nhặt; mở tay rồi chụm lại mới nhặt",
+   "pass": true,
+   "detail": [
+    true,
+    "hand"
+   ]
+  },
+  {
+   "name": "10 Đang cầm thẻ mà camera mất dấu bàn tay: thẻ tự quay về chỗ cũ",
+   "pass": true,
+   "detail": {
+    "q": 2,
+    "total": 5,
+    "phase": "ask",
+    "paused": false,
+    "score": [
+     10,
+     0
+    ],
+    "right": [
+     1,
+     0
+    ],
+    "turn": 0,
+    "tries": 0,
+    "held": "",
+    "armed": true,
+    "card": {
+     "x": 491,
+     "y": 202
+    },
+    "item": {
+     "text": "mùa xuân",
+     "g": 0
+    },
+    "groups": [
+     "Danh từ",
+     "Động từ",
+     "Tính từ"
+    ],
+    "placed": [
+     [
+      "con mèo"
+     ],
+     [],
+     [
+      "xanh biếc"
+     ]
+    ],
+    "outcome": null,
+    "name": "Danh từ – Động từ – Tính từ (Tiếng Việt 4)"
+   }
+  },
+  {
+   "name": "11 Kéo thả bằng chuột (hoặc chạm màn hình) vào đúng nhóm: chấm đúng, +10 điểm",
+   "pass": true,
+   "detail": {
+    "q": 2,
+    "total": 5,
+    "phase": "done",
+    "paused": false,
+    "score": [
+     20,
+     0
+    ],
+    "right": [
+     2,
+     0
+    ],
+    "turn": 0,
+    "tries": 0,
+    "held": "",
+    "armed": true,
+    "card": {
+     "x": 174,
+     "y": 446
+    },
+    "item": {
+     "text": "mùa xuân",
+     "g": 0
+    },
+    "groups": [
+     "Danh từ",
+     "Động từ",
+     "Tính từ"
+    ],
+    "placed": [
+     [
+      "con mèo",
+      "mùa xuân"
+     ],
+     [],
+     [
+      "xanh biếc"
+     ]
+    ],
+    "outcome": {
+     "ok": true,
+     "pts": 10,
+     "team": 0,
+     "how": "click"
+    },
+    "name": "Danh từ – Động từ – Tính từ (Tiếng Việt 4)"
+   }
+  },
+  {
+   "name": "12 Phím số của nhóm (1–3): thả thẻ vào nhóm đó, máy chấm",
+   "pass": true,
+   "detail": {
+    "q": 3,
+    "total": 5,
+    "phase": "done",
+    "paused": false,
+    "score": [
+     30,
+     0
+    ],
+    "right": [
+     3,
+     0
+    ],
+    "turn": 0,
+    "tries": 0,
+    "held": "",
+    "armed": false,
+    "card": {
+     "x": 808,
+     "y": 452
+    },
+    "item": {
+     "text": "ngọt",
+     "g": 2
+    },
+    "groups": [
+     "Danh từ",
+     "Động từ",
+     "Tính từ"
+    ],
+    "placed": [
+     [
+      "con mèo",
+      "mùa xuân"
+     ],
+     [],
+     [
+      "xanh biếc",
+      "ngọt"
+     ]
+    ],
+    "outcome": {
+     "ok": true,
+     "pts": 10,
+     "team": 0,
+     "how": "key"
+    },
+    "name": "Danh từ – Động từ – Tính từ (Tiếng Việt 4)"
+   }
+  },
+  {
+   "name": "13 Mỗi thẻ được ghi một lượt (lần thả đầu tiên) cho \"Phân tích sau trò chơi\"",
+   "pass": true,
+   "detail": [
+    {
+     "t": 1791803172985,
+     "g": "magic-hand",
+     "k": "1p6tl07",
+     "s": "",
+     "o": 1,
+     "x": 0
+    },
+    {
+     "t": 1791803175120,
+     "g": "magic-hand",
+     "k": "pgzsnl",
+     "s": "",
+     "o": 0,
+     "x": 0
+    },
+    {
+     "t": 1791803180271,
+     "g": "magic-hand",
+     "k": "7senbr",
+     "s": "",
+     "o": 1,
+     "x": 0
+    },
+    {
+     "t": 1791803180612,
+     "g": "magic-hand",
+     "k": "19mhuz",
+     "s": "",
+     "o": 1,
+     "x": 2
+    }
+   ]
+  },
+  {
+   "name": "14 Đọc to câu hỏi: trò này đọc chữ trên thẻ hiện tại",
+   "pass": true,
+   "detail": {
+    "id": "magic-hand",
+    "text": "ngọt"
+   }
+  },
+  {
+   "name": "15 Hết 5 thẻ: màn kết quả (số thẻ xếp đúng ngay lần đầu, điểm, danh sách thẻ trong từng nhóm), có tiếng mừng, camera tắt",
+   "pass": true,
+   "detail": {
+    "text": "★★★\n🎉 Làm tốt lắm!\n\nXếp đúng ngay lần đầu 4/5 thẻ · 40 điểm\n\nDanh từ\n\ncon mèo · mùa xuân\n\nĐộng từ\n\nchạy\n\nTính từ\n\nxanh biếc · ngọt\n\n↻ Chơi lại\n← Về thư viện",
+    "bins": 3,
+    "mung": 1,
+    "cam": false
+   }
+  },
+  {
+   "name": "16 Cách \"giữ ngón trỏ yên\": giữ trên thẻ ~1 giây là nhặt, giữ trên ô nhóm ~1 giây là thả; bộ Góc có 4 ô; chơi 2 đội: đội 1 được điểm, sang lượt đội 2",
+   "pass": true,
+   "detail": [
+    "hand",
+    {
+     "q": 0,
+     "total": 5,
+     "phase": "done",
+     "paused": false,
+     "score": [
+      10,
+      0
+     ],
+     "right": [
+      1,
+      0
+     ],
+     "turn": 0,
+     "tries": 0,
+     "held": "",
+     "armed": true,
+     "card": {
+      "x": 610,
+      "y": 446
+     },
+     "item": {
+      "text": "Góc 150°",
+      "g": 2
+     },
+     "groups": [
+      "Góc nhọn",
+      "Góc vuông",
+      "Góc tù",
+      "Góc bẹt"
+     ],
+     "placed": [
+      [],
+      [],
+      [
+       "Góc 150°"
+      ],
+      []
+     ],
+     "outcome": {
+      "ok": true,
+      "pts": 10,
+      "team": 0,
+      "how": "camera"
+     },
+     "name": "Góc nhọn – vuông – tù – bẹt (Toán 4)"
+    },
+    "Góc nhọn,Góc vuông,Góc tù,Góc bẹt"
+   ]
+  },
+  {
+   "name": "17 Hai đội luân phiên: thẻ thứ hai là lượt của đội 2",
+   "pass": true,
+   "detail": 1
+  },
+  {
+   "name": "18 Tạm dừng: không nhặt được thẻ, đồng hồ dừng",
+   "pass": true,
+   "detail": {
+    "q": 1,
+    "total": 5,
+    "phase": "ask",
+    "paused": true,
+    "score": [
+     10,
+     0
+    ],
+    "right": [
+     1,
+     0
+    ],
+    "turn": 1,
+    "tries": 0,
+    "held": "",
+    "armed": false,
+    "card": {
+     "x": 491,
+     "y": 202
+    },
+    "item": {
+     "text": "Góc 180°",
+     "g": 3
+    },
+    "groups": [
+     "Góc nhọn",
+     "Góc vuông",
+     "Góc tù",
+     "Góc bẹt"
+    ],
+    "placed": [
+     [],
+     [],
+     [
+      "Góc 150°"
+     ],
+     []
+    ],
+    "outcome": null,
+    "name": "Góc nhọn – vuông – tù – bẹt (Toán 4)"
+   }
+  },
+  {
+   "name": "19 Rời mục Trò chơi khi đang chơi: tắt camera, đóng trò",
+   "pass": true,
+   "detail": {
+    "type": null,
+    "cam": false
+   }
+  },
+  {
+   "name": "20 Kho câu hỏi → \"Chơi ngay\": có hai trò mới; bộ Đúng/Sai chơi Bàn tay phép thuật với hai ô Đúng – Sai, thẻ là các câu nhận định",
+   "pass": true,
+   "detail": [
+    {
+     "mh": "Bàn tay phép thuật (câu Đúng/Sai)20/20 câu dùng được",
+     "mhOn": true,
+     "rh": "Giơ tay giành quyền20/20 câu dùng được",
+     "rhOn": true
+    },
+    {
+     "q": 0,
+     "total": 5,
+     "phase": "ask",
+     "paused": false,
+     "score": [
+      0,
+      0
+     ],
+     "right": [
+      0,
+      0
+     ],
+     "turn": 0,
+     "tries": 0,
+     "held": "",
+     "armed": false,
+     "card": {
+      "x": 491,
+      "y": 202
+     },
+     "item": {
+      "text": "10 − 4 = 5.",
+      "g": 1
+     },
+     "groups": [
+      "Đúng",
+      "Sai"
+     ],
+     "placed": [
+      [],
+      []
+     ],
+     "outcome": null,
+     "name": "Đúng hay Sai · Mẫu 2 · Đúng/Sai · Toán lớp 1–5"
+    }
+   ]
+  },
+  {
+   "name": "21 Bộ A–B–C–D: nút \"Bàn tay phép thuật\" bị khóa (0 câu dùng được) vì trò này chỉ nhận câu Đúng/Sai",
+   "pass": true,
+   "detail": {
+    "on": false,
+    "text": "Bàn tay phép thuật (câu Đúng/Sai)0/20 câu dùng đượcKhông dùng được: Bàn tay phép thuật dùng câu Đúng/Sai (xếp thẻ vào ô Đúng hoặc Sai)"
+   }
+  },
+  {
+   "name": "22 Giơ tay giành quyền (từ Kho, bộ A–D): 2 ô đội, câu hỏi và 4 phương án, nút \"▶ Giơ tay!\"; nhận tối đa 6 bàn tay",
+   "pass": true,
+   "detail": [
+    {
+     "q": 0,
+     "total": 10,
+     "n": 2,
+     "phase": "ready",
+     "paused": false,
+     "score": [
+      0,
+      0
+     ],
+     "right": [
+      0,
+      0
+     ],
+     "claims": [
+      0,
+      0
+     ],
+     "early": [
+      0,
+      0
+     ],
+     "locked": [
+      false,
+      false
+     ],
+     "claimed": -1,
+     "chosen": null,
+     "outcome": null,
+     "note": "",
+     "question": {
+      "text": "2,5 + 3,75 = ?",
+      "answers": [
+       "5,25",
+       "6,75",
+       "5,75",
+       "6,25"
+      ],
+      "correct": 3,
+      "keyed": true
+     },
+     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+    },
+    {
+     "zones": [
+      "1Đội Đỏ",
+      "2Đội Xanh"
+     ],
+     "ans": 4,
+     "go": true,
+     "numHands": 6,
+     "q": "2,5 + 3,75 = ?"
+    }
+   ]
+  },
+  {
+   "name": "23 Giơ tay lúc chưa có hiệu lệnh: không tính; bấm \"Giơ tay!\" → đếm 3-2-1; Đội Xanh giơ sớm trong lúc đếm → mất lượt câu này",
+   "pass": true,
+   "detail": [
+    true,
+    {
+     "hid": false,
+     "t": "3"
+    },
+    {
+     "q": 0,
+     "total": 10,
+     "n": 2,
+     "phase": "count",
+     "paused": false,
+     "score": [
+      0,
+      0
+     ],
+     "right": [
+      0,
+      0
+     ],
+     "claims": [
+      0,
+      0
+     ],
+     "early": [
+      0,
+      1
+     ],
+     "locked": [
+      false,
+      true
+     ],
+     "claimed": -1,
+     "chosen": null,
+     "outcome": null,
+     "note": "⛔ Đội Xanh giơ tay trước hiệu lệnh – mất lượt câu này",
+     "question": {
+      "text": "2,5 + 3,75 = ?",
+      "answers": [
+       "5,25",
+       "6,75",
+       "5,75",
+       "6,25"
+      ],
+      "correct": 3,
+      "keyed": true
+     },
+     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+    }
+   ]
+  },
+  {
+   "name": "24 \"GIƠ TAY!\": đội đã mất lượt giơ tay không tính; nắm tay không tính; Đội Đỏ giơ thẳng tay → giành quyền (ô đỏ sáng, phương án bấm được)",
+   "pass": true,
+   "detail": [
+    true,
+    true,
+    {
+     "q": 0,
+     "total": 10,
+     "n": 2,
+     "phase": "answer",
+     "paused": false,
+     "score": [
+      0,
+      0
+     ],
+     "right": [
+      0,
+      0
+     ],
+     "claims": [
+      1,
+      0
+     ],
+     "early": [
+      0,
+      1
+     ],
+     "locked": [
+      false,
+      true
+     ],
+     "claimed": 0,
+     "chosen": null,
+     "outcome": null,
+     "note": "",
+     "question": {
+      "text": "2,5 + 3,75 = ?",
+      "answers": [
+       "5,25",
+       "6,75",
+       "5,75",
+       "6,25"
+      ],
+      "correct": 3,
+      "keyed": true
+     },
+     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+    },
+    {
+     "claimed": "🙋 Đội Đỏ giành quyền!Bấm phương án đội trả lời",
+     "live": 4,
+     "z": true
+    }
+   ]
+  },
+  {
+   "name": "25 Thầy cô bấm phương án đội nói: đúng → +10 điểm, tiếng ĐÚNG, hiện đáp án",
+   "pass": true,
+   "detail": [
+    {
+     "q": 0,
+     "total": 10,
+     "n": 2,
+     "phase": "done",
+     "paused": false,
+     "score": [
+      10,
+      0
+     ],
+     "right": [
+      1,
+      0
+     ],
+     "claims": [
+      1,
+      0
+     ],
+     "early": [
+      0,
+      1
+     ],
+     "locked": [
+      false,
+      true
+     ],
+     "claimed": 0,
+     "chosen": 3,
+     "outcome": {
+      "ok": true,
+      "team": 0
+     },
+     "note": "",
+     "question": {
+      "text": "2,5 + 3,75 = ?",
+      "answers": [
+       "5,25",
+       "6,75",
+       "5,75",
+       "6,25"
+      ],
+      "correct": 3,
+      "keyed": true
+     },
+     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+    },
+    {
+     "r": 5,
+     "w": 2
+    },
+    {
+     "r": 6,
+     "w": 2
+    }
+   ]
+  },
+  {
+   "name": "26 Sang câu mới: mọi đội được giơ tay lại (hết mất lượt)",
+   "pass": true,
+   "detail": {
+    "q": 1,
+    "total": 10,
+    "n": 2,
+    "phase": "ready",
+    "paused": false,
+    "score": [
+     10,
+     0
+    ],
+    "right": [
+     1,
+     0
+    ],
+    "claims": [
+     1,
+     0
+    ],
+    "early": [
+     0,
+     1
+    ],
+    "locked": [
+     false,
+     false
+    ],
+    "claimed": -1,
+    "chosen": null,
+    "outcome": null,
+    "note": "",
+    "question": {
+     "text": "Góc có số đo 90° là:",
+     "answers": [
+      "góc nhọn",
+      "góc tù",
+      "góc vuông",
+      "góc bẹt"
+     ],
+     "correct": 2,
+     "keyed": true
+    },
+    "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+   }
+  },
+  {
+   "name": "27 Hai đội cùng giơ: đội giơ trước giành quyền; trả lời sai (phím A–D) → tiếng SAI, đội đó mất lượt, các đội còn lại giơ tay giành quyền tiếp",
+   "pass": true,
+   "detail": [
+    true,
+    true,
+    {
+     "q": 1,
+     "total": 10,
+     "n": 2,
+     "phase": "answer",
+     "paused": false,
+     "score": [
+      10,
+      0
+     ],
+     "right": [
+      1,
+      0
+     ],
+     "claims": [
+      2,
+      1
+     ],
+     "early": [
+      0,
+      1
+     ],
+     "locked": [
+      true,
+      false
+     ],
+     "claimed": 1,
+     "chosen": null,
+     "outcome": null,
+     "note": "",
+     "question": {
+      "text": "Góc có số đo 90° là:",
+      "answers": [
+       "góc nhọn",
+       "góc tù",
+       "góc vuông",
+       "góc bẹt"
+      ],
+      "correct": 2,
+      "keyed": true
+     },
+     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+    }
+   ]
+  },
+  {
+   "name": "28 Đội Xanh trả lời đúng (phím số): +10 điểm cho Đội Xanh",
+   "pass": true,
+   "detail": {
+    "q": 1,
+    "total": 10,
+    "n": 2,
+    "phase": "done",
+    "paused": false,
+    "score": [
+     10,
+     10
+    ],
+    "right": [
+     1,
+     1
+    ],
+    "claims": [
+     2,
+     1
+    ],
+    "early": [
+     0,
+     1
+    ],
+    "locked": [
+     true,
+     false
+    ],
+    "claimed": 1,
+    "chosen": 2,
+    "outcome": {
+     "ok": true,
+     "team": 1
+    },
+    "note": "",
+    "question": {
+     "text": "Góc có số đo 90° là:",
+     "answers": [
+      "góc nhọn",
+      "góc tù",
+      "góc vuông",
+      "góc bẹt"
+     ],
+     "correct": 2,
+     "keyed": true
+    },
+    "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+   }
+  },
+  {
+   "name": "29 Không có lỗi JavaScript trong phần trên",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "30 4 đội (hiện đủ 4 ô tên đội); bật \"Tự đọc khi sang câu mới\" + \"Tự đếm sau khi đọc\": máy đọc câu hỏi xong thì tự đếm 3-2-1",
+   "pass": true,
+   "detail": [
+    4,
+    4,
+    true,
+    1
+   ]
+  },
+  {
+   "name": "31 Hình camera được lật như soi gương: bàn tay ở mép trái ảnh camera (mép phải màn hình) thuộc ô đội 4",
+   "pass": true,
+   "detail": {
+    "q": 0,
+    "total": 5,
+    "n": 4,
+    "phase": "answer",
+    "paused": false,
+    "score": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "right": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "claims": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "early": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "locked": [
+     false,
+     false,
+     false,
+     false
+    ],
+    "claimed": 3,
+    "chosen": null,
+    "outcome": null,
+    "note": "",
+    "question": {
+     "text": "Số lớn nhất trong các số 7, 12, 9, 10 là:",
+     "answers": [
+      "7",
+      "9",
+      "10",
+      "12"
+     ],
+     "correct": 3,
+     "keyed": true
+    },
+    "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+   }
+  },
+  {
+   "name": "32 Hết 10 giây trả lời mà chưa chấm: tính là sai, đội đó mất lượt, các đội còn lại được giành quyền",
+   "pass": true,
+   "detail": {
+    "q": 0,
+    "total": 5,
+    "n": 4,
+    "phase": "reopen",
+    "paused": false,
+    "score": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "right": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "claims": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "early": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "locked": [
+     false,
+     false,
+     false,
+     true
+    ],
+    "claimed": -1,
+    "chosen": null,
+    "outcome": null,
+    "note": "❌ Đội Tím hết giờ trả lời",
+    "question": {
+     "text": "Số lớn nhất trong các số 7, 12, 9, 10 là:",
+     "answers": [
+      "7",
+      "9",
+      "10",
+      "12"
+     ],
+     "correct": 3,
+     "keyed": true
+    },
+    "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+   }
+  },
+  {
+   "name": "33 Không đội nào giơ tay trong 15 giây: công bố đáp án, không ai được điểm",
+   "pass": true,
+   "detail": {
+    "q": 0,
+    "total": 5,
+    "n": 4,
+    "phase": "done",
+    "paused": false,
+    "score": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "right": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "claims": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "early": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "locked": [
+     false,
+     false,
+     false,
+     true
+    ],
+    "claimed": -1,
+    "chosen": null,
+    "outcome": {
+     "ok": false,
+     "why": "none",
+     "team": -1
+    },
+    "note": "❌ Đội Tím hết giờ trả lời",
+    "question": {
+     "text": "Số lớn nhất trong các số 7, 12, 9, 10 là:",
+     "answers": [
+      "7",
+      "9",
+      "10",
+      "12"
+     ],
+     "correct": 3,
+     "keyed": true
+    },
+    "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+   }
+  },
+  {
+   "name": "34 Tắt camera: thầy cô bấm vào ô của đội giơ tay trước → đội đó giành quyền",
+   "pass": true,
+   "detail": {
+    "q": 1,
+    "total": 5,
+    "n": 4,
+    "phase": "answer",
+    "paused": false,
+    "score": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "right": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "claims": [
+     0,
+     0,
+     1,
+     1
+    ],
+    "early": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "locked": [
+     false,
+     false,
+     false,
+     false
+    ],
+    "claimed": 2,
+    "chosen": null,
+    "outcome": null,
+    "note": "",
+    "question": {
+     "text": "Số gồm 5 chục nghìn, 3 nghìn, 2 trăm và 4 đơn vị là:",
+     "answers": [
+      "53 240",
+      "53 204",
+      "50 324",
+      "5 324"
+     ],
+     "correct": 1,
+     "keyed": true
+    },
+    "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
+   }
+  },
+  {
+   "name": "35 Câu hỏi nói (không có phương án): hiện ✓ Đúng / ✗ Sai cho thầy cô chấm; phím Y = đúng → Đội Xanh +10",
+   "pass": true,
+   "detail": [
+    {
+     "note": "Câu trả lời nói – thầy cô chấm",
+     "ok": true,
+     "bad": true
+    },
+    {
+     "q": 0,
+     "total": 4,
+     "n": 2,
+     "phase": "done",
+     "paused": false,
+     "score": [
+      0,
+      10
+     ],
+     "right": [
+      0,
+      1
+     ],
+     "claims": [
+      0,
+      1
+     ],
+     "early": [
+      0,
+      0
+     ],
+     "locked": [
+      false,
+      false
+     ],
+     "claimed": 1,
+     "chosen": null,
+     "outcome": {
+      "ok": true,
+      "team": 1
+     },
+     "note": "",
+     "question": {
+      "text": "Nêu một việc em làm để tiết kiệm nước.",
+      "answers": [],
+      "correct": null,
+      "keyed": false
+     },
+     "source": "Bộ câu hỏi đã chọn"
+    }
+   ]
+  },
+  {
+   "name": "36 Hết câu: bảng xếp hạng (điểm, số lần trả lời đúng, giành quyền, giơ sớm), đội thắng có tiếng mừng",
+   "pass": true,
+   "detail": {
+    "text": "🏆 Đội Xanh chiến thắng!\nHạng\tĐội\tĐiểm\tTrả lời đúng\tGiành quyền\tGiơ sớm\n1\tĐội Xanh\t40\t4\t4\t0\n2\tĐội Đỏ\t0\t0\t0\t0\n↻ Chơi lại\n← Về thư viện",
+    "rows": 2,
+    "mung": 1
+   }
+  },
+  {
+   "name": "37 Không có lỗi JavaScript trong phần này",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "38 Bố cục 1280×800: Bàn tay phép thuật – lời nhắc, thẻ, các ô nhóm, dòng trạng thái không đè nhau; Giơ tay – câu hỏi, nút Giơ tay, tên đội nằm gọn",
+   "pass": true,
+   "detail": [
+    {
+     "stBottom": 751.78125,
+     "vh": 800,
+     "cardInside": true,
+     "binsInside": true,
+     "askAbove": true,
+     "statusBelow": true
+    },
+    {
+     "qInside": true,
+     "goAboveNames": true,
+     "namesInside": true,
+     "stFits": true
+    }
+   ]
+  },
+  {
+   "name": "38 Bố cục 1366×768: Bàn tay phép thuật – lời nhắc, thẻ, các ô nhóm, dòng trạng thái không đè nhau; Giơ tay – câu hỏi, nút Giơ tay, tên đội nằm gọn",
+   "pass": true,
+   "detail": [
+    {
+     "stBottom": 719.78125,
+     "vh": 768,
+     "cardInside": true,
+     "binsInside": true,
+     "askAbove": true,
+     "statusBelow": true
+    },
+    {
+     "qInside": true,
+     "goAboveNames": true,
+     "namesInside": true,
+     "stFits": true
+    }
+   ]
+  }
+ ]
+}

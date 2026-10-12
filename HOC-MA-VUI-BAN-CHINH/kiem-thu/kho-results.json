@@ -195,25 +195,25 @@
   "id": "D1-gift",
   "name": "Bộ mẫu A–B–C–D → gift: vào chơi thẳng với 20 câu của bộ",
   "status": "PASS",
-  "detail": "{\"view\":\"games\",\"type\":\"gift\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🎁 HỘP QUÀ BÍ MẬT Đã mở 0/8 hộp · Hoạt động offline ⚙ Câu hỏi 1 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn Lê Phương Nhi 0 Đang đ\"}"
+  "detail": "{\"view\":\"games\",\"type\":\"gift\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🎁 HỘP QUÀ BÍ MẬT Đã mở 0/8 hộp · Hoạt động offline ⚙ Câu hỏi 1 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn 🎵 Nhạc nền: Bật Học s\"}"
  },
  {
   "id": "D1-buzzer",
   "name": "Bộ mẫu A–B–C–D → buzzer: vào chơi thẳng với 20 câu của bộ",
   "status": "PASS",
-  "detail": "{\"view\":\"games\",\"type\":\"buzzer\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🔔 AI NHANH HƠN Đội bấm phím đầu tiên giành quyền · 1 giây ⚙ Câu hỏi 🔓 Mở chuông Ⅱ Tạm dừng N Câu tiếp theo ? Hướng dẫn 🔵 Tổ 1 0\"}"
+  "detail": "{\"view\":\"games\",\"type\":\"buzzer\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🔔 AI NHANH HƠN Đội bấm đầu tiên giành quyền trả lời · 1 giây ⚙ Câu hỏi 🔔 Chuông đang mở Ⅱ Tạm dừng Câu tiếp theo → 🎵 Nhạc nền: \"}"
  },
  {
   "id": "D1-millionaire",
   "name": "Bộ mẫu A–B–C–D → millionaire: vào chơi thẳng với 20 câu của bộ",
   "status": "PASS",
-  "detail": "{\"view\":\"games\",\"type\":\"millionaire\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"💰 Chinh phục tri thức Toán · Kết nối tri thức ⏱ 00:01 CÂU 1/10 · MỨC NHẬN BIẾT 3 + 4 = ? A. 7 B. 8 C. 6 D. 9 50:50 📊 Hỏi khán gi\"}"
+  "detail": "{\"view\":\"games\",\"type\":\"millionaire\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"💰 Chinh phục tri thức Toán · Kết nối tri thức ⏱ 00:01 ⛶ Toàn màn hình 🎵 Nhạc nền: Bật CÂU 1/10 · MỨC NHẬN BIẾT 3 + 4 = ? A. 7 B.\"}"
  },
  {
-  "id": "D1-tiles",
-  "name": "Bộ mẫu A–B–C–D → tiles: vào chơi thẳng với 20 câu của bộ",
+  "id": "D1-balloon",
+  "name": "Bộ mẫu A–B–C–D → balloon: vào chơi thẳng với 20 câu của bộ",
   "status": "PASS",
-  "detail": "{\"view\":\"games\",\"type\":\"tiles\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🧩 LẬT MẢNH GHÉP Vòng 1/1 · Đã mở 0/9 mảnh · Hoạt động offline ⚙ Câu hỏi 1 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn Tổ 1 0 Đúng\"}"
+  "detail": "{\"view\":\"games\",\"type\":\"balloon\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🎈 BÓNG BAY TRI THỨC Câu 1/10 · Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5 ⚙ Câu hỏi Ⅱ Tạm dừng 📷 Camera: Tắt Thoát ⛶ Toàn màn hì\"}"
  },
  {
   "id": "D1-race",
@@ -237,19 +237,19 @@
   "id": "D2-gift",
   "name": "Bộ mẫu Đúng/Sai → gift: vào chơi thẳng với 20 câu của bộ",
   "status": "PASS",
-  "detail": "{\"view\":\"games\",\"type\":\"gift\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🎁 HỘP QUÀ BÍ MẬT Đã mở 0/8 hộp · Hoạt động offline ⚙ Câu hỏi 1 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn Học sinh 21 0 Đang đến\"}"
+  "detail": "{\"view\":\"games\",\"type\":\"gift\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🎁 HỘP QUÀ BÍ MẬT Đã mở 0/8 hộp · Hoạt động offline ⚙ Câu hỏi 1 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn 🎵 Nhạc nền: Bật Học s\"}"
  },
  {
   "id": "D2-buzzer",
   "name": "Bộ mẫu Đúng/Sai → buzzer: vào chơi thẳng với 20 câu của bộ",
   "status": "PASS",
-  "detail": "{\"view\":\"games\",\"type\":\"buzzer\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🔔 AI NHANH HƠN Đội bấm phím đầu tiên giành quyền · 1 giây ⚙ Câu hỏi 🔓 Mở chuông Ⅱ Tạm dừng N Câu tiếp theo ? Hướng dẫn 🔵 Tổ 1 0\"}"
+  "detail": "{\"view\":\"games\",\"type\":\"buzzer\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🔔 AI NHANH HƠN Đội bấm đầu tiên giành quyền trả lời · 1 giây ⚙ Câu hỏi 🔔 Chuông đang mở Ⅱ Tạm dừng Câu tiếp theo → 🎵 Nhạc nền: \"}"
  },
  {
-  "id": "D2-tiles",
-  "name": "Bộ mẫu Đúng/Sai → tiles: vào chơi thẳng với 20 câu của bộ",
+  "id": "D2-balloon",
+  "name": "Bộ mẫu Đúng/Sai → balloon: vào chơi thẳng với 20 câu của bộ",
   "status": "PASS",
-  "detail": "{\"view\":\"games\",\"type\":\"tiles\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🧩 LẬT MẢNH GHÉP Vòng 1/1 · Đã mở 0/9 mảnh · Hoạt động offline ⚙ Câu hỏi 1 giây Ⅱ Tạm dừng ⛶ Toàn màn hình ? Hướng dẫn Tổ 1 0 Đúng\"}"
+  "detail": "{\"view\":\"games\",\"type\":\"balloon\",\"started\":true,\"srcN\":20,\"fromSet\":true,\"head\":\"🎈 BÓNG BAY TRI THỨC Câu 1/10 · Mẫu 2 · Đúng/Sai · Toán lớp 1–5 ⚙ Câu hỏi Ⅱ Tạm dừng 📷 Camera: Tắt Thoát ⛶ Toàn màn hình 🎵 Nhạc \"}"
  },
  {
   "id": "D2-race",
@@ -283,25 +283,25 @@
  },
  {
   "id": "E1",
-  "name": "Chọn mảnh → hiện câu của bộ, Tự động chấm, không có nút xác nhận tay",
+  "name": "Vào trận: hiện câu của bộ, 2 quả bóng Đúng/Sai, 10 câu mỗi lượt (mặc định)",
   "status": "PASS",
-  "detail": "{\"q\":{\"text\":\"10 − 4 = 5.\",\"correct\":1},\"opened\":0,\"total\":9,\"confirmVisible\":false,\"auto\":true}"
+  "detail": "{\"total\":10,\"src\":\"Mẫu 2 · Đúng/Sai · Toán lớp 1–5\"}"
  },
  {
   "id": "E2",
-  "name": "Trả lời sai → mảnh không mở",
+  "name": "Trả lời sai → không cộng điểm, hiện đáp án đúng",
   "status": "PASS",
-  "detail": "{\"q\":null,\"opened\":0,\"total\":9,\"confirmVisible\":false,\"auto\":false}"
+  "detail": "{\"ok\":false,\"why\":\"key\",\"team\":0}"
  },
  {
   "id": "E3",
-  "name": "Trả lời đúng lần lượt → mở đủ 9 mảnh, câu không lặp",
+  "name": "Trả lời đúng 9 câu còn lại → kết quả Đúng 9/10, 90 điểm, câu không lặp",
   "status": "PASS",
-  "detail": "9/9 · 9 câu"
+  "detail": "★★★ 🎉 Làm tốt lắm! Đúng 9/10 câu · 90 điểm ↻ Chơi lại ← Về thư viện"
  },
  {
   "id": "E4",
-  "name": "Chơi lại đặt lại bàn chơi",
+  "name": "Chơi lại đặt lại ván chơi",
   "status": "PASS",
   "detail": "0"
  },
@@ -363,13 +363,13 @@
   "id": "G1",
   "name": "Service worker cài xong và lưu đủ 26 tệp ứng dụng",
   "status": "PASS",
-  "detail": "{\"caches\":[\"hmv-ban-chinh-1.1\"],\"n\":26}"
+  "detail": "{\"caches\":[\"hmv-ban-chinh-2.9\"],\"n\":47}"
  },
  {
   "id": "G2",
   "name": "Ngắt mạng rồi tải lại: ứng dụng, Kho và 7 bộ mẫu vẫn mở đúng bản chính",
   "status": "PASS",
-  "detail": "{\"online\":false,\"marker\":\"Build kiểm tra: HMV-BAN-CHINH-1.1-20261011\",\"demo\":7,\"styled\":\"rgb(243, 240, 255)\",\"cam\":true}"
+  "detail": "{\"online\":false,\"marker\":\"Build kiểm tra: HMV-BAN-CHINH-2.9-20261012\",\"demo\":7,\"styled\":\"rgb(243, 240, 255)\",\"cam\":true}"
  },
  {
   "id": "G3",
@@ -393,7 +393,7 @@
   "id": "G6",
   "name": "Ngắt mạng: không lỗi JavaScript",
   "status": "PASS",
-  "detail": ""
+  "detail": "console.error: Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
  },
  {
   "id": "H-1366",

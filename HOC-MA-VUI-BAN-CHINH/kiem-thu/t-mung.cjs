@@ -12,8 +12,8 @@ const tiltStart = async page => { await play(page, 'mau-2-dung-sai', 'head-tilt'
 
 (async () => {
   // ---------- Tệp ----------
-  const f = await get('/assets/audio/mung-chien-thang.mp3'); const local = fs.readFileSync(path.join(__dirname, '..', 'main28', 'app', 'assets', 'audio', 'mung-chien-thang.mp3'));
-  ok('1 Tệp tiếng mừng được máy chủ trả về đúng dạng âm thanh và đúng nguyên tệp thầy gửi (131 074 byte)', f.status === 200 && /audio\/mpeg/.test(f.type) && f.body.length === 131074 && crypto.createHash('sha256').update(f.body).digest('hex') === '3029aafb117205e93b3a59b57a167b79ab0e58a062e6dd97170893fb7e97eb0b' && f.body.equals(local), [f.status, f.type, f.body.length]);
+  const f = await get('/assets/audio/mung-chien-thang.mp3'); const local = fs.readFileSync(path.join(__dirname, '..', 'main29', 'app', 'assets', 'audio', 'mung-chien-thang.mp3'));
+  ok('1 Tệp tiếng mừng được máy chủ trả về đúng dạng âm thanh và đúng nguyên tệp trong gói (tệp thầy gửi; bản trên máy thầy có thêm nhãn nguồn gốc 136 876 byte, phần âm thanh không đổi)', f.status === 200 && /audio\/mpeg/.test(f.type) && [131074, 136876].includes(f.body.length) && f.body.equals(local), [f.status, f.type, f.body.length]);
 
   let { browser, page, logs } = await mk(); page.on('dialog', d => d.accept().catch(() => {}));
   let s = await st(page);
@@ -96,8 +96,8 @@ const tiltStart = async page => { await play(page, 'mau-2-dung-sai', 'head-tilt'
   await play(page, 'mau-1-abcd', 'poll'); await page.waitForFunction(() => hmvPoll.state().match && hmvPoll.state().match.mode === 'bank', null, { timeout: 12000 }); await page.waitForFunction(() => hmvPoll.state().camera === 'off', null, { timeout: 20000 }); n0 = (await st(page)).plays;
   await page.keyboard.press('Digit1'); await page.keyboard.press('Enter'); await page.waitForTimeout(200); await page.click('#games [data-bc="finish"], #games [data-bc="end"]').catch(() => {}); await page.waitForTimeout(600);
   ok('21 Bình chọn ngón tay (không có đội thắng): không phát tiếng mừng', (await st(page)).plays === n0);
-  const src = fs.readFileSync(path.join(__dirname, '..', 'main28', 'app', 'index.html'), 'utf8'), wheel = fs.readFileSync(path.join(__dirname, '..', 'main28', 'app', 'vong-quay.js'), 'utf8');
-  ok('22 Mã nguồn: Vòng quay và Kéo co không gọi tiếng mừng mới; sáu trò còn lại mỗi trò có lời gọi', !/hmvMung/.test(wheel) && (src.match(/hmvMung\.play\(/g) || []).length === 5 && /hmvMung\.play\(/.test(fs.readFileSync(path.join(__dirname, '..', 'main28', 'app', 'bong-bay.js'), 'utf8')) && !/function winSound\(\)\{[^}]*hmvMung/.test(src), (src.match(/hmvMung\.play\(/g) || []).length);
+  const src = fs.readFileSync(path.join(__dirname, '..', 'main29', 'app', 'index.html'), 'utf8'), wheel = fs.readFileSync(path.join(__dirname, '..', 'main29', 'app', 'vong-quay.js'), 'utf8');
+  ok('22 Mã nguồn: Vòng quay và Kéo co không gọi tiếng mừng mới; sáu trò còn lại mỗi trò có lời gọi', !/hmvMung/.test(wheel) && (src.match(/hmvMung\.play\(/g) || []).length === 5 && /hmvMung\.play\(/.test(fs.readFileSync(path.join(__dirname, '..', 'main29', 'app', 'bong-bay.js'), 'utf8')) && !/function winSound\(\)\{[^}]*hmvMung/.test(src), (src.match(/hmvMung\.play\(/g) || []).length);
   ok('23 Không có lỗi JavaScript trong suốt quá trình', logs.filter(l => /PAGEERROR|console.error/.test(l)).length === 0, logs); await browser.close();
 
   // ---------- Không phát được tệp → dùng tiếng cũ của trò ----------
@@ -114,9 +114,9 @@ const tiltStart = async page => { await play(page, 'mau-2-dung-sai', 'head-tilt'
     const sw = await pg.evaluate(async () => { const names = await caches.keys(); const c = await caches.open(names[0]); const keys = (await c.keys()).map(r => new URL(r.url).pathname); return { names, mp3: keys.includes('/assets/audio/mung-chien-thang.mp3'), js: keys.includes('/mung-chien-thang.js') }; });
     await ctx.setOffline(true); await pg.reload({ waitUntil: 'load' }); await pg.waitForFunction(() => window.hmvMung && window.questionBankSets && questionBankSets.length > 0, null, { timeout: 15000 });
     const offl = await pg.evaluate(async () => { openView('games'); hmvMung.play(0.6, null, null); await new Promise(r => setTimeout(r, 900)); const s2 = hmvMung.state(); hmvMung.stop(); return { s: s2, marker: document.title }; });
-    ok('25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.8) có tệp tiếng mừng và mã; ngắt mạng rồi tải lại vẫn phát được', sw.names.join() === 'hmv-ban-chinh-2.8' && sw.mp3 && sw.js && offl.s.playing && !offl.s.last.fallback && /2\.8/.test(offl.marker), [sw, offl]);
+    ok('25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.9) có tệp tiếng mừng và mã; ngắt mạng rồi tải lại vẫn phát được', sw.names.join() === 'hmv-ban-chinh-2.9' && sw.mp3 && sw.js && offl.s.playing && !offl.s.last.fallback && /2\.9/.test(offl.marker), [sw, offl]);
     await b.close(); }
 
-  fs.writeFileSync(path.join(__dirname, 'mung-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.8-20261011', note: 'Trình duyệt thử không có loa: kiểm việc tệp được phát, không nghe tiếng thật.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
+  fs.writeFileSync(path.join(__dirname, 'mung-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.9-20261012', note: 'Trình duyệt thử không có loa: kiểm việc tệp được phát, không nghe tiếng thật.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
   console.log('TOTAL ' + res.filter(x => x.pass).length + '/' + res.length); process.exit(res.every(x => x.pass) ? 0 : 1);
 })().catch(e => { console.error(e); process.exit(1); });

@@ -1,6 +1,6 @@
 {
- "at": "2026-10-11T02:26:35.282Z",
- "build": "HỌC MÀ VUI – ThayKhaiEdu | HMV-BAN-CHINH-1.1-20261011",
+ "at": "2026-10-12T10:53:29.108Z",
+ "build": "HỌC MÀ VUI | HMV-BAN-CHINH-2.9-20261012",
  "pass": 44,
  "total": 44,
  "results": [
@@ -17,7 +17,7 @@
   {
    "name": "Nhạc nền đang phát khi vào trận",
    "pass": true,
-   "detail": "blob:http://127.0.0.1:8780/95dc9bb4-b667-4d7b-90aa-a0195939c"
+   "detail": "blob:http://127.0.0.1:8780/c3a136c3-08cb-4df8-b534-387ed8026"
   },
   {
    "name": "Nhạc nền vẫn phát sau 0,6 giây",
@@ -62,7 +62,7 @@
   {
    "name": "Báo Chưa đúng kèm đáp án đúng; tô đỏ câu chọn, tô xanh đáp án đúng",
    "pass": true,
-   "detail": "❌ Chưa đúng. Đáp án đúng: A. 4\nTự chuyển câu sau 3 giây"
+   "detail": "❌ Chưa đúng. Đáp án đúng: A. 20\nTự chuyển câu sau 3 giây"
   },
   {
    "name": "Nút \"Câu tiếp theo\" chuyển ngay không cần chờ",
@@ -87,7 +87,7 @@
   {
    "name": "Tiếp tục: đồng hồ chạy lại, nhạc phát lại",
    "pass": true,
-   "detail": "{\"q\":29.534000000000002,\"music\":true}"
+   "detail": "{\"q\":29.558,\"music\":true}"
   },
   {
    "name": "Nút \"Nhạc nền\" tắt nhạc",
@@ -102,7 +102,7 @@
   {
    "name": "Rời màn hình Hoạt động: nhạc dừng, đồng hồ không trôi",
    "pass": true,
-   "detail": "{\"m\":false,\"q1\":28.934000000000005,\"q2\":28.934000000000005}"
+   "detail": "{\"m\":false,\"q1\":28.958000000000002,\"q2\":28.958000000000002}"
   },
   {
    "name": "Quay lại Hoạt động: nhạc phát lại",
@@ -132,7 +132,7 @@
   {
    "name": "Thời gian mỗi câu theo thiết lập (10 giây)",
    "pass": true,
-   "detail": "8.8"
+   "detail": "8.800000000000004"
   },
   {
    "name": "Hết giờ → tự chấm sai, báo Hết giờ",
@@ -157,7 +157,7 @@
   {
    "name": "Câu hỏi mở: \"Hiện đáp án\" cho xem đáp án gợi ý",
    "pass": true,
-   "detail": "Đáp án gợi ý: Lấy quãng đường chia cho thời gian: 90 : 2 = 45 (km/giờ)."
+   "detail": "Đáp án gợi ý: Ví dụ: 0 × 5 = 0 + 0 + 0 + 0 + 0 = 0."
   },
   {
    "name": "Giáo viên bấm Đúng → ghi điểm",

@@ -90,6 +90,6 @@ const each = async (page, fn) => { const out = []; for (const [w, h] of VPS) { a
   await full(page, false); await page.evaluate(() => buzzBack());
   ok('21 Không có lỗi JavaScript trong suốt quá trình', logs.filter(l => /PAGEERROR|console.error/.test(l)).length === 0, logs);
   await browser.close();
-  fs.writeFileSync(path.join(__dirname, 'bo-cuc-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.8-20261011', sizes: VPS.map(v => v.join('x')), total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
+  fs.writeFileSync(path.join(__dirname, 'bo-cuc-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.9-20261012', sizes: VPS.map(v => v.join('x')), total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
   console.log('TOTAL ' + res.filter(x => x.pass).length + '/' + res.length); process.exit(res.every(x => x.pass) ? 0 : 1);
 })().catch(e => { console.error(e); process.exit(1); });

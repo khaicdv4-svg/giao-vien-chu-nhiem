@@ -1,11 +1,11 @@
 {
-  "build": "HMV-BAN-CHINH-2.0-20261011",
+  "build": "HMV-BAN-CHINH-2.9-20261012",
   "note": "Bộ nhận diện bàn tay giả lập",
   "total": 43,
   "passed": 43,
   "results": [
     {
-      "name": "1 Thư viện có thẻ \"Bình chọn ngón tay\" (nhãn Mới, ghi rõ dùng camera AI); thư viện có 8 thẻ",
+      "name": "1 Thư viện có thẻ \"Bình chọn ngón tay\" (nhãn Mới, ghi rõ dùng camera AI); thư viện có 10 thẻ (2.9: thêm Bàn tay phép thuật, Giơ tay giành quyền)",
       "pass": true,
       "detail": {
         "tags": [
@@ -13,7 +13,7 @@
           "📷 Camera AI · đếm ngón tay"
         ],
         "badge": true,
-        "n": 8
+        "n": 10
       }
     },
     {
