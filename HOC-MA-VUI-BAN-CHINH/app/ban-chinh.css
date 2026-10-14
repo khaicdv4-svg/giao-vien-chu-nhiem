@@ -926,3 +926,21 @@ html body .rh-table th,html body .rh-table td{padding:10px 14px;border-bottom:1p
 #troLyAI .ta-check{display:flex;gap:8px;align-items:center;cursor:pointer}
 #troLyAI .ta-check input{width:20px;height:20px}
 #troLyAI .ta-model{flex:1 1 260px;min-width:0}
+
+/* BAN-CHINH 2.11 · Cài ứng dụng */
+.hmv-inst-card{border:2px solid #d9cffc;background:linear-gradient(135deg,#fbf9ff,#f2edff)}
+.hmv-inst-head{display:flex;gap:14px;align-items:flex-start}
+.hmv-inst-head img{width:56px;height:56px;border-radius:14px;flex:0 0 auto;box-shadow:0 4px 12px #4b2a9a22;background:#fff}
+.hmv-inst-head h3{margin:0 0 4px}
+.hmv-inst-head p{margin:0;color:var(--muted)}
+.hmv-inst-btn{margin-top:12px}
+.hmv-inst-steps{margin:12px 0 4px;padding-left:22px;line-height:1.6}
+.hmv-inst-ico{display:inline-block;padding:0 6px;border:1px solid #cfc4f5;border-radius:6px;background:#fff;font-size:.9em}
+.hmv-inst-note{margin:8px 0 0;color:var(--muted);font-size:14px}
+.hmv-inst-ok{margin-top:12px;padding:10px 12px;border-radius:10px;background:#e3f7ee;color:#11643f;font-weight:700}
+.hmv-inst-top{white-space:nowrap}
+@media (max-width:600px){.hmv-inst-head{flex-direction:column}}
+html body .main .topbar .actions.hmv-has-install{grid-template-columns:minmax(0,1fr) auto 124px 40px!important;grid-template-areas:"workspace install save avatar"!important}
+html body .main .topbar .actions>#hmvInstallTop{grid-area:install!important;width:auto!important;min-width:0!important;padding:0 12px!important;background:linear-gradient(135deg,#6c4cf1,#a64cc6)!important;color:#fff!important;border-color:transparent!important;font-weight:800!important}
+html body .main .topbar .actions>#hmvInstallTop[hidden]{display:none!important}
+@media(max-width:760px){html body .main .topbar .actions.hmv-has-install{grid-template-columns:auto minmax(0,1fr) 40px!important;grid-template-areas:"workspace workspace workspace" "install save avatar"!important}}

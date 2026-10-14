@@ -1,5 +1,5 @@
 {
-  "build": "HMV-BAN-CHINH-2.10-20261012",
+  "build": "HMV-BAN-CHINH-2.11-20261014",
   "note": "Gemini giả, không gọi Google",
   "total": 58,
   "passed": 58,
@@ -18,10 +18,7 @@
           "gemini-3.5-flash-lite"
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
-        "lastOk": {
-          "at": "2026-10-12T14:43:07.217Z",
-          "model": "gemini-3.5-flash-lite"
-        },
+        "lastOk": null,
         "lastError": null
       }
     },
@@ -78,10 +75,7 @@
             "gemini-3.5-flash-lite"
           ],
           "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
-          "lastOk": {
-            "at": "2026-10-12T14:43:07.217Z",
-            "model": "gemini-3.5-flash-lite"
-          },
+          "lastOk": null,
           "lastError": null
         },
         {
@@ -95,10 +89,7 @@
             "gemini-3.5-flash-lite"
           ],
           "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
-          "lastOk": {
-            "at": "2026-10-12T14:43:07.217Z",
-            "model": "gemini-3.5-flash-lite"
-          },
+          "lastOk": null,
           "lastError": null
         },
         200
@@ -128,7 +119,7 @@
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
         "lastOk": {
-          "at": "2026-10-12T14:44:34.509Z",
+          "at": "2026-10-14T00:01:59.071Z",
           "model": "gemini-3.8-flash"
         },
         "lastError": null
@@ -159,7 +150,7 @@
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
         "lastOk": {
-          "at": "2026-10-12T14:44:34.520Z",
+          "at": "2026-10-14T00:01:59.080Z",
           "model": "gemini-3.8-flash"
         },
         "lastError": null
@@ -349,39 +340,39 @@
         ],
         [
           [
-            "1002",
             "23",
-            "22",
-            "21"
+            "1002",
+            "21",
+            "22"
           ],
-          "2"
+          "3"
         ],
         [
           [
+            "1003",
             "34",
-            "32",
             "33",
-            "1003"
+            "32"
           ],
           "2"
         ],
         [
           [
-            "43",
             "44",
-            "1004",
-            "45"
-          ],
-          "1"
-        ],
-        [
-          [
-            "55",
-            "56",
-            "1005",
-            "54"
+            "45",
+            "43",
+            "1004"
           ],
           "0"
+        ],
+        [
+          [
+            "1005",
+            "54",
+            "56",
+            "55"
+          ],
+          "3"
         ]
       ]
     },
@@ -467,7 +458,7 @@
       "name": "B17 \"Lưu và chơi ngay\": lưu bộ mới (chỉ câu được chọn) vào Kho với đủ lớp, môn, chủ đề, nguồn",
       "pass": true,
       "detail": {
-        "id": "ai-set-1791816278651-njtat0",
+        "id": "ai-set-1791936123151-s5w8m0",
         "name": "Bộ AI kiểm thử",
         "n": 9,
         "grade": "Lớp 4",
@@ -532,7 +523,7 @@
         ],
         "view": "questions",
         "q0": {
-          "id": "ai-q-1791816278661-pgbx49",
+          "id": "ai-q-1791936123173-pa974f",
           "text": "Câu 1: 10 + 1 = ?",
           "question": "Câu 1: 10 + 1 = ?",
           "kind": "ABCD",
@@ -728,7 +719,7 @@
     {
       "name": "B29 \"Tải tệp Word\": tải về tệp .doc có bảng ma trận, mã hóa UTF-8, không có thẻ script",
       "pass": true,
-      "detail": "tro-ly-su-pham-matrix-2026-10-12.doc"
+      "detail": "tro-ly-su-pham-matrix-2026-10-14.doc"
     },
     {
       "name": "B30 Hỏi tiếp: gửi kèm toàn bộ cuộc trao đổi trước đó (4 lượt, đúng vai)",
@@ -764,7 +755,7 @@
       "pass": true,
       "detail": {
         "names": [
-          "hmv-ban-chinh-2.10"
+          "hmv-ban-chinh-2.11"
         ],
         "api": [],
         "hasJs": true

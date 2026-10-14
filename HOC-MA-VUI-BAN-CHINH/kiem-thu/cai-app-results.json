@@ -1,0 +1,175 @@
+{
+  "version": "2.11",
+  "at": "2026-10-14T00:26:36.047Z",
+  "pass": 16,
+  "total": 16,
+  "results": [
+    {
+      "name": "1 manifest.webmanifest hợp lệ: tên \"HỌC MÀ VUI…\", tên ngắn \"Học mà vui\", start_url/scope \"./\", hiển thị standalone, màu chủ đạo, đủ biểu tượng 192 và 512 (có bản maskable)",
+      "pass": true,
+      "detail": [
+        200,
+        "application/manifest+json",
+        "HỌC MÀ VUI – Lớp học thông minh"
+      ]
+    },
+    {
+      "name": "2 Năm tệp biểu tượng (từ logo ThayKhaiEdu của thầy) đúng kích thước 192, 512, 512, 180, 48 và đúng tệp trong gói",
+      "pass": true,
+      "detail": {
+        "icon-192.png": {
+          "st": 200,
+          "size": [
+            192,
+            192
+          ],
+          "local": true
+        },
+        "icon-512.png": {
+          "st": 200,
+          "size": [
+            512,
+            512
+          ],
+          "local": true
+        },
+        "icon-maskable-512.png": {
+          "st": 200,
+          "size": [
+            512,
+            512
+          ],
+          "local": true
+        },
+        "apple-touch-icon.png": {
+          "st": 200,
+          "size": [
+            180,
+            180
+          ],
+          "local": true
+        },
+        "favicon-48.png": {
+          "st": 200,
+          "size": [
+            48,
+            48
+          ],
+          "local": true
+        }
+      }
+    },
+    {
+      "name": "3 Trang khai báo manifest, biểu tượng thẻ, biểu tượng iPhone; tệp cai-ung-dung.js nạp ngay trong <head> (không lỡ sự kiện cài)",
+      "pass": true,
+      "detail": {
+        "man": true,
+        "apple": true,
+        "icon": true,
+        "order": 0
+      }
+    },
+    {
+      "name": "4 Chromium xác nhận trang ĐỦ ĐIỀU KIỆN cài thành ứng dụng (không có lỗi installability) và đọc được manifest không lỗi",
+      "pass": true,
+      "detail": [
+        {
+          "installabilityErrors": []
+        },
+        []
+      ]
+    },
+    {
+      "name": "5 Bộ nhớ ngoại tuyến hmv-ban-chinh-2.11 có manifest, biểu tượng và mã cài đặt (ứng dụng đã cài mở được khi mất mạng)",
+      "pass": true,
+      "detail": {
+        "names": [
+          "hmv-ban-chinh-2.11"
+        ],
+        "has": true
+      }
+    },
+    {
+      "name": "6 Trước khi trình duyệt cho phép cài: thanh trên chưa có nút; mục Cài đặt & dữ liệu có thẻ \"Cài HỌC MÀ VUI như một ứng dụng\" kèm hướng dẫn biểu tượng trên thanh địa chỉ (như ảnh của thầy) và ⋮ → Cài đặt trang dưới dạng ứng dụng",
+      "pass": true,
+      "detail": "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên.\n\nBấm biểu tượng màn hình có mũi tên 🖥︎⬇ ở cuối thanh địa chỉ, hoặc nút ⋮ → Truyền, lưu và chia sẻ → Cài đặt trang dưới dạng ứng dụng.\nBấm Cài đặt. Biểu tượng HỌC MÀ VUI xuất hiện trên màn hình nền v"
+    },
+    {
+      "name": "7 Bản trên máy (127.0.0.1): thẻ nhắc ứng dụng cài từ đây cần máy chủ nội bộ chạy; người khác nên cài từ địa chỉ web",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "8 Trình duyệt báo có thể cài: nút \"📲 Cài ứng dụng\" hiện trên thanh trên cùng và trong thẻ ở Cài đặt (trang giữ lệnh cài để thầy cô tự bấm)",
+      "pass": true,
+      "detail": [
+        true,
+        true,
+        "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên."
+      ]
+    },
+    {
+      "name": "9 Bấm \"Cài ứng dụng\" → mở hộp thoại cài của trình duyệt đúng một lần; thầy cô đồng ý → thẻ báo \"Đã cài xong\", nút trên thanh trên ẩn đi",
+      "pass": true,
+      "detail": {
+        "p": 1,
+        "st": "installed",
+        "top": false,
+        "card": "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên.\n\n✅ Đã cài xong. Lần sau mở HỌC MÀ VUI từ biểu tượng trên màn hình nền (hoặc menu Start).\n\nĐây là bản trên máy (mở bằng MO-HOC-MA-VUI.cmd): ứng dụng cài từ đây chỉ mở được khi máy chủ nội bộ đang chạy. Người khác nên cài từ địa chỉ web giao-vien-chu-nhiem.vercel.app."
+      }
+    },
+    {
+      "name": "10 Thầy cô bấm \"Hủy\" ở hộp thoại cài: ứng dụng không báo lỗi, nút cài ẩn (trình duyệt sẽ cho cài lại sau)",
+      "pass": true,
+      "detail": {
+        "p": 1,
+        "st": "manual",
+        "top": false
+      }
+    },
+    {
+      "name": "11 Mở từ biểu tượng đã cài (giả lập iPhone báo đang chạy như ứng dụng): thẻ báo \"đang dùng ở dạng ứng dụng đã cài\", không còn hướng dẫn cài, không có nút cài",
+      "pass": true,
+      "detail": {
+        "st": "running",
+        "card": "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên.\n\n✅ Thầy cô đang dùng HỌC MÀ VUI ở dạng ứng dụng đã cài.",
+        "cls": true,
+        "top": false
+      }
+    },
+    {
+      "name": "12 iPhone/iPad: hướng dẫn Safari → nút Chia sẻ → \"Thêm vào MH chính\"; thẻ vừa màn hình điện thoại (không tràn ngang)",
+      "pass": true,
+      "detail": [
+        "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên.\n\nMở trang này bằng Safari.\nBấm nút Chia sẻ ⬆︎ ở thanh dưới (iPad: góc trên).\nKéo xuống, chọn Thêm v",
+        0
+      ]
+    },
+    {
+      "name": "13 Điện thoại Android: hướng dẫn Chrome → ⋮ → \"Cài đặt ứng dụng / Thêm vào màn hình chính\"",
+      "pass": true,
+      "detail": "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên.\n\nMở trang này bằng Chrome.\nBấm nút ⋮ ở góc trên bên phải.\nChọn Cài đặt ứng dụng (hoặc Thêm vào màn "
+    },
+    {
+      "name": "14 Firefox (không hỗ trợ cài): báo rõ và gợi ý mở bằng Chrome hoặc Edge",
+      "pass": true,
+      "detail": "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên.\n\nTrình duyệt này chưa hỗ trợ cài trang web thành ứng dụng. Hãy mở cùng địa chỉ bằng Google Chrome h"
+    },
+    {
+      "name": "15 Nút trên thanh trên nằm gọn trong thanh, không làm trang tràn ngang (1366×768)",
+      "pass": true,
+      "detail": {
+        "inBar": true,
+        "over": 0
+      }
+    },
+    {
+      "name": "16 Thư viện trò chơi vẫn đủ 10 thẻ; không có lỗi JavaScript",
+      "pass": true,
+      "detail": [
+        10,
+        []
+      ]
+    }
+  ]
+}

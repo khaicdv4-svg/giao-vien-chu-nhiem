@@ -134,6 +134,6 @@ const G = [{ x: .15, y: .3, n: 1 }, { x: .3, y: .25, n: 2 }, { x: .45, y: .3, n:
   await ctx.close();
   ok('42 Không có lỗi JavaScript trong suốt quá trình', logs.length === 0, logs.slice(0, 6));
   await browser.close();
-  fs.writeFileSync(path.join(__dirname, 'binh-chon-results.json'), JSON.stringify({ build: 'HMV-BAN-CHINH-2.10-20261012', note: 'Bộ nhận diện bàn tay giả lập', total: res.length, passed: res.filter(r => r.pass).length, results: res }, null, 2));
+  fs.writeFileSync(path.join(__dirname, 'binh-chon-results.json'), JSON.stringify({ build: 'HMV-BAN-CHINH-2.11-20261014', note: 'Bộ nhận diện bàn tay giả lập', total: res.length, passed: res.filter(r => r.pass).length, results: res }, null, 2));
   console.log('TOTAL ' + res.filter(r => r.pass).length + '/' + res.length); process.exit(res.every(r => r.pass) ? 0 : 1);
 })().catch(e => { console.error(e); process.exit(2); });

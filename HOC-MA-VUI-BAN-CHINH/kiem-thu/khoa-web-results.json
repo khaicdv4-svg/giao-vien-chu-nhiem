@@ -1,6 +1,6 @@
 {
   "version": "2.10",
-  "at": "2026-10-12T14:43:07.309Z",
+  "at": "2026-10-14T00:04:41.060Z",
   "pass": 20,
   "total": 20,
   "results": [
@@ -23,7 +23,7 @@
       "pass": true,
       "detail": [
         {
-          "l": "{\"key\":\"AIzaSyTEST-nguoi-dung-A-0000000000AAAA\",\"model\":\"\",\"at\":\"2026-10-12T14:42:57.478Z\"}",
+          "l": "{\"key\":\"AIzaSyTEST-nguoi-dung-A-0000000000AAAA\",\"model\":\"\",\"at\":\"2026-10-14T00:04:31.614Z\"}",
           "s": null
         },
         "🟢 Gemini: khóa riêng của thầy cô (…AAAA)"
@@ -63,7 +63,7 @@
       "detail": [
         {
           "done": true,
-          "ms": 172,
+          "ms": 175,
           "engine": "ai"
         },
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash-tts:generateContent"
@@ -93,7 +93,7 @@
       "detail": [
         "Khóa không đúng định dạng. Hãy sao chép lại nguyên khóa từ Google AI Studio.",
         {
-          "l": "{\"key\":\"BADKEY-khong-hop-le-22222222222222\",\"model\":\"\",\"at\":\"2026-10-12T14:42:58.990Z\"}",
+          "l": "{\"key\":\"BADKEY-khong-hop-le-22222222222222\",\"model\":\"\",\"at\":\"2026-10-14T00:04:33.129Z\"}",
           "s": null
         }
       ]
@@ -103,14 +103,14 @@
       "pass": true,
       "detail": {
         "l": null,
-        "s": "{\"key\":\"AIzaSyTEST-nguoi-dung-A-0000000000AAAA\",\"model\":\"\",\"at\":\"2026-10-12T14:42:59.813Z\"}"
+        "s": "{\"key\":\"AIzaSyTEST-nguoi-dung-A-0000000000AAAA\",\"model\":\"\",\"at\":\"2026-10-14T00:04:33.935Z\"}"
       }
     },
     {
       "name": "12 Chọn lại \"Ghi nhớ khóa\" khi đã có khóa: chuyển sang ghi nhớ mà không phải dán lại",
       "pass": true,
       "detail": {
-        "l": "{\"key\":\"AIzaSyTEST-nguoi-dung-A-0000000000AAAA\",\"model\":\"\",\"at\":\"2026-10-12T14:43:00.145Z\"}",
+        "l": "{\"key\":\"AIzaSyTEST-nguoi-dung-A-0000000000AAAA\",\"model\":\"\",\"at\":\"2026-10-14T00:04:34.265Z\"}",
         "s": null
       }
     },

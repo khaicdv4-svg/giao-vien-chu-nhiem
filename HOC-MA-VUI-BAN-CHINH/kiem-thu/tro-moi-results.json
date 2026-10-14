@@ -1,6 +1,6 @@
 {
- "at": "2026-10-12T14:39:14.924Z",
- "build": "HMV-BAN-CHINH-2.10-20261012",
+ "at": "2026-10-14T00:00:47.514Z",
+ "build": "HMV-BAN-CHINH-2.11-20261014",
  "note": "Camera giả của Chromium, bộ nhận diện bàn tay giả (vị trí bàn tay đặt bằng mã), giọng đọc giả. Chưa thử với bàn tay và webcam thật.",
  "total": 39,
  "passed": 39,
@@ -255,12 +255,12 @@
      "held": "",
      "armed": true,
      "card": {
-      "x": 491,
+      "x": 174,
       "y": 452
      },
      "item": {
-      "text": "hát",
-      "g": 1
+      "text": "dòng sông",
+      "g": 0
      },
      "groups": [
       "Danh từ",
@@ -269,11 +269,10 @@
      ],
      "placed": [
       [
-       "cô giáo"
+       "cô giáo",
+       "dòng sông"
       ],
-      [
-       "hát"
-      ],
+      [],
       []
      ],
      "outcome": {
@@ -285,7 +284,7 @@
     },
     {
      "right": true,
-     "banner": "❌ Chưa đúng. “hát” thuộc nhóm Động từThẻ tiếp theo sau 3 giây · Chuyển ngay"
+     "banner": "❌ Chưa đúng. “dòng sông” thuộc nhóm Danh từThẻ tiếp theo sau 3 giây · Chuyển ngay"
     }
    ]
   },
@@ -322,8 +321,8 @@
      "y": 202
     },
     "item": {
-     "text": "nhanh nhẹn",
-     "g": 2
+     "text": "bơi",
+     "g": 1
     },
     "groups": [
      "Danh từ",
@@ -332,11 +331,10 @@
     ],
     "placed": [
      [
-      "cô giáo"
+      "cô giáo",
+      "dòng sông"
      ],
-     [
-      "hát"
-     ],
+     [],
      []
     ],
     "outcome": null,
@@ -364,12 +362,12 @@
     "held": "",
     "armed": true,
     "card": {
-     "x": 808,
+     "x": 491,
      "y": 446
     },
     "item": {
-     "text": "nhanh nhẹn",
-     "g": 2
+     "text": "bơi",
+     "g": 1
     },
     "groups": [
      "Danh từ",
@@ -378,14 +376,13 @@
     ],
     "placed": [
      [
-      "cô giáo"
+      "cô giáo",
+      "dòng sông"
      ],
      [
-      "hát"
+      "bơi"
      ],
-     [
-      "nhanh nhẹn"
-     ]
+     []
     ],
     "outcome": {
      "ok": true,
@@ -417,12 +414,12 @@
     "held": "",
     "armed": false,
     "card": {
-     "x": 174,
+     "x": 808,
      "y": 452
     },
     "item": {
-     "text": "quyển vở",
-     "g": 0
+     "text": "đẹp",
+     "g": 2
     },
     "groups": [
      "Danh từ",
@@ -432,13 +429,13 @@
     "placed": [
      [
       "cô giáo",
-      "quyển vở"
+      "dòng sông"
      ],
      [
-      "hát"
+      "bơi"
      ],
      [
-      "nhanh nhẹn"
+      "đẹp"
      ]
     ],
     "outcome": {
@@ -455,7 +452,7 @@
    "pass": true,
    "detail": [
     {
-     "t": 1791815866522,
+     "t": 1791935959413,
      "g": "magic-hand",
      "k": "1m60dyi",
      "s": "",
@@ -463,28 +460,28 @@
      "x": 0
     },
     {
-     "t": 1791815868583,
+     "t": 1791935961521,
      "g": "magic-hand",
-     "k": "f61nap",
+     "k": "5mm8pm",
      "s": "",
      "o": 0,
-     "x": 2
+     "x": 1
     },
     {
-     "t": 1791815873709,
+     "t": 1791935966629,
      "g": "magic-hand",
-     "k": "1xosujj",
+     "k": "mf5ogw",
+     "s": "",
+     "o": 1,
+     "x": 1
+    },
+    {
+     "t": 1791935966959,
+     "g": "magic-hand",
+     "k": "937orz",
      "s": "",
      "o": 1,
      "x": 2
-    },
-    {
-     "t": 1791815874038,
-     "g": "magic-hand",
-     "k": "1a9bsqg",
-     "s": "",
-     "o": 1,
-     "x": 0
     }
    ]
   },
@@ -493,14 +490,14 @@
    "pass": true,
    "detail": {
     "id": "magic-hand",
-    "text": "quyển vở"
+    "text": "đẹp"
    }
   },
   {
    "name": "15 Hết 5 thẻ: màn kết quả (số thẻ xếp đúng ngay lần đầu, điểm, danh sách thẻ trong từng nhóm), có tiếng mừng, camera tắt",
    "pass": true,
    "detail": {
-    "text": "★★★\n🎉 Làm tốt lắm!\n\nXếp đúng ngay lần đầu 4/5 thẻ · 40 điểm\n\nDanh từ\n\ncô giáo · quyển vở\n\nĐộng từ\n\nhát\n\nTính từ\n\nnhanh nhẹn · thông minh\n\n↻ Chơi lại\n← Về thư viện",
+    "text": "★★★\n🎉 Làm tốt lắm!\n\nXếp đúng ngay lần đầu 4/5 thẻ · 40 điểm\n\nDanh từ\n\ncô giáo · dòng sông\n\nĐộng từ\n\nbơi\n\nTính từ\n\nđẹp · thông minh\n\n↻ Chơi lại\n← Về thư viện",
     "bins": 3,
     "mung": 1,
     "cam": false
@@ -529,12 +526,12 @@
      "held": "",
      "armed": true,
      "card": {
-      "x": 610,
+      "x": 848,
       "y": 446
      },
      "item": {
-      "text": "Góc 135°",
-      "g": 2
+      "text": "Góc 180°",
+      "g": 3
      },
      "groups": [
       "Góc nhọn",
@@ -545,10 +542,10 @@
      "placed": [
       [],
       [],
+      [],
       [
-       "Góc 135°"
-      ],
-      []
+       "Góc 180°"
+      ]
      ],
      "outcome": {
       "ok": true,
@@ -591,8 +588,8 @@
      "y": 202
     },
     "item": {
-     "text": "Góc 45°",
-     "g": 0
+     "text": "Góc tạo bởi hai tia đối nhau",
+     "g": 3
     },
     "groups": [
      "Góc nhọn",
@@ -603,10 +600,10 @@
     "placed": [
      [],
      [],
+     [],
      [
-      "Góc 135°"
-     ],
-     []
+      "Góc 180°"
+     ]
     ],
     "outcome": null,
     "name": "Góc nhọn – vuông – tù – bẹt (Toán 4)"
@@ -652,8 +649,8 @@
       "y": 202
      },
      "item": {
-      "text": "2 × 9 = 16.",
-      "g": 1
+      "text": "Số 305 đọc là \"ba trăm linh năm\".",
+      "g": 0
      },
      "groups": [
       "Đúng",
@@ -711,12 +708,12 @@
      "outcome": null,
      "note": "",
      "question": {
-      "text": "Góc có số đo 90° là:",
+      "text": "1 km = … m",
       "answers": [
-       "góc nhọn",
-       "góc tù",
-       "góc vuông",
-       "góc bẹt"
+       "10",
+       "100",
+       "1 000",
+       "10 000"
       ],
       "correct": 2,
       "keyed": true
@@ -731,7 +728,7 @@
      "ans": 4,
      "go": true,
      "numHands": 6,
-     "q": "Góc có số đo 90° là:"
+     "q": "1 km = … m"
     }
    ]
   },
@@ -775,12 +772,12 @@
      "outcome": null,
      "note": "⛔ Đội Xanh giơ tay trước hiệu lệnh – mất lượt câu này",
      "question": {
-      "text": "Góc có số đo 90° là:",
+      "text": "1 km = … m",
       "answers": [
-       "góc nhọn",
-       "góc tù",
-       "góc vuông",
-       "góc bẹt"
+       "10",
+       "100",
+       "1 000",
+       "10 000"
       ],
       "correct": 2,
       "keyed": true
@@ -826,12 +823,12 @@
      "outcome": null,
      "note": "",
      "question": {
-      "text": "Góc có số đo 90° là:",
+      "text": "1 km = … m",
       "answers": [
-       "góc nhọn",
-       "góc tù",
-       "góc vuông",
-       "góc bẹt"
+       "10",
+       "100",
+       "1 000",
+       "10 000"
       ],
       "correct": 2,
       "keyed": true
@@ -883,12 +880,12 @@
      },
      "note": "",
      "question": {
-      "text": "Góc có số đo 90° là:",
+      "text": "1 km = … m",
       "answers": [
-       "góc nhọn",
-       "góc tù",
-       "góc vuông",
-       "góc bẹt"
+       "10",
+       "100",
+       "1 000",
+       "10 000"
       ],
       "correct": 2,
       "keyed": true
@@ -939,12 +936,12 @@
     "outcome": null,
     "note": "",
     "question": {
-     "text": "25% của 80 là:",
+     "text": "9 − 5 = ?",
      "answers": [
-      "20",
-      "25",
-      "40",
-      "55"
+      "4",
+      "3",
+      "5",
+      "6"
      ],
      "correct": 0,
      "keyed": true
@@ -989,12 +986,12 @@
      "outcome": null,
      "note": "",
      "question": {
-      "text": "25% của 80 là:",
+      "text": "9 − 5 = ?",
       "answers": [
-       "20",
-       "25",
-       "40",
-       "55"
+       "4",
+       "3",
+       "5",
+       "6"
       ],
       "correct": 0,
       "keyed": true
@@ -1040,12 +1037,12 @@
     },
     "note": "",
     "question": {
-     "text": "25% của 80 là:",
+     "text": "9 − 5 = ?",
      "answers": [
-      "20",
-      "25",
-      "40",
-      "55"
+      "4",
+      "3",
+      "5",
+      "6"
      ],
      "correct": 0,
      "keyed": true
@@ -1112,12 +1109,12 @@
     "outcome": null,
     "note": "",
     "question": {
-     "text": "Số liền trước của 100 là:",
+     "text": "3 tấn 5 tạ = … kg",
      "answers": [
-      "101",
-      "90",
-      "110",
-      "99"
+      "350",
+      "3 050",
+      "35 000",
+      "3 500"
      ],
      "correct": 3,
      "keyed": true
@@ -1169,12 +1166,12 @@
     "outcome": null,
     "note": "❌ Đội Tím hết giờ trả lời",
     "question": {
-     "text": "Số liền trước của 100 là:",
+     "text": "3 tấn 5 tạ = … kg",
      "answers": [
-      "101",
-      "90",
-      "110",
-      "99"
+      "350",
+      "3 050",
+      "35 000",
+      "3 500"
      ],
      "correct": 3,
      "keyed": true
@@ -1230,12 +1227,12 @@
     },
     "note": "❌ Đội Tím hết giờ trả lời",
     "question": {
-     "text": "Số liền trước của 100 là:",
+     "text": "3 tấn 5 tạ = … kg",
      "answers": [
-      "101",
-      "90",
-      "110",
-      "99"
+      "350",
+      "3 050",
+      "35 000",
+      "3 500"
      ],
      "correct": 3,
      "keyed": true
@@ -1287,14 +1284,14 @@
     "outcome": null,
     "note": "",
     "question": {
-     "text": "63 : 9 = ?",
+     "text": "1 km = … m",
      "answers": [
-      "7",
-      "8",
-      "6",
-      "9"
+      "10",
+      "100",
+      "1 000",
+      "10 000"
      ],
-     "correct": 0,
+     "correct": 2,
      "keyed": true
     },
     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -1343,7 +1340,7 @@
      },
      "note": "",
      "question": {
-      "text": "Kể tên hai loại quả có vị chua.",
+      "text": "Nêu một việc em làm để tiết kiệm nước.",
       "answers": [],
       "correct": null,
       "keyed": false

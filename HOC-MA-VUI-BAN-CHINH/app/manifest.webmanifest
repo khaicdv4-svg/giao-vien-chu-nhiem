@@ -1,0 +1,37 @@
+{
+  "id": "./",
+  "name": "HỌC MÀ VUI – Lớp học thông minh",
+  "short_name": "Học mà vui",
+  "description": "Trò chơi học tập, Kho câu hỏi, vòng quay gọi tên và trợ lý AI cho lớp học tiểu học.",
+  "lang": "vi",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f4f1ff",
+  "theme_color": "#6c4cf1",
+  "categories": [
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,12 +1,58 @@
-# HỌC MÀ VUI · BẢN CHÍNH 2.10
+# HỌC MÀ VUI · BẢN CHÍNH 2.11
 
-**Ngày:** 12/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.10-20261012`
+**Ngày:** 14/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.11-20261014`
 
 Đây là bản hợp nhất duy nhất. Nó gồm toàn bộ nội dung của các bản thử trước (03B → 09, Chặng 1 → 7B) cùng ba phần mới: Quiz Nghiêng Đầu hoàn chỉnh, Kho câu hỏi thiết kế lại và 140 câu hỏi mẫu.
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
-## 0. Cập nhật 2.10 (12/10/2026) – Khóa AI riêng cho người dùng bản web; tiếng đúng/sai không còn bị giọng đọc cắt
+## 0. Cập nhật 2.11 (14/10/2026) – Cài HỌC MÀ VUI như một ứng dụng
+
+Thầy yêu cầu có chức năng tải ứng dụng về, giống biểu tượng “Cài đặt” (màn hình có mũi tên) trên thanh địa chỉ Chrome.
+
+### 1. Người dùng thấy gì
+- **Trên thanh địa chỉ** của Chrome / Edge (máy tính, Android) nay hiện biểu tượng **Cài đặt ứng dụng**. Trước đây không hiện vì trang chưa khai báo thông tin ứng dụng.
+- **Thanh trên cùng của ứng dụng** có nút **📲 Cài ứng dụng**. Nút chỉ hiện khi trình duyệt cho phép cài và máy chưa cài.
+- **Cài đặt & dữ liệu** có thẻ **“Cài HỌC MÀ VUI như một ứng dụng”**. Nội dung thẻ thay đổi theo máy:
+  - **Chrome / Edge trên máy tính:** nút **Cài ứng dụng**. Nếu trình duyệt chưa sẵn sàng thì thẻ hướng dẫn bấm biểu tượng trên thanh địa chỉ, hoặc mở menu ⋮ → **Truyền, lưu và chia sẻ** → **Cài đặt trang dưới dạng ứng dụng**.
+  - **Điện thoại Android:** mở menu ⋮ → **Cài đặt ứng dụng / Thêm vào màn hình chính**.
+  - **iPhone / iPad:** không có nút cài tự động. Thẻ hướng dẫn: Safari → nút **Chia sẻ** → **Thêm vào MH chính**.
+  - **Firefox, Safari trên máy Mac:** không hỗ trợ cài. Thẻ gợi ý mở bằng Chrome hoặc Edge.
+  - **Khi đang mở từ biểu tượng đã cài:** thẻ báo “đang dùng ở dạng ứng dụng”.
+- **Sau khi cài:**
+  - HỌC MÀ VUI có biểu tượng (logo ThayKhaiEdu) trên màn hình nền, menu Start hoặc màn hình chính điện thoại.
+  - Ứng dụng mở trong cửa sổ riêng, không có thanh địa chỉ, nên rộng hơn khi chiếu lên bảng.
+  - Mở được cả khi mất mạng.
+- **Dữ liệu không đổi:** ứng dụng đã cài dùng chung dữ liệu với trang web cùng địa chỉ trên cùng trình duyệt.
+- **Bản trên máy thầy (127.0.0.1:8780)** cũng cài được, nhưng ứng dụng đó chỉ mở được khi máy chủ nội bộ đang chạy (`MO-HOC-MA-VUI.cmd`). Người khác nên cài từ **giao-vien-chu-nhiem.vercel.app**.
+
+### 2. Tệp
+- **Mới:**
+  - `app\manifest.webmanifest`: tên “HỌC MÀ VUI – Lớp học thông minh”, tên ngắn “Học mà vui”, màu tím của ứng dụng.
+  - `app\cai-ung-dung.js`
+  - `app\assets\icons\`: 5 biểu tượng cắt từ logo ThayKhaiEdu, kích thước 192, 512, 512 dạng maskable, 180 cho iPhone, 48.
+  - `kiem-thu\t-cai-app.cjs`
+- **Thay đổi:**
+  - `app\index.html`: khai báo manifest và biểu tượng, nạp `cai-ung-dung.js`, nhãn.
+  - `app\ban-chinh.css`: thẻ cài; thêm một cột trên thanh trên cho nút cài.
+  - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.11` gồm cả manifest và biểu tượng.
+  - `MO-HOC-MA-VUI.ps1`.
+- Sửa thêm: khi có bản cập nhật, hộp “Đã có bản cập nhật. Nhấn OK để tải lại” đôi khi hỏi hai lần (máy tải lại trước khi bản mới kịp nhận quyền). Nay máy chờ bản mới sẵn sàng rồi mới tải lại (`app\index.html`).
+- Bản trước nằm ở `backups\truoc-2.11\`.
+
+### 3. Kiểm thử bản 2.11 – và phần CHƯA kiểm
+- **`kiem-thu\t-cai-app.cjs`: 16/16.**
+  - Chromium xác nhận trang **đủ điều kiện cài**, không có lỗi; đọc manifest không lỗi.
+  - Kiểm tra tệp biểu tượng và bộ nhớ ngoại tuyến.
+  - Nút cài: hiện khi trình duyệt cho phép; bấm thì mở hộp thoại cài đúng một lần; cài xong thì nút ẩn; bấm Hủy thì không lỗi.
+  - Hướng dẫn hiện đúng cho iPhone, Android, Firefox; trạng thái “đang chạy như ứng dụng” hiển thị đúng.
+  - Bố cục ở 1366 px và trên điện thoại.
+- **Chạy lại toàn bộ bài cũ:** Kho 70/70, Quiz 43/43, Kéo co 44/44, Vòng quay 63/63, toàn màn hình 52/52, Ai nhanh hơn 47/47 + nhạc 25/25, Bóng bay 50/50, trang chủ + nhạc 40/40, tên 55/55, AI 58/58, Bình chọn 43/43, Phân tích 28/28, Tiếng mừng 25/25, Đọc to 66/66, Bố cục 22/22, Tự chấm/tự đếm 18/18, Tiếng đúng/sai 26/26, Web 16/16 (chạy 4 lần liền đều đạt), Hai trò camera mới 39/39, Khóa AI trên web 20/20, Tiếng đúng/sai khi tự đọc 9/9 – tất cả đạt.
+- **Chưa kiểm:**
+  - Hộp thoại cài **thật** của Chrome / Edge, và biểu tượng thật trên màn hình nền. Trình duyệt thử không có giao diện nên chỉ giả lập được sự kiện cài.
+  - iPhone thật.
+
+## 0-20. Cập nhật 2.10 (12/10/2026) – Khóa AI riêng cho người dùng bản web; tiếng đúng/sai không còn bị giọng đọc cắt
 
 ### 1. Mỗi người dùng bản web tự dán khóa Gemini của mình
 - **Ai dùng được:** người mở `giao-vien-chu-nhiem.vercel.app`.
