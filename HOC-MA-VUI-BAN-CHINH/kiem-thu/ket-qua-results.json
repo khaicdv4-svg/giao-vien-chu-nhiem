@@ -1,5 +1,5 @@
 {
-  "build": "HMV-BAN-CHINH-2.12-20261014",
+  "build": "HMV-BAN-CHINH-2.13-20261014",
   "note": "Gemini giả cho phần AI nhận xét",
   "total": 28,
   "passed": 28,
@@ -13,26 +13,26 @@
       "name": "2 Kéo co: chọn phương án A → ghi 1 lượt (trò, câu hỏi, 4 phương án, phương án đã chọn, đúng/sai khớp với đáp án, tên bộ)",
       "pass": true,
       "detail": {
-        "t": 1791952176050,
+        "t": 1791955611295,
         "g": "tug",
-        "k": "11ppgq5",
+        "k": "6kdh8z",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
         "o": 0,
         "x": 0,
         "q": {
-          "text": "7 × 8 = ?",
+          "text": "Số lớn nhất trong các số 7, 12, 9, 10 là:",
           "answers": [
-            "54",
-            "56",
-            "63",
-            "48"
+            "7",
+            "9",
+            "10",
+            "12"
           ],
-          "correct": 1,
+          "correct": 3,
           "kind": "ABCD",
-          "grade": "Lớp 3",
+          "grade": "Lớp 1",
           "subject": "Toán",
-          "topic": "Bảng nhân, bảng chia",
-          "key": "56"
+          "topic": "Các số đến 100",
+          "key": "12"
         },
         "n": 1
       }
@@ -41,7 +41,7 @@
       "name": "3 Ai nhanh hơn: đội giành chuông chọn B → ghi 1 lượt",
       "pass": true,
       "detail": {
-        "t": 1791952177993,
+        "t": 1791955613230,
         "g": "buzzer",
         "k": "wqni0e",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -69,7 +69,7 @@
       "name": "4 Hộp quà: chọn C, giáo viên xác nhận sai → ghi 1 lượt sai, phương án C",
       "pass": true,
       "detail": {
-        "t": 1791952180717,
+        "t": 1791955615966,
         "g": "gift",
         "k": "wqni0e",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -98,7 +98,7 @@
       "pass": true,
       "detail": [
         {
-          "t": 1791952184671,
+          "t": 1791955619888,
           "g": "millionaire",
           "k": "wqni0e",
           "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -128,7 +128,7 @@
       "name": "6 Quiz Nghiêng Đầu: chọn thẻ bên trái → ghi 1 lượt Đúng/Sai",
       "pass": true,
       "detail": {
-        "t": 1791952188207,
+        "t": 1791955623431,
         "g": "head-tilt",
         "k": "1e1yjrw",
         "s": "Mẫu 2 · Đúng/Sai · Toán lớp 1–5",
@@ -154,26 +154,26 @@
       "name": "7 Bóng bay: chạm bóng sai → ghi 1 lượt sai kèm phương án đã chọn",
       "pass": true,
       "detail": {
-        "t": 1791952190364,
+        "t": 1791955625563,
         "g": "balloon",
-        "k": "mwr4l6",
+        "k": "5bcri9",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
         "o": 0,
-        "x": 1,
+        "x": 0,
         "q": {
-          "text": "1 dm = … cm",
+          "text": "Số liền trước của 100 là:",
           "answers": [
-            "10",
-            "100",
-            "1",
-            "1 000"
+            "101",
+            "90",
+            "110",
+            "99"
           ],
-          "correct": 0,
+          "correct": 3,
           "kind": "ABCD",
           "grade": "Lớp 2",
           "subject": "Toán",
-          "topic": "Đo độ dài",
-          "key": "10"
+          "topic": "Các số đến 1 000",
+          "key": "99"
         },
         "n": 6
       }
@@ -182,7 +182,7 @@
       "name": "8 Bình chọn ngón tay: 8 phiếu cho một câu → ghi một lượt kèm số phiếu từng phương án",
       "pass": true,
       "detail": {
-        "t": 1791952192387,
+        "t": 1791955627614,
         "g": "poll",
         "k": "wqni0e",
         "s": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5",
@@ -218,7 +218,7 @@
     {
       "name": "10 Số liệu không chứa tên học sinh hay tên đội; chỉ có câu hỏi, phương án, số lượt",
       "pass": true,
-      "detail": 1439
+      "detail": 1481
     },
     {
       "name": "11 Tổng hợp theo câu: số lượt, tỉ lệ đúng, phương án sai hay chọn nhất; xếp câu yếu nhất lên đầu",
@@ -260,7 +260,7 @@
           "games": {
             "tug": 1
           },
-          "last": 1791952193297,
+          "last": 1791955628539,
           "pct": 20,
           "topWrong": 0
         },
@@ -290,7 +290,7 @@
           "games": {
             "tug": 1
           },
-          "last": 1791952193297,
+          "last": 1791955628539,
           "pct": 50,
           "topWrong": 2
         },
@@ -320,7 +320,7 @@
           "games": {
             "tug": 1
           },
-          "last": 1791952193297,
+          "last": 1791955628540,
           "pct": 90,
           "topWrong": 1
         }
@@ -342,7 +342,7 @@
           "6"
         ],
         "rows": 7,
-        "first": "1 1 dm = … cm Đáp án: 10 1 0% 100 (1 lượt)",
+        "first": "1 5 + 3 = 8. Đáp án: Đúng 1 0% Sai (1 lượt)",
         "games": "Trò đã chơi: Kéo co kiến thức, Ai nhanh hơn, Hộp quà bí mật, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay tri thức, Bình chọn ngón tay. Trong trò chơi theo đội, mỗi lượt là câu trả lời của một đội hoặc một bạn, không phải của cả lớp; hãy xem đây là gợi ý để hỏi lại, không phải điểm số.",
         "sets": [
           "Tất cả các bộ",
@@ -383,9 +383,9 @@
         "name": "Ôn lại chỗ sai · 14/10/2026",
         "n": 6,
         "texts": [
-          "1 dm = … cm",
           "5 + 3 = 8.",
-          "7 × 8 = ?",
+          "Số liền trước của 100 là:",
+          "Số lớn nhất trong các số 7, 12, 9, 10 là:",
           "27 + 15 = ?",
           "3 + 4 = ?",
           "38 + 26 = ?"
@@ -407,7 +407,7 @@
     {
       "name": "19 \"AI nhận xét\": gửi câu hỏi kèm số lượt, tỉ lệ đúng, phương án sai hay chọn; không gửi tên; yêu cầu ba mục nhận xét và câu ôn mới",
       "pass": true,
-      "detail": "Dưới đây là các câu hỏi mà lớp trả lời sai nhiều trong các trò chơi môn Toán. Toàn bộ: 40 lượt trả lời, đúng 48%.\n[{\"stt\":1,\"cau_hoi\":\"1 dm = … cm\",\"phuong_an\":[\"10\",\"100\",\"1\",\"1 000\"],\"dap_an_dung\":\"10\",\"so_luot\":1,\"ti_le_dung\":\"0%\",\"hay_chon_sai\":\"100 (1 lượt)\"},{\"stt\":2,\"cau_hoi\":\"5 + 3 = 8.\",\"ph"
+      "detail": "Dưới đây là các câu hỏi mà lớp trả lời sai nhiều trong các trò chơi môn Toán. Toàn bộ: 40 lượt trả lời, đúng 48%.\n[{\"stt\":1,\"cau_hoi\":\"5 + 3 = 8.\",\"phuong_an\":[\"Đúng\",\"Sai\"],\"dap_an_dung\":\"Đúng\",\"so_luot\":1,\"ti_le_dung\":\"0%\",\"hay_chon_sai\":\"Sai (1 lượt)\"},{\"stt\":2,\"cau_hoi\":\"Số liền trước của 100 là"
     },
     {
       "name": "20 Nhận xét của AI hiện thành ba mục có gạch đầu dòng; có nút xem các câu ôn AI soạn; có lời nhắc AI có thể chưa đúng",

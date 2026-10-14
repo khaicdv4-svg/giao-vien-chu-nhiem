@@ -145,7 +145,7 @@ const gen = (extra, headers) => rq('POST', '/api/ai/generate', Object.assign({ c
   await mock('normal');
   // service worker không lưu đệm /api
   const swc = await page.evaluate(async () => { const names = await caches.keys(); const urls = []; for (const n of names) { const c = await caches.open(n); (await c.keys()).forEach(r => urls.push(r.url)); } return { names, api: urls.filter(u => /\/api\//.test(u)), hasJs: urls.some(u => /tro-ly-ai\.js/.test(u)) }; });
-  ok('B35 Bộ nhớ đệm ngoại tuyến: có tro-ly-ai.js, không lưu đệm yêu cầu /api', swc.names.includes('hmv-ban-chinh-2.12') && swc.api.length === 0 && swc.hasJs, swc);
+  ok('B35 Bộ nhớ đệm ngoại tuyến: có tro-ly-ai.js, không lưu đệm yêu cầu /api', swc.names.includes('hmv-ban-chinh-2.13') && swc.api.length === 0 && swc.hasJs, swc);
   await page.evaluate(() => openView('games')); await page.waitForTimeout(400); await page.click('#games .phase1-coming'); await page.waitForTimeout(400);
   ok('B36 Trong Hoạt động: dòng "sắp ra mắt" đã thay bằng lối tắt mở Trợ lý AI', await view(page) === 'troLyAI' && await page.isVisible('#taGenerate'));
   for (const vp of [{ width: 1366, height: 768 }, { width: 1774, height: 934 }, { width: 800, height: 700 }, { width: 420, height: 800 }]) { await page.setViewportSize(vp); for (const tab of ['quick', 'chat', 'setup']) { await page.click('#troLyAI .ta-tabs [data-ta-tab="' + tab + '"]'); await page.waitForTimeout(250); const o = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth); if (o > 1) logs.push('OVERFLOW ' + vp.width + ' ' + tab + ' ' + o); } }
@@ -158,6 +158,6 @@ const gen = (extra, headers) => rq('POST', '/api/ai/generate', Object.assign({ c
     ok('B38 Máy chủ bản cũ chưa có AI: nhãn và thông báo chỉ rõ cần chạy KHOI-DONG-LAI-MAY-CHU.cmd; ô khóa bị khóa; phần còn lại của ứng dụng vẫn chạy', await o.page.evaluate(() => document.getElementById('taKey').disabled && document.getElementById('taKeySave').disabled && /KHOI-DONG-LAI-MAY-CHU\.cmd/.test(document.querySelector('#troLyAI .ta-note.bad').textContent)) && await (async () => { await o.page.evaluate(() => openView('questions')); return o.page.isVisible('#questions [data-kho-add]'); })()); await o.ctx.close(); }
   ok('B39 Không có lỗi JavaScript trong suốt quá trình', logs.filter(x => !/OVERFLOW/.test(x)).length === 0, logs.slice(0, 6));
   await browser.close(); await rq('POST', '/api/ai/key', { key: '' });
-  fs.writeFileSync(path.join(__dirname, 'ai-results.json'), JSON.stringify({ build: 'HMV-BAN-CHINH-2.12-20261014', note: 'Gemini giả, không gọi Google', total: res.length, passed: res.filter(r => r.pass).length, results: res }, null, 2));
+  fs.writeFileSync(path.join(__dirname, 'ai-results.json'), JSON.stringify({ build: 'HMV-BAN-CHINH-2.13-20261014', note: 'Gemini giả, không gọi Google', total: res.length, passed: res.filter(r => r.pass).length, results: res }, null, 2));
   console.log('TOTAL ' + res.filter(r => r.pass).length + '/' + res.length); process.exit(res.every(r => r.pass) ? 0 : 1);
 })().catch(e => { console.error(e); process.exit(2); });

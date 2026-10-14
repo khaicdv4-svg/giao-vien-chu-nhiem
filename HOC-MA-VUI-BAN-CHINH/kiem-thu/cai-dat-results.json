@@ -1,0 +1,147 @@
+{
+  "version": "2.13",
+  "at": "2026-10-14T05:39:17.081Z",
+  "pass": 14,
+  "total": 14,
+  "results": [
+    {
+      "name": "1 iPhone (Safari): hiện \"Cài trên iPhone – 3 bước\": Chia sẻ → Thêm vào MH chính → Thêm; có mũi tên nhấp nháy ở ĐÁY màn hình chỉ vào nút Chia sẻ",
+      "pass": true,
+      "detail": {
+        "view": "vIos",
+        "text": "Cài HỌC MÀ VUI\n\nBiểu tượng trên màn hình chính, mở bằng một chạm – miễn phí.\n\nCài trên iPhone – 3 bước\n\nApple không cho cài tự động; thầy cô chỉ cần chạm 3 lần.\n\nBấm nút Chia sẻ \nChia sẻ ở thanh dưới cùng (mũi tên đang chỉ).\nNếu thanh dưới chỉ có nút •••, bấm nút đó trước rồi chọn Chia sẻ.\nKéo danh sách lên, chọn Thêm vào MH chính.\nSao chép\n⧉\nThêm vào Danh sách đọc\n👓\nThêm vào MH chính\nTiếng Anh: Add to Home Screen.\nBấm Thêm ở góc trên bên phải. Biểu tượng Học mà vui xuất hiện trên màn hình chính.\n\nMở từ biểu tượng đó để dùng như một ứng dụng: toàn màn hình, không thanh địa chỉ.\n\nGửi cho người khác\n\nMở Camera của điện thoại, hướng vào mã này rồi chạm vào đường link hiện ra.\nHoặc gõ: giao-vien-chu-nhiem.vercel.app/cai-dat.html\n\n🖨 Tải áp phích mã QR (in A4)\nDùng ngay trên trình duyệt, không cần cài →\nHướng dẫn cho thiết bị khác",
+        "pointer": true,
+        "ptop": false,
+        "pr": {
+          "top": 727,
+          "bottom": 834
+        },
+        "ih": 844,
+        "open": "#",
+        "qr": true,
+        "over": 0
+      }
+    },
+    {
+      "name": "2 iPad: mũi tên chuyển lên GÓC TRÊN bên phải (nút Chia sẻ của Safari trên iPad nằm ở đó)",
+      "pass": true,
+      "detail": {
+        "view": "vIos",
+        "text": "Cài HỌC MÀ VUI\n\nBiểu tượng trên màn hình chính, mở bằng một chạm – miễn phí.\n\nCài trên iPad – 3 bước\n\nApple không cho cài tự động; thầy cô chỉ cần chạm 3 lần.\n\nBấm nút Chia sẻ \nChia sẻ ở góc trên bên phải (mũi tên đang chỉ).\nNếu thanh dưới chỉ có nút •••, bấm nút đó trước rồi chọn Chia sẻ.\nKéo danh sách lên, chọn Thêm vào MH chính.\nSao chép\n⧉\nThêm vào Danh sách đọc\n👓\nThêm vào MH chính\nTiếng Anh: Add to Home Screen.\nBấm Thêm ở góc trên bên phải. Biểu tượng Học mà vui xuất hiện trên màn hình chính.\n\nMở từ biểu tượng đó để dùng như một ứng dụng: toàn màn hình, không thanh địa chỉ.\n\nGửi cho người khác\n\nMở Camera của điện thoại, hướng vào mã này rồi chạm vào đường link hiện ra.\nHoặc gõ: giao-vien-chu-nhiem.vercel.app/cai-dat.html\n\n🖨 Tải áp phích mã QR (in A4)\nDùng ngay trên trình duyệt, không cần cài →\nHướng dẫn cho thiết bị khác",
+        "pointer": true,
+        "ptop": true,
+        "pr": {
+          "top": 8,
+          "bottom": 93
+        },
+        "ih": 1180,
+        "open": "#",
+        "qr": true,
+        "over": 0
+      }
+    },
+    {
+      "name": "3 Mở mã QR trong Zalo (iPhone): cảnh báo \"đang mở trong Zalo – không cài được\", hướng dẫn ••• → Mở bằng trình duyệt, nút \"Mở bằng Safari\" (x-safari-https://…) và nút Sao chép link; không có mũi tên",
+      "pass": true,
+      "detail": {
+        "view": "vInApp",
+        "text": "Cài HỌC MÀ VUI\n\nBiểu tượng trên màn hình chính, mở bằng một chạm – miễn phí.\n\n⚠️ Thầy cô đang mở trang trong Zalo. Trình duyệt bên trong ứng dụng này không cài được HỌC MÀ VUI.\nMở trang này bằng Safari\nBấm nút ••• ở góc trên bên phải màn hình.\nChọn Mở bằng trình duyệt (hoặc Mở trong Safari).\nTrang này mở lại trong Safari và chỉ tiếp các bước cài.\n🌐 Mở bằng Safari\n📋 Sao chép link\n\nKhông mở được? Bấm “Sao chép link”, mở Safari, dán vào ô địa chỉ rồi bấm Đi.\n\nGửi cho người khác\n\nMở Camera của điện thoại, hướng vào mã này rồi chạm vào đường link hiện ra.\nHoặc gõ: giao-vien-chu-nhiem.vercel.app/cai-dat.html\n\n🖨 Tải áp phích mã QR (in A4)\nDùng ngay trên trình duyệt, không cần cài →\nHướng dẫn cho thiết bị khác",
+        "pointer": false,
+        "ptop": false,
+        "pr": {
+          "top": 0,
+          "bottom": 0
+        },
+        "ih": 844,
+        "open": "x-safari-https://giao-vien-chu-nhiem.vercel.app/cai-dat.html",
+        "qr": true,
+        "over": 0
+      }
+    },
+    {
+      "name": "4 Mở trong Facebook (Android): nhận ra Facebook; nút \"Mở bằng Chrome\" dùng lệnh intent mở thẳng Chrome; \"Sao chép link\" chép đúng link trang cài",
+      "pass": true,
+      "detail": [
+        "vInApp",
+        "intent://giao-vien-chu-nhiem.vercel.app/cai-dat.html#Intent;scheme=https;package=com.android.chrome;end",
+        "https://giao-vien-chu-nhiem.vercel.app/cai-dat.html",
+        "✅ Đã sao chép – dán vào Chrome"
+      ]
+    },
+    {
+      "name": "5 Chrome trên iPhone: hướng dẫn nút Chia sẻ ở cuối ô địa chỉ → Thêm vào MH chính; gợi ý dùng Safari nếu không thấy",
+      "pass": true,
+      "detail": "Cài HỌC MÀ VUI\n\nBiểu tượng trên màn hình chính, mở bằng một chạm – miễn phí.\n\nCài trên iPhone – từ Chrome\nBấm nút Chia sẻ \n ở cuối ô địa chỉ (góc trên bên phải).\nChọn Thêm vào MH chính → Thêm.\n\nKhông thấy dòng “Thêm vào MH chính”? Mở trang này bằng Safari (bấm “Sao chép link” rồi dán vào Safari).\n\n\ud83d"
+    },
+    {
+      "name": "6 Android Chrome: khi trình duyệt chưa sẵn sàng → hướng dẫn ⋮ → Cài đặt ứng dụng; khi sẵn sàng → nút lớn \"📲 Cài HỌC MÀ VUI\"; bấm → hộp cài của Chrome mở đúng một lần; đồng ý → \"đã được cài\" + nút Mở",
+      "pass": true,
+      "detail": [
+        "vAndroid",
+        "vPrompt",
+        {
+          "v": "vDone",
+          "p": 1,
+          "t": "✅ HỌC MÀ VUI đã được cài trên máy này.\nMở HỌC MÀ VUI"
+        }
+      ]
+    },
+    {
+      "name": "7 Samsung Internet: hướng dẫn riêng ≡ → Thêm trang vào → Màn hình chính",
+      "pass": true,
+      "detail": "Cài HỌC MÀ VUI\n\nBiểu tượng trên màn hình chính, mở bằng một chạm – miễn phí.\n\nCài trên điện thoại Android\nBấm nút ≡ ở góc dưới bên phải.\nChọn Thêm trang vào → Màn hình chính.\nBấm Thêm.\nGửi cho người k"
+    },
+    {
+      "name": "8 Máy tính: hướng dẫn Chrome/Edge + khối mã QR \"Cài trên điện thoại khác\" + nút tải áp phích A4 + \"Dùng ngay trên trình duyệt\"",
+      "pass": true,
+      "detail": "vDesktop"
+    },
+    {
+      "name": "9 Mã QR hiện trên trang (ảnh chụp màn hình) giải ra đúng \"https://giao-vien-chu-nhiem.vercel.app/cai-dat.html\", mã sửa lỗi hợp lệ",
+      "pass": true,
+      "detail": "format dist 0 ecl M mask 7\nversion 4 mode 4 rs_ok True text https://giao-vien-chu-nhiem.vercel.app/cai-dat.html\n"
+    },
+    {
+      "name": "10 Đã cài (mở từ biểu tượng): báo \"đã được cài\" + nút Mở HỌC MÀ VUI; không còn mũi tên",
+      "pass": true,
+      "detail": "vDone"
+    },
+    {
+      "name": "11 Áp phích A4 (2480×3508 điểm ảnh = A4 ở 300 dpi) tải được; mã QR trên áp phích giải ra đúng link",
+      "pass": true,
+      "detail": [
+        200,
+        2480,
+        3508,
+        "format dist 0 ecl M mask 7\nversion 4 mode 4 rs_ok True text https://giao-vien-chu-nhiem.vercel.app/cai-dat.html\n"
+      ]
+    },
+    {
+      "name": "12 Chromium xác nhận: mở ngay trang cai-dat.html cũng đủ điều kiện cài (Android hiện nút cài ngay trên trang này)",
+      "pass": true,
+      "detail": {
+        "installabilityErrors": []
+      }
+    },
+    {
+      "name": "13 Cài đặt & dữ liệu → thẻ Cài ứng dụng có mã QR, nút \"Mở trang cài\", \"Tải áp phích A4\", \"Sao chép link\" (chép đúng link)",
+      "pass": true,
+      "detail": [
+        {
+          "t": "📱 Cài trên điện thoại / gửi cho đồng nghiệp\n\nQuét mã bằng Camera của điện thoại. Trang cài tự nhận ra iPhone, Android hay đang mở trong Zalo/Facebook và chỉ đúng từng bước.\n\nMở trang cài\n🖨 Tải áp phích A4\n📋 Sao chép link",
+          "img": true,
+          "href": [
+            "cai-dat.html",
+            "assets/ap-phich-cai-dat.png"
+          ]
+        },
+        "https://giao-vien-chu-nhiem.vercel.app/cai-dat.html"
+      ]
+    },
+    {
+      "name": "14 Không có lỗi JavaScript trên mọi thiết bị giả lập",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

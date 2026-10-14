@@ -202,6 +202,6 @@ const dsCount = page => page.evaluate(() => { const s = hmvDungSai.state(); retu
     await ctx.close();
   }
   await browser.close();
-  fs.writeFileSync(path.join(__dirname, 'tro-moi-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.12-20261014', note: 'Camera giả của Chromium, bộ nhận diện bàn tay giả (vị trí bàn tay đặt bằng mã), giọng đọc giả. Chưa thử với bàn tay và webcam thật.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
+  fs.writeFileSync(path.join(__dirname, 'tro-moi-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.13-20261014', note: 'Camera giả của Chromium, bộ nhận diện bàn tay giả (vị trí bàn tay đặt bằng mã), giọng đọc giả. Chưa thử với bàn tay và webcam thật.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
   console.log('TOTAL ' + res.filter(x => x.pass).length + '/' + res.length); process.exit(res.every(x => x.pass) ? 0 : 1);
 })().catch(e => { console.error(e); process.exit(1); });

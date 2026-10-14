@@ -1,6 +1,6 @@
 {
   "version": "2.11",
-  "at": "2026-10-14T04:41:44.787Z",
+  "at": "2026-10-14T05:39:00.370Z",
   "pass": 16,
   "total": 16,
   "results": [
@@ -80,11 +80,11 @@
       ]
     },
     {
-      "name": "5 Bộ nhớ ngoại tuyến hmv-ban-chinh-2.12 có manifest, biểu tượng và mã cài đặt (ứng dụng đã cài mở được khi mất mạng)",
+      "name": "5 Bộ nhớ ngoại tuyến hmv-ban-chinh-2.13 có manifest, biểu tượng và mã cài đặt (ứng dụng đã cài mở được khi mất mạng)",
       "pass": true,
       "detail": {
         "names": [
-          "hmv-ban-chinh-2.12"
+          "hmv-ban-chinh-2.13"
         ],
         "has": true
       }
@@ -115,7 +115,7 @@
         "p": 1,
         "st": "installed",
         "top": false,
-        "card": "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên.\n\n✅ Đã cài xong. Lần sau mở HỌC MÀ VUI từ biểu tượng trên màn hình nền (hoặc menu Start).\n\nĐây là bản trên máy (mở bằng MO-HOC-MA-VUI.cmd): ứng dụng cài từ đây chỉ mở được khi máy chủ nội bộ đang chạy. Người khác nên cài từ địa chỉ web giao-vien-chu-nhiem.vercel.app."
+        "card": "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên.\n\n✅ Đã cài xong. Lần sau mở HỌC MÀ VUI từ biểu tượng trên màn hình nền (hoặc menu Start).\n\nĐây là bản trên máy (mở bằng MO-HOC-MA-VUI.cmd): ứng dụng cài từ đây chỉ mở được khi máy chủ nội bộ đang chạy. Người khác nên cài từ địa chỉ web giao-vien-chu-nhiem.vercel.app.\n\n📱 Cài trên điện thoại / gửi cho đồng nghiệp\n\nQuét mã bằng Camera của điện thoại. Trang cài tự nhận ra iPhone, Android hay đang mở trong Zalo/Facebook và chỉ đúng từng bước.\n\nMở trang cài\n🖨 Tải áp phích A4\n📋 Sao chép link"
       }
     },
     {
@@ -132,7 +132,7 @@
       "pass": true,
       "detail": {
         "st": "running",
-        "card": "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên.\n\n✅ Thầy cô đang dùng HỌC MÀ VUI ở dạng ứng dụng đã cài.",
+        "card": "📲 Cài HỌC MÀ VUI như một ứng dụng\n\nCó biểu tượng trên màn hình nền, mở bằng một cú bấm trong cửa sổ riêng (không thanh địa chỉ, rộng hơn khi chiếu lên bảng). Học sinh, câu hỏi và điểm vẫn giữ nguyên.\n\n✅ Thầy cô đang dùng HỌC MÀ VUI ở dạng ứng dụng đã cài.\n📱 Cài trên điện thoại / gửi cho đồng nghiệp\n\nQuét mã bằng Camera của điện thoại. Trang cài tự nhận ra iPhone, Android hay đang mở trong Zalo/Facebook và chỉ đúng từng bước.\n\nMở trang cài\n🖨 Tải áp phích A4\n📋 Sao chép link",
         "cls": true,
         "top": false
       }

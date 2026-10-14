@@ -1,12 +1,74 @@
-# HỌC MÀ VUI · BẢN CHÍNH 2.12
+# HỌC MÀ VUI · BẢN CHÍNH 2.13
 
-**Ngày:** 14/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.12-20261014`
+**Ngày:** 14/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.13-20261014`
 
 Đây là bản hợp nhất duy nhất. Nó gồm toàn bộ nội dung của các bản thử trước (03B → 09, Chặng 1 → 7B) cùng ba phần mới: Quiz Nghiêng Đầu hoàn chỉnh, Kho câu hỏi thiết kế lại và 140 câu hỏi mẫu.
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
-## 0. Cập nhật 2.12 (14/10/2026) – Bộ chỉnh màu giao diện; thẻ menu “Trò chơi”
+## 0. Cập nhật 2.13 (14/10/2026) – Cài lên điện thoại bằng mã QR
+
+Thầy hỏi có cách nào để người dùng iPhone quét mã hay bấm link là cài được ứng dụng.
+
+**Giới hạn của Apple:** trên iPhone, không trang web nào tự cài được. Người dùng bắt buộc phải tự chạm **Chia sẻ → Thêm vào MH chính**. Muốn một chạm là cài thì phải đưa ứng dụng lên App Store (tài khoản nhà phát triển Apple, có phí hằng năm, chờ duyệt). Bản này làm cho các bước đó dễ nhất có thể.
+
+### 1. Trang cài `giao-vien-chu-nhiem.vercel.app/cai-dat.html` (đích của mã QR)
+Trang tự nhận ra người dùng đang mở bằng gì và chỉ hiện đúng các bước cần làm:
+- **iPhone (Safari):** 3 bước có hình minh họa. Một **mũi tên nhấp nháy ở đáy màn hình** chỉ vào nút **Chia sẻ**. Nếu thanh dưới chỉ có nút •••, trang nhắc bấm ••• trước.
+- **iPad:** mũi tên chuyển lên góc trên bên phải, vì nút Chia sẻ của iPad nằm ở đó.
+- **Mở trong Zalo / Facebook / Messenger / Instagram / TikTok** (trường hợp hay gặp nhất khi gửi link qua Zalo):
+  - Trang báo rõ trình duyệt bên trong ứng dụng **không cài được**, rồi hướng dẫn bấm ••• → **Mở bằng trình duyệt**.
+  - Có nút **Mở bằng Safari** trên iPhone, hoặc **Mở bằng Chrome** trên Android.
+  - Có nút **Sao chép link** để dán sang Safari hay Chrome.
+- **Chrome / Edge trên iPhone:** nút Chia sẻ ở cuối ô địa chỉ → Thêm vào MH chính.
+- **Android (Chrome):** nút lớn **📲 Cài HỌC MÀ VUI**, bấm một lần là hiện hộp cài. Nếu Chrome chưa sẵn sàng, trang hướng dẫn ⋮ → Cài đặt ứng dụng.
+- **Samsung Internet:** hướng dẫn ≡ → Thêm trang vào → Màn hình chính.
+- **Máy tính:** hướng dẫn Chrome/Edge, kèm mã QR để chuyển sang điện thoại.
+- **Đã cài:** báo “đã được cài” và có nút mở.
+
+### 2. Mã QR và áp phích A4
+- **Mã QR** dẫn tới trang cài. Mã đã được kiểm bằng một bộ giải mã độc lập: đọc ra đúng link và mã sửa lỗi hợp lệ (mức M, vẫn đọc được khi in mờ hoặc bị che một phần nhỏ).
+- **Áp phích A4** `assets\ap-phich-cai-dat.png` (in ở 300 dpi):
+  - Logo ThayKhaiEdu, mã QR lớn.
+  - 3 bước cho iPhone/iPad và 3 bước cho Android.
+  - Dòng nhắc cho người mở link từ Zalo hoặc Facebook.
+- **Trong ứng dụng**, thẻ **Cài HỌC MÀ VUI như một ứng dụng** ở mục **Cài đặt & dữ liệu** nay có:
+  - Mã QR.
+  - Nút **Mở trang cài**.
+  - Nút **🖨 Tải áp phích A4**.
+  - Nút **📋 Sao chép link** để dán vào Zalo gửi đồng nghiệp hay phụ huynh.
+
+### 3. Tệp
+- **Mới:**
+  - `app\cai-dat.html`
+  - `app\assets\qr-cai-dat.svg`
+  - `app\assets\ap-phich-cai-dat.png`
+  - `kiem-thu\t-cai-dat.cjs`
+  - `kiem-thu\giai-ma-qr.py`: bộ giải mã QR dùng để kiểm.
+- **Thay đổi:**
+  - `app\cai-ung-dung.js`: khối mã QR trong Cài đặt.
+  - `app\ban-chinh.css`.
+  - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.13` gồm trang cài và mã QR.
+  - `app\index.html`: nhãn.
+  - `MO-HOC-MA-VUI.ps1`.
+- Bản trước nằm ở `backups\truoc-2.13\`.
+
+### 4. Kiểm thử bản 2.13 – và phần CHƯA kiểm
+- **`kiem-thu\t-cai-dat.cjs`: 14/14.** Thiết bị được **giả lập** bằng cách đổi tên trình duyệt; bài này kiểm:
+  - iPhone Safari (mũi tên ở đáy), iPad (mũi tên ở góc trên).
+  - Zalo trên iPhone, Facebook trên Android: nút mở trình duyệt ngoài, sao chép đúng link.
+  - Chrome iPhone, Android (nút cài, hộp cài mở đúng một lần), Samsung, máy tính, trạng thái đã cài.
+  - Mã QR trên trang và trên áp phích đều giải ra đúng link; áp phích đúng khổ A4.
+  - Chromium xác nhận trang cài đủ điều kiện cài.
+  - Thẻ trong Cài đặt có đủ nút, Sao chép link chép đúng link.
+- **Chạy lại toàn bộ bài cũ:** Kho 70/70, Quiz 43/43, Kéo co 44/44, Vòng quay 63/63, toàn màn hình 52/52, Ai nhanh hơn 47/47 + nhạc 25/25, Bóng bay 50/50, trang chủ + nhạc 40/40, tên 55/55, AI 58/58, Bình chọn 43/43, Phân tích 28/28, Tiếng mừng 25/25, Đọc to 66/66, Bố cục 22/22, Tự chấm/tự đếm 18/18, Tiếng đúng/sai 26/26, Web 16/16, Hai trò camera mới 39/39, Khóa AI trên web 20/20, Tiếng đúng/sai khi tự đọc 9/9, Cài ứng dụng 16/16, Màu giao diện 10/10 – tất cả đạt.
+- **Chưa kiểm (cần thầy thử trên máy thật):**
+  - iPhone thật: quét mã bằng Camera, làm theo mũi tên, Thêm vào MH chính.
+  - Nút **Mở bằng Safari** khi đang trong Zalo. Nút này dùng một lệnh của iOS 17 trở lên, và một số ứng dụng có thể chặn lệnh đó. Nếu không mở được, người dùng bấm **Sao chép link**.
+  - Nút **Mở bằng Chrome** trong Facebook trên Android thật.
+  - In áp phích ra giấy rồi quét.
+
+## 0-22. Cập nhật 2.12 (14/10/2026) – Bộ chỉnh màu giao diện; thẻ menu “Trò chơi”
 
 ### 1. Bộ chỉnh màu giao diện
 - **Chỗ chỉnh:** **Cài đặt & dữ liệu** → thẻ **🎨 Màu giao diện**.

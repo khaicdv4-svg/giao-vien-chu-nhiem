@@ -53,6 +53,8 @@
     else if (st === 'ready') body = '<button type="button" class="btn color hmv-inst-btn" data-hmv-install>📲 Cài ứng dụng</button><p class="hmv-inst-note">Trình duyệt sẽ hỏi lại một lần, bấm <b>Cài đặt</b>.</p>';
     else body = steps() + '<p class="hmv-inst-note">Nếu không thấy lệnh cài: có thể máy đã cài rồi – hãy tìm biểu tượng HỌC MÀ VUI trên màn hình nền.</p>';
     if (LOCAL && st !== 'running') body += '<p class="hmv-inst-note">Đây là bản trên máy (mở bằng MO-HOC-MA-VUI.cmd): ứng dụng cài từ đây chỉ mở được khi máy chủ nội bộ đang chạy. Người khác nên cài từ địa chỉ web <b>giao-vien-chu-nhiem.vercel.app</b>.</p>';
+    /* 2.13: mã QR dẫn tới trang hướng dẫn cài (cai-dat.html) – để cài trên điện thoại hoặc gửi cho người khác. */
+    body += '<div class="hmv-inst-qr"><img src="assets/qr-cai-dat.svg" alt="Mã QR mở trang cài HỌC MÀ VUI" width="132" height="132"><div><b>📱 Cài trên điện thoại / gửi cho đồng nghiệp</b><p>Quét mã bằng Camera của điện thoại. Trang cài tự nhận ra iPhone, Android hay đang mở trong Zalo/Facebook và chỉ đúng từng bước.</p><div class="hmv-inst-links"><a class="btn soft" href="cai-dat.html" target="_blank" rel="noopener">Mở trang cài</a><a class="btn soft" href="assets/ap-phich-cai-dat.png" download="HOC-MA-VUI-ma-QR-cai-dat.png">🖨 Tải áp phích A4</a><button type="button" class="btn soft" data-hmv-copy-install>📋 Sao chép link</button></div></div></div>';
     return head + body;
   }
   function ensureCard() {
@@ -71,6 +73,13 @@
   }
   function paint() { try { ensureTopButton(); ensureCard(); } catch (e) {} }
 
+  var INSTALL_URL = 'https://giao-vien-chu-nhiem.vercel.app/cai-dat.html';
+  doc.addEventListener('click', function (e) {
+    var c = e.target && e.target.closest ? e.target.closest('[data-hmv-copy-install]') : null; if (!c) return;
+    var ok = function () { toast('Đã sao chép link cài: ' + INSTALL_URL); };
+    try { if (win.navigator.clipboard && win.navigator.clipboard.writeText) { win.navigator.clipboard.writeText(INSTALL_URL).then(ok, function () { toast(INSTALL_URL); }); return; } } catch (er) {}
+    toast(INSTALL_URL);
+  });
   doc.addEventListener('click', function (e) { var t = e.target && e.target.closest ? e.target.closest('[data-hmv-install]') : null; if (!t) return; e.preventDefault(); install(); });
   function boot() {
     paint();

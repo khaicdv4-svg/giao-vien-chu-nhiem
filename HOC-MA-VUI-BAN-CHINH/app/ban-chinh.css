@@ -956,3 +956,11 @@ html body .main .topbar .actions>#hmvInstallTop[hidden]{display:none!important}
 .hmv-th-custom input{flex:0 0 32px;width:32px;height:32px;padding:0;border:0;border-radius:10px;background:none;cursor:pointer}
 .hmv-th-custom input::-webkit-color-swatch-wrapper{padding:0}
 .hmv-th-custom input::-webkit-color-swatch{border:0;border-radius:10px}
+
+/* BAN-CHINH 2.13 · Mã QR cài trên điện thoại */
+.hmv-inst-qr{display:flex;gap:16px;align-items:flex-start;margin-top:14px;padding-top:14px;border-top:1px dashed #cfc4f5}
+.hmv-inst-qr img{width:132px;height:132px;flex:0 0 auto;border-radius:12px;border:1px solid #e3dcfb;background:#fff}
+.hmv-inst-qr p{margin:4px 0 8px;color:var(--muted);font-size:14px}
+.hmv-inst-links{display:flex;flex-wrap:wrap;gap:8px}
+.hmv-inst-links .btn{text-decoration:none}
+@media (max-width:600px){.hmv-inst-qr{flex-direction:column;align-items:center;text-align:center}.hmv-inst-links{justify-content:center}}

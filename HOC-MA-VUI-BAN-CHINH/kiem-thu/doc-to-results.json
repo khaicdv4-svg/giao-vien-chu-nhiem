@@ -1,6 +1,6 @@
 {
- "at": "2026-10-14T04:39:53.505Z",
- "build": "HMV-BAN-CHINH-2.12-20261014",
+ "at": "2026-10-14T05:37:07.351Z",
+ "build": "HMV-BAN-CHINH-2.13-20261014",
  "note": "Giọng đọc của trình duyệt và Gemini đều là GIẢ trong bài kiểm này.",
  "total": 66,
  "passed": 66,
@@ -68,26 +68,26 @@
    "name": "7 Kéo co: đúng một nút loa nằm ngay sau câu hỏi, trong khung câu hỏi; chữ câu hỏi không bị đổi; nút có nhãn cho trình đọc màn hình và đủ lớn để chạm",
    "pass": true,
    "detail": {
-    "h2": "Hình tam giác có đáy 6 cm, chiều cao 4 cm. Diện tích hình tam giác đó là:",
+    "h2": "7 × 8 = ?",
     "cur": {
      "game": "tug",
-     "text": "Hình tam giác có đáy 6 cm, chiều cao 4 cm. Diện tích hình tam giác đó là:",
+     "text": "7 × 8 = ?",
      "answers": [
       {
        "letter": "A",
-       "text": "24 cm²"
+       "text": "54"
       },
       {
        "letter": "B",
-       "text": "10 cm²"
+       "text": "56"
       },
       {
        "letter": "C",
-       "text": "12 cm²"
+       "text": "63"
       },
       {
        "letter": "D",
-       "text": "20 cm²"
+       "text": "48"
       }
      ]
     },
@@ -106,21 +106,14 @@
    "name": "8 Bấm nút loa: đọc đúng câu hỏi rồi lần lượt A, B, C, D bằng giọng tiếng Việt của máy, tốc độ vừa",
    "pass": true,
    "detail": [
-    "Hình tam giác có đáy 6 xăng-ti-mét, chiều cao 4 xăng-ti-mét. Diện tích hình tam giác đó là: A, 24 xăng-ti-mét vuông. B, 10 xăng-ti-mét vuông. C, 12 xăng-ti-mét vuông. D, 20 xăng-ti-mét vuông.",
+    "7 nhân 8 bằng bao nhiêu? A, 54. B, 56. C, 63. D, 48.",
     [
      {
-      "text": "Hình tam giác có đáy 6 xăng-ti-mét, chiều cao 4 xăng-ti-mét. Diện tích hình tam giác đó là: A, 24 xăng-ti-mét vuông. B, 10 xăng-ti-mét vuông. C, 12 xăng-ti-mét vuông.",
+      "text": "7 nhân 8 bằng bao nhiêu? A, 54. B, 56. C, 63. D, 48.",
       "voice": "Microsoft An - Vietnamese (Vietnam)",
       "rate": 0.95,
       "lang": "vi-VN",
-      "at": 1791952662082
-     },
-     {
-      "text": "D, 20 xăng-ti-mét vuông.",
-      "voice": "Microsoft An - Vietnamese (Vietnam)",
-      "rate": 0.95,
-      "lang": "vi-VN",
-      "at": 1791952662583
+      "at": 1791956101568
      }
     ]
    ]
@@ -138,7 +131,7 @@
     {
      "cls": "hmv-dt-btn",
      "duck": 1,
-     "match": "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[18,19,4,0,6,14,8,15,16,7,1,10,12,17,9,3,2,11,5,13],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791952660236,\"elapsed\":1.2,\"lastAction\":null,\"result\":null,\"draw\":false,\"byPoints\":false,\"outcome\":null,\"autoLeft\":null,\"tried\":[],\"steal\":false,\"note\":\"\",\"shown\":false,\"qLeft\":28.800000000000004}"
+     "match": "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[8,10,19,18,3,12,15,13,7,9,11,1,5,2,17,4,6,0,16,14],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791956099711,\"elapsed\":1.2,\"lastAction\":null,\"result\":null,\"draw\":false,\"byPoints\":false,\"outcome\":null,\"autoLeft\":null,\"tried\":[],\"steal\":false,\"note\":\"\",\"shown\":false,\"qLeft\":28.8}"
     }
    ]
   },
@@ -146,8 +139,8 @@
    "name": "10 Bấm nút loa không chọn đáp án, không đổi lượt, không đổi điểm của trận đang chơi",
    "pass": true,
    "detail": [
-    "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[18,19,4,0,6,14,8,15,16,7,1,10,12,17,9,3,2,11,5,13],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791952660236,\"el",
-    "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[18,19,4,0,6,14,8,15,16,7,1,10,12,17,9,3,2,11,5,13],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791952660236,\"el"
+    "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[8,10,19,18,3,12,15,13,7,9,11,1,5,2,17,4,6,0,16,14],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791956099711,\"el",
+    "{\"stage\":\"final\",\"matches\":[[0,1]],\"index\":0,\"winners\":[],\"wins\":[0,0,0,0],\"teams\":[0,1],\"score\":[0,0],\"pos\":0,\"current\":0,\"order\":[8,10,19,18,3,12,15,13,7,9,11,1,5,2,17,4,6,0,16,14],\"q\":0,\"selected\":null,\"answerText\":\"\",\"answered\":false,\"phase\":\"playing\",\"paused\":false,\"startedAt\":1791956099711,\"el"
    ]
   },
   {
@@ -320,36 +313,36 @@
    "pass": true,
    "detail": [
     {
-     "want": "3 cộng 4 bằng bao nhiêu? A, 7. B, 8. C, 6. D, 9.",
-     "got": "3 cộng 4 bằng bao nhiêu? A, 7. B, 8. C, 6. D, 9.",
+     "want": "3 cộng 4 bằng bao nhiêu? A, 9. B, 6. C, 8. D, 7.",
+     "got": "3 cộng 4 bằng bao nhiêu? A, 9. B, 6. C, 8. D, 7.",
      "cur": {
       "game": "millionaire",
       "text": "3 + 4 = ?",
       "answers": [
        {
         "letter": "A",
-        "text": "7"
+        "text": "9"
        },
        {
         "letter": "B",
-        "text": "8"
-       },
-       {
-        "letter": "C",
         "text": "6"
        },
        {
+        "letter": "C",
+        "text": "8"
+       },
+       {
         "letter": "D",
-        "text": "9"
+        "text": "7"
        }
       ]
      }
     },
     [
-     "A. 7",
-     "B. 8",
-     "C. 6",
-     "D. 9"
+     "A. 9",
+     "B. 6",
+     "C. 8",
+     "D. 7"
     ]
    ]
   },
@@ -358,26 +351,26 @@
    "pass": true,
    "detail": [
     {
-     "want": "3 cộng 4 bằng bao nhiêu? A, 7. D, 9.",
-     "got": "3 cộng 4 bằng bao nhiêu? A, 7. D, 9.",
+     "want": "3 cộng 4 bằng bao nhiêu? C, 8. D, 7.",
+     "got": "3 cộng 4 bằng bao nhiêu? C, 8. D, 7.",
      "cur": {
       "game": "millionaire",
       "text": "3 + 4 = ?",
       "answers": [
        {
-        "letter": "A",
-        "text": "7"
+        "letter": "C",
+        "text": "8"
        },
        {
         "letter": "D",
-        "text": "9"
+        "text": "7"
        }
       ]
      }
     },
     [
-     2,
-     1
+     1,
+     0
     ]
    ]
   },
@@ -397,7 +390,7 @@
       12.015
      ],
      "gain": 0.11249999701976776,
-     "time": 5.360907029478458
+     "time": 5.372517006802721
     },
     {
      "game": "millionaire",
@@ -411,7 +404,7 @@
       12.015
      ],
      "gain": 0.44999998807907104,
-     "time": 6.211337868480726
+     "time": 6.220045351473923
     }
    ]
   },
@@ -433,27 +426,27 @@
    "pass": true,
    "detail": [
     {
-     "want": "35 cộng 27 bằng bao nhiêu? A, 52. B, 62. C, 63. D, 512.",
-     "got": "35 cộng 27 bằng bao nhiêu? A, 52. B, 62. C, 63. D, 512.",
+     "want": "Số lớn nhất trong các số 7, 12, 9, 10 là: A, 7. B, 9. C, 10. D, 12.",
+     "got": "Số lớn nhất trong các số 7, 12, 9, 10 là: A, 7. B, 9. C, 10. D, 12.",
      "cur": {
       "game": "balloon",
-      "text": "35 + 27 = ?",
+      "text": "Số lớn nhất trong các số 7, 12, 9, 10 là:",
       "answers": [
        {
         "letter": "A",
-        "text": "52"
+        "text": "7"
        },
        {
         "letter": "B",
-        "text": "62"
+        "text": "9"
        },
        {
         "letter": "C",
-        "text": "63"
+        "text": "10"
        },
        {
         "letter": "D",
-        "text": "512"
+        "text": "12"
        }
       ]
      }
@@ -461,8 +454,8 @@
     "ask",
     {
      "phase": "ask",
-     "q": "35 + 27 = ?",
-     "dom": "35 + 27 = ?"
+     "q": "Số lớn nhất trong các số 7, 12, 9, 10 là:",
+     "dom": "Số lớn nhất trong các số 7, 12, 9, 10 là:"
     }
    ]
   },
@@ -549,7 +542,7 @@
       "voice": "Microsoft An - Vietnamese (Vietnam)",
       "rate": 0.8,
       "lang": "vi-VN",
-      "at": 1791952701764
+      "at": 1791956134934
      }
     ],
     "q": "3 cộng 4 bằng bao nhiêu?",
@@ -718,6 +711,7 @@
    "name": "39 Nút loa: quay vòng khi đang chuẩn bị giọng → đang đọc → trở lại bình thường",
    "pass": true,
    "detail": [
+    "idle",
     "loading+spin",
     "speaking",
     "idle",
@@ -828,7 +822,7 @@
     },
     "Máy này chưa có giọng đọc tiếng Việt. Xem cách bật ở Trợ lý AI → Kết nối AI.",
     [
-     "HTTP 404 http://127.0.0.1:8782/api/ai/status?t=1791952725598",
+     "HTTP 404 http://127.0.0.1:8782/api/ai/status?t=1791956159202",
      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
     ]
    ]
@@ -915,23 +909,23 @@
    "name": "54 Kéo co: trong lúc máy đọc, đồng hồ câu hỏi đứng yên (và mờ nhấp nháy); đọc xong đồng hồ chạy tiếp từ đúng chỗ cũ",
    "pass": true,
    "detail": [
-    28.389999999999997,
+    27.800000000000008,
     {
-     "q": 28.389999999999997,
-     "el": 1.61,
+     "q": 27.800000000000008,
+     "el": 2.1999999999999997,
      "hold": true,
      "cls": true
     },
     {
-     "q": 28.389999999999997,
-     "el": 1.61
+     "q": 27.800000000000008,
+     "el": 2.1999999999999997
     },
     {
-     "q": 28.188999999999997,
+     "q": 27.60000000000001,
      "hold": false,
      "cls": false
     },
-    26.78899999999999
+    26.000000000000014
    ]
   },
   {
@@ -939,10 +933,10 @@
    "pass": true,
    "detail": [
     {
-     "q": 26.58999999999999,
+     "q": 25.800000000000015,
      "hold": false
     },
-    24.589999999999993
+    23.800000000000022
    ]
   },
   {
@@ -978,9 +972,9 @@
    "name": "59 Bóng bay: đồng hồ đứng yên trong lúc đọc, đọc xong chạy tiếp",
    "pass": true,
    "detail": [
-    18.200000000000006,
-    18.200000000000006,
-    16.600000000000012
+    18.198999999999995,
+    18.198999999999995,
+    16.598999999999997
    ]
   },
   {
