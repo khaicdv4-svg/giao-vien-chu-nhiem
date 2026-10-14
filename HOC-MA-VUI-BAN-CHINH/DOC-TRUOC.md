@@ -1,12 +1,66 @@
-# HỌC MÀ VUI · BẢN CHÍNH 2.13
+# HỌC MÀ VUI · BẢN CHÍNH 2.14
 
-**Ngày:** 14/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.13-20261014`
+**Ngày:** 14/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.14-20261014`
 
 Đây là bản hợp nhất duy nhất. Nó gồm toàn bộ nội dung của các bản thử trước (03B → 09, Chặng 1 → 7B) cùng ba phần mới: Quiz Nghiêng Đầu hoàn chỉnh, Kho câu hỏi thiết kế lại và 140 câu hỏi mẫu.
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
-## 0. Cập nhật 2.13 (14/10/2026) – Cài lên điện thoại bằng mã QR
+## 0. Cập nhật 2.14 (14/10/2026) – Giao diện điện thoại thiết kế lại
+
+Thầy gửi ảnh chụp trên iPhone và nhận xét giao diện chưa khoa học:
+- Khối menu 9 nút to chiếm hết màn hình đầu tiên.
+- Ô chọn năm học, khối, lớp chiếm thêm nửa màn hình.
+- Ảnh bìa bị đẩy xuống dưới.
+
+Thầy muốn ảnh bìa nằm trên cùng, và khi bấm vào một chức năng thì chỉ hiện chức năng đó, trò chơi chiếm toàn màn hình.
+
+### 1. Thay đổi trên điện thoại (màn hình rộng ≤ 760 px)
+- **Thanh trên mảnh:** logo, chữ **Học mà vui** và lớp đang chọn (ví dụ “Lớp 4.1 · Năm học 2026–2027”).
+  - Nút **Lớp ▾** mới mở ô chọn Năm học / Khối / Lớp và nút Lưu dữ liệu.
+  - Bấm logo là về Trang chủ.
+- **Trang chủ:**
+  - **Ảnh bìa nằm trên cùng.**
+  - Ba ô lớn “Bắt đầu tiết học” (Vòng quay, Trò chơi học tập, Chia nhóm) xếp thành một hàng 3 ô gọn.
+  - Các ô nhỏ được thu gọn chữ.
+- **Menu ở đáy màn hình**, dễ chạm bằng ngón cái: **Trang chủ · Trò chơi · Học liệu · Trợ lý AI · Thêm**.
+  - Nút **Thêm** mở bảng các mục còn lại: Lớp học, Vòng quay kết nối, Nốt nhạc vui, Thi đua & tổng kết, Cài đặt & dữ liệu.
+  - Mục đang mở được tô sáng.
+- **Bấm một chức năng:** chỉ chức năng đó hiện, trang tự cuộn về đầu. Không còn thấy ảnh bìa hay nội dung Trang chủ.
+- **Khi vào một trò chơi** (kể cả màn hình cài đặt trò):
+  - Thanh trên và menu đáy **ẩn hết**, trò chơi chiếm **toàn màn hình**.
+  - Các nút công cụ trong trò được thu nhỏ để chừa chỗ cho câu hỏi.
+  - Nút **✕** nhỏ ở góc trên bên phải để thoát về Thư viện trò chơi. Nút thoát riêng của từng trò vẫn dùng được.
+- **Ẩn trên điện thoại:** nhãn “Build kiểm tra” ở đáy (che nội dung). Thông báo nổi được đẩy lên trên menu đáy.
+- **Máy tính và máy chiếu (> 760 px) giữ nguyên giao diện cũ.** Thu nhỏ cửa sổ máy tính dưới 760 px thì chuyển sang giao diện điện thoại.
+
+### 2. Tệp
+- **Mới:**
+  - `app\dien-thoai.js`: thanh trên, menu đáy, bảng Thêm, chế độ chơi toàn màn hình. Menu đáy bấm lại chính các nút menu cũ nên mọi chức năng vẫn chạy như trước.
+  - `kiem-thu\t-dien-thoai.cjs`.
+- **Thay đổi:**
+  - `app\ban-chinh.css`: phần “BAN-CHINH 2.14”, chỉ áp khi đang ở giao diện điện thoại.
+  - `app\index.html`: nạp tệp mới, nhãn.
+  - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.14`.
+  - `MO-HOC-MA-VUI.ps1`.
+  - `kiem-thu\t-ten-ung-dung.cjs`: trên điện thoại khối logo cột trái ẩn đi.
+- **Bản 2.13 và 2.14 được đưa vào máy cùng lúc.** Bản trước (2.12) nằm ở `backups\truoc-2.14\`.
+
+### 3. Kiểm thử bản 2.14 – và phần CHƯA kiểm
+- **`kiem-thu\t-dien-thoai.cjs`: 14/14**, trên iPhone 390×844 và Android 412×915 **giả lập**. Bài này kiểm:
+  - Khối menu to đã ẩn, ảnh bìa nằm ngay dưới thanh trên, menu đáy đủ 5 nút và cố định ở đáy.
+  - Không tràn ngang.
+  - Chuyển mục chỉ hiện mục đó và tự cuộn lên đầu.
+  - Bảng Thêm; nút Lớp mở và đóng.
+  - Vào Kéo co, Ai nhanh hơn, Chinh phục tri thức, Hộp quà, Đường đua, Bóng bay: toàn màn hình, ✕ thoát về Thư viện.
+  - Máy tính 1366×768 giữ nguyên; đổi cỡ cửa sổ thì chuyển đúng giao diện.
+- **Chạy lại toàn bộ bài cũ:** Kho 70/70, Quiz 43/43, Kéo co 44/44, Vòng quay 63/63, toàn màn hình 52/52, Ai nhanh hơn 47/47 + nhạc 25/25, Bóng bay 50/50, trang chủ + nhạc 40/40, tên 55/55, AI 58/58, Bình chọn 43/43, Phân tích 28/28, Tiếng mừng 25/25, Đọc to 66/66, Bố cục 22/22, Tự chấm/tự đếm 18/18, Tiếng đúng/sai 26/26, Web 16/16, Hai trò camera mới 39/39, Khóa AI trên web 20/20, Tiếng đúng/sai khi tự đọc 9/9, Cài ứng dụng 16/16, Màu giao diện 10/10, Trang cài mã QR 14/14 – tất cả đạt.
+- **Chưa kiểm:**
+  - Trên iPhone và Android thật. Cần xem nút ✕ có che nút nào của trò ở góc phải không.
+  - Màn hình xoay ngang.
+  - Từng trò dùng camera đặt trên điện thoại.
+
+## 0-23. Cập nhật 2.13 (14/10/2026) – Cài lên điện thoại bằng mã QR
 
 Thầy hỏi có cách nào để người dùng iPhone quét mã hay bấm link là cài được ứng dụng.
 
@@ -51,7 +105,7 @@ Trang tự nhận ra người dùng đang mở bằng gì và chỉ hiện đún
   - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.13` gồm trang cài và mã QR.
   - `app\index.html`: nhãn.
   - `MO-HOC-MA-VUI.ps1`.
-- Bản trước nằm ở `backups\truoc-2.13\`.
+- Bản 2.13 được đưa vào máy cùng bản 2.14; bản trước nằm ở `backups\truoc-2.14\`.
 
 ### 4. Kiểm thử bản 2.13 – và phần CHƯA kiểm
 - **`kiem-thu\t-cai-dat.cjs`: 14/14.** Thiết bị được **giả lập** bằng cách đổi tên trình duyệt; bài này kiểm:

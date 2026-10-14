@@ -39,4 +39,4 @@ if(!$NoBrowser){
   $userData=Join-Path $previewRoot 'profile-BAN-CHINH'
   Start-Process -FilePath $browser -ArgumentList @('--user-data-dir="'+$userData+'"','--no-first-run',$previewUrl)
 }
-Write-Host 'SAN SANG: http://127.0.0.1:8780/ - HMV-BAN-CHINH-2.13-20261014'
+Write-Host 'SAN SANG: http://127.0.0.1:8780/ - HMV-BAN-CHINH-2.14-20261014'

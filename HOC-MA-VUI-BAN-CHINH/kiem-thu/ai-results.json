@@ -1,5 +1,5 @@
 {
-  "build": "HMV-BAN-CHINH-2.13-20261014",
+  "build": "HMV-BAN-CHINH-2.14-20261014",
   "note": "Gemini giả, không gọi Google",
   "total": 58,
   "passed": 58,
@@ -19,7 +19,7 @@
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
         "lastOk": {
-          "at": "2026-10-14T05:27:09.930Z",
+          "at": "2026-10-14T05:53:19.434Z",
           "model": "gemini-3.8-flash"
         },
         "lastError": null
@@ -79,7 +79,7 @@
           ],
           "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
           "lastOk": {
-            "at": "2026-10-14T05:27:09.930Z",
+            "at": "2026-10-14T05:53:19.434Z",
             "model": "gemini-3.8-flash"
           },
           "lastError": null
@@ -96,7 +96,7 @@
           ],
           "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
           "lastOk": {
-            "at": "2026-10-14T05:27:09.930Z",
+            "at": "2026-10-14T05:53:19.434Z",
             "model": "gemini-3.8-flash"
           },
           "lastError": null
@@ -128,7 +128,7 @@
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
         "lastOk": {
-          "at": "2026-10-14T05:34:37.631Z",
+          "at": "2026-10-14T06:00:50.611Z",
           "model": "gemini-3.8-flash"
         },
         "lastError": null
@@ -159,7 +159,7 @@
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
         "lastOk": {
-          "at": "2026-10-14T05:34:37.640Z",
+          "at": "2026-10-14T06:00:50.618Z",
           "model": "gemini-3.8-flash"
         },
         "lastError": null
@@ -340,27 +340,27 @@
       "detail": [
         [
           [
-            "11",
+            "10",
             "12",
             "1001",
-            "10"
+            "11"
           ],
-          "0"
+          "3"
         ],
         [
           [
-            "22",
             "21",
+            "22",
             "1002",
             "23"
           ],
-          "0"
+          "1"
         ],
         [
           [
             "1003",
-            "32",
             "34",
+            "32",
             "33"
           ],
           "3"
@@ -369,17 +369,17 @@
           [
             "43",
             "45",
-            "44",
-            "1004"
+            "1004",
+            "44"
           ],
-          "2"
+          "3"
         ],
         [
           [
-            "54",
             "1005",
+            "56",
             "55",
-            "56"
+            "54"
           ],
           "2"
         ]
@@ -467,7 +467,7 @@
       "name": "B17 \"Lưu và chơi ngay\": lưu bộ mới (chỉ câu được chọn) vào Kho với đủ lớp, môn, chủ đề, nguồn",
       "pass": true,
       "detail": {
-        "id": "ai-set-1791956081668-infr14",
+        "id": "ai-set-1791957654639-ngqt8v",
         "name": "Bộ AI kiểm thử",
         "n": 9,
         "grade": "Lớp 4",
@@ -532,7 +532,7 @@
         ],
         "view": "questions",
         "q0": {
-          "id": "ai-q-1791956081680-4o4ydz",
+          "id": "ai-q-1791957654652-mi35p6",
           "text": "Câu 1: 10 + 1 = ?",
           "question": "Câu 1: 10 + 1 = ?",
           "kind": "ABCD",
@@ -541,13 +541,13 @@
             "999",
             "12",
             "1001",
-            "10"
+            "11"
           ],
           "options": [
             "999",
             "12",
             "1001",
-            "10"
+            "11"
           ],
           "optionLabels": [
             "A",
@@ -555,11 +555,11 @@
             "C",
             "D"
           ],
-          "correct": 0,
+          "correct": 3,
           "correctAnswers": [
-            0
+            3
           ],
-          "correctAnswer": "999",
+          "correctAnswer": "11",
           "answerText": "",
           "explanation": "Cộng hàng đơn vị rồi hàng chục.",
           "hint": "",
@@ -764,7 +764,7 @@
       "pass": true,
       "detail": {
         "names": [
-          "hmv-ban-chinh-2.13"
+          "hmv-ban-chinh-2.14"
         ],
         "api": [],
         "hasJs": true

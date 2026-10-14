@@ -128,11 +128,11 @@ const gstate = (page, setId) => page.evaluate((setId) => { const set = questionB
   // ===== G. Ngắt mạng =====
   { const { browser, ctx, page, logs } = await open();
     const sw = await page.evaluate(async () => { const reg = await Promise.race([navigator.serviceWorker.ready, new Promise(r => setTimeout(() => r(null), 8000))]); if (!reg) return null; const keys = await caches.keys(); return { caches: keys, n: (await (await caches.open(keys[0])).keys()).length }; });
-    rec('G1', 'Service worker cài xong và lưu đủ 26 tệp ứng dụng', !!sw && sw.caches.join() === 'hmv-ban-chinh-2.13' && sw.n >= 26, sw);
+    rec('G1', 'Service worker cài xong và lưu đủ 26 tệp ứng dụng', !!sw && sw.caches.join() === 'hmv-ban-chinh-2.14' && sw.n >= 26, sw);
     await page.reload({ waitUntil: 'load' }); await page.waitForTimeout(1500); await ctx.setOffline(true); await page.reload({ waitUntil: 'load', timeout: 15000 });
     await page.waitForFunction(() => window.audioDB && Array.isArray(window.questionBankSets) && questionBankSets.length > 7, null, { timeout: 8000 }); await page.evaluate(() => openView('questions')); await page.waitForTimeout(300);
     const off = await page.evaluate(() => ({ online: navigator.onLine, marker: document.getElementById('runtimeBuildMarker').textContent, demo: questionBankSets.filter(s => /^mau-/.test(s.id)).length, styled: getComputedStyle(document.querySelector('.kho-title')).backgroundColor, cam: !!window.hmvTiltCamera }));
-    rec('G2', 'Ngắt mạng rồi tải lại: ứng dụng, Kho và 7 bộ mẫu vẫn mở đúng bản chính', off.online === false && off.demo === 7 && /BAN-CHINH-2.13/.test(off.marker) && off.styled === 'rgb(243, 240, 255)' && off.cam, off);
+    rec('G2', 'Ngắt mạng rồi tải lại: ứng dụng, Kho và 7 bộ mẫu vẫn mở đúng bản chính', off.online === false && off.demo === 7 && /BAN-CHINH-2.14/.test(off.marker) && off.styled === 'rgb(243, 240, 255)' && off.cam, off);
     const r = await importFile(page, 'files/ds20-D-S.docx'); rec('G3', 'Ngắt mạng: đọc tệp Word 20 câu, tự phân loại Đúng/Sai', r.rows.length === 20 && r.rows.every(x => x.kind === 'TRUEFALSE'), r.summary); await page.evaluate(() => document.getElementById('qbStage7Modal')?.remove());
     await page.click('#questions [data-kho-practice="mau-5-tra-loi-ngan"]'); await page.waitForSelector('#khoPractice .lt-question'); await page.fill('#khoModal [data-lt-input]', '10'); await page.keyboard.press('Enter'); const fb = await page.evaluate(() => !!document.querySelector('#khoPractice .lt-feedback.ok')); await page.click('#khoModal [data-kho-close]');
     rec('G4', 'Ngắt mạng: Luyện tập chấm đúng', fb);

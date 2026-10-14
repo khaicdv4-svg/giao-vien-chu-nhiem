@@ -1,0 +1,192 @@
+{
+  "version": "2.14",
+  "at": "2026-10-14T06:05:49.832Z",
+  "pass": 14,
+  "total": 14,
+  "results": [
+    {
+      "name": "1 iPhone – Trang chủ: khối menu 9 nút to ở đầu trang đã ẩn; thanh trên mảnh (logo, \"Học mà vui\", lớp đang chọn); ẢNH BÌA nằm ngay dưới, trên cùng nội dung",
+      "pass": true,
+      "detail": {
+        "bar": {
+          "top": 0,
+          "bottom": 58,
+          "h": 58,
+          "vis": true
+        },
+        "side": {
+          "top": 0,
+          "bottom": 0,
+          "h": 0,
+          "vis": false
+        },
+        "cover": {
+          "top": 62,
+          "bottom": 362,
+          "h": 300,
+          "vis": true
+        },
+        "cls": "Lớp 4.1 · Năm học 2026–2027",
+        "top": {
+          "top": 0,
+          "bottom": 0,
+          "h": 0,
+          "vis": false
+        }
+      }
+    },
+    {
+      "name": "2 Menu ở đáy màn hình: Trang chủ · Trò chơi · Học liệu · Trợ lý AI · Thêm; luôn nằm ở đáy (cố định)",
+      "pass": true,
+      "detail": {
+        "top": 777,
+        "bottom": 844,
+        "h": 67,
+        "vis": true
+      }
+    },
+    {
+      "name": "3 Không tràn ngang; ba ô lớn \"Bắt đầu tiết học\" xếp gọn thành 1 hàng 3 ô",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "4 Bấm \"Trò chơi\": chỉ hiện Thư viện trò chơi (không còn ảnh bìa và nội dung Trang chủ), tự cuộn lên đầu, nút Trò chơi sáng",
+      "pass": true,
+      "detail": {
+        "active": [
+          "games"
+        ],
+        "cover": "none",
+        "y": 0,
+        "tab": "🎮Trò chơi"
+      }
+    },
+    {
+      "name": "5 Nút \"Thêm\": mở bảng các chức năng còn lại (Lớp học, Vòng quay, Nốt nhạc vui, Thi đua, Cài đặt); chọn Thi đua → mở Thi đua, bảng tự đóng, nút Thêm sáng",
+      "pass": true,
+      "detail": [
+        [
+          "students",
+          "picker",
+          "note-music",
+          "scores",
+          "settings"
+        ],
+        {
+          "active": "scores",
+          "sheet": true,
+          "more": true
+        }
+      ]
+    },
+    {
+      "name": "6 Nút \"Lớp ▾\" mở ô chọn Năm học / Khối / Lớp ngay dưới thanh trên; bấm \"Đóng\" thì gọn lại",
+      "pass": true,
+      "detail": [
+        {
+          "top": 58,
+          "bottom": 209,
+          "h": 151,
+          "vis": true
+        },
+        3,
+        {
+          "top": 0,
+          "bottom": 0,
+          "h": 0,
+          "vis": false
+        }
+      ]
+    },
+    {
+      "name": "7 Vào một trò (Kéo co): thanh trên và menu đáy ẩn → trò chơi chiếm toàn màn hình (bắt đầu sát mép trên); có nút ✕ nhỏ để thoát",
+      "pass": true,
+      "detail": {
+        "st": {
+          "on": true,
+          "play": true,
+          "view": "games"
+        },
+        "bar": "none",
+        "tabs": "none",
+        "exit": "grid",
+        "wind": true,
+        "gameTop": 0
+      }
+    },
+    {
+      "name": "8 Bấm ✕ → về Thư viện trò chơi, thanh trên và menu đáy hiện lại",
+      "pass": true,
+      "detail": {
+        "st": {
+          "on": true,
+          "play": false,
+          "view": "games"
+        },
+        "lib": true,
+        "tabs": "grid"
+      }
+    },
+    {
+      "name": "9 Ai nhanh hơn, Chinh phục tri thức, Hộp quà, Đường đua: đều vào toàn màn hình và thoát được bằng ✕",
+      "pass": true,
+      "detail": [
+        {
+          "name": "play-buzzer",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "play-millionaire",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "play-gift",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "play-race",
+          "pass": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "name": "10 Màn hình cài đặt trò (Bóng bay) cũng toàn màn hình; ✕ đưa về Thư viện",
+      "pass": true,
+      "detail": true
+    },
+    {
+      "name": "11 Điện thoại Android 412 px: cùng giao diện điện thoại, không tràn ngang",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "12 Máy tính 1366×768: giữ nguyên giao diện cũ (thanh bên trái, ô chọn lớp ở trên), không có thanh/menu điện thoại",
+      "pass": true,
+      "detail": {
+        "on": false,
+        "cls": false,
+        "side": "flex",
+        "bar": "block",
+        "top": "flex"
+      }
+    },
+    {
+      "name": "13 Thu nhỏ cửa sổ dưới 760 px → chuyển sang giao diện điện thoại; mở rộng lại → về giao diện máy tính",
+      "pass": true,
+      "detail": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "14 Không có lỗi JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

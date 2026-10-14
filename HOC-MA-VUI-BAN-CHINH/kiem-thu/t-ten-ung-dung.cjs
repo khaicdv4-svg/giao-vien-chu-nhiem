@@ -50,8 +50,8 @@ const res = []; const ok = (n, c, d) => { res.push({ name: n, pass: !!c, detail:
       ok(w + ': dòng phụ nằm trọn trong ảnh bìa', info.sub && info.sub.bottom <= info.sub.coverBottom, [info.sub && info.sub.bottom, info.sub && info.sub.coverBottom]);
       ok(w + ': vẫn còn tên trường trên ảnh bìa', /TRƯỜNG TIỂU HỌC TRẦN VĂN ƠN/.test(info.coverText));
       ok(w + ': phông viết tay được máy chủ trả về', await page.evaluate(() => fetch('./assets/fonts/Pacifico-Vietnamese.woff2', { cache: 'no-store' }).then(r => r.ok && r.arrayBuffer()).then(b => b && b.byteLength === 33068)));
-      ok(w + ': tiêu đề thẻ trình duyệt không còn ThayKhaiEdu', !/ThayKhaiEdu/.test(info.title) && /^HỌC MÀ VUI \| HMV-BAN-CHINH-2\.13-20261014$/.test(info.title), info.title);
-      ok(w + ': cột trái khôi phục "HỌC MÀ VUI / ThayKhaiEdu" và logo', info.brand === 'HỌC MÀ VUI ThayKhaiEdu' && info.logo, [info.brand, info.logo]);
+      ok(w + ': tiêu đề thẻ trình duyệt không còn ThayKhaiEdu', !/ThayKhaiEdu/.test(info.title) && /^HỌC MÀ VUI \| HMV-BAN-CHINH-2\.14-20261014$/.test(info.title), info.title);
+      ok(w + ': cột trái khôi phục "HỌC MÀ VUI / ThayKhaiEdu" và logo', info.brand.replace(/\s+/g, ' ').replace('VUIThay', 'VUI Thay') === 'HỌC MÀ VUI ThayKhaiEdu' && info.logo, [info.brand, info.logo]);   /* 2.14: trên điện thoại khối này ẩn (thay bằng thanh trên mảnh) nên innerText dính dòng */
       ok(w + ': ngoài khối logo cột trái, không còn chữ ThayKhaiEdu / chuyên môn đang hiển thị ở trang chủ', info.hits.filter(h => h.visible).length === 0, info.hits.filter(h => h.visible));
       ok(w + ': tên trường và tên ứng dụng không chồng nhau', info.gap >= 0 && info.gap <= 40, info.gap);
       ok(w + ': tên không tràn, trang không cuộn ngang', !info.h1Overflow && info.docW <= info.winW + 1, [info.docW, info.winW]);
@@ -62,7 +62,7 @@ const res = []; const ok = (n, c, d) => { res.push({ name: n, pass: !!c, detail:
       await page.evaluate(() => openView('settings')); await page.waitForTimeout(700);
       const st = await page.evaluate(() => { const v = document.querySelector('#settings'); const t = v ? v.innerText : ''; return { has: /ThayKhaiEdu/.test(t), team: /Tổ chuyên môn Khối 4 ·/.test(t), nd: (t.match(/Nhận diện[^\n]*\n+[^\n]*\n*[^\n]*/g) || []).map(x => x.replace(/\n+/g, ' / ')), title: document.title }; });
       ok('Cài đặt: không còn "ThayKhaiEdu" và dòng "Tổ chuyên môn Khối 4 · …"', !st.has && !st.team, st.nd);
-      ok('Cài đặt: tiêu đề thẻ vẫn đúng sau khi mở Cài đặt', /^HỌC MÀ VUI \| HMV-BAN-CHINH-2\.13/.test(st.title), st.title);
+      ok('Cài đặt: tiêu đề thẻ vẫn đúng sau khi mở Cài đặt', /^HỌC MÀ VUI \| HMV-BAN-CHINH-2\.14/.test(st.title), st.title);
       await page.screenshot({ path: path.join(OUT, 'cai-dat-' + TAG + '.png') });
       // đi qua các màn hình khác: ảnh bìa vẫn đúng, không chữ cũ hiển thị
       for (const v of ['picker', 'games', 'questions', 'scores', 'students', 'dashboard']) {
@@ -78,5 +78,5 @@ const res = []; const ok = (n, c, d) => { res.push({ name: n, pass: !!c, detail:
   }
   if (EXPECT) ok('Không có lỗi JavaScript khi chạy', logs.length === 0, logs.slice(0, 5));
   await browser.close();
-  if (EXPECT) { fs.writeFileSync(path.join(OUT, 'ten-ung-dung-results.json'), JSON.stringify({ build: 'HMV-BAN-CHINH-2.13-20261014', total: res.length, passed: res.filter(r => r.pass).length, results: res }, null, 2)); console.log('TOTAL ' + res.filter(r => r.pass).length + '/' + res.length); process.exit(res.every(r => r.pass) ? 0 : 1); }
+  if (EXPECT) { fs.writeFileSync(path.join(OUT, 'ten-ung-dung-results.json'), JSON.stringify({ build: 'HMV-BAN-CHINH-2.14-20261014', total: res.length, passed: res.filter(r => r.pass).length, results: res }, null, 2)); console.log('TOTAL ' + res.filter(r => r.pass).length + '/' + res.length); process.exit(res.every(r => r.pass) ? 0 : 1); }
 })().catch(e => { console.error(e); process.exit(2); });

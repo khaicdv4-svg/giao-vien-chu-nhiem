@@ -964,3 +964,64 @@ html body .main .topbar .actions>#hmvInstallTop[hidden]{display:none!important}
 .hmv-inst-links{display:flex;flex-wrap:wrap;gap:8px}
 .hmv-inst-links .btn{text-decoration:none}
 @media (max-width:600px){.hmv-inst-qr{flex-direction:column;align-items:center;text-align:center}.hmv-inst-links{justify-content:center}}
+
+/* BAN-CHINH 2.14 · Giao diện điện thoại (≤ 760 px) – chỉ áp khi html có lớp hmv-m (dien-thoai.js) */
+.hmv-mbar,.hmv-mtabs,.hmv-msheet,.hmv-mexit{display:none}
+html.hmv-m body{padding:0!important}
+html.hmv-m body .app{display:block!important;min-height:100vh}
+html.hmv-m body .app>.sidebar{display:none!important}
+html.hmv-m body .main{padding:calc(62px + env(safe-area-inset-top)) 12px calc(84px + env(safe-area-inset-bottom))!important;margin:0!important;min-height:100vh;width:auto!important;max-width:none!important}
+html.hmv-m #noteMusicBuildMarker{display:none!important}
+html.hmv-m body .toast{bottom:calc(88px + env(safe-area-inset-bottom))!important;left:12px!important;right:12px!important;z-index:80!important}
+/* Thanh trên */
+html.hmv-m .hmv-mbar{display:flex;position:fixed;z-index:60;top:0;left:0;right:0;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 2px 12px #2a145a1f}
+.hmv-mbar-home{display:flex;align-items:center;gap:10px;flex:1 1 auto;min-width:0;border:0;background:none;padding:0;font:inherit;text-align:left;color:#1e1b4b;cursor:pointer}
+.hmv-mbar-home img{width:36px;height:36px;border-radius:10px;flex:0 0 auto}
+.hmv-mbar-home span{display:flex;flex-direction:column;min-width:0;line-height:1.15}
+.hmv-mbar-home b{font-size:17px;font-weight:900}
+.hmv-mbar-home small{font-size:12.5px;color:#5b5876;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hmv-mbar-class{flex:0 0 auto;border:1.5px solid #d9cffc;background:#f3efff;color:#3b2e8f;border-radius:999px;padding:8px 14px;font:inherit;font-weight:800;font-size:14px;cursor:pointer;min-height:40px}
+/* Ô chọn năm học / khối / lớp: ẩn, bấm "Lớp" mới mở dưới thanh trên */
+html.hmv-m body .main>.topbar{display:none!important}
+html.hmv-m.hmv-m-class body .main>.topbar{display:block!important;position:fixed;z-index:59;top:calc(58px + env(safe-area-inset-top));left:8px;right:8px;margin:0!important;padding:12px!important;border-radius:0 0 18px 18px;background:#fff!important;box-shadow:0 16px 30px #2a145a40}
+html.hmv-m.hmv-m-class body .main>.topbar .crumb{color:#1e1b4b!important;margin-bottom:8px}
+html.hmv-m.hmv-m-class body .main>.topbar .icon-btn{color:#3b2e8f!important;background:#f3efff!important}
+/* Menu đáy */
+html.hmv-m .hmv-mtabs{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;z-index:60;left:0;right:0;bottom:0;padding:6px 4px calc(6px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 -2px 14px #2a145a24}
+.hmv-mtabs button{display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;padding:6px 2px;border-radius:14px;font:inherit;color:#5b5876;cursor:pointer;min-height:54px}
+.hmv-mtabs button span{font-size:22px;line-height:1.1}
+.hmv-mtabs button small{font-size:11.5px;font-weight:700;white-space:nowrap}
+.hmv-mtabs button.active{color:#3b2e8f;background:#efe9ff}
+.hmv-mtabs button.active small{font-weight:900}
+/* Bảng "Thêm" */
+html.hmv-m .hmv-msheet{display:block;position:fixed;inset:0;z-index:70}
+html.hmv-m .hmv-msheet[hidden]{display:none}
+.hmv-msheet-bg{position:absolute;inset:0;background:#1e1b4b66}
+.hmv-msheet-card{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:10px 16px calc(96px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px #0003}
+.hmv-msheet-grab{width:44px;height:5px;border-radius:3px;background:#d6d1e8;margin:0 auto 10px}
+.hmv-msheet-card h3{margin:0 0 10px;font-size:17px;color:#1e1b4b}
+.hmv-msheet-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.hmv-msheet-grid button{display:flex;align-items:center;gap:10px;padding:14px 12px;border:1.5px solid #e3dcfb;border-radius:16px;background:#faf8ff;font:inherit;font-weight:800;font-size:15px;color:#1e1b4b;text-align:left;cursor:pointer;min-height:56px}
+.hmv-msheet-grid button span{font-size:24px}
+/* Trang chủ: ảnh bìa trên cùng, ô chức năng gọn */
+html.hmv-m body section.school-cover-title{margin:0 0 14px!important;border-radius:18px!important}
+html.hmv-m body #thHome .th-heading{margin:4px 0 10px!important;font-size:20px!important}
+html.hmv-m body #thHome .th-big{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:10px!important}
+html.hmv-m body #thHome .th-tile.big{min-height:0!important;height:auto!important;padding:12px 8px!important;flex-direction:column!important;align-items:center!important;text-align:center!important;gap:6px!important}
+html.hmv-m body #thHome .th-tile.big .th-art{width:52px!important;height:52px!important;margin:0!important}
+html.hmv-m body #thHome .th-tile.big .th-art svg{width:52px!important;height:52px!important}
+html.hmv-m body #thHome .th-tile.big b{font-size:14px!important;line-height:1.2!important}
+html.hmv-m body #thHome .th-tile.big small{display:none!important}
+html.hmv-m body #thHome .th-tile.big::before,html.hmv-m body #thHome .th-tile.big::after{display:none!important}
+/* Đang chơi: toàn màn hình cho trò chơi */
+html.hmv-m.hmv-m-play .hmv-mbar,html.hmv-m.hmv-m-play .hmv-mtabs{display:none!important}
+html.hmv-m.hmv-m-play body .main{padding:env(safe-area-inset-top) 6px env(safe-area-inset-bottom)!important}
+html.hmv-m.hmv-m-play .hmv-mexit{display:grid;place-items:center;position:fixed;z-index:65;top:calc(6px + env(safe-area-inset-top));right:6px;width:34px;height:34px;border-radius:50%;border:0;background:#1e1b4bb3;color:#fff;font-size:17px;font-weight:900;cursor:pointer;box-shadow:0 3px 10px #0004}
+html.hmv-m.hmv-m-play body #games .wind-module-card,html.hmv-m.hmv-m-play body #games #windModuleCard{display:none!important}
+html.hmv-m body #thHome .th-tile.small{padding:12px!important;gap:10px!important;min-height:0!important}
+html.hmv-m body #thHome .th-tile.small .th-art{width:42px!important;height:42px!important;flex:0 0 42px!important}
+html.hmv-m body #thHome .th-tile.small .th-art svg{width:30px!important;height:30px!important}
+html.hmv-m body #thHome .th-tile.small b{font-size:15px!important}
+html.hmv-m body #thHome .th-tile.small small{font-size:12.5px!important;display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+html.hmv-m.hmv-m-play body #games .toolbar{gap:6px!important}
+html.hmv-m.hmv-m-play body #games .toolbar .btn,html.hmv-m.hmv-m-play body #games .toolbar button{font-size:13px!important;padding:7px 10px!important;min-height:36px!important}
