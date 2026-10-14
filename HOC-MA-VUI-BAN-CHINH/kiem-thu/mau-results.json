@@ -1,0 +1,153 @@
+{
+  "version": "2.12",
+  "at": "2026-10-14T04:41:51.636Z",
+  "pass": 10,
+  "total": 10,
+  "results": [
+    {
+      "name": "1 Thẻ menu bên trái nay ghi \"🎮 Trò chơi\" (không còn \"Hoạt động\"); bấm vào vẫn mở Thư viện trò chơi",
+      "pass": true,
+      "detail": {
+        "text": "🎮Trò chơi",
+        "aria": "Trò chơi",
+        "all": [
+          "🏠Trang chủ",
+          "👩‍🎓Lớp học",
+          "🎡Vòng quay kết nối",
+          "🎵Nốt nhạc vui",
+          "🎮Trò chơi",
+          "📚Học liệu / Kho câu hỏi",
+          "✨Trợ lý AI",
+          "🏆Thi đua & tổng kết",
+          "⚙️Cài đặt & dữ liệu"
+        ]
+      }
+    },
+    {
+      "name": "2 Mặc định (Tím): giao diện gốc giữ nguyên, không chèn lớp màu nào",
+      "pass": true,
+      "detail": {
+        "body": "linear-gradient(120deg, rgb(93, 112, 223) 0%, rgb(118, 82, 183) 52%, rgb(166, 91, 195) 100%)",
+        "side": "linear-gradient(135deg, rgb(238, 242, 255) 0%, rgb(243, 232, 255) 55%, rgb(237, 233, 254) 100%)",
+        "active": "linear-gradient(135deg, rgb(79, 70, 229) 0%, rgb(124, 58, 237) 55%, rgb(147, 51, 234) 100%)",
+        "nav": "linear-gradient(145deg, rgb(245, 243, 255), rgb(237, 233, 254))",
+        "navInk": "rgb(67, 56, 202)",
+        "hero": "linear-gradient(110deg, rgb(79, 70, 229) 0%, rgb(124, 58, 237) 48%, rgb(236, 72, 153) 100%)",
+        "meta": "#6c4cf1",
+        "attr": null
+      }
+    },
+    {
+      "name": "3 Cài đặt & dữ liệu có thẻ \"🎨 Màu giao diện\": 8 bảng màu có sẵn + ô \"Màu riêng…\" chọn màu bất kỳ; đang chọn Tím (mặc định)",
+      "pass": true,
+      "detail": {
+        "text": "🎨 Màu giao diện\n\nChọn màu cho nền, thanh menu bên trái, khung chào và các nút. Màn hình trò chơi giữ màu riêng. Màu chỉ lưu trên máy này.\n\nTím (mặc định)\n✓\nXanh dương\nXanh ngọc\nXanh lá\nCam\nHồng\nĐỏ\nXám xanh\nMàu riêng…",
+        "n": 8,
+        "custom": true,
+        "on": "Tím (mặc định)✓"
+      }
+    },
+    {
+      "name": "4 Chọn \"Xanh dương\": nền, thanh bên, thẻ menu đang chọn, khung chào Trang chủ và màu thanh tiêu đề trình duyệt đều chuyển sang xanh dương",
+      "pass": true,
+      "detail": [
+        {
+          "body": "linear-gradient(120deg, rgb(81, 170, 225) 0%, rgb(59, 102, 196) 52%, rgb(89, 83, 198) 100%)",
+          "side": "linear-gradient(135deg, rgb(241, 248, 254) 0%, rgb(236, 239, 253) 55%, rgb(233, 239, 252) 100%)",
+          "active": "linear-gradient(135deg, rgb(19, 119, 201) 0%, rgb(21, 85, 224) 55%, rgb(20, 49, 215) 100%)",
+          "nav": "linear-gradient(145deg, rgb(246, 248, 254), rgb(233, 239, 252))",
+          "navInk": "rgb(37, 75, 157)",
+          "hero": "linear-gradient(110deg, rgb(19, 119, 201) 0%, rgb(21, 85, 224) 48%, rgb(146, 59, 227) 100%)",
+          "meta": "hsl(221,83%,48%)",
+          "attr": "xanh-duong"
+        },
+        207,
+        203
+      ]
+    },
+    {
+      "name": "5 Tải lại trang: vẫn giữ màu đã chọn (lưu trên máy này)",
+      "pass": true,
+      "detail": "xanh-duong"
+    },
+    {
+      "name": "6 \"Màu riêng…\": chọn màu #0f9d58 → cả bộ màu chuyển theo màu đó (xanh lá)",
+      "pass": true,
+      "detail": [
+        {
+          "id": "rieng",
+          "color": "#0f9d58"
+        },
+        137
+      ]
+    },
+    {
+      "name": "7 Tất cả bảng màu: chữ trên thẻ menu đủ tương phản để đọc (≥ 4,5 : 1 theo chuẩn WCAG AA)",
+      "pass": true,
+      "detail": [
+        {
+          "id": "xanh-ngoc",
+          "active": 4.75,
+          "menu": 4.84
+        },
+        {
+          "id": "xanh-la",
+          "active": 4.65,
+          "menu": 5.08
+        },
+        {
+          "id": "cam",
+          "active": 4.91,
+          "menu": 5.6
+        },
+        {
+          "id": "hong",
+          "active": 5.07,
+          "menu": 7.05
+        },
+        {
+          "id": "do",
+          "active": 5.49,
+          "menu": 7.33
+        },
+        {
+          "id": "xam-xanh",
+          "active": 4.74,
+          "menu": 6.22
+        },
+        {
+          "id": "xanh-duong",
+          "active": 4.66,
+          "menu": 7.69
+        }
+      ]
+    },
+    {
+      "name": "8 Chọn lại \"Tím (mặc định)\": trả về đúng giao diện gốc (gỡ hẳn lớp màu)",
+      "pass": true,
+      "detail": {
+        "body": "linear-gradient(120deg, rgb(93, 112, 223) 0%, rgb(118, 82, 183) 52%, rgb(166, 91, 195) 100%)",
+        "side": "linear-gradient(135deg, rgb(238, 242, 255) 0%, rgb(243, 232, 255) 55%, rgb(237, 233, 254) 100%)",
+        "active": "linear-gradient(135deg, rgb(79, 70, 229) 0%, rgb(124, 58, 237) 55%, rgb(147, 51, 234) 100%)",
+        "nav": "linear-gradient(145deg, rgb(245, 243, 255), rgb(237, 233, 254))",
+        "navInk": "rgb(67, 56, 202)",
+        "hero": "linear-gradient(110deg, rgb(79, 70, 229) 0%, rgb(124, 58, 237) 48%, rgb(236, 72, 153) 100%)",
+        "meta": "#6c4cf1",
+        "attr": null
+      }
+    },
+    {
+      "name": "9 Thư viện trò chơi vẫn đủ 10 thẻ; thẻ màu vừa màn hình điện thoại (không tràn ngang)",
+      "pass": true,
+      "detail": [
+        10,
+        0
+      ]
+    },
+    {
+      "name": "10 Không có lỗi JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

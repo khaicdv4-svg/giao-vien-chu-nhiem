@@ -1,4 +1,4 @@
-/* BAN-CHINH 1.2 · Toàn màn hình cho mọi trò chơi trong mục Hoạt động.
+/* BAN-CHINH 1.2 · Toàn màn hình cho mọi trò chơi trong mục Trò chơi.
  *
  * - Mọi màn hình trò chơi (thiết lập và đang chơi) đều có nút "⛶ Toàn màn hình".
  * - Phóng to CẢ TRANG (không phải riêng khung trò chơi) rồi ẩn thanh bên và thanh chọn lớp,

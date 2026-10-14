@@ -1,12 +1,54 @@
-# HỌC MÀ VUI · BẢN CHÍNH 2.11
+# HỌC MÀ VUI · BẢN CHÍNH 2.12
 
-**Ngày:** 14/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.11-20261014`
+**Ngày:** 14/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.12-20261014`
 
 Đây là bản hợp nhất duy nhất. Nó gồm toàn bộ nội dung của các bản thử trước (03B → 09, Chặng 1 → 7B) cùng ba phần mới: Quiz Nghiêng Đầu hoàn chỉnh, Kho câu hỏi thiết kế lại và 140 câu hỏi mẫu.
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
-## 0. Cập nhật 2.11 (14/10/2026) – Cài HỌC MÀ VUI như một ứng dụng
+## 0. Cập nhật 2.12 (14/10/2026) – Bộ chỉnh màu giao diện; thẻ menu “Trò chơi”
+
+### 1. Bộ chỉnh màu giao diện
+- **Chỗ chỉnh:** **Cài đặt & dữ liệu** → thẻ **🎨 Màu giao diện**.
+- **Màu có sẵn (8 bảng):** **Tím (mặc định)**, Xanh dương, Xanh ngọc, Xanh lá, Cam, Hồng, Đỏ, Xám xanh.
+- **Màu riêng…:** chọn một màu bất kỳ, ứng dụng tự tạo cả bộ màu từ màu đó.
+- **Phần đổi màu:** nền ứng dụng, thanh menu bên trái (thẻ thường và thẻ đang chọn), khung chào Trang chủ, nút chính, nút phụ, nút “Cài ứng dụng”, và màu thanh tiêu đề khi ứng dụng đã cài.
+- **Phần giữ nguyên:** **màn hình từng trò chơi** giữ màu riêng để học sinh dễ nhận ra trò. Các biểu tượng nhiều màu trong menu cũng giữ nguyên.
+- **Màu chữ:** ứng dụng tự chỉnh độ đậm để chữ trên thẻ menu và nút luôn đọc rõ (độ tương phản ≥ 4,5 : 1). Ví dụ: màu xanh lá, xanh ngọc vốn sáng nên được làm tối hơn một chút.
+- **Lưu ở đâu:** màu chỉ lưu trên máy (trình duyệt) này. Tải lại trang hay mở ứng dụng đã cài vẫn giữ màu.
+- **Trở lại mặc định:** chọn lại **Tím (mặc định)** là về đúng giao diện gốc.
+
+### 2. Đổi tên thẻ menu
+- Thẻ **“Hoạt động”** ở thanh menu bên trái nay là **“🎮 Trò chơi”**. Bấm vào vẫn mở Thư viện trò chơi như trước.
+
+### 3. Tệp
+- **Mới:**
+  - `app\mau-giao-dien.js`: nạp trong `<head>` để áp màu trước khi trang hiện, không nháy màu cũ.
+  - `kiem-thu\t-mau.cjs`.
+- **Thay đổi:**
+  - `app\index.html`: tên thẻ menu, nạp tệp mới, nhãn.
+  - `app\ban-chinh.css`.
+  - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.12`.
+  - `app\bong-bay.js`, `app\toan-man-hinh.js`: chỉ sửa chú thích.
+  - `MO-HOC-MA-VUI.ps1`.
+  - `kiem-thu\t-balloon.cjs`: bấm thẻ menu theo tên mới.
+- **Bản 2.11 và 2.12 được đưa vào máy cùng lúc.** Bản trước (2.10) nằm ở `backups\truoc-2.12\`.
+
+### 4. Kiểm thử bản 2.12 – và phần CHƯA kiểm
+- **`kiem-thu\t-mau.cjs`: 10/10.** Bài này đo màu thật trình duyệt vẽ ra và kiểm:
+  - Tên thẻ menu mới.
+  - Mặc định không đổi gì.
+  - Thẻ chọn màu có đủ 8 màu và ô Màu riêng.
+  - Chọn Xanh dương thì nền, menu, khung chào, thanh tiêu đề đều đổi.
+  - Màu được giữ sau khi tải lại trang.
+  - Màu riêng hoạt động.
+  - Độ tương phản chữ đạt ở cả 8 bảng màu.
+  - Trở lại Tím đúng giao diện gốc.
+  - Điện thoại không bị tràn ngang.
+- **Chạy lại toàn bộ bài cũ:** Kho 70/70, Quiz 43/43, Kéo co 44/44, Vòng quay 63/63, toàn màn hình 52/52, Ai nhanh hơn 47/47 + nhạc 25/25, Bóng bay 50/50, trang chủ + nhạc 40/40, tên 55/55, AI 58/58, Bình chọn 43/43, Phân tích 28/28, Tiếng mừng 25/25, Đọc to 66/66, Bố cục 22/22, Tự chấm/tự đếm 18/18, Tiếng đúng/sai 26/26, Web 16/16, Hai trò camera mới 39/39, Khóa AI trên web 20/20, Tiếng đúng/sai khi tự đọc 9/9, Cài ứng dụng 16/16 – tất cả đạt.
+- **Chưa kiểm:** nhìn màu bằng mắt trên máy chiếu của lớp. Màu trên máy chiếu thường nhạt hơn màn hình.
+
+## 0-21. Cập nhật 2.11 (14/10/2026) – Cài HỌC MÀ VUI như một ứng dụng
 
 Thầy yêu cầu có chức năng tải ứng dụng về, giống biểu tượng “Cài đặt” (màn hình có mũi tên) trên thanh địa chỉ Chrome.
 
@@ -38,7 +80,7 @@ Thầy yêu cầu có chức năng tải ứng dụng về, giống biểu tư�
   - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.11` gồm cả manifest và biểu tượng.
   - `MO-HOC-MA-VUI.ps1`.
 - Sửa thêm: khi có bản cập nhật, hộp “Đã có bản cập nhật. Nhấn OK để tải lại” đôi khi hỏi hai lần (máy tải lại trước khi bản mới kịp nhận quyền). Nay máy chờ bản mới sẵn sàng rồi mới tải lại (`app\index.html`).
-- Bản trước nằm ở `backups\truoc-2.11\`.
+- Bản 2.11 được đưa vào máy cùng bản 2.12; bản trước nằm ở `backups\truoc-2.12\`.
 
 ### 3. Kiểm thử bản 2.11 – và phần CHƯA kiểm
 - **`kiem-thu\t-cai-app.cjs`: 16/16.**

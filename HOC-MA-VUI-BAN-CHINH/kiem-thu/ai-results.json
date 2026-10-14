@@ -1,5 +1,5 @@
 {
-  "build": "HMV-BAN-CHINH-2.11-20261014",
+  "build": "HMV-BAN-CHINH-2.12-20261014",
   "note": "Gemini giả, không gọi Google",
   "total": 58,
   "passed": 58,
@@ -18,7 +18,10 @@
           "gemini-3.5-flash-lite"
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
-        "lastOk": null,
+        "lastOk": {
+          "at": "2026-10-14T04:29:54.595Z",
+          "model": "gemini-3.8-flash"
+        },
         "lastError": null
       }
     },
@@ -75,7 +78,10 @@
             "gemini-3.5-flash-lite"
           ],
           "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
-          "lastOk": null,
+          "lastOk": {
+            "at": "2026-10-14T04:29:54.595Z",
+            "model": "gemini-3.8-flash"
+          },
           "lastError": null
         },
         {
@@ -89,7 +95,10 @@
             "gemini-3.5-flash-lite"
           ],
           "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
-          "lastOk": null,
+          "lastOk": {
+            "at": "2026-10-14T04:29:54.595Z",
+            "model": "gemini-3.8-flash"
+          },
           "lastError": null
         },
         200
@@ -119,7 +128,7 @@
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
         "lastOk": {
-          "at": "2026-10-14T00:01:59.071Z",
+          "at": "2026-10-14T04:37:18.899Z",
           "model": "gemini-3.8-flash"
         },
         "lastError": null
@@ -150,7 +159,7 @@
         ],
         "keyFile": "CAI-DAT-AI\\khoa-gemini.txt",
         "lastOk": {
-          "at": "2026-10-14T00:01:59.080Z",
+          "at": "2026-10-14T04:37:18.906Z",
           "model": "gemini-3.8-flash"
         },
         "lastError": null
@@ -332,47 +341,47 @@
         [
           [
             "1001",
-            "12",
+            "11",
             "10",
-            "11"
+            "12"
           ],
-          "3"
+          "1"
         ],
         [
           [
-            "23",
-            "1002",
             "21",
-            "22"
-          ],
-          "3"
-        ],
-        [
-          [
-            "1003",
-            "34",
-            "33",
-            "32"
+            "23",
+            "22",
+            "1002"
           ],
           "2"
         ],
         [
           [
-            "44",
+            "32",
+            "1003",
+            "34",
+            "33"
+          ],
+          "3"
+        ],
+        [
+          [
             "45",
             "43",
+            "44",
             "1004"
           ],
-          "0"
+          "2"
         ],
         [
           [
             "1005",
-            "54",
             "56",
-            "55"
+            "55",
+            "54"
           ],
-          "3"
+          "2"
         ]
       ]
     },
@@ -458,7 +467,7 @@
       "name": "B17 \"Lưu và chơi ngay\": lưu bộ mới (chỉ câu được chọn) vào Kho với đủ lớp, môn, chủ đề, nguồn",
       "pass": true,
       "detail": {
-        "id": "ai-set-1791936123151-s5w8m0",
+        "id": "ai-set-1791952642967-ealory",
         "name": "Bộ AI kiểm thử",
         "n": 9,
         "grade": "Lớp 4",
@@ -523,22 +532,22 @@
         ],
         "view": "questions",
         "q0": {
-          "id": "ai-q-1791936123173-pa974f",
+          "id": "ai-q-1791952642979-duppai",
           "text": "Câu 1: 10 + 1 = ?",
           "question": "Câu 1: 10 + 1 = ?",
           "kind": "ABCD",
           "type": "ABCD",
           "answers": [
             "999",
-            "12",
+            "11",
             "10",
-            "11"
+            "12"
           ],
           "options": [
             "999",
-            "12",
+            "11",
             "10",
-            "11"
+            "12"
           ],
           "optionLabels": [
             "A",
@@ -546,9 +555,9 @@
             "C",
             "D"
           ],
-          "correct": 3,
+          "correct": 1,
           "correctAnswers": [
-            3
+            1
           ],
           "correctAnswer": "11",
           "answerText": "",
@@ -755,7 +764,7 @@
       "pass": true,
       "detail": {
         "names": [
-          "hmv-ban-chinh-2.11"
+          "hmv-ban-chinh-2.12"
         ],
         "api": [],
         "hasJs": true

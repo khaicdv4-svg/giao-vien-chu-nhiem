@@ -271,7 +271,7 @@
   win.gameSetup = function (t) { if (t === TYPE) { clearInterval(timer); timer = 0; stopCamera(''); S = null; win.classroomGame = { type: TYPE, started: false }; render(true); return; } return baseSetup.apply(this, arguments); };
   win.renderGames = function () { if (game().type === TYPE) { render(false); return; } var out = baseRender.apply(this, arguments); decorateCard(); return out; };
   win.gameStart = function () { if (game().type === TYPE) { begin(); return; } return baseStart.apply(this, arguments); };
-  /* Rời mục Hoạt động khi đang chơi: tắt camera và đóng trò chơi. */
+  /* Rời mục Trò chơi khi đang chơi: tắt camera và đóng trò chơi. */
   if (typeof baseOpen === 'function') win.openView = function (id) { if (id !== 'games' && game().type === TYPE) back(); var out = baseOpen.apply(this, arguments); if (id === 'games') setTimeout(decorateCard, 0); return out; };
   function decorateCard() {
     var g = games(); if (!g) return;

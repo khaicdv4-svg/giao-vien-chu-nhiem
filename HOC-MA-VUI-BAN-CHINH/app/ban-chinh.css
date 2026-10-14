@@ -944,3 +944,15 @@ html body .main .topbar .actions.hmv-has-install{grid-template-columns:minmax(0,
 html body .main .topbar .actions>#hmvInstallTop{grid-area:install!important;width:auto!important;min-width:0!important;padding:0 12px!important;background:linear-gradient(135deg,#6c4cf1,#a64cc6)!important;color:#fff!important;border-color:transparent!important;font-weight:800!important}
 html body .main .topbar .actions>#hmvInstallTop[hidden]{display:none!important}
 @media(max-width:760px){html body .main .topbar .actions.hmv-has-install{grid-template-columns:auto minmax(0,1fr) 40px!important;grid-template-areas:"workspace workspace workspace" "install save avatar"!important}}
+
+/* BAN-CHINH 2.12 · Màu giao diện */
+.hmv-th-sub{margin:4px 0 12px;color:var(--muted)}
+.hmv-th-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.hmv-th-sw{position:relative;display:flex;align-items:center;gap:10px;padding:8px 10px;border:2px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;font:inherit;font-weight:700;color:var(--ink);text-align:left;min-height:52px}
+.hmv-th-sw:hover{border-color:#b9b2d8}
+.hmv-th-sw.on{border-color:#3b2e8f;box-shadow:0 0 0 3px #6c4cf133}
+.hmv-th-sw i{flex:0 0 32px;height:32px;border-radius:10px;box-shadow:inset 0 0 0 1px #0000001a}
+.hmv-th-sw b{position:absolute;right:8px;top:6px;font-size:14px;color:#3b2e8f}
+.hmv-th-custom input{flex:0 0 32px;width:32px;height:32px;padding:0;border:0;border-radius:10px;background:none;cursor:pointer}
+.hmv-th-custom input::-webkit-color-swatch-wrapper{padding:0}
+.hmv-th-custom input::-webkit-color-swatch{border:0;border-radius:10px}

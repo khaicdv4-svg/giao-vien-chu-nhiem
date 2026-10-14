@@ -1,5 +1,5 @@
 {
-  "build": "HMV-BAN-CHINH-2.11-20261014",
+  "build": "HMV-BAN-CHINH-2.12-20261014",
   "total": 55,
   "passed": 55,
   "results": [
@@ -148,7 +148,7 @@
     {
       "name": "1366: tiêu đề thẻ trình duyệt không còn ThayKhaiEdu",
       "pass": true,
-      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-2.11-20261014"
+      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-2.12-20261014"
     },
     {
       "name": "1366: cột trái khôi phục \"HỌC MÀ VUI / ThayKhaiEdu\" và logo",
@@ -186,14 +186,14 @@
     {
       "name": "Cài đặt: tiêu đề thẻ vẫn đúng sau khi mở Cài đặt",
       "pass": true,
-      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-2.11-20261014"
+      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-2.12-20261014"
     },
     {
       "name": "Màn hình picker: ảnh bìa và nội dung không còn chữ cũ, khối logo cột trái đúng",
       "pass": true,
       "detail": {
         "hits": [],
-        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.11-20261014",
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.12-20261014",
         "brand": "HỌC MÀ VUI ThayKhaiEdu"
       }
     },
@@ -202,7 +202,7 @@
       "pass": true,
       "detail": {
         "hits": [],
-        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.11-20261014",
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.12-20261014",
         "brand": "HỌC MÀ VUI ThayKhaiEdu"
       }
     },
@@ -211,7 +211,7 @@
       "pass": true,
       "detail": {
         "hits": [],
-        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.11-20261014",
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.12-20261014",
         "brand": "HỌC MÀ VUI ThayKhaiEdu"
       }
     },
@@ -220,7 +220,7 @@
       "pass": true,
       "detail": {
         "hits": [],
-        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.11-20261014",
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.12-20261014",
         "brand": "HỌC MÀ VUI ThayKhaiEdu"
       }
     },
@@ -229,7 +229,7 @@
       "pass": true,
       "detail": {
         "hits": [],
-        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.11-20261014",
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.12-20261014",
         "brand": "HỌC MÀ VUI ThayKhaiEdu"
       }
     },
@@ -238,7 +238,7 @@
       "pass": true,
       "detail": {
         "hits": [],
-        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.11-20261014",
+        "title": "HỌC MÀ VUI | HMV-BAN-CHINH-2.12-20261014",
         "brand": "HỌC MÀ VUI ThayKhaiEdu"
       }
     },
@@ -395,7 +395,7 @@
     {
       "name": "1774: tiêu đề thẻ trình duyệt không còn ThayKhaiEdu",
       "pass": true,
-      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-2.11-20261014"
+      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-2.12-20261014"
     },
     {
       "name": "1774: cột trái khôi phục \"HỌC MÀ VUI / ThayKhaiEdu\" và logo",
@@ -568,7 +568,7 @@
     {
       "name": "420: tiêu đề thẻ trình duyệt không còn ThayKhaiEdu",
       "pass": true,
-      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-2.11-20261014"
+      "detail": "HỌC MÀ VUI | HMV-BAN-CHINH-2.12-20261014"
     },
     {
       "name": "420: cột trái khôi phục \"HỌC MÀ VUI / ThayKhaiEdu\" và logo",

@@ -1,6 +1,6 @@
 {
   "version": "2.11",
-  "at": "2026-10-14T00:26:36.047Z",
+  "at": "2026-10-14T04:41:44.787Z",
   "pass": 16,
   "total": 16,
   "results": [
@@ -80,11 +80,11 @@
       ]
     },
     {
-      "name": "5 Bộ nhớ ngoại tuyến hmv-ban-chinh-2.11 có manifest, biểu tượng và mã cài đặt (ứng dụng đã cài mở được khi mất mạng)",
+      "name": "5 Bộ nhớ ngoại tuyến hmv-ban-chinh-2.12 có manifest, biểu tượng và mã cài đặt (ứng dụng đã cài mở được khi mất mạng)",
       "pass": true,
       "detail": {
         "names": [
-          "hmv-ban-chinh-2.11"
+          "hmv-ban-chinh-2.12"
         ],
         "has": true
       }

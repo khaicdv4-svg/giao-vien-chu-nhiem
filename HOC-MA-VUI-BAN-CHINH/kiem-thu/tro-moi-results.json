@@ -1,6 +1,6 @@
 {
- "at": "2026-10-14T00:00:47.514Z",
- "build": "HMV-BAN-CHINH-2.11-20261014",
+ "at": "2026-10-14T04:36:09.130Z",
+ "build": "HMV-BAN-CHINH-2.12-20261014",
  "note": "Camera giả của Chromium, bộ nhận diện bàn tay giả (vị trí bàn tay đặt bằng mã), giọng đọc giả. Chưa thử với bàn tay và webcam thật.",
  "total": 39,
  "passed": 39,
@@ -128,8 +128,8 @@
       "y": 202
      },
      "item": {
-      "text": "cô giáo",
-      "g": 0
+      "text": "trồng cây",
+      "g": 1
      },
      "groups": [
       "Danh từ",
@@ -150,8 +150,8 @@
       "Động từ",
       "Tính từ"
      ],
-     "card": "cô giáo",
-     "prompt": "cô giáo",
+     "card": "trồng cây",
+     "prompt": "trồng cây",
      "status": "🤏 Chụm ngón cái và ngón trỏ vào thẻ để nhặt thẻ",
      "numHands": 2,
      "mode": "VIDEO"
@@ -175,7 +175,7 @@
    "name": "7 Giữ chụm và di tay: thẻ đi theo tay tới ô nhóm (ô sáng lên); mở tay trên ĐÚNG nhóm → +10 điểm, thẻ vào ô, tiếng ĐÚNG",
    "pass": true,
    "detail": [
-    15.221228301803539,
+    15.23751570189921,
     true,
     {
      "q": 0,
@@ -195,12 +195,12 @@
      "held": "",
      "armed": true,
      "card": {
-      "x": 174,
+      "x": 491,
       "y": 446
      },
      "item": {
-      "text": "cô giáo",
-      "g": 0
+      "text": "trồng cây",
+      "g": 1
      },
      "groups": [
       "Danh từ",
@@ -208,10 +208,10 @@
       "Tính từ"
      ],
      "placed": [
-      [
-       "cô giáo"
-      ],
       [],
+      [
+       "trồng cây"
+      ],
       []
      ],
      "outcome": {
@@ -255,12 +255,12 @@
      "held": "",
      "armed": true,
      "card": {
-      "x": 174,
+      "x": 808,
       "y": 452
      },
      "item": {
-      "text": "dòng sông",
-      "g": 0
+      "text": "thông minh",
+      "g": 2
      },
      "groups": [
       "Danh từ",
@@ -268,12 +268,13 @@
       "Tính từ"
      ],
      "placed": [
-      [
-       "cô giáo",
-       "dòng sông"
-      ],
       [],
-      []
+      [
+       "trồng cây"
+      ],
+      [
+       "thông minh"
+      ]
      ],
      "outcome": {
       "ok": false,
@@ -284,7 +285,7 @@
     },
     {
      "right": true,
-     "banner": "❌ Chưa đúng. “dòng sông” thuộc nhóm Danh từThẻ tiếp theo sau 3 giây · Chuyển ngay"
+     "banner": "❌ Chưa đúng. “thông minh” thuộc nhóm Tính từThẻ tiếp theo sau 3 giây · Chuyển ngay"
     }
    ]
   },
@@ -321,8 +322,8 @@
      "y": 202
     },
     "item": {
-     "text": "bơi",
-     "g": 1
+     "text": "cao",
+     "g": 2
     },
     "groups": [
      "Danh từ",
@@ -330,12 +331,13 @@
      "Tính từ"
     ],
     "placed": [
-     [
-      "cô giáo",
-      "dòng sông"
-     ],
      [],
-     []
+     [
+      "trồng cây"
+     ],
+     [
+      "thông minh"
+     ]
     ],
     "outcome": null,
     "name": "Danh từ – Động từ – Tính từ (Tiếng Việt 4)"
@@ -362,12 +364,12 @@
     "held": "",
     "armed": true,
     "card": {
-     "x": 491,
+     "x": 808,
      "y": 446
     },
     "item": {
-     "text": "bơi",
-     "g": 1
+     "text": "cao",
+     "g": 2
     },
     "groups": [
      "Danh từ",
@@ -375,14 +377,14 @@
      "Tính từ"
     ],
     "placed": [
+     [],
      [
-      "cô giáo",
-      "dòng sông"
+      "trồng cây"
      ],
      [
-      "bơi"
-     ],
-     []
+      "thông minh",
+      "cao"
+     ]
     ],
     "outcome": {
      "ok": true,
@@ -414,12 +416,12 @@
     "held": "",
     "armed": false,
     "card": {
-     "x": 808,
+     "x": 491,
      "y": 452
     },
     "item": {
-     "text": "đẹp",
-     "g": 2
+     "text": "hát",
+     "g": 1
     },
     "groups": [
      "Danh từ",
@@ -427,15 +429,14 @@
      "Tính từ"
     ],
     "placed": [
+     [],
      [
-      "cô giáo",
-      "dòng sông"
+      "trồng cây",
+      "hát"
      ],
      [
-      "bơi"
-     ],
-     [
-      "đẹp"
+      "thông minh",
+      "cao"
      ]
     ],
     "outcome": {
@@ -452,36 +453,36 @@
    "pass": true,
    "detail": [
     {
-     "t": 1791935959413,
+     "t": 1791952481048,
      "g": "magic-hand",
-     "k": "1m60dyi",
+     "k": "hcezr4",
      "s": "",
      "o": 1,
+     "x": 1
+    },
+    {
+     "t": 1791952483159,
+     "g": "magic-hand",
+     "k": "eu2vvq",
+     "s": "",
+     "o": 0,
      "x": 0
     },
     {
-     "t": 1791935961521,
+     "t": 1791952488298,
      "g": "magic-hand",
-     "k": "5mm8pm",
-     "s": "",
-     "o": 0,
-     "x": 1
-    },
-    {
-     "t": 1791935966629,
-     "g": "magic-hand",
-     "k": "mf5ogw",
-     "s": "",
-     "o": 1,
-     "x": 1
-    },
-    {
-     "t": 1791935966959,
-     "g": "magic-hand",
-     "k": "937orz",
+     "k": "omkico",
      "s": "",
      "o": 1,
      "x": 2
+    },
+    {
+     "t": 1791952488638,
+     "g": "magic-hand",
+     "k": "f61nap",
+     "s": "",
+     "o": 1,
+     "x": 1
     }
    ]
   },
@@ -490,14 +491,14 @@
    "pass": true,
    "detail": {
     "id": "magic-hand",
-    "text": "đẹp"
+    "text": "hát"
    }
   },
   {
    "name": "15 Hết 5 thẻ: màn kết quả (số thẻ xếp đúng ngay lần đầu, điểm, danh sách thẻ trong từng nhóm), có tiếng mừng, camera tắt",
    "pass": true,
    "detail": {
-    "text": "★★★\n🎉 Làm tốt lắm!\n\nXếp đúng ngay lần đầu 4/5 thẻ · 40 điểm\n\nDanh từ\n\ncô giáo · dòng sông\n\nĐộng từ\n\nbơi\n\nTính từ\n\nđẹp · thông minh\n\n↻ Chơi lại\n← Về thư viện",
+    "text": "★★★\n🎉 Làm tốt lắm!\n\nXếp đúng ngay lần đầu 4/5 thẻ · 40 điểm\n\nDanh từ\n\ncái bàn\n\nĐộng từ\n\ntrồng cây · hát\n\nTính từ\n\nthông minh · cao\n\n↻ Chơi lại\n← Về thư viện",
     "bins": 3,
     "mung": 1,
     "cam": false
@@ -526,12 +527,12 @@
      "held": "",
      "armed": true,
      "card": {
-      "x": 848,
+      "x": 372,
       "y": 446
      },
      "item": {
-      "text": "Góc 180°",
-      "g": 3
+      "text": "Góc ở đỉnh hình chữ nhật",
+      "g": 1
      },
      "groups": [
       "Góc nhọn",
@@ -541,11 +542,11 @@
      ],
      "placed": [
       [],
-      [],
-      [],
       [
-       "Góc 180°"
-      ]
+       "Góc ở đỉnh hình chữ nhật"
+      ],
+      [],
+      []
      ],
      "outcome": {
       "ok": true,
@@ -588,8 +589,8 @@
      "y": 202
     },
     "item": {
-     "text": "Góc tạo bởi hai tia đối nhau",
-     "g": 3
+     "text": "Góc 45°",
+     "g": 0
     },
     "groups": [
      "Góc nhọn",
@@ -599,11 +600,11 @@
     ],
     "placed": [
      [],
-     [],
-     [],
      [
-      "Góc 180°"
-     ]
+      "Góc ở đỉnh hình chữ nhật"
+     ],
+     [],
+     []
     ],
     "outcome": null,
     "name": "Góc nhọn – vuông – tù – bẹt (Toán 4)"
@@ -649,8 +650,8 @@
       "y": 202
      },
      "item": {
-      "text": "Số 305 đọc là \"ba trăm linh năm\".",
-      "g": 0
+      "text": "Góc tù bé hơn góc vuông.",
+      "g": 1
      },
      "groups": [
       "Đúng",
@@ -708,14 +709,14 @@
      "outcome": null,
      "note": "",
      "question": {
-      "text": "1 km = … m",
+      "text": "1 dm = … cm",
       "answers": [
        "10",
        "100",
-       "1 000",
-       "10 000"
+       "1",
+       "1 000"
       ],
-      "correct": 2,
+      "correct": 0,
       "keyed": true
      },
      "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -728,7 +729,7 @@
      "ans": 4,
      "go": true,
      "numHands": 6,
-     "q": "1 km = … m"
+     "q": "1 dm = … cm"
     }
    ]
   },
@@ -772,14 +773,14 @@
      "outcome": null,
      "note": "⛔ Đội Xanh giơ tay trước hiệu lệnh – mất lượt câu này",
      "question": {
-      "text": "1 km = … m",
+      "text": "1 dm = … cm",
       "answers": [
        "10",
        "100",
-       "1 000",
-       "10 000"
+       "1",
+       "1 000"
       ],
-      "correct": 2,
+      "correct": 0,
       "keyed": true
      },
      "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -823,14 +824,14 @@
      "outcome": null,
      "note": "",
      "question": {
-      "text": "1 km = … m",
+      "text": "1 dm = … cm",
       "answers": [
        "10",
        "100",
-       "1 000",
-       "10 000"
+       "1",
+       "1 000"
       ],
-      "correct": 2,
+      "correct": 0,
       "keyed": true
      },
      "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -873,21 +874,21 @@
       true
      ],
      "claimed": 0,
-     "chosen": 2,
+     "chosen": 0,
      "outcome": {
       "ok": true,
       "team": 0
      },
      "note": "",
      "question": {
-      "text": "1 km = … m",
+      "text": "1 dm = … cm",
       "answers": [
        "10",
        "100",
-       "1 000",
-       "10 000"
+       "1",
+       "1 000"
       ],
-      "correct": 2,
+      "correct": 0,
       "keyed": true
      },
      "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -936,14 +937,14 @@
     "outcome": null,
     "note": "",
     "question": {
-     "text": "9 − 5 = ?",
+     "text": "Hình vuông có cạnh 5 cm. Chu vi hình vuông đó là:",
      "answers": [
-      "4",
-      "3",
-      "5",
-      "6"
+      "10 cm",
+      "15 cm",
+      "25 cm",
+      "20 cm"
      ],
-     "correct": 0,
+     "correct": 3,
      "keyed": true
     },
     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -986,14 +987,14 @@
      "outcome": null,
      "note": "",
      "question": {
-      "text": "9 − 5 = ?",
+      "text": "Hình vuông có cạnh 5 cm. Chu vi hình vuông đó là:",
       "answers": [
-       "4",
-       "3",
-       "5",
-       "6"
+       "10 cm",
+       "15 cm",
+       "25 cm",
+       "20 cm"
       ],
-      "correct": 0,
+      "correct": 3,
       "keyed": true
      },
      "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -1030,21 +1031,21 @@
      false
     ],
     "claimed": 1,
-    "chosen": 0,
+    "chosen": 3,
     "outcome": {
      "ok": true,
      "team": 1
     },
     "note": "",
     "question": {
-     "text": "9 − 5 = ?",
+     "text": "Hình vuông có cạnh 5 cm. Chu vi hình vuông đó là:",
      "answers": [
-      "4",
-      "3",
-      "5",
-      "6"
+      "10 cm",
+      "15 cm",
+      "25 cm",
+      "20 cm"
      ],
-     "correct": 0,
+     "correct": 3,
      "keyed": true
     },
     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -1109,14 +1110,14 @@
     "outcome": null,
     "note": "",
     "question": {
-     "text": "3 tấn 5 tạ = … kg",
+     "text": "Trung bình cộng của 12, 15 và 18 là:",
      "answers": [
-      "350",
-      "3 050",
-      "35 000",
-      "3 500"
+      "15",
+      "14",
+      "16",
+      "45"
      ],
-     "correct": 3,
+     "correct": 0,
      "keyed": true
     },
     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -1166,14 +1167,14 @@
     "outcome": null,
     "note": "❌ Đội Tím hết giờ trả lời",
     "question": {
-     "text": "3 tấn 5 tạ = … kg",
+     "text": "Trung bình cộng của 12, 15 và 18 là:",
      "answers": [
-      "350",
-      "3 050",
-      "35 000",
-      "3 500"
+      "15",
+      "14",
+      "16",
+      "45"
      ],
-     "correct": 3,
+     "correct": 0,
      "keyed": true
     },
     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -1227,14 +1228,14 @@
     },
     "note": "❌ Đội Tím hết giờ trả lời",
     "question": {
-     "text": "3 tấn 5 tạ = … kg",
+     "text": "Trung bình cộng của 12, 15 và 18 là:",
      "answers": [
-      "350",
-      "3 050",
-      "35 000",
-      "3 500"
+      "15",
+      "14",
+      "16",
+      "45"
      ],
-     "correct": 3,
+     "correct": 0,
      "keyed": true
     },
     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -1284,14 +1285,14 @@
     "outcome": null,
     "note": "",
     "question": {
-     "text": "1 km = … m",
+     "text": "25% của 80 là:",
      "answers": [
-      "10",
-      "100",
-      "1 000",
-      "10 000"
+      "20",
+      "25",
+      "40",
+      "55"
      ],
-     "correct": 2,
+     "correct": 0,
      "keyed": true
     },
     "source": "Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5"
@@ -1340,7 +1341,7 @@
      },
      "note": "",
      "question": {
-      "text": "Nêu một việc em làm để tiết kiệm nước.",
+      "text": "Nói một câu có từ \"chăm chỉ\".",
       "answers": [],
       "correct": null,
       "keyed": false
