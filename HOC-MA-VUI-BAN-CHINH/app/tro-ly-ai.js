@@ -178,7 +178,8 @@
     f.source = mask(f.source, map); f.topic = mask(f.topic, map);
     var parts = [{ text: questionPrompt(f, more ? S.drafts.map(function (d) { return d.text; }) : null) }];
     S.images.forEach(function (im) { parts.push({ inlineData: { mimeType: im.mime, data: im.data } }); });
-    setBusy(more ? 'more' : 'gen'); setNote('AI đang đọc nguồn và soạn ' + f.count + ' câu… (thường mất 10–40 giây)');
+    if (!more) S.saved = null; // bỏ thẻ "Đã lưu" của lần trước để khung 3 chỉ nói về lần đang chạy
+    setBusy(more ? 'more' : 'gen'); setNote('AI đang đọc nguồn và soạn ' + f.count + ' câu… (thường mất 10–40 giây)'); renderDrafts();
     generate({ system: Q_SYSTEM, contents: [{ role: 'user', parts: parts }], json: true, schema: Q_SCHEMA, temperature: 0.5, maxOutputTokens: Math.min(16000, 2500 + f.count * 450), timeoutMs: 90000 })
       .then(function (r) {
         var res = normalizeQuestions(parseJson(unmask(r.text, map)));
@@ -189,7 +190,7 @@
         setBusy(''); setNote((more ? 'Đã thêm ' : 'AI đã soạn ') + res.list.length + ' câu' + (res.dropped ? ' (bỏ ' + res.dropped + ' câu sai quy cách)' : '') + (map.length ? ' · đã ẩn ' + map.length + ' tên học sinh trước khi gửi' : '') + '. Thầy cô kiểm tra rồi lưu.');
         renderDrafts();
       })
-      .catch(function (e) { setBusy(''); setNote(e.message, true, e.code); });
+      .catch(function (e) { setBusy(''); setNote(e.message, true, e.code); renderDrafts(); });
   }
 
   /* ---------- AI rà soát ---------- */
@@ -300,10 +301,10 @@
   }
 
   /* ---------- Giao diện ---------- */
-  function setBusy(b) { S.busy = b; var v = $(VIEW); if (v) v.classList.toggle('ta-busy', !!b); ['taGenerate', 'taMore', 'taReview', 'taSave', 'taPlay', 'taChatSend', 'taTaskRun', 'taKeySave', 'taKeyTest'].forEach(function (id) { var e = $(id); if (e) e.disabled = !!b || e.hasAttribute('data-ta-off'); }); }
+  function setBusy(b) { S.busy = b; var v = $(VIEW); if (v) v.classList.toggle('ta-busy', !!b); var g = $('taGenerate'); if (g) g.textContent = b === 'gen' ? '⏳ Đang soạn câu hỏi…' : '✨ Tạo câu hỏi'; ['taGenerate','taMore', 'taReview', 'taSave', 'taPlay', 'taChatSend', 'taTaskRun', 'taKeySave', 'taKeyTest'].forEach(function (id) { var e = $(id); if (e) e.disabled = !!b || e.hasAttribute('data-ta-off'); }); }
   function setNote(text, bad, code) {
     S.note = text; var n = $('taNote'); if (!n) return;
-    n.className = 'ta-note' + (bad ? ' bad' : '') + (text ? '' : ' empty');
+    n.className = 'ta-note' + (bad ? ' bad' : '') + (!bad && S.busy && text ? ' ta-note-busy' : '') + (text ? '' : ' empty');
     n.innerHTML = esc(text) + (code === 'NO_KEY' || code === 'OLD_SERVER' || code === 'KEY_INVALID' || code === 'KEY_DENIED' ? ' <button type="button" class="btn soft" data-ta-tab="setup">Mở Kết nối AI</button>' : '') + (bad && code && code !== 'BAD_OUTPUT' ? ' <button type="button" class="btn soft" data-ta-paste>Dùng cách dán ChatGPT</button>' : '');
   }
   function paintStatus() {
@@ -338,8 +339,8 @@
       + '</div><div class="ta-grid ta-three">' + sel('taCount', 'Số câu', ['5', '10', '15', '20'], String(f.count || 10)) + sel('taKind', 'Dạng câu', [['ABCD', 'Trắc nghiệm A–B–C–D'], ['TRUEFALSE', 'Đúng / Sai'], ['MIX', 'Hỗn hợp A–B–C–D và Đúng/Sai'], ['SHORT', 'Trả lời ngắn (hỏi miệng)']], f.kind || 'ABCD') + sel('taLevel', 'Mức độ', [['ALL', 'Đủ ba mức'], ['Mức 1', 'Chỉ Mức 1'], ['Mức 2', 'Chỉ Mức 2'], ['Mức 3', 'Chỉ Mức 3']], f.level || 'ALL')
       + '</div><h3>2 · Nguồn bài học <small>(không bắt buộc)</small></h3><textarea id="taSource" class="input ta-source" rows="4" placeholder="Dán nội dung bài học, ghi nhớ trong sách hoặc yêu cầu cần đạt. Để trống thì AI dựa vào tên bài."></textarea>'
       + '<div class="ta-img-row"><label class="btn soft ta-file">📷 Thêm ảnh trang sách<input type="file" id="taImages" accept="image/png,image/jpeg,image/webp" multiple hidden></label><span class="ta-hint">Tối đa 4 ảnh. Không chụp trang có tên hay bài làm của học sinh.</span></div><div id="taThumbs" class="ta-thumbs"></div>'
-      + '<div class="ta-actions"><button type="button" class="btn color ta-big" id="taGenerate">✨ Tạo câu hỏi</button><button type="button" class="btn soft" data-ta-paste>Cách dán ChatGPT (không cần khóa)</button></div></section>'
-      + '<section class="card ta-result"><h3>3 · Duyệt, lưu và chơi</h3><div id="taNote" class="ta-note empty"></div><div id="taDrafts"></div></section></div>';
+      + '<div class="ta-actions"><button type="button" class="btn color ta-big" id="taGenerate">✨ Tạo câu hỏi</button><button type="button" class="btn soft" data-ta-paste>Cách dán ChatGPT (không cần khóa)</button></div><div id="taNote" class="ta-note empty" role="status"></div></section>'
+      + '<section class="card ta-result"><h3>3 · Duyệt, lưu và chơi</h3><div id="taDrafts"></div></section></div>';
     renderThumbs(); renderDrafts(); if (S.note) setNote(S.note); setBusy(S.busy);
   }
   function renderThumbs() { var t = $('taThumbs'); if (!t) return; t.innerHTML = S.images.map(function (im, i) { return '<span class="ta-thumb"><img alt="Ảnh nguồn ' + (i + 1) + '" src="data:' + im.mime + ';base64,' + im.data + '"><button type="button" data-ta-img-del="' + i + '" aria-label="Bỏ ảnh ' + (i + 1) + '">×</button></span>'; }).join(''); }
@@ -357,7 +358,8 @@
   }
   function renderDrafts() {
     var box = $('taDrafts'); if (!box) return;
-    var saved = S.saved ? '<div class="ta-saved">✅ Đã lưu bộ <b>' + esc(S.saved.name) + '</b> (' + S.saved.count + ' câu) vào Kho. <button type="button" class="btn color" data-ta-play-saved>▶ Chơi ngay</button> <button type="button" class="btn soft" data-ta-open-bank>Mở Kho câu hỏi</button></div>' : '';
+    if (S.busy === 'gen') { box.innerHTML = '<div class="ta-working" role="status"><span class="ta-spin" aria-hidden="true"></span><div><b>Đang soạn ' + (parseInt($('taCount') && $('taCount').value, 10) || 10) + ' câu mới…</b><small>Khung này chờ kết quả của lần soạn hiện tại. Thường mất 10–40 giây.</small></div></div>'; return; }
+    var saved = !S.busy && S.saved ? '<div class="ta-saved">✅ Đã lưu bộ <b>' + esc(S.saved.name) + '</b> (' + S.saved.count + ' câu) vào Kho. <button type="button" class="btn color" data-ta-play-saved>▶ Chơi ngay</button> <button type="button" class="btn soft" data-ta-open-bank>Mở Kho câu hỏi</button></div>' : '';
     if (!S.drafts.length) { box.innerHTML = saved + '<p class="ta-empty">' + (S.saved ? 'Muốn soạn bộ khác, hãy điền bên trái rồi bấm “Tạo câu hỏi”.' : 'Câu hỏi AI soạn sẽ hiện ở đây để thầy cô sửa, bỏ bớt, rồi lưu vào Kho và chơi ngay.') + '</p>'; return; }
     var bank = bankTexts(), meta = S.meta || { subject: '', topic: '' }, picked = S.drafts.filter(function (d) { return d.pick; }).length;
     box.innerHTML = saved + '<div class="ta-warn">AI có thể soạn sai. Thầy cô đọc lại kiến thức và đáp án trước khi dùng trên lớp.</div>'

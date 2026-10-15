@@ -6,6 +6,13 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0d. Cập nhật 2.23 (15/10/2026) – Trợ lý AI · Tạo câu hỏi nhanh: hiện rõ trạng thái đang soạn
+
+- Lỗi: bấm “Tạo câu hỏi” không có trạng thái làm việc rõ ràng, còn khung “3 · Duyệt, lưu và chơi” vẫn hiện thẻ “✅ Đã lưu bộ … vào Kho” của lần trước, dễ hiểu lầm là lần này đã xong.
+- Sửa: nút đổi thành “⏳ Đang soạn câu hỏi…” và bị khóa; thông báo tiến trình hiện ngay dưới nút ở khung 1 (có vòng quay); khung 3 hiện “Đang soạn N câu mới…” thay cho thẻ cũ. Thẻ “Đã lưu” chỉ xuất hiện khi lần soạn hiện tại đã xong và đã lưu. Nếu lỗi, khung 3 quay lại nội dung cũ, thông báo lỗi nằm dưới nút.
+- Tệp sửa: `app\tro-ly-ai.js` (setBusy, runGenerate, renderDrafts, renderQuick), `app\ban-chinh.css` (.ta-working, .ta-note-busy). Bộ nhớ đệm offline: `hmv-ban-chinh-2.23`.
+- Kiểm thử: Chromium, giả lập máy chủ AI (lần 1 nhanh, lần 2 chậm 5 giây). Đã xác nhận: nút và khung 3 hiện trạng thái đang soạn; không còn thẻ cũ; kết quả mới hiện đúng; không có lỗi trang.
+
 ## 0. Cập nhật 2.22 (15/10/2026) – Đường đua kiến thức: nhạc nền, tự chấm, cài đặt như các trò khác
 
 - **Tự chấm điểm:** ô mới **Chấm điểm** với hai lựa chọn.
