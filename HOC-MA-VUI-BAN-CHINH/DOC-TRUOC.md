@@ -6,7 +6,23 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
-## 0a. Cập nhật 2.16 (15/10/2026) – Giới thiệu dự án, nhóm phát triển
+## 0a. Cập nhật 2.17 (15/10/2026) – Gọi tên vui: Tuỳ chọn học sinh
+
+- **Vòng quay kết nối → khung Cài đặt** có nút **👥 Tuỳ chọn học sinh**. Nút chỉ hiện ở chế độ Gọi tên vui.
+- **Hộp tuỳ chọn** gồm:
+  - Danh sách học sinh của lớp đang chọn, mỗi bạn một ô tích.
+  - Công tắc **Bật tuỳ chọn học sinh**, nút **Chọn tất cả / Bỏ chọn tất cả**, ô tìm tên.
+- **Khi bật:** vòng quay chỉ hiện tên các bạn được tích.
+  - Bộ đếm “Chưa tham gia · Đã tham gia · Tổng” chỉ tính trên các bạn này.
+  - Luật không gọi lặp vẫn như cũ. Gọi hết các bạn đã tích thì hiện “Tất cả học sinh đã tham gia”.
+- **Kín đáo khi dự giờ:** màn hình vòng quay không ghi chữ “tuỳ chọn”.
+  - Chỉ có một chấm xanh nhỏ trên nút để thầy cô nhớ là đang bật.
+  - Lưu xong chỉ báo “✓ Đã lưu”.
+- **Tắt tuỳ chọn:** vòng quay gọi lại cả lớp.
+- Lựa chọn được lưu riêng cho từng lớp, trên máy đang dùng.
+- Tệp mới: `app\chon-hoc-sinh.js`. Bộ nhớ đệm offline: `hmv-ban-chinh-2.18`.
+
+## 0b. Cập nhật 2.16 (15/10/2026) – Giới thiệu dự án, nhóm phát triển
 
 - **Cuối trang chủ** có dòng chân trang: “© 2026 Trường TH Trần Văn Ơn · Nhóm thực hiện: thầy Võ Việt Khái, thầy Lê Thanh Tùng” và nút **ℹ️ Giới thiệu dự án**.
 - **Bấm nút** mở khung Giới thiệu. Nhóm phát triển chia theo vai trò:
