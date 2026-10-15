@@ -128,7 +128,7 @@ const gstate = (page, setId) => page.evaluate((setId) => { const set = questionB
   // ===== G. Ngắt mạng =====
   { const { browser, ctx, page, logs } = await open();
     const sw = await page.evaluate(async () => { const reg = await Promise.race([navigator.serviceWorker.ready, new Promise(r => setTimeout(() => r(null), 8000))]); if (!reg) return null; const keys = await caches.keys(); return { caches: keys, n: (await (await caches.open(keys[0])).keys()).length }; });
-    rec('G1', 'Service worker cài xong và lưu đủ 26 tệp ứng dụng', !!sw && sw.caches.join() === 'hmv-ban-chinh-2.15' && sw.n >= 26, sw);
+    rec('G1', 'Service worker cài xong và lưu đủ 26 tệp ứng dụng', !!sw && sw.caches.join() === 'hmv-ban-chinh-2.16' && sw.n >= 26, sw);
     await page.reload({ waitUntil: 'load' }); await page.waitForTimeout(1500); await ctx.setOffline(true); await page.reload({ waitUntil: 'load', timeout: 15000 });
     await page.waitForFunction(() => window.audioDB && Array.isArray(window.questionBankSets) && questionBankSets.length > 7, null, { timeout: 8000 }); await page.evaluate(() => openView('questions')); await page.waitForTimeout(300);
     const off = await page.evaluate(() => ({ online: navigator.onLine, marker: document.getElementById('runtimeBuildMarker').textContent, demo: questionBankSets.filter(s => /^mau-/.test(s.id)).length, styled: getComputedStyle(document.querySelector('.kho-title')).backgroundColor, cam: !!window.hmvTiltCamera }));

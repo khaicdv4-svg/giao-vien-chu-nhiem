@@ -114,7 +114,7 @@ const tiltStart = async page => { await play(page, 'mau-2-dung-sai', 'head-tilt'
     const sw = await pg.evaluate(async () => { const names = await caches.keys(); const c = await caches.open(names[0]); const keys = (await c.keys()).map(r => new URL(r.url).pathname); return { names, mp3: keys.includes('/assets/audio/mung-chien-thang.mp3'), js: keys.includes('/mung-chien-thang.js') }; });
     await ctx.setOffline(true); await pg.reload({ waitUntil: 'load' }); await pg.waitForFunction(() => window.hmvMung && window.questionBankSets && questionBankSets.length > 0, null, { timeout: 15000 });
     const offl = await pg.evaluate(async () => { openView('games'); hmvMung.play(0.6, null, null); await new Promise(r => setTimeout(r, 900)); const s2 = hmvMung.state(); hmvMung.stop(); return { s: s2, marker: document.title }; });
-    ok('25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.15) có tệp tiếng mừng và mã; ngắt mạng rồi tải lại vẫn phát được', sw.names.join() === 'hmv-ban-chinh-2.15' && sw.mp3 && sw.js && offl.s.playing && !offl.s.last.fallback && /2\.15/.test(offl.marker), [sw, offl]);
+    ok('25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.16) có tệp tiếng mừng và mã; ngắt mạng rồi tải lại vẫn phát được', sw.names.join() === 'hmv-ban-chinh-2.16' && sw.mp3 && sw.js && offl.s.playing && !offl.s.last.fallback && /2\.15/.test(offl.marker), [sw, offl]);
     await b.close(); }
 
   fs.writeFileSync(path.join(__dirname, 'mung-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.15-20261015', note: 'Trình duyệt thử không có loa: kiểm việc tệp được phát, không nghe tiếng thật.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));

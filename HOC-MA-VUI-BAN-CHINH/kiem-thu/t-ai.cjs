@@ -145,7 +145,7 @@ const gen = (extra, headers) => rq('POST', '/api/ai/generate', Object.assign({ c
   await mock('normal');
   // service worker không lưu đệm /api
   const swc = await page.evaluate(async () => { const names = await caches.keys(); const urls = []; for (const n of names) { const c = await caches.open(n); (await c.keys()).forEach(r => urls.push(r.url)); } return { names, api: urls.filter(u => /\/api\//.test(u)), hasJs: urls.some(u => /tro-ly-ai\.js/.test(u)) }; });
-  ok('B35 Bộ nhớ đệm ngoại tuyến: có tro-ly-ai.js, không lưu đệm yêu cầu /api', swc.names.includes('hmv-ban-chinh-2.15') && swc.api.length === 0 && swc.hasJs, swc);
+  ok('B35 Bộ nhớ đệm ngoại tuyến: có tro-ly-ai.js, không lưu đệm yêu cầu /api', swc.names.includes('hmv-ban-chinh-2.16') && swc.api.length === 0 && swc.hasJs, swc);
   await page.evaluate(() => openView('games')); await page.waitForTimeout(400); await page.click('#games .phase1-coming'); await page.waitForTimeout(400);
   ok('B36 Trong Hoạt động: dòng "sắp ra mắt" đã thay bằng lối tắt mở Trợ lý AI', await view(page) === 'troLyAI' && await page.isVisible('#taGenerate'));
   for (const vp of [{ width: 1366, height: 768 }, { width: 1774, height: 934 }, { width: 800, height: 700 }, { width: 420, height: 800 }]) { await page.setViewportSize(vp); for (const tab of ['quick', 'chat', 'setup']) { await page.click('#troLyAI .ta-tabs [data-ta-tab="' + tab + '"]'); await page.waitForTimeout(250); const o = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth); if (o > 1) logs.push('OVERFLOW ' + vp.width + ' ' + tab + ' ' + o); } }
