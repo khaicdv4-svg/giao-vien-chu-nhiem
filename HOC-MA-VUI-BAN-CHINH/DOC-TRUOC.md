@@ -8,19 +8,20 @@
 
 ## 0a. Cập nhật 2.17 (15/10/2026) – Gọi tên vui: Tuỳ chọn học sinh
 
-- **Nơi đặt (bí mật):** trang **⚙️ Cài đặt & dữ liệu**, thẻ **👥 Tuỳ chọn học sinh – Gọi tên vui**.
-  - Thẻ ghi trạng thái, ví dụ “● Đang bật · Lớp 4.1: vòng quay chỉ gọi 3/32 bạn”.
-  - Bấm **Mở danh sách học sinh** để tích chọn.
+- **Nơi đặt (bí mật):** bánh răng **⚙** cạnh nút “🧩 Nhiệm vụ bất ngờ” trong Vòng quay kết nối.
+  - Bấm bánh răng hiện menu nhỏ gồm **🧩 Cài đặt Nhiệm vụ bất ngờ** và **👥 Tuỳ chọn học sinh**.
+  - Hai bánh răng cũ được gom làm một. Bánh răng nhỏ ở dòng “Kho nhiệm vụ · … mục” đã được ẩn.
+  - Trang Cài đặt & dữ liệu không còn thẻ Tuỳ chọn học sinh.
 - **Hộp tuỳ chọn** gồm:
   - Danh sách học sinh của lớp đang chọn, mỗi bạn một ô tích.
   - Công tắc **Bật tuỳ chọn học sinh**, nút **Chọn tất cả / Bỏ chọn tất cả**, ô tìm tên.
 - **Khi bật:** vòng quay chỉ hiện tên các bạn được tích.
   - Bộ đếm “Chưa tham gia · Đã tham gia · Tổng” chỉ tính trên các bạn này.
   - Luật không gọi lặp vẫn như cũ.
-- **Màn hình vòng quay không có nút, chữ hay dấu hiệu nào** về tuỳ chọn. Lưu xong chỉ báo “✓ Đã lưu”.
+- **Ngoài menu bánh răng, màn hình vòng quay không có chữ hay dấu hiệu nào** về tuỳ chọn. Lưu xong chỉ báo “✓ Đã lưu”.
 - **Tắt tuỳ chọn:** vòng quay gọi lại cả lớp.
 - Lựa chọn được lưu riêng cho từng lớp, trên máy đang dùng.
-- Tệp mới: `app\chon-hoc-sinh.js`. Bộ nhớ đệm offline: `hmv-ban-chinh-2.19`.
+- Tệp mới: `app\chon-hoc-sinh.js`. Bộ nhớ đệm offline: `hmv-ban-chinh-2.20`.
 
 ## 0b. Cập nhật 2.16 (15/10/2026) – Giới thiệu dự án, nhóm phát triển
 

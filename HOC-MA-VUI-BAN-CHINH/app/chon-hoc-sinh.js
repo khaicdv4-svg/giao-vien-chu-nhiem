@@ -1,6 +1,9 @@
 /* BAN-CHINH 2.17 · Gọi tên vui – Tuỳ chọn học sinh.
  *
- * - Trang "Cài đặt & dữ liệu" có thẻ "👥 Tuỳ chọn học sinh". Màn hình vòng quay KHÔNG có nút hay dấu hiệu nào (giữ bí mật khi dự giờ).
+ * - Vòng quay chỉ còn MỘT bánh răng ⚙ (cạnh nút Nhiệm vụ bất ngờ). Bấm vào hiện menu nhỏ:
+ *     🧩 Cài đặt Nhiệm vụ bất ngờ  và  👥 Tuỳ chọn học sinh.
+ *   Nút "⚙ Cài đặt" trùng lặp dưới thẻ Kho nhiệm vụ được ẩn đi.
+ * - Ngoài menu ra, màn hình vòng quay không có chữ hay dấu hiệu nào về tuỳ chọn (giữ bí mật khi dự giờ).
  * - Hộp tuỳ chọn: danh sách học sinh của lớp đang chọn, mỗi bạn một ô tích; công tắc Bật/Tắt tuỳ chọn.
  * - Khi bật: vòng quay CHỈ hiện tên các bạn được tích. Luật "không gọi lặp" (ĐÃ THAM GIA, lượt mới) vẫn giữ nguyên.
  * - Lựa chọn lưu riêng cho từng lớp, trên máy đang dùng. Tắt tuỳ chọn thì vòng quay trở lại cả lớp.
@@ -51,8 +54,11 @@
 
   /* ---------- Giao diện ---------- */
   var CSS = ''
-    + '.chs-card .chs-state{margin:6px 0 12px;font-weight:700;color:#4c3aa8}.chs-card .chs-state.on{color:#15803d}'
-    + '.chs-card p{color:var(--muted,#75718f);margin:0 0 4px;font-size:14px;line-height:1.45}'
+    + '#phase1ModePanel #phase1ManageTasks,#phase1ModePanel .phase11-task-summary button{display:none!important}'
+    + '.chs-menu{position:fixed;z-index:5900;min-width:240px;padding:6px;background:#fff;border:1px solid #ddd5fb;border-radius:14px;box-shadow:0 14px 36px #1e1b4b33;display:none}'
+    + '.chs-menu.on{display:block}'
+    + '.chs-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border:0;border-radius:10px;background:none;color:#2e2a5a;font:inherit;font-size:15px;font-weight:700;text-align:left;cursor:pointer}'
+    + '.chs-menu button:hover,.chs-menu button:focus-visible{background:#f4f1ff;outline:none}'
     + '.chs-overlay{position:fixed;inset:0;z-index:6000;display:none;align-items:center;justify-content:center;padding:16px;background:#1e1b4b8c}'
     + '.chs-overlay.on{display:flex}'
     + '.chs-box{display:flex;flex-direction:column;width:min(620px,100%);max-height:92vh;box-sizing:border-box;background:#fff;color:#242044;border-radius:20px;box-shadow:0 22px 60px #0f172a66;overflow:hidden}'
@@ -77,30 +83,50 @@
     + '@media(max-width:480px){.chs-list{grid-template-columns:1fr}}';
   function addStyle() { if (doc.getElementById('chsStyle')) return; var s = doc.createElement('style'); s.id = 'chsStyle'; s.textContent = CSS; doc.head.appendChild(s); }
 
-  /* ---------- Thẻ trong trang Cài đặt & dữ liệu ---------- */
-  function className() { var c = doc.querySelector('.main > .topbar .crumb'); var n = c ? String(c.textContent || '').split('·')[0].trim() : ''; return n && !/Đang tải/.test(n) ? n : 'lớp đang chọn'; }
-  function cardState() {
-    var el = doc.getElementById('chsCardState'); if (!el) return;
-    var set = chosenSet(), all = list().length;
-    el.classList.toggle('on', !!set);
-    el.textContent = set ? '● Đang bật · ' + className() + ': vòng quay chỉ gọi ' + set.size + '/' + all + ' bạn' : '○ Đang tắt · ' + className() + ': vòng quay gọi cả lớp';
-  }
-  function addCard() {
-    var sec = doc.getElementById('settings'); if (!sec) return false;
-    var grid = sec.querySelector('.grid'); if (!grid) return false;
-    var card = doc.getElementById('chsSettingsCard');
-    if (!card) {
+  /* ---------- Bánh răng chung của vòng quay ---------- */
+  function menu() {
+    var m = doc.getElementById('chsMenu');
+    if (!m) {
       addStyle();
-      card = doc.createElement('div'); card.id = 'chsSettingsCard'; card.className = 'card chs-card';
-      card.innerHTML = '<h3>👥 Tuỳ chọn học sinh – Gọi tên vui</h3>'
-        + '<p>Tích chọn những bạn sẽ có tên trên vòng quay. Màn hình vòng quay không hiện dấu hiệu gì về tuỳ chọn này.</p>'
-        + '<div class="chs-state" id="chsCardState"></div>'
-        + '<button type="button" class="btn color" id="chsOpenSettings">Mở danh sách học sinh</button>';
-      card.querySelector('#chsOpenSettings').addEventListener('click', open);
+      m = doc.createElement('div'); m.id = 'chsMenu'; m.className = 'chs-menu'; m.setAttribute('role', 'menu');
+      m.innerHTML = '<button type="button" role="menuitem" data-chs="tasks">🧩 Cài đặt Nhiệm vụ bất ngờ</button>'
+        + '<button type="button" role="menuitem" data-chs="students">👥 Tuỳ chọn học sinh</button>';
+      m.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-chs]'); if (!b) return;
+        hideMenu();
+        if (b.dataset.chs === 'tasks') { if (typeof win.openPickerDataManager === 'function') win.openPickerDataManager('tasks'); }
+        else open();
+      });
     }
-    if (card.parentElement !== grid) grid.insertBefore(card, grid.firstChild ? grid.firstChild.nextSibling : null);
-    cardState(); return true;
+    var host = doc.fullscreenElement || doc.body; if (m.parentElement !== host) host.appendChild(m);
+    return m;
   }
+  function hideMenu() { var m = doc.getElementById('chsMenu'); if (m) m.classList.remove('on'); }
+  function showMenu(gear) {
+    var m = menu(), r = gear.getBoundingClientRect();
+    m.classList.add('on');
+    var w = m.offsetWidth, h = m.offsetHeight, vw = win.innerWidth, vh = win.innerHeight;
+    var left = Math.max(8, Math.min(r.right - w, vw - w - 8)), top = r.bottom + 6;
+    if (top + h > vh - 8) top = Math.max(8, r.top - h - 6);
+    m.style.left = left + 'px'; m.style.top = top + 'px';
+    var first = m.querySelector('button'); if (first) first.focus();
+  }
+  function tuneGear() {
+    var g = doc.querySelector('#phase1ModeBar [data-open-task-settings]'); if (!g) return false;
+    addStyle();
+    if (g.dataset.chs !== '1') { g.dataset.chs = '1'; }
+    g.title = 'Cài đặt vòng quay'; g.setAttribute('aria-label', 'Cài đặt vòng quay'); g.setAttribute('aria-haspopup', 'menu');
+    return true;
+  }
+  /* Chặn trước trình xử lý cũ (vốn mở thẳng Kho nhiệm vụ) để hiện menu chung. */
+  win.addEventListener('click', function (e) {
+    var t = e.target; if (!t || !t.closest) return;
+    var g = t.closest('#phase1ModeBar [data-open-task-settings]');
+    if (g) { e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); tuneGear(); var m = doc.getElementById('chsMenu'); if (m && m.classList.contains('on')) hideMenu(); else showMenu(g); return; }
+    if (!t.closest('#chsMenu')) hideMenu();
+  }, true);
+  win.addEventListener('resize', hideMenu);
+  win.addEventListener('scroll', hideMenu, true);
 
   var draft = null;
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -173,19 +199,15 @@
     var on = draft.on; close();
     try { if (typeof win.pickerDismissWinner === 'function') win.pickerDismissWinner(); } catch (e) {}
     redraw();
-    cardState();
     if (typeof win.showToast === 'function') win.showToast('✓ Đã lưu');
   }
-  doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && doc.getElementById('chsOverlay') && doc.getElementById('chsOverlay').classList.contains('on')) close(); });
-  doc.addEventListener('fullscreenchange', function () { var ov = doc.getElementById('chsOverlay'); if (ov && ov.classList.contains('on')) overlay(); });
+  doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') hideMenu(); if (e.key === 'Escape' && doc.getElementById('chsOverlay') && doc.getElementById('chsOverlay').classList.contains('on')) close(); });
+  doc.addEventListener('fullscreenchange', function () { hideMenu(); var ov = doc.getElementById('chsOverlay'); if (ov && ov.classList.contains('on')) overlay(); });
 
-  /* Trang Cài đặt được vẽ lại nhiều lần: thấy thẻ mất thì gắn lại. */
-  function later() { [0, 100, 400, 1300, 3200].forEach(function (ms) { setTimeout(addCard, ms); }); }
+  function later() { [0, 100, 400, 1300, 3200].forEach(function (ms) { setTimeout(function () { tuneGear(); afterDraw(); }, ms); }); }
   var baseOpen = win.openView;
-  if (typeof baseOpen === 'function') win.openView = function (id) { var out = baseOpen.apply(this, arguments); if (id === 'settings') later(); return out; };
-  function watch() { var sec = doc.getElementById('settings'); if (!sec || sec.dataset.chsWatch) return; sec.dataset.chsWatch = '1'; new MutationObserver(function () { if (!doc.getElementById('chsSettingsCard') || !sec.contains(doc.getElementById('chsSettingsCard'))) addCard(); }).observe(sec, { childList: true, subtree: true }); }
-  function boot() { watch(); later(); }
-  if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', boot); else boot();
-  win.addEventListener('load', boot);
+  if (typeof baseOpen === 'function') win.openView = function (id) { hideMenu(); var out = baseOpen.apply(this, arguments); if (id === 'picker') later(); return out; };
+  if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', function () { addStyle(); later(); }); else { addStyle(); later(); }
+  win.addEventListener('load', later);
   win.hmvChonHocSinh = { open: open, chosen: chosenSet, active: active };
 })();
