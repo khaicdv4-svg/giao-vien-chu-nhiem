@@ -3,7 +3,7 @@
 // Không có iPhone / Android thật: không kiểm được hộp "Thêm vào MH chính" thật của Safari hay việc Zalo cho mở Safari.
 // Mã QR được giải bằng bộ giải mã độc lập giai-ma-qr.py (đọc định dạng, bỏ mặt nạ, kiểm Reed-Solomon).
 const { chromium } = require('/opt/npm-tools/node_modules/playwright'); const fs = require('fs'), path = require('path'), http = require('http'), cp = require('child_process');
-const S = path.join(__dirname, '..'), APP = path.join(S, process.env.HMV_DIR || 'main30', 'app');
+const S = path.join(__dirname, '..'), APP = path.join(S, process.env.HMV_DIR || 'main31', 'app');
 const PORT = 8793, HOST = 'hocmavui.localhost', WEB = 'http://' + HOST + ':' + PORT + '/', LOCAL = 'http://127.0.0.1:8780/';
 const URL_PAGE = 'https://giao-vien-chu-nhiem.vercel.app/cai-dat.html';
 const res = []; const ok = (n, c, d) => { res.push({ name: n, pass: !!c, detail: d === undefined ? '' : d }); console.log((c ? 'PASS ' : 'FAIL ') + n + (d !== undefined && !c ? ' :: ' + JSON.stringify(d).slice(0, 900) : '')); };

@@ -127,7 +127,7 @@
     stopCamera('');
     S = { questions: list.slice(0, n), sourceName: src.name, q: 0, phase: 'ask', paused: false, score: [0, 0], right: [0, 0], turn: 0, picked: null, outcome: null, left: Number(cfg.time) || 0, nextLeft: null, dwell: [0, 0, 0, 0], armed: false, askAt: performance.now(), startedAt: Date.now(), history: [] };
     game().type = TYPE; game().started = true;
-    clearInterval(timer); lastT = Date.now(); timer = setInterval(tick, 200);
+    clearInterval(timer); lastT = Date.now(); timer = setInterval(tick, 200); if (win.hmvTran) win.hmvTran.begin(TYPE, { end: function () { if (S && S.phase !== 'end') finish(); }, live: function () { return !!S && S.phase !== 'end'; }, paused: function () { return !!(S && S.paused); } });
     tone('start'); render(true);
     if (cfg.control === 'camera') startCamera(); else { camNote = ''; hint(); }
     setTimeout(function () { var e = doc.querySelector('.bb-game'); if (e && e.scrollIntoView && !doc.fullscreenElement && !doc.body.classList.contains('hmv-game-full')) e.scrollIntoView({ block: 'start' }); }, 60);
@@ -139,11 +139,13 @@
     if (typeof win.hmvRec === 'function') win.hmvRec(TYPE, Q(), i, ok);   /* 2.1: ghi cho Phân tích sau trò chơi */
     if (ok) { S.score[t] += 10; S.right[t]++; }
     S.history.push({ q: S.q, ok: ok, team: t });
-    S.nextLeft = ok ? 2.4 : 3.6;
+    S.nextLeft = rv(ok ? 2.4 : 3.6);
     tone('pop'); ds(ok);
     paint(); if (ok) burst();
   }
-  function timeout() { if (!S || S.phase !== 'ask') return; if (typeof win.hmvRec === 'function') win.hmvRec(TYPE, Q(), null, false); S.phase = 'done'; S.picked = null; S.outcome = { ok: false, why: 'timeout', team: cfg.mode === 'teams' ? S.turn : 0 }; S.history.push({ q: S.q, ok: false, team: S.outcome.team }); S.nextLeft = 3.6; ds(false); paint(); }
+  function timeout() { if (!S || S.phase !== 'ask') return; if (typeof win.hmvRec === 'function') win.hmvRec(TYPE, Q(), null, false); S.phase = 'done'; S.picked = null; S.outcome = { ok: false, why: 'timeout', team: cfg.mode === 'teams' ? S.turn : 0 }; S.history.push({ q: S.q, ok: false, team: S.outcome.team }); S.nextLeft = rv(3.6); ds(false); paint(); }
+  /* 2.15: thời gian hiện đáp án trước khi chuyển câu lấy theo Luật trận đấu (để trống = mặc định của trò). */
+  function rv(d) { var v = win.hmvTran ? win.hmvTran.reveal(TYPE, null) : null; return v === null || v === undefined ? d : v; }
   function next() {
     if (!S || S.phase !== 'done') return;
     if (S.q + 1 >= S.questions.length) { finish(); return; }

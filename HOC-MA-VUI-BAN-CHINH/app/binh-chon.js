@@ -153,7 +153,7 @@
     }
     S = { mode: cfg.source, questions: list, q: 0, phase: 'ready', left: 0, tally: [0, 0, 0, 0], rounds: 0, results: [], sourceName: src ? src.name : 'Hỏi nhanh', quickNo: 1, startedAt: Date.now() };
     game().started = true; tracks = []; lastT = Date.now(); lastBeep = -1;
-    clearInterval(timer); timer = setInterval(tick, 100);
+    clearInterval(timer); timer = setInterval(tick, 100); if (win.hmvTran) win.hmvTran.begin(TYPE, { end: function () { if (S && S.phase !== 'end') finish(); }, live: function () { return !!S && S.phase !== 'end'; }, paused: function () { return false; } });
     render(true);
     if (cfg.control === 'camera') startCamera(); else hint();
   }
@@ -184,7 +184,7 @@
   function finishCount() {
     if (!S || S.phase !== 'count') return;
     var v = votesNow(); for (var i = 0; i < 4; i++) S.tally[i] += v.counts[i];
-    S.rounds++; S.last = v.counts.slice(); S.phase = 'result'; resultSound(); paint(); hint();
+    S.rounds++; S.last = v.counts.slice(); S.phase = 'result'; resultSound(); paint(); hint(); autoNext();
   }
   function addVote(i, d) {
     if (!S || S.phase === 'end' || S.phase === 'count' || i < 0 || i >= optionCount()) return;
@@ -198,7 +198,11 @@
     S.results.push(rec);
     if (win.hmvKetQua && typeof win.hmvKetQua.record === 'function') { try { win.hmvKetQua.record({ game: TYPE, source: S.sourceName, id: q && q.id, text: rec.text, answers: rec.answers, correct: rec.correct, counts: counts, total: sum, right: rec.right, grade: q && q.grade, subject: q && q.subject, topic: q && q.topic }); } catch (e) {} }
   }
+  /* 2.15: hỏi theo bộ câu hỏi + Luật trận đấu chọn "chuyển câu sau … giây" → tự sang câu sau khi hiện kết quả. */
+  var autoNx = 0;
+  function autoNext() { clearTimeout(autoNx); var r = win.hmvTran ? win.hmvTran.reveal(TYPE, 0) : 0; if (!(r > 0) || !S || !S.questions) return; var q = S.q; autoNx = setTimeout(function () { if (S && S.phase === 'result' && S.q === q && game().type === TYPE) next(); }, r * 1000); }
   function next() {
+    clearTimeout(autoNx);
     if (!S || S.phase === 'end' || S.phase === 'count') return;
     if (total() > 0 || S.phase === 'result') keep();
     S.tally = [0, 0, 0, 0]; S.rounds = 0; tracks = []; S.phase = 'ready';

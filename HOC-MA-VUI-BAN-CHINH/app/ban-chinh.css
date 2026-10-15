@@ -1025,3 +1025,93 @@ html.hmv-m body #thHome .th-tile.small b{font-size:15px!important}
 html.hmv-m body #thHome .th-tile.small small{font-size:12.5px!important;display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 html.hmv-m.hmv-m-play body #games .toolbar{gap:6px!important}
 html.hmv-m.hmv-m-play body #games .toolbar .btn,html.hmv-m.hmv-m-play body #games .toolbar button{font-size:13px!important;padding:7px 10px!important;min-height:36px!important}
+
+/* ===== 2.15 · Luật trận đấu (tran-dau.js) ===== */
+.hmv-td{box-sizing:border-box;margin:0 0 16px;padding:14px 16px;border:2px solid #c4b5fd;border-radius:16px;background:linear-gradient(135deg,#faf5ff,#eef2ff);color:#312e81;grid-column:1/-1}
+.hmv-td-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px;margin-bottom:10px}
+.hmv-td-head h3{margin:0;font-size:18px;color:#4c1d95}
+.hmv-td-head span{font-size:13px;color:#6b21a8;font-weight:600}
+.hmv-td-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px 14px}
+.hmv-td-grid>label,.hmv-td-src label{display:grid;gap:5px;font-weight:800;font-size:14px;color:#4338ca;min-width:0}
+.hmv-td-grid>label[hidden]{display:none}
+.hmv-td-grid select,.hmv-td-src select{width:100%;min-width:0;padding:9px 10px;border:1px solid #a5b4fc;border-radius:10px;background:#fff;color:#1e1b4b;font:inherit;font-weight:700}
+.hmv-td-grid label.hmv-td-moved{margin:0}
+.hmv-td-note{margin:10px 0 0;font-size:13.5px;color:#5b21b6;font-weight:600}
+.hmv-td-src{margin-top:10px;padding-top:10px;border-top:1px dashed #c4b5fd;display:grid;gap:8px}
+.hmv-td-src p{margin:0;font-size:14.5px;color:#1e1b4b}
+.hmv-td-tag{display:inline-block;margin-left:4px;padding:2px 9px;border-radius:999px;background:#fef3c7;color:#92400e;font-size:12px;font-weight:800;vertical-align:1px}
+.tilt-setup .hmv-td{margin:6px 0 12px}
+#bbSetup .hmv-td,#bcSetup .hmv-td,#mhSetup .hmv-td,#rhSetup .hmv-td{grid-column:1/-1;margin-bottom:6px}
+.hmv-td-clock{position:fixed;z-index:1300;top:10px;left:50%;transform:translateX(-50%);padding:7px 16px;border-radius:999px;background:#1e1b4bdd;color:#fff;font-weight:800;font-size:16px;box-shadow:0 6px 18px #0005;pointer-events:none;font-variant-numeric:tabular-nums}
+.hmv-td-clock b{font-size:19px;color:#fde68a}
+.hmv-td-clock.hurry{background:#b91c1cee;animation:hmvTdPulse 1s ease-in-out infinite}
+.hmv-td-clock.hurry b{color:#fff}
+.hmv-td-clock.paused{opacity:.75}
+.hmv-td-clock[hidden]{display:none}
+@keyframes hmvTdPulse{50%{transform:translateX(-50%) scale(1.07)}}
+html.hmv-m .hmv-td-clock{top:calc(6px + env(safe-area-inset-top));font-size:13px;padding:5px 12px}
+html.hmv-m .hmv-td-clock b{font-size:15px}
+/* Đường đua: màn hình sau khi chấm */
+.race-question.race-done.good{border-color:#16a34a;background:#f0fdf4}
+.race-question.race-done.bad{border-color:#dc2626;background:#fef2f2}
+.race-question.race-done .race-key{font-size:20px;margin:6px 0}
+.race-question.race-done .race-explain{color:#475569}
+.race-question.race-done .race-auto{background:#ede9fe;color:#4c1d95;font-weight:700}
+/* Lật mảnh ghép: tô đáp án trước khi chấm */
+.flip-answer.right{background:#dcfce7!important;border-color:#16a34a!important;color:#14532d!important}
+.flip-answer.wrong{background:#fee2e2!important;border-color:#dc2626!important;color:#7f1d1d!important}
+.flip-answer.right::after{content:"  ✓";font-weight:900}
+.flip-answer.wrong::after{content:"  ✗";font-weight:900}
+@media (max-width:760px){.hmv-td{padding:12px}.hmv-td-grid{grid-template-columns:1fr 1fr}.hmv-td-head h3{font-size:16px}}
+@media (max-width:420px){.hmv-td-grid{grid-template-columns:1fr}}
+/* Vòng quay: Bộ nhiệm vụ có sẵn (nhiem-vu-mau.js) */
+.hmv-nv{margin-top:14px;padding:12px;border:2px dashed #c4b5fd;border-radius:14px;background:#faf5ff}
+.hmv-nv h4{margin:0 0 4px;font-size:16px;color:#4c1d95}
+.hmv-nv>p{margin:0 0 10px;font-size:13.5px;color:#5b21b6}
+.hmv-nv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.hmv-nv-set{display:grid;gap:4px;align-content:start}
+.hmv-nv-set>button{display:grid;gap:2px;text-align:left;padding:10px 12px;font-weight:800}
+.hmv-nv-set>button small{font-weight:700;opacity:.85}
+.hmv-nv-set details summary{cursor:pointer;font-size:13px;color:#6d28d9;font-weight:700}
+.hmv-nv-set ol{margin:4px 0 0;padding-left:20px;font-size:13px;color:#334155}
+/* ===== 2.15 · Kéo co: cảnh hai đội kéo co (keo-co-canh.js) ===== */
+.tug-game .tug-track-large.tug-scene-wrap{height:auto;padding:0;background:linear-gradient(#e0f2fe,#fef9c3 75%,#86efac 75%,#22c55e);border:3px solid #c4b5fd;border-radius:20px;overflow:hidden;margin:10px 0}
+.tug-scene-wrap .tk-scene{display:block;width:100%;height:auto;max-height:min(20vh,220px)}
+.tk-scene .tk-leg{stroke:#1e293b;stroke-width:7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tk-scene .tk-shoe{fill:#0f172a}
+.tk-scene .tk-shadow{fill:#14532d;opacity:.22}
+.tk-scene .tk-shorts{stroke:#1e3a8a;stroke-width:13;stroke-linecap:round}
+.tk-scene .tk-shirt{stroke-width:17;stroke-linecap:round;fill:none}
+.tk-scene .tk-arm{stroke-width:6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tk-scene .tk-band{stroke-width:4;fill:none;stroke-linecap:round}
+.tk-scene .tk-eye{fill:#1e293b}
+.tk-scene .tk-mouth{stroke:#7f1d1d;stroke-width:2.2;fill:none;stroke-linecap:round}
+.tk-scene .tk-up,.tk-scene .tk-smile,.tk-scene .tk-cup{display:none}
+.tk-scene .tk-tag text{fill:#fff;font:800 15px system-ui,sans-serif;paint-order:stroke;stroke:#0003;stroke-width:2px}
+.tk-scene .tk-cup{font-size:40px}
+.tk-scene .tk-body{transform-box:fill-box;transform-origin:50% 100%}
+.tk-scene .tk-move{animation:tkMove .85s cubic-bezier(.25,1.45,.45,1) both}
+@keyframes tkMove{from{transform:translateX(var(--tk-from))}to{transform:translateX(var(--tk-to))}}
+/* Đang thi đấu: gồng người kéo */
+.tk-scene.live .tk-body{animation:tkStrain 1.1s ease-in-out infinite alternate}
+.tk-scene.live .tk-rope{animation:tkRope .55s ease-in-out infinite alternate}
+@keyframes tkStrain{from{transform:rotate(-4deg)}to{transform:rotate(1.5deg)}}
+@keyframes tkRope{to{transform:translateY(1.5px)}}
+/* Đội vừa trả lời đúng giật mạnh một nhịp */
+.tk-scene.pull-l .tk-team.l .tk-body,.tk-scene.pull-r .tk-team.r .tk-body{animation:tkHeave .85s ease-out 1,tkStrain 1.1s ease-in-out .85s infinite alternate}
+@keyframes tkHeave{0%{transform:rotate(0)}35%{transform:rotate(-12deg) translateX(-6px)}100%{transform:rotate(0)}}
+/* Thắng / thua */
+.tk-scene.won .tk-rope{animation:none}
+.tk-scene.won-l .tk-team.l .tk-pull,.tk-scene.won-r .tk-team.r .tk-pull,.tk-scene.won-l .tk-team.l .tk-grit,.tk-scene.won-r .tk-team.r .tk-grit{display:none}
+.tk-scene.won-l .tk-team.l .tk-up,.tk-scene.won-r .tk-team.r .tk-up,.tk-scene.won-l .tk-team.l .tk-smile,.tk-scene.won-r .tk-team.r .tk-smile,.tk-scene.won-l .tk-team.l .tk-cup,.tk-scene.won-r .tk-team.r .tk-cup{display:inline}
+.tk-scene.won-l .tk-team.l .tk-body,.tk-scene.won-r .tk-team.r .tk-body{animation:tkJump .6s ease-in-out infinite alternate}
+.tk-scene.won-l .tk-team.l .tk-kid:nth-child(2) .tk-body,.tk-scene.won-r .tk-team.r .tk-kid:nth-child(2) .tk-body{animation-delay:-.2s}
+.tk-scene.won-l .tk-team.l .tk-kid:nth-child(3) .tk-body,.tk-scene.won-r .tk-team.r .tk-kid:nth-child(3) .tk-body{animation-delay:-.4s}
+@keyframes tkJump{from{transform:translateY(0) rotate(8deg)}to{transform:translateY(-16px) rotate(14deg)}}
+.tk-scene.won-l .tk-team.l .tk-cup,.tk-scene.won-r .tk-team.r .tk-cup{animation:tkCup .7s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes tkCup{from{transform:translateY(0) scale(1)}to{transform:translateY(-6px) scale(1.12)}}
+.tk-scene.won-l .tk-team.r .tk-body,.tk-scene.won-r .tk-team.l .tk-body{animation:tkStumble .9s ease-out both}
+@keyframes tkStumble{to{transform:rotate(32deg) translateY(4px)}}
+.tk-scene.rest .tk-body{transform:rotate(8deg)}
+@media (prefers-reduced-motion:reduce){.tk-scene *{animation:none!important}}
+html.hmv-m .tug-scene-wrap .tk-scene{max-height:none}

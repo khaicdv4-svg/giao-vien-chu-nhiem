@@ -2,7 +2,7 @@
 // Web giả lập: máy chủ tệp tĩnh (không có /api), tên miền hocmavui.localhost. Google Gemini GIẢ: mọi yêu cầu tới
 // https://generativelanguage.googleapis.com bị chặn lại trong trình duyệt thử và chuyển sang máy Gemini giả (cổng 8799) – không gọi Google thật.
 const { chromium } = require('/opt/npm-tools/node_modules/playwright'); const fs = require('fs'), path = require('path'), http = require('http'), cp = require('child_process');
-const S = path.join(__dirname, '..'), APP = path.join(S, process.env.HMV_DIR || 'main30', 'app');
+const S = path.join(__dirname, '..'), APP = path.join(S, process.env.HMV_DIR || 'main31', 'app');
 const PORT = 8791, HOST = 'hocmavui.localhost', BASE = 'http://' + HOST + ':' + PORT + '/', LOCAL = 'http://127.0.0.1:8780/';
 const KEY_A = 'AIzaSyTEST-nguoi-dung-A-0000000000AAAA', KEY_B = 'AQ.TEST-nguoi-dung-B-111111111111BBBB', KEY_BAD = 'BADKEY-khong-hop-le-22222222222222';
 const res = []; const ok = (n, c, d) => { res.push({ name: n, pass: !!c, detail: d === undefined ? '' : d }); console.log((c ? 'PASS ' : 'FAIL ') + n + (d !== undefined && !c ? ' :: ' + JSON.stringify(d).slice(0, 1200) : '')); };

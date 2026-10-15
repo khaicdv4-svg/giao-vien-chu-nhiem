@@ -2,7 +2,7 @@
 // Trình duyệt thử KHÔNG có loa: bài này kiểm việc đúng tệp ĐƯỢC PHÁT vào đúng lúc, đúng âm lượng – không nghe được tiếng thật.
 // Camera là camera giả của Chromium, bộ nhận diện bàn tay là GIẢ (qa11/fake-hands.mjs), giọng đọc ở phần J là GIẢ (qa13/fake-speech.js).
 const { chromium } = require('/opt/npm-tools/node_modules/playwright'); const fs = require('fs'), path = require('path'), http = require('http');
-const BASE = process.env.HMV_URL || 'http://127.0.0.1:8780/'; const APP = path.join(__dirname, '..', process.env.HMV_DIR || 'main30', 'app');
+const BASE = process.env.HMV_URL || 'http://127.0.0.1:8780/'; const APP = path.join(__dirname, '..', process.env.HMV_DIR || 'main31', 'app');
 const fake = fs.readFileSync(path.join(__dirname, '..', 'qa11', 'fake-hands.mjs'), 'utf8');
 const res = []; const ok = (n, c, d) => { res.push({ name: n, pass: !!c, detail: d === undefined ? '' : d }); console.log((c ? 'PASS ' : 'FAIL ') + n + (d !== undefined && !c ? ' :: ' + JSON.stringify(d).slice(0, 900) : '')); };
 const get = p => new Promise((resolve, reject) => http.get('http://127.0.0.1:8780' + p, r => { const c = []; r.on('data', d => c.push(d)); r.on('end', () => resolve({ status: r.statusCode, type: r.headers['content-type'], body: Buffer.concat(c) })); }).on('error', reject));
@@ -161,7 +161,7 @@ const bellOpen = async page => { await page.evaluate(() => { const m = hmvBuzzSt
     const sw = await pg.evaluate(async () => { const names = await caches.keys(); const c4 = await caches.open(names[0]); const keys = (await c4.keys()).map(r => new URL(r.url).pathname); return { names, right: keys.includes('/assets/audio/tra-loi-dung.mp3'), wrong: keys.includes('/assets/audio/tra-loi-sai.mp3'), js: keys.includes('/dung-sai.js') }; });
     await c3.setOffline(true); await pg.reload({ waitUntil: 'load' }); await pg.waitForFunction(() => window.hmvDungSai && window.questionBankSets && questionBankSets.length > 0, null, { timeout: 15000 });
     const offl = await pg.evaluate(async () => { openView('games'); hmvDungSai.play(true, 0.6); await new Promise(r => setTimeout(r, 700)); const a = hmvDungSai.state(); hmvDungSai.play(false, 0.6); await new Promise(r => setTimeout(r, 700)); const w = hmvDungSai.state(); hmvDungSai.stop(); return { a: a.playing, af: a.last.fallback, w: w.playing, wf: w.last.fallback, marker: document.title }; });
-    ok('25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.14) có hai tệp tiếng và mã; ngắt mạng rồi tải lại vẫn phát được cả hai', sw.names.join() === 'hmv-ban-chinh-2.14' && sw.right && sw.wrong && sw.js && offl.a === 'right' && offl.w === 'wrong' && !offl.af && !offl.wf && /2\.14/.test(offl.marker), [sw, offl]);
+    ok('25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.15) có hai tệp tiếng và mã; ngắt mạng rồi tải lại vẫn phát được cả hai', sw.names.join() === 'hmv-ban-chinh-2.15' && sw.right && sw.wrong && sw.js && offl.a === 'right' && offl.w === 'wrong' && !offl.af && !offl.wf && /2\.15/.test(offl.marker), [sw, offl]);
     await b.close(); }
 
   // ================= M. Mã nguồn =================
@@ -169,6 +169,6 @@ const bellOpen = async page => { await page.evaluate(() => { const m = hmvBuzzSt
   const calls = (src.match(/hmvDungSai\.play\(/g) || []).length;
   ok('26 Mã nguồn: sáu trò trong index.html (Kéo co, Ai nhanh hơn, Đường đua, Hộp quà, Nghiêng Đầu, Triệu phú) + Bóng bay + Bình chọn đều có lời gọi; Vòng quay (không có câu trả lời) không gọi', calls === 6 && /hmvDungSai\.play\(/.test(fs.readFileSync(path.join(APP, 'bong-bay.js'), 'utf8')) && /hmvDungSai\.play\(/.test(fs.readFileSync(path.join(APP, 'binh-chon.js'), 'utf8')) && !/hmvDungSai/.test(wheel), calls);
 
-  fs.writeFileSync(path.join(__dirname, 'dung-sai-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.14-20261014', note: 'Trình duyệt thử không có loa: kiểm việc đúng tệp được phát đúng lúc, không nghe tiếng thật. Camera, bàn tay và giọng đọc là giả lập.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
+  fs.writeFileSync(path.join(__dirname, 'dung-sai-results.json'), JSON.stringify({ at: new Date().toISOString(), build: 'HMV-BAN-CHINH-2.15-20261015', note: 'Trình duyệt thử không có loa: kiểm việc đúng tệp được phát đúng lúc, không nghe tiếng thật. Camera, bàn tay và giọng đọc là giả lập.', total: res.length, passed: res.filter(x => x.pass).length, results: res }, null, 1));
   console.log('TOTAL ' + res.filter(x => x.pass).length + '/' + res.length); process.exit(res.every(x => x.pass) ? 0 : 1);
 })().catch(e => { console.error(e); process.exit(1); });

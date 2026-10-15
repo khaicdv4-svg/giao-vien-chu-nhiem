@@ -1,0 +1,35 @@
+// Kiểm thử bản 2.15: Vòng quay – bộ nhiệm vụ có sẵn cho "Nhiệm vụ bất ngờ".
+const { chromium } = require('/opt/npm-tools/node_modules/playwright'); const path = require('path');
+const BASE = process.env.HMV_URL || 'http://127.0.0.1:8780/';
+const res = []; const ok = (n, c, d) => { res.push({ pass: !!c }); console.log((c ? 'PASS ' : 'FAIL ') + n + (!c && d !== undefined ? ' :: ' + JSON.stringify(d).slice(0, 700) : '')); };
+const logs = [];
+(async () => {
+  const browser = await chromium.launch();
+  const open = async (init) => { const ctx = await browser.newContext({ viewport: { width: 1366, height: 900 }, serviceWorkers: 'block' }); const page = await ctx.newPage(); page.on('pageerror', e => logs.push(e.message)); page.on('dialog', d => d.accept()); if (init) await page.addInitScript(init); await page.goto(BASE); await page.waitForFunction(() => window.hmvNhiemVu && typeof openView === 'function'); await page.waitForTimeout(700); return { ctx, page }; };
+  let { ctx, page } = await open();
+  const seeded = await page.evaluate(() => JSON.parse(localStorage.getItem('tk_picker_tasks')).map(x => x.text));
+  ok('1 Máy chưa từng dùng: Kho nhiệm vụ có sẵn 12 nhiệm vụ "Tổng hợp"', seeded.length === 12 && seeded[0] === 'Đứng lên vỗ tay 5 cái thật to', seeded);
+  await page.evaluate(() => openView('picker')); await page.waitForTimeout(600);
+  await page.click('#phase1ModeBar [data-phase-mode="tasks"]'); await page.waitForTimeout(300);
+  const pool = await page.evaluate(() => pickerPool().length);
+  ok('2 Chuyển sang "Nhiệm vụ bất ngờ" → vòng quay có ngay 12 ô nhiệm vụ', pool === 12, pool);
+  await page.evaluate(() => window.openPickerDataManager('tasks')); await page.waitForTimeout(400);
+  const ui = await page.evaluate(() => { const b = document.querySelector('#phase11TaskModal .hmv-nv'); return b && { vis: b.offsetParent !== null, sets: [...b.querySelectorAll('[data-nv-add]')].map(x => x.textContent.trim().replace(/\s+/g, ' ')) }; });
+  await page.screenshot({ path: path.join(__dirname, 'nhiem-vu.png') });
+  ok('3 Hộp Cài đặt Nhiệm vụ bất ngờ có khối "📦 Bộ nhiệm vụ có sẵn" với 6 bộ; bộ Tổng hợp ghi "Đã có trong Kho"', ui && ui.vis && ui.sets.length === 6 && /Đã có trong Kho/.test(ui.sets[0]) && /Thêm 10 nhiệm vụ/.test(ui.sets[2]), ui);
+  await page.click('[data-nv-add="toan-4"]'); await page.waitForTimeout(400);
+  const after = await page.evaluate(() => ({ n: JSON.parse(localStorage.getItem('tk_picker_tasks')).length, pool: pickerPool().length, label: document.querySelector('#phase11TaskModal .phase11-task-summary span, .phase11-task-summary span').textContent, btn: document.querySelector('[data-nv-add="toan-4"]').textContent }));
+  ok('4 Bấm "Toán nhanh lớp 4" → thêm 10 nhiệm vụ mới (2 nhiệm vụ trùng với bộ Tổng hợp tự bỏ qua), vòng quay cập nhật 22 ô, nút chuyển "Đã có trong Kho"', after.n === 22 && after.pool === 22 && /Đã có trong Kho/.test(after.btn), after);
+  await page.fill('#phase11TaskModal textarea', 'Nhiệm vụ riêng của thầy'); await page.click('#phase11TaskModal .phase1-task-row .btn.color'); await page.waitForTimeout(200);
+  const own = await page.evaluate(() => JSON.parse(localStorage.getItem('tk_picker_tasks')).map(x => x.text));
+  ok('5 Thêm tiếp nhiệm vụ riêng bằng ô nhập → giữ nguyên 22 nhiệm vụ trước đó (không mất bộ vừa thêm)', own.length === 23 && own.includes('Tính nhẩm 25 × 4') && own.includes('Nhiệm vụ riêng của thầy'), own.length);
+  await ctx.close();
+  ({ ctx, page } = await open(() => { if (!sessionStorage.getItem('x')) { sessionStorage.setItem('x', 1); localStorage.setItem('tk_picker_tasks', JSON.stringify([{ id: 't1', text: 'Nhiệm vụ cũ của thầy' }])); } }));
+  ok('6 Máy đã có nhiệm vụ riêng → không tự nạp thêm', await page.evaluate(() => JSON.parse(localStorage.getItem('tk_picker_tasks')).length === 1));
+  await ctx.close();
+  ({ ctx, page } = await open(() => { if (!sessionStorage.getItem('x')) { sessionStorage.setItem('x', 1); localStorage.setItem('tk_picker_tasks', '[]'); } }));
+  ok('7 Thầy cô đã xóa hết nhiệm vụ (Kho rỗng) → không tự nạp lại', await page.evaluate(() => JSON.parse(localStorage.getItem('tk_picker_tasks')).length === 0));
+  await ctx.close();
+  ok('8 Không có lỗi JavaScript', logs.length === 0, logs);
+  await browser.close(); const p = res.filter(r => r.pass).length; console.log('\nKẾT QUẢ: ' + p + '/' + res.length); process.exit(p === res.length ? 0 : 1);
+})().catch(e => { console.error(e); process.exit(2); });

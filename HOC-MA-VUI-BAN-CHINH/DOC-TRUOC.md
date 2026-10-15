@@ -1,12 +1,121 @@
-# HỌC MÀ VUI · BẢN CHÍNH 2.14
+# HỌC MÀ VUI · BẢN CHÍNH 2.15
 
-**Ngày:** 14/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.14-20261014`
+**Ngày:** 15/10/2026 · **Nhãn bản dựng:** `HMV-BAN-CHINH-2.15-20261015`
 
 Đây là bản hợp nhất duy nhất. Nó gồm toàn bộ nội dung của các bản thử trước (03B → 09, Chặng 1 → 7B) cùng ba phần mới: Quiz Nghiêng Đầu hoàn chỉnh, Kho câu hỏi thiết kế lại và 140 câu hỏi mẫu.
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
-## 0. Cập nhật 2.14 (14/10/2026) – Giao diện điện thoại thiết kế lại
+## 0. Cập nhật 2.15 (15/10/2026) – Luật trận đấu chung, bộ câu hỏi demo, bộ nhiệm vụ cho Vòng quay, cảnh Kéo co mới
+
+Thầy yêu cầu bốn việc:
+1. Trong cài đặt của mọi trò chơi: chọn chơi bao nhiêu câu thì kết thúc trận, hoặc chơi bao lâu thì kết thúc; thời gian hiện đáp án; thời gian chuyển câu.
+2. Mỗi trò có sẵn một bộ câu hỏi demo, lấy từ Kho, để người dùng ở Ngày hội chơi được ngay.
+3. Vòng quay có sẵn một bộ yêu cầu cho “Nhiệm vụ bất ngờ”.
+4. Kéo co kiến thức: thay lá cờ trên dây bằng hình hai đội đang kéo co cho hấp dẫn.
+
+### 1. Thẻ “⏱ Luật trận đấu” trong cài đặt mọi trò có câu hỏi
+- **Có ở 12 trò:** Kéo co, Ai nhanh hơn, Đường đua, Hộp quà, Lật mảnh ghép, Chinh phục tri thức, Bóng bay, Bình chọn ngón tay, Bàn tay phép thuật, Giơ tay giành quyền, Quiz Nghiêng Đầu, Chế độ giấy.
+  - Không có ở Ống kính may mắn, vì trò này chọn học sinh chứ không hỏi câu hỏi.
+- **Kết thúc trận** có ba cách:
+  - **Theo luật của trò chơi** (mặc định, như cũ). Ví dụ Kéo co: đội kéo đủ số bước thắng.
+  - **Khi chơi đủ số câu:** chọn 5–40 câu. Hết số câu thì trận dừng và tính kết quả. Ví dụ màn hình ghi “Đã chơi đủ 5 câu · thắng nhờ dẫn trước”.
+  - **Khi hết thời gian trận:** chọn 1–45 phút.
+    - Đồng hồ “⏱ Trận còn 4:59” hiện ở đầu màn hình chơi. Đồng hồ dừng khi thầy cô bấm Tạm dừng hoặc rời màn hình trò chơi.
+    - Còn 30 giây thì có nhắc. Hết giờ thì trận dừng ngay, đội đang dẫn thắng; bằng điểm thì hòa.
+- **Thời gian trả lời mỗi câu:** hết giờ thì tính là chưa trả lời được và hiện đáp án.
+  - Mới có ở Chinh phục tri thức, Quiz Nghiêng Đầu, Chế độ giấy (hết giờ thì tự khóa câu).
+- **Hiện đáp án rồi chuyển câu sau … giây:**
+  - Mới có ở Bóng bay, Bình chọn, Bàn tay phép thuật, Giơ tay giành quyền, Quiz Nghiêng Đầu, Chinh phục tri thức.
+  - Hộp quà và Lật mảnh ghép: ô đáp án đã chọn tô xanh/đỏ trong số giây đã chọn rồi mới chấm. Hai trò này không hiện đáp án đúng khi sai, vì hộp/mảnh còn kín có thể được lượt sau chọn lại.
+  - Bình chọn và Chế độ giấy: mặc định vẫn là giáo viên bấm chuyển câu. Chọn số giây thì tự chuyển.
+- **Trò đã có sẵn ô tương ứng** thì ô cũ được chuyển vào thẻ, không nhân đôi. Ví dụ Kéo co có “Thời gian trả lời” và “Chờ trước khi chuyển câu”; Bóng bay có “Số câu” và “Thời gian mỗi câu”.
+- **Đường đua có sửa lỗi:** trước đây chấm xong màn hình dừng ở “Chọn đội và sẵn sàng!” và không có nút đi tiếp. Nay màn hình hiện:
+  - Kết quả và đáp án đúng.
+  - Nút **Câu tiếp theo →**.
+  - Tự chuyển câu sau 3 giây (đổi được trong thẻ).
+- Lựa chọn được lưu riêng cho từng trò, trên máy đang dùng.
+
+### 2. Bộ câu hỏi demo tự lấy từ Kho
+- **Khi nào trò tự dùng bộ trong Kho:** trò chưa được chọn bộ nào và “Kho hiện tại” có ít hơn 10 câu hợp lệ cho trò đó. Đây là trường hợp máy mới, ví dụ máy ở Ngày hội.
+- **Bộ được chọn theo thứ tự:** bộ của thầy cô trong Kho trước, rồi đến các bộ Mẫu 1–7.
+  - Trò A–B–C–D dùng **Mẫu 1** (20 câu).
+  - Quiz Nghiêng Đầu dùng **Mẫu 2 · Đúng/Sai**.
+- **Thẻ ghi rõ:** “Câu hỏi của trận: Mẫu 1 · … · 20 câu dùng được” kèm nhãn **Bộ demo · chơi ngay**. Ô “Nguồn câu hỏi” cũ cũng ghi “Trận sẽ dùng: Mẫu 1…”.
+- **Thầy cô đổi được nguồn:**
+  - Tự động.
+  - Luôn dùng bộ demo.
+  - Chỉ dùng câu hỏi của tôi.
+- **Máy của thầy** (Kho hiện tại đã có nhiều câu) **giữ nguyên như cũ**, không tự đổi sang bộ demo.
+- Lỡ xóa các bộ Mẫu trong Kho thì trò vẫn có bản dự phòng sẵn trong ứng dụng.
+
+### 3. Vòng quay – Bộ nhiệm vụ có sẵn
+- **Máy chưa từng dùng Nhiệm vụ bất ngờ** được nạp sẵn bộ **Tổng hợp**: 12 nhiệm vụ, chọn **Nhiệm vụ bất ngờ** là quay được ngay.
+  - Máy đã có nhiệm vụ riêng, hoặc thầy cô đã xóa hết, thì không tự nạp lại.
+- **Hộp “⚙ Cài đặt Nhiệm vụ bất ngờ”** có thêm khối **📦 Bộ nhiệm vụ có sẵn**. Có 6 bộ, mỗi bộ 12 nhiệm vụ, bấm “Xem” để đọc trước:
+  - Tổng hợp.
+  - Khởi động vui nhộn (vận động nhẹ).
+  - Toán nhanh lớp 4.
+  - Tiếng Việt vui.
+  - Kết nối – Kĩ năng.
+  - Năng khiếu – Tài năng.
+- **Bấm một bộ:** các nhiệm vụ được thêm vào Kho. Nhiệm vụ trùng tự bỏ qua, nhiệm vụ cũ giữ nguyên. Bộ nào đã có đủ thì ghi “✓ Đã có trong Kho”.
+
+### 4. Kéo co kiến thức – cảnh hai đội kéo co
+- **Thay cho dây và lá cờ ⚑:** một sân cỏ có 6 bạn nhỏ, mỗi đội 3 bạn, đang kéo một sợi dây thật.
+  - Áo và băng đô theo màu đội; bảng tên đội dưới chân.
+  - Giữa dây có dải đỏ; hai bên có vạch và cờ màu của từng đội.
+- **Đang thi đấu:** các bạn gồng người kéo liên tục.
+- **Đội trả lời đúng:** cả sợi dây và hai đội trượt mượt về phía đội đó, đội đó giật mạnh một nhịp. Dải đỏ chạm vạch đội nào thì đội đó thắng.
+- **Kết thúc trận:**
+  - Đội thắng nhảy lên, giơ tay, có cúp 🏆 (pháo giấy như cũ).
+  - Đội thua chúi về phía trước.
+  - Hòa thì hai đội đứng nghỉ.
+- **Kích thước:** cảnh cao tối đa khoảng 1/4 màn hình, nên câu hỏi và đáp án vẫn nằm trong màn hình 1366×768.
+- Máy bật “giảm chuyển động” thì cảnh đứng yên.
+- Hình vẽ bằng mã trong ứng dụng, chạy offline.
+
+### 5. Tệp
+- **Mới:**
+  - `app\tran-dau.js`: thẻ Luật trận đấu, đồng hồ trận, bộ câu hỏi demo.
+  - `app\nhiem-vu-mau.js`: bộ nhiệm vụ cho Vòng quay.
+  - `app\keo-co-canh.js`: cảnh Kéo co.
+  - `kiem-thu\t-tran-dau.cjs`, `kiem-thu\t-nhiem-vu.cjs`, `kiem-thu\t-keo-co-canh.cjs`.
+- **Thay đổi:**
+  - `app\index.html`: Kéo co, Ai nhanh hơn, Đường đua, Hộp quà, Lật mảnh ghép, Chinh phục tri thức, Quiz Nghiêng Đầu, Chế độ giấy gọi Luật trận đấu; Đường đua có màn hình sau khi chấm; Kéo co dùng cảnh mới; nạp ba tệp mới; nhãn.
+  - `app\bong-bay.js`, `app\binh-chon.js`, `app\ban-tay-phep-thuat.js`, `app\gio-tay-gianh-quyen.js`: thời gian hiện đáp án và đồng hồ trận.
+  - `app\ban-chinh.css`: phần “2.15”.
+  - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.15`.
+  - `MO-HOC-MA-VUI.ps1`.
+- Bản trước nằm ở `backups\truoc-2.15\`.
+
+### 6. Kiểm thử bản 2.15 – và phần CHƯA kiểm
+- **`kiem-thu\t-tran-dau.cjs`: 29/29.** Bài này kiểm:
+  - Thẻ có ở 11 trò trên màn hình; ô cũ được chuyển vào thẻ, không nhân đôi.
+  - Bộ demo trên máy mới.
+  - Kéo co: đủ 5 câu thì dừng; hết thời gian trận thì dừng; tạm dừng thì đồng hồ trận đứng.
+  - Ai nhanh hơn 3 câu.
+  - Đường đua: hiện đáp án, nút đi tiếp, tự chuyển câu, đủ số câu.
+  - Hộp quà: thời gian chờ trước khi chấm, đủ số câu.
+  - Lật mảnh ghép: tô đáp án trước khi chấm.
+  - Chinh phục tri thức: hết thời gian trả lời.
+  - Bóng bay: thời gian hiện đáp án, hết thời gian trận.
+  - Chế độ giấy: số câu.
+  - Quiz Nghiêng Đầu: thẻ trong hộp thiết lập.
+  - Máy đã có 12 câu riêng thì không đổi nguồn.
+  - Điện thoại 390 px không tràn.
+- **`kiem-thu\t-nhiem-vu.cjs`: 8/8.**
+- **`kiem-thu\t-keo-co-canh.cjs`: 7/7.**
+- **Chạy lại toàn bộ bài cũ:** **26 bài cũ, 913/913 ĐẠT.** Hai bài cũ được sửa cho hợp với bản mới, không phải do lỗi:
+  - `t-quiz.cjs` chọn ô “Số câu mỗi lượt” theo tên ô, vì ô này nay nằm trong thẻ Luật trận đấu.
+  - `t-keo-co-canh.cjs` đo vị trí dải đỏ theo tọa độ hình vẽ.
+  - Lần chạy đầu, bài `t-full.cjs` phát hiện cảnh Kéo co làm hàng nút tràn khỏi màn hình 1366×768 khi toàn màn hình. Em đã thu cảnh xuống tối đa 1/5 chiều cao màn hình; chạy lại thì đạt.
+- **Chưa kiểm:**
+  - Trên máy chiếu và điện thoại thật (độ lớn cảnh Kéo co, màu áo đội).
+  - Đồng hồ trận trong một tiết thật dài 30–45 phút. Máy thử chỉ tua nhanh đồng hồ để kiểm lúc hết giờ.
+  - Trò camera (Bóng bay, Bình chọn, Bàn tay phép thuật, Giơ tay giành quyền, Quiz Nghiêng Đầu) với webcam thật khi bật Luật trận đấu.
+
+## 0-24. Cập nhật 2.14 (14/10/2026) – Giao diện điện thoại thiết kế lại
 
 Thầy gửi ảnh chụp trên iPhone và nhận xét giao diện chưa khoa học:
 - Khối menu 9 nút to chiếm hết màn hình đầu tiên.

@@ -196,7 +196,7 @@
     stopCamera('');
     S = { name: set.name, groups: set.groups, items: list.slice(0, n), q: 0, phase: 'ask', paused: false, score: [0, 0], right: [0, 0], turn: 0, tries: 0, held: '', card: null, grip: null, off: { x: 0, y: 0 }, binDw: [0, 0, 0, 0], dw: 0, armed: false, askAt: performance.now(), placed: set.groups.map(function () { return []; }), outcome: null, left: Number(cfg.time) || 0, nextLeft: null, history: [], wrongBin: -1 };
     game().type = TYPE; game().started = true;
-    clearInterval(timer); lastT = Date.now(); timer = setInterval(tick, 200);
+    clearInterval(timer); lastT = Date.now(); timer = setInterval(tick, 200); if (win.hmvTran) win.hmvTran.begin(TYPE, { end: function () { if (S && S.phase !== 'end') finish(); }, live: function () { return !!S && S.phase !== 'end'; }, paused: function () { return !!(S && S.paused); } });
     tone('start'); render(true);
     if (cfg.control === 'camera') startCamera(); else { camNote = ''; hint(); }
     setTimeout(function () { var e = doc.querySelector('.mh-game'); if (e && e.scrollIntoView && !doc.fullscreenElement && !doc.body.classList.contains('hmv-game-full')) e.scrollIntoView({ block: 'start' }); }, 60);
@@ -215,13 +215,13 @@
     if (S.tries === 0 && typeof win.hmvRec === 'function') win.hmvRec(TYPE, { text: it.text, answers: S.groups.slice(), correct: it.g }, k, ok);   /* ghi lượt thả đầu tiên cho Phân tích sau trò chơi */
     if (ok) {
       var pts = S.tries === 0 ? 10 : 5; S.score[t] += pts; if (S.tries === 0) S.right[t]++;
-      S.placed[k].push(it.text); S.phase = 'done'; S.outcome = { ok: true, pts: pts, team: t, how: how }; S.history.push({ q: S.q, ok: S.tries === 0, team: t }); S.nextLeft = 2.2;
+      S.placed[k].push(it.text); S.phase = 'done'; S.outcome = { ok: true, pts: pts, team: t, how: how }; S.history.push({ q: S.q, ok: S.tries === 0, team: t }); S.nextLeft = rv(2.2);
       ds(true); var p = binCenter(k); placeCard(p.x, p.y, true); paint(); burst();
       return;
     }
     S.tries++; S.wrongBin = k; ds(false);
     if (S.tries >= 2) {
-      S.placed[it.g].push(it.text); S.phase = 'done'; S.outcome = { ok: false, team: t, how: how }; S.history.push({ q: S.q, ok: false, team: t }); S.nextLeft = 3.4;
+      S.placed[it.g].push(it.text); S.phase = 'done'; S.outcome = { ok: false, team: t, how: how }; S.history.push({ q: S.q, ok: false, team: t }); S.nextLeft = rv(3.4);
       var p2 = binCenter(it.g); placeCard(p2.x, p2.y, true); paint();
       return;
     }
@@ -231,9 +231,11 @@
   function timeout() {
     var it = item(); if (!S || S.phase !== 'ask' || !it) return;
     if (S.tries === 0 && typeof win.hmvRec === 'function') win.hmvRec(TYPE, { text: it.text, answers: S.groups.slice(), correct: it.g }, null, false);
-    S.held = ''; S.placed[it.g].push(it.text); S.phase = 'done'; S.outcome = { ok: false, why: 'timeout', team: cfg.mode === 'teams' ? S.turn : 0 }; S.history.push({ q: S.q, ok: false, team: S.outcome.team }); S.nextLeft = 3.4;
+    S.held = ''; S.placed[it.g].push(it.text); S.phase = 'done'; S.outcome = { ok: false, why: 'timeout', team: cfg.mode === 'teams' ? S.turn : 0 }; S.history.push({ q: S.q, ok: false, team: S.outcome.team }); S.nextLeft = rv(3.4);
     ds(false); var p = binCenter(it.g); placeCard(p.x, p.y, true); paint();
   }
+  /* 2.15: thời gian hiện đáp án trước khi chuyển câu lấy theo Luật trận đấu (để trống = mặc định của trò). */
+  function rv(d) { var v = win.hmvTran ? win.hmvTran.reveal(TYPE, null) : null; return v === null || v === undefined ? d : v; }
   function next() {
     if (!S || S.phase !== 'done') return;
     if (S.q + 1 >= S.items.length) { finish(); return; }
