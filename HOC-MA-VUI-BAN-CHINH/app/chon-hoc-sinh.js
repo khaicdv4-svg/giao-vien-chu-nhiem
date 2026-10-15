@@ -1,11 +1,10 @@
 /* BAN-CHINH 2.17 · Gọi tên vui – Tuỳ chọn học sinh.
  *
- * - Khung "Cài đặt" của Vòng quay kết nối có thêm nút "👥 Tuỳ chọn học sinh" (chỉ hiện ở chế độ Gọi tên vui).
+ * - Trang "Cài đặt & dữ liệu" có thẻ "👥 Tuỳ chọn học sinh". Màn hình vòng quay KHÔNG có nút hay dấu hiệu nào (giữ bí mật khi dự giờ).
  * - Hộp tuỳ chọn: danh sách học sinh của lớp đang chọn, mỗi bạn một ô tích; công tắc Bật/Tắt tuỳ chọn.
  * - Khi bật: vòng quay CHỈ hiện tên các bạn được tích. Luật "không gọi lặp" (ĐÃ THAM GIA, lượt mới) vẫn giữ nguyên.
  * - Lựa chọn lưu riêng cho từng lớp, trên máy đang dùng. Tắt tuỳ chọn thì vòng quay trở lại cả lớp.
  * - Màn hình vòng quay không ghi chữ "tuỳ chọn": bộ đếm chỉ tính trên các bạn được tích, để chiếu lên bảng vẫn tự nhiên.
- *   Dấu hiệu duy nhất là chấm xanh nhỏ trên nút cài đặt, giúp thầy cô nhớ đang bật.
  */
 (function () {
   'use strict';
@@ -43,7 +42,6 @@
 
   /* Bộ đếm: tính trên các bạn được tích thay vì cả lớp. */
   function afterDraw() {
-    syncButton();
     var set = mode() === 'students' ? chosenSet() : null, c = doc.getElementById('pickerRemaining'); if (!set || !c) return;
     var left = (win.pickerPool() || []).length, total = set.size;
     var text = 'Chưa tham gia: ' + left + ' · Đã tham gia: ' + Math.max(0, total - left) + ' · Tổng: ' + total;
@@ -53,9 +51,8 @@
 
   /* ---------- Giao diện ---------- */
   var CSS = ''
-    + '#picker .vq-tool-row .chs-open{grid-column:1/-1;position:relative;width:100%;min-height:46px;background:#f4f1ff;color:#4c3aa8;border:1px solid #ddd5fb;border-radius:12px;font-weight:800;font-size:14px;padding:8px 6px;cursor:pointer;line-height:1.25}'
-    + '#picker .vq-tool-row .chs-open:hover{background:#e9e3ff}'
-    + '#picker .vq-tool-row .chs-open.on:after{content:"";position:absolute;top:8px;right:10px;width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 2px #fff}'
+    + '.chs-card .chs-state{margin:6px 0 12px;font-weight:700;color:#4c3aa8}.chs-card .chs-state.on{color:#15803d}'
+    + '.chs-card p{color:var(--muted,#75718f);margin:0 0 4px;font-size:14px;line-height:1.45}'
     + '.chs-overlay{position:fixed;inset:0;z-index:6000;display:none;align-items:center;justify-content:center;padding:16px;background:#1e1b4b8c}'
     + '.chs-overlay.on{display:flex}'
     + '.chs-box{display:flex;flex-direction:column;width:min(620px,100%);max-height:92vh;box-sizing:border-box;background:#fff;color:#242044;border-radius:20px;box-shadow:0 22px 60px #0f172a66;overflow:hidden}'
@@ -80,21 +77,29 @@
     + '@media(max-width:480px){.chs-list{grid-template-columns:1fr}}';
   function addStyle() { if (doc.getElementById('chsStyle')) return; var s = doc.createElement('style'); s.id = 'chsStyle'; s.textContent = CSS; doc.head.appendChild(s); }
 
-  function syncButton() {
-    var b = doc.getElementById('chsOpen'); if (!b) return;
-    b.hidden = mode() !== 'students';
-    var on = !!chosenSet(); b.classList.toggle('on', on);
-    b.title = on ? 'Đang bật: vòng quay chỉ gọi các bạn đã tích' : 'Chọn những bạn sẽ có tên trên vòng quay';
+  /* ---------- Thẻ trong trang Cài đặt & dữ liệu ---------- */
+  function className() { var c = doc.querySelector('.main > .topbar .crumb'); var n = c ? String(c.textContent || '').split('·')[0].trim() : ''; return n && !/Đang tải/.test(n) ? n : 'lớp đang chọn'; }
+  function cardState() {
+    var el = doc.getElementById('chsCardState'); if (!el) return;
+    var set = chosenSet(), all = list().length;
+    el.classList.toggle('on', !!set);
+    el.textContent = set ? '● Đang bật · ' + className() + ': vòng quay chỉ gọi ' + set.size + '/' + all + ' bạn' : '○ Đang tắt · ' + className() + ': vòng quay gọi cả lớp';
   }
-  function addButton() {
-    var row = doc.querySelector('#picker .vq-tool-row'); if (!row) return false;
-    if (!doc.getElementById('chsOpen')) {
+  function addCard() {
+    var sec = doc.getElementById('settings'); if (!sec) return false;
+    var grid = sec.querySelector('.grid'); if (!grid) return false;
+    var card = doc.getElementById('chsSettingsCard');
+    if (!card) {
       addStyle();
-      var b = doc.createElement('button'); b.type = 'button'; b.id = 'chsOpen'; b.className = 'chs-open';
-      b.textContent = '👥 Tuỳ chọn học sinh'; b.setAttribute('aria-label', 'Tuỳ chọn học sinh cho vòng quay');
-      b.addEventListener('click', open); row.appendChild(b);
-    } else if (doc.getElementById('chsOpen').parentElement !== row) row.appendChild(doc.getElementById('chsOpen'));
-    syncButton(); return true;
+      card = doc.createElement('div'); card.id = 'chsSettingsCard'; card.className = 'card chs-card';
+      card.innerHTML = '<h3>👥 Tuỳ chọn học sinh – Gọi tên vui</h3>'
+        + '<p>Tích chọn những bạn sẽ có tên trên vòng quay. Màn hình vòng quay không hiện dấu hiệu gì về tuỳ chọn này.</p>'
+        + '<div class="chs-state" id="chsCardState"></div>'
+        + '<button type="button" class="btn color" id="chsOpenSettings">Mở danh sách học sinh</button>';
+      card.querySelector('#chsOpenSettings').addEventListener('click', open);
+    }
+    if (card.parentElement !== grid) grid.insertBefore(card, grid.firstChild ? grid.firstChild.nextSibling : null);
+    cardState(); return true;
   }
 
   var draft = null;
@@ -168,18 +173,19 @@
     var on = draft.on; close();
     try { if (typeof win.pickerDismissWinner === 'function') win.pickerDismissWinner(); } catch (e) {}
     redraw();
+    cardState();
     if (typeof win.showToast === 'function') win.showToast('✓ Đã lưu');
   }
   doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && doc.getElementById('chsOverlay') && doc.getElementById('chsOverlay').classList.contains('on')) close(); });
   doc.addEventListener('fullscreenchange', function () { var ov = doc.getElementById('chsOverlay'); if (ov && ov.classList.contains('on')) overlay(); });
 
-  /* Đổi chế độ Gọi tên vui / Nhiệm vụ bất ngờ thì ẩn hoặc hiện nút. */
-  doc.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('#phase1ModeBar')) setTimeout(function () { syncButton(); afterDraw(); }, 30); });
-
-  function later() { [0, 100, 400, 1300, 3200].forEach(function (ms) { setTimeout(function () { if (addButton()) afterDraw(); }, ms); }); }
+  /* Trang Cài đặt được vẽ lại nhiều lần: thấy thẻ mất thì gắn lại. */
+  function later() { [0, 100, 400, 1300, 3200].forEach(function (ms) { setTimeout(addCard, ms); }); }
   var baseOpen = win.openView;
-  if (typeof baseOpen === 'function') win.openView = function (id) { var out = baseOpen.apply(this, arguments); if (id === 'picker') later(); return out; };
-  if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', later); else later();
-  win.addEventListener('load', later);
+  if (typeof baseOpen === 'function') win.openView = function (id) { var out = baseOpen.apply(this, arguments); if (id === 'settings') later(); return out; };
+  function watch() { var sec = doc.getElementById('settings'); if (!sec || sec.dataset.chsWatch) return; sec.dataset.chsWatch = '1'; new MutationObserver(function () { if (!doc.getElementById('chsSettingsCard') || !sec.contains(doc.getElementById('chsSettingsCard'))) addCard(); }).observe(sec, { childList: true, subtree: true }); }
+  function boot() { watch(); later(); }
+  if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', boot); else boot();
+  win.addEventListener('load', boot);
   win.hmvChonHocSinh = { open: open, chosen: chosenSet, active: active };
 })();
