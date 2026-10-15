@@ -85,7 +85,7 @@ Thầy yêu cầu bốn việc:
   - `app\index.html`: Kéo co, Ai nhanh hơn, Đường đua, Hộp quà, Lật mảnh ghép, Chinh phục tri thức, Quiz Nghiêng Đầu, Chế độ giấy gọi Luật trận đấu; Đường đua có màn hình sau khi chấm; Kéo co dùng cảnh mới; nạp ba tệp mới; nhãn.
   - `app\bong-bay.js`, `app\binh-chon.js`, `app\ban-tay-phep-thuat.js`, `app\gio-tay-gianh-quyen.js`: thời gian hiện đáp án và đồng hồ trận.
   - `app\ban-chinh.css`: phần “2.15”.
-  - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.15`.
+  - `app\sw.js`: bộ nhớ đệm `hmv-ban-chinh-2.16`.
   - `MO-HOC-MA-VUI.ps1`.
 - Bản trước nằm ở `backups\truoc-2.15\`.
 

@@ -161,7 +161,7 @@ const bellOpen = async page => { await page.evaluate(() => { const m = hmvBuzzSt
     const sw = await pg.evaluate(async () => { const names = await caches.keys(); const c4 = await caches.open(names[0]); const keys = (await c4.keys()).map(r => new URL(r.url).pathname); return { names, right: keys.includes('/assets/audio/tra-loi-dung.mp3'), wrong: keys.includes('/assets/audio/tra-loi-sai.mp3'), js: keys.includes('/dung-sai.js') }; });
     await c3.setOffline(true); await pg.reload({ waitUntil: 'load' }); await pg.waitForFunction(() => window.hmvDungSai && window.questionBankSets && questionBankSets.length > 0, null, { timeout: 15000 });
     const offl = await pg.evaluate(async () => { openView('games'); hmvDungSai.play(true, 0.6); await new Promise(r => setTimeout(r, 700)); const a = hmvDungSai.state(); hmvDungSai.play(false, 0.6); await new Promise(r => setTimeout(r, 700)); const w = hmvDungSai.state(); hmvDungSai.stop(); return { a: a.playing, af: a.last.fallback, w: w.playing, wf: w.last.fallback, marker: document.title }; });
-    ok('25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.15) có hai tệp tiếng và mã; ngắt mạng rồi tải lại vẫn phát được cả hai', sw.names.join() === 'hmv-ban-chinh-2.15' && sw.right && sw.wrong && sw.js && offl.a === 'right' && offl.w === 'wrong' && !offl.af && !offl.wf && /2\.15/.test(offl.marker), [sw, offl]);
+    ok('25 Bộ nhớ ngoại tuyến (hmv-ban-chinh-2.16) có hai tệp tiếng và mã; ngắt mạng rồi tải lại vẫn phát được cả hai', sw.names.join() === 'hmv-ban-chinh-2.16' && sw.right && sw.wrong && sw.js && offl.a === 'right' && offl.w === 'wrong' && !offl.af && !offl.wf && /2\.15/.test(offl.marker), [sw, offl]);
     await b.close(); }
 
   // ================= M. Mã nguồn =================

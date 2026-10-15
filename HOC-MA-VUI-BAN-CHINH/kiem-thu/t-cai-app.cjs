@@ -24,7 +24,7 @@ const FAKE = () => { window.__fakePrompt = (outcome) => { const e = new Event('b
   const cdp = await ctx.newCDPSession(page); const inst = await cdp.send('Page.getInstallabilityErrors').catch(e => ({ err: e.message })); const am = await cdp.send('Page.getAppManifest').catch(e => ({ err: e.message }));
   ok('4 Chromium xác nhận trang ĐỦ ĐIỀU KIỆN cài thành ứng dụng (không có lỗi installability) và đọc được manifest không lỗi', inst.installabilityErrors && inst.installabilityErrors.length === 0 && am.errors && am.errors.length === 0 && /manifest\.webmanifest$/.test(am.url), [inst, am.errors]);
   const sw = await page.evaluate(async () => { const c = await caches.open((await caches.keys()).find(k => /hmv-ban-chinh-2\.15/.test(k)) || 'x'); const keys = (await c.keys()).map(r => new URL(r.url).pathname); return { names: await caches.keys(), has: ['/manifest.webmanifest', '/cai-ung-dung.js', '/assets/icons/icon-192.png', '/assets/icons/icon-512.png'].every(p => keys.includes(p)) }; });
-  ok('5 Bộ nhớ ngoại tuyến hmv-ban-chinh-2.15 có manifest, biểu tượng và mã cài đặt (ứng dụng đã cài mở được khi mất mạng)', sw.names.includes('hmv-ban-chinh-2.15') && sw.has, sw);
+  ok('5 Bộ nhớ ngoại tuyến hmv-ban-chinh-2.16 có manifest, biểu tượng và mã cài đặt (ứng dụng đã cài mở được khi mất mạng)', sw.names.includes('hmv-ban-chinh-2.16') && sw.has, sw);
   // C. Chưa có lệnh cài (trình duyệt chưa báo) → không hiện nút trên thanh trên; Cài đặt có hướng dẫn
   let top = await page.$('#hmvInstallTop:not([hidden])');
   await page.evaluate(() => openView('settings')); await page.waitForSelector('#hmvInstallCard'); let card = await page.evaluate(() => document.getElementById('hmvInstallCard').innerText);
