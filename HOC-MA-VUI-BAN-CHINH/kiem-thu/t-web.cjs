@@ -39,7 +39,7 @@ const play = async (page, setId, g) => { await page.evaluate(() => openView('que
     await page.waitForFunction(() => window.hmvDungSai && Array.isArray(window.questionBankSets) && window.questionBankSets.filter(s => /^mau-/.test(s.id)).length === 7, null, { timeout: 20000 }).catch(() => {});
     await page.waitForTimeout(1200);
     const up = await page.evaluate(async () => ({ title: document.title, students: (typeof students !== 'undefined' ? students : []).map(s => s.name + '|' + s.team + '|' + s.status), scores: (typeof scoreData !== 'undefined' ? scoreData : []).map(s => s.points), questions: (typeof questionData !== 'undefined' ? questionData : []).map(q => q.text), store: Object.fromEntries(Object.keys(localStorage).map(k => [k, localStorage.getItem(k)])), caches: await caches.keys(), sets: questionBankSets.length }));
-    ok('A2 Sau khi bản mới lên cùng địa chỉ: mở lại trang lần đầu đã thấy HỌC MÀ VUI 2.8 (không kẹt bản cũ trong bộ nhớ đệm)', /HỌC MÀ VUI \| HMV-BAN-CHINH-2\.15/.test(firstTitle) && /HỌC MÀ VUI \| HMV-BAN-CHINH-2\.15/.test(up.title) && up.caches.indexOf('hmv-ban-chinh-2.15') >= 0, [firstTitle, up.title, up.caches]);
+    ok('A2 Sau khi bản mới lên cùng địa chỉ: mở lại trang lần đầu đã thấy HỌC MÀ VUI 2.8 (không kẹt bản cũ trong bộ nhớ đệm)', /HỌC MÀ VUI \| HMV-BAN-CHINH-2\.15/.test(firstTitle) && /HỌC MÀ VUI \| HMV-BAN-CHINH-2\.15/.test(up.title) && up.caches.indexOf('hmv-ban-chinh-2.16') >= 0, [firstTitle, up.title, up.caches]);
     ok('A3 Học sinh đã lưu ở bản cũ còn nguyên (tên, tổ, trạng thái)', up.students.join(';') === 'Học sinh Thử Một|1|Có mặt;Học sinh Thử Hai|2|Vắng;Học sinh Thử Ba|3|Có mặt', up.students);
     const compSame = Object.keys(oldAfter.comp).every(k => up.store[k] === oldAfter.comp[k]);
     ok('A4 Điểm thi đua (đã cộng trừ ở bản cũ: tổ 1 +5, tổ 3 +2, tổ 2 −1) còn nguyên: bảng điểm giống hệt, sổ ghi thi đua không đổi một ký tự', !oldAfter.err && oldAfter.scores.join() === '133,114,108,98' && up.scores.join() === oldAfter.scores.join() && compSame, [oldAfter.scores, up.scores, oldAfter.tx, oldAfter.err, compSame]);
@@ -76,9 +76,9 @@ const play = async (page, setId, g) => { await page.evaluate(() => openView('que
     await page.evaluate(() => pollBack());
     // Ngoại tuyến
     await page.waitForFunction(() => navigator.serviceWorker && navigator.serviceWorker.controller, null, { timeout: 15000 }).catch(() => {}); await page.waitForTimeout(1500);
-    const sw = await page.evaluate(async () => { const names = await caches.keys(); const c = await caches.open('hmv-ban-chinh-2.15'); return { names, n: (await c.keys()).length }; });
+    const sw = await page.evaluate(async () => { const names = await caches.keys(); const c = await caches.open('hmv-ban-chinh-2.16'); return { names, n: (await c.keys()).length }; });
     await ctx2.setOffline(true); await page.reload({ waitUntil: 'load' }); const off = await page.waitForFunction(() => window.hmvDungSai && window.questionBankSets && questionBankSets.length >= 7, null, { timeout: 15000 }).then(() => page.evaluate(() => document.title), () => '');
-    ok('B7 Đã mở trang một lần thì lần sau mất mạng vẫn mở được (bộ nhớ ngoại tuyến hmv-ban-chinh-2.15)', sw.names.indexOf('hmv-ban-chinh-2.15') >= 0 && sw.n >= 40 && /2\.15/.test(off), [sw, off]);
+    ok('B7 Đã mở trang một lần thì lần sau mất mạng vẫn mở được (bộ nhớ ngoại tuyến hmv-ban-chinh-2.16)', sw.names.indexOf('hmv-ban-chinh-2.16') >= 0 && sw.n >= 40 && /2\.15/.test(off), [sw, off]);
     await ctx2.setOffline(false);
     ok('B8 Không có lỗi JavaScript khi chạy trên web', logs.length === 0, logs);
     await ctx2.close();
