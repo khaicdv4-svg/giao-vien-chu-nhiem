@@ -5,9 +5,9 @@
  *   Nút "⚙ Cài đặt" trùng lặp dưới thẻ Kho nhiệm vụ được ẩn đi.
  * - Ngoài menu ra, màn hình vòng quay không có chữ hay dấu hiệu nào về tuỳ chọn (giữ bí mật khi dự giờ).
  * - Hộp tuỳ chọn: danh sách học sinh của lớp đang chọn, mỗi bạn một ô tích; công tắc Bật/Tắt tuỳ chọn.
- * - Khi bật: vòng quay CHỈ hiện tên các bạn được tích. Luật "không gọi lặp" (ĐÃ THAM GIA, lượt mới) vẫn giữ nguyên.
- * - Lựa chọn lưu riêng cho từng lớp, trên máy đang dùng. Tắt tuỳ chọn thì vòng quay trở lại cả lớp.
- * - Màn hình vòng quay không ghi chữ "tuỳ chọn": bộ đếm chỉ tính trên các bạn được tích, để chiếu lên bảng vẫn tự nhiên.
+ * - Khi bật: vòng quay VẪN HIỆN ĐỦ TÊN CẢ LỚP, bộ đếm vẫn tính cả lớp. Chỉ có kết quả là được "ngầm" chọn:
+ *   kim luôn dừng ở một bạn đã tích và chưa tham gia. Gọi hết các bạn đã tích thì quay ngẫu nhiên như bình thường.
+ * - Luật "không gọi lặp" (ĐÃ THAM GIA, lượt mới) giữ nguyên. Lựa chọn lưu riêng cho từng lớp, trên máy đang dùng.
  */
 (function () {
   'use strict';
@@ -34,23 +34,41 @@
   }
   function active() { return mode() === 'students' && !!chosenSet(); }
 
-  /* ---------- Gắn vào vòng quay ---------- */
-  var basePool = win.pickerPool, basePeopleFn = win.pickerPeoplePool, baseDraw = win.drawPickerWheel;
+  /* ---------- Gắn vào vòng quay ----------
+   * Không đụng tới danh sách tên trên vòng quay. Ngay khi bấm QUAY (nút lớn, nút giữa vòng, QUAY TIẾP),
+   * app "hẹn trước" ô thắng: các lần rút số ngẫu nhiên cho tới lúc vòng bắt đầu quay sẽ rơi vào ô của
+   * một bạn đã tích (chọn ngẫu nhiên trong các bạn đã tích, chưa tham gia). Vòng quay bắt đầu là trả lại như cũ,
+   * nên hiệu ứng pháo giấy và các trò khác vẫn ngẫu nhiên bình thường.
+   * (Nút QUAY NGAY được mã cũ gắn thẳng vào hàm quay gốc, nên phải hẹn trước từ lúc bấm, không bọc hàm được.) */
+  var basePeopleFn = win.pickerPeoplePool;
   function basePeople() { return typeof basePeopleFn === 'function' ? basePeopleFn() : []; }
-  function filter(arr) { var set = mode() === 'students' ? chosenSet() : null; return set ? (arr || []).filter(function (s) { return s && set.has(sid(s)); }) : arr; }
-
-  if (typeof basePool === 'function') win.pickerPool = function () { return filter(basePool.apply(this, arguments)); };
-  if (typeof basePeopleFn === 'function') win.pickerPeoplePool = function () { return filter(basePeopleFn.apply(this, arguments)); };
-  if (typeof baseDraw === 'function') win.drawPickerWheel = function () { var out = baseDraw.apply(this, arguments); afterDraw(); return out; };
-
-  /* Bộ đếm: tính trên các bạn được tích thay vì cả lớp. */
-  function afterDraw() {
-    var set = mode() === 'students' ? chosenSet() : null, c = doc.getElementById('pickerRemaining'); if (!set || !c) return;
-    var left = (win.pickerPool() || []).length, total = set.size;
-    var text = 'Chưa tham gia: ' + left + ' · Đã tham gia: ' + Math.max(0, total - left) + ' · Tổng: ' + total;
-    if (c.textContent !== text) c.textContent = text;
+  var realRandom = Math.random, armed = null, armTimer = 0;
+  function disarm() { armed = null; clearTimeout(armTimer); }
+  Math.random = function () {
+    if (armed !== null) { if (win.pickerSpinning) disarm(); else return armed; }
+    return realRandom.call(Math);
+  };
+  function arm() {
+    disarm();
+    if (win.pickerSpinning || mode() !== 'students') return;
+    var set = chosenSet(); if (!set) return;
+    var pool = []; try { pool = win.pickerPool() || []; } catch (e) {}
+    var idx = []; pool.forEach(function (s, i) { if (s && set.has(sid(s))) idx.push(i); });
+    if (!idx.length) return; /* Đã gọi hết các bạn đã tích: quay ngẫu nhiên như thường. */
+    var target = idx[Math.floor(realRandom.call(Math) * idx.length)];
+    armed = (target + 0.5) / pool.length;
+    armTimer = setTimeout(disarm, 400); /* Bấm mà vòng không quay (đang quay, kho trống…) thì tự huỷ hẹn. */
   }
-  function redraw() { try { if (typeof win.drawPickerWheel === 'function') win.drawPickerWheel(); } catch (e) {} }
+  win.addEventListener('click', function (e) {
+    var t = e.target; if (!t || !t.closest) return;
+    if (t.closest('#spinButton, #picker .picker-center')) arm();
+  }, true);
+  function wrapPick() {
+    var inner = win.pickStudent; if (typeof inner !== 'function' || inner.chs) return;
+    var wrapped = function () { if (armed === null) arm(); return inner.apply(this, arguments); };
+    wrapped.chs = true; win.pickStudent = wrapped;
+  }
+  wrapPick();
 
   /* ---------- Giao diện ---------- */
   var CSS = ''
@@ -198,13 +216,13 @@
     if (!save({ on: draft.on, ids: ids })) { if (typeof win.showToast === 'function') win.showToast('Không lưu được lựa chọn. Hãy thử lại.'); return; }
     var on = draft.on; close();
     try { if (typeof win.pickerDismissWinner === 'function') win.pickerDismissWinner(); } catch (e) {}
-    redraw();
+    try { if (typeof win.drawPickerWheel === 'function') win.drawPickerWheel(); } catch (e) {}
     if (typeof win.showToast === 'function') win.showToast('✓ Đã lưu');
   }
   doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') hideMenu(); if (e.key === 'Escape' && doc.getElementById('chsOverlay') && doc.getElementById('chsOverlay').classList.contains('on')) close(); });
   doc.addEventListener('fullscreenchange', function () { hideMenu(); var ov = doc.getElementById('chsOverlay'); if (ov && ov.classList.contains('on')) overlay(); });
 
-  function later() { [0, 100, 400, 1300, 3200].forEach(function (ms) { setTimeout(function () { tuneGear(); afterDraw(); }, ms); }); }
+  function later() { [0, 100, 400, 1300, 3200].forEach(function (ms) { setTimeout(function () { tuneGear(); wrapPick(); }, ms); }); }
   var baseOpen = win.openView;
   if (typeof baseOpen === 'function') win.openView = function (id) { hideMenu(); var out = baseOpen.apply(this, arguments); if (id === 'picker') later(); return out; };
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', function () { addStyle(); later(); }); else { addStyle(); later(); }

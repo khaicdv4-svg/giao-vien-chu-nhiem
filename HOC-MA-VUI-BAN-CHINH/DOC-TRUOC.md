@@ -15,13 +15,16 @@
 - **Hộp tuỳ chọn** gồm:
   - Danh sách học sinh của lớp đang chọn, mỗi bạn một ô tích.
   - Công tắc **Bật tuỳ chọn học sinh**, nút **Chọn tất cả / Bỏ chọn tất cả**, ô tìm tên.
-- **Khi bật:** vòng quay chỉ hiện tên các bạn được tích.
-  - Bộ đếm “Chưa tham gia · Đã tham gia · Tổng” chỉ tính trên các bạn này.
-  - Luật không gọi lặp vẫn như cũ.
+- **Khi bật – chọn ngầm:**
+  - Vòng quay **vẫn hiện đủ tên cả lớp**, bộ đếm vẫn tính cả lớp.
+  - Bấm QUAY (nút QUAY NGAY, nút QUAY giữa vòng hay QUAY TIẾP) thì kim **luôn dừng ở một bạn đã tích** và chưa tham gia. Bạn nào trong số đó được gọi là ngẫu nhiên.
+  - Gọi hết các bạn đã tích thì vòng quay chọn ngẫu nhiên như bình thường.
+  - Chỉ thầy cô và app biết; người xem thấy vòng quay bình thường.
+  - Chế độ Nhiệm vụ bất ngờ không bị ảnh hưởng.
 - **Ngoài menu bánh răng, màn hình vòng quay không có chữ hay dấu hiệu nào** về tuỳ chọn. Lưu xong chỉ báo “✓ Đã lưu”.
 - **Tắt tuỳ chọn:** vòng quay gọi lại cả lớp.
 - Lựa chọn được lưu riêng cho từng lớp, trên máy đang dùng.
-- Tệp mới: `app\chon-hoc-sinh.js`. Bộ nhớ đệm offline: `hmv-ban-chinh-2.20`.
+- Tệp mới: `app\chon-hoc-sinh.js`. Bộ nhớ đệm offline: `hmv-ban-chinh-2.21`.
 
 ## 0b. Cập nhật 2.16 (15/10/2026) – Giới thiệu dự án, nhóm phát triển
 
