@@ -6,6 +6,28 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0. Cập nhật 2.22 (15/10/2026) – Đường đua kiến thức: nhạc nền, tự chấm, cài đặt như các trò khác
+
+- **Tự chấm điểm:** ô mới **Chấm điểm** với hai lựa chọn.
+  - **Tự chấm, tự chuyển câu** (mặc định). Đội bấm đáp án, ô đáp án sáng lên một nhịp, rồi app chấm Đúng/Sai, tiến chặng, hiện đáp án đúng và tự sang câu sau. Thời gian chờ lấy theo “Hiện đáp án rồi chuyển câu sau” trong Luật trận đấu.
+  - **Giáo viên chấm tay:** giữ nút “✓ Xác nhận đúng / ✗ Xác nhận sai” như cũ.
+  - Câu không có đáp án A–D (trả lời ngắn) vẫn do giáo viên chấm.
+  - Phím Enter chấm đáp án đang chọn.
+- **Nhạc nền:** bản “Giai điệu trống vui nhộn”, chạy offline.
+  - Phát khi đang đua, ngưng khi Tạm dừng, tắt khi có đội về đích hoặc về thư viện.
+  - Trong màn hình đua có nút “🎵 Nhạc nền: Bật/Tắt”.
+- **Phần cài đặt** sắp xếp và cỡ ô như Kéo co, Ai nhanh hơn. Gồm:
+  - Số đội, Đường đua, Chủ đề, **Chấm điểm**.
+  - Di chuyển, Bước đúng, Trả lời sai, Thứ tự câu hỏi.
+  - **Nhạc nền, Âm lượng nhạc nền, Tiếng hiệu ứng, Âm lượng hiệu ứng.**
+  - Bật vật phẩm, Chế độ thân thiện.
+- **Sửa lỗi:**
+  - Các ô Chủ đề, Di chuyển, Bước đúng, Trả lời sai, Thứ tự và biểu tượng đội trước đây không giữ lựa chọn đã lưu. Nay đã giữ đúng.
+  - Dòng “Kho hiện có 2 câu” sai, nay đếm theo **Nguồn câu hỏi**.
+  - Bỏ danh sách “Câu hỏi sử dụng” trùng với khung Nguồn câu hỏi.
+  - Ô “Âm thanh offline” được thay bằng “Tiếng hiệu ứng” (mặc định Bật), áp dụng cho cả tiếng ĐÚNG/SAI và tiếng mừng chiến thắng.
+- Tệp sửa: `app\index.html` (khối Đường đua), `app\nhac-nen.js`. Bộ nhớ đệm offline: `hmv-ban-chinh-2.22`.
+
 ## 0a. Cập nhật 2.17 (15/10/2026) – Gọi tên vui: Tuỳ chọn học sinh
 
 - **Nơi đặt (bí mật):** bánh răng **⚙** cạnh nút “🧩 Nhiệm vụ bất ngờ” trong Vòng quay kết nối.
@@ -36,7 +58,7 @@
 - Đóng khung bằng nút ×, phím Esc hoặc bấm ra ngoài. Không hiện trong màn hình trò chơi.
 - Tệp mới: `app\gioi-thieu.js` (muốn sửa tên, vai trò thì sửa mảng `TEAM` ở đầu tệp). Bộ nhớ đệm offline nâng lên `hmv-ban-chinh-2.17`.
 
-## 0. Cập nhật 2.15 (15/10/2026) – Luật trận đấu chung, bộ câu hỏi demo, bộ nhiệm vụ cho Vòng quay, cảnh Kéo co mới
+## 0c. Cập nhật 2.15 (15/10/2026) – Luật trận đấu chung, bộ câu hỏi demo, bộ nhiệm vụ cho Vòng quay, cảnh Kéo co mới
 
 Thầy yêu cầu bốn việc:
 1. Trong cài đặt của mọi trò chơi: chọn chơi bao nhiêu câu thì kết thúc trận, hoặc chơi bao lâu thì kết thúc; thời gian hiện đáp án; thời gian chuyển câu.

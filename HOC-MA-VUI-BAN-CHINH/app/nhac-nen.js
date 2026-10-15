@@ -1,4 +1,5 @@
-/* BAN-CHINH 1.5 · Nhạc nền cho các trò chơi chưa có: Hộp quà bí mật, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay tri thức.
+/* BAN-CHINH 1.5 · Nhạc nền cho các trò chơi chưa có: Hộp quà bí mật, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay tri thức,
+ *   Đường đua kiến thức (2.22: bật/tắt và âm lượng chỉnh trong phần thiết lập của trò).
  * (Kéo co kiến thức và Ai nhanh hơn đã có nhạc nền riêng ngay trong mã của trò.)
  *
  * - Nhạc là tệp trong ứng dụng (assets/audio), chạy offline. Mỗi bản phát lặp theo một đoạn đúng nhịp (120 nhịp/phút)
@@ -15,13 +16,14 @@
     'nghich-ngom': { name: 'Vui vẻ nghịch ngợm', url: 'assets/audio/nhac-nghich-ngom.mp3', loop: [1.015, 17.015], start: 1.0, gain: 0.55 },
     'vui-nhon': { name: 'Giai điệu trống vui nhộn', url: 'assets/audio/ai-nhanh-hon.mp3', loop: [1, 13], start: 0.03, gain: 0.3 }
   };
-  var GAMES = { gift: 'boc-tham', millionaire: 'boc-tham', 'head-tilt': 'nghich-ngom', balloon: 'vui-nhon', 'magic-hand': 'nghich-ngom', 'raise-hand': 'boc-tham' };
+  var GAMES = { gift: 'boc-tham', millionaire: 'boc-tham', 'head-tilt': 'nghich-ngom', balloon: 'vui-nhon', 'magic-hand': 'nghich-ngom', 'raise-hand': 'boc-tham', race: 'vui-nhon' };
 
   var ctx = null, gain = null, buffers = {}, loading = {}, broken = {}, src = null, srcTrack = '', want = '', el = null, elTrack = '';
 
   function read() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
   function isOn(type) { var s = read()[type]; return !s || s.on !== false; }
   function setOn(type, on) { var s = read(); s[type] = Object.assign({}, s[type], { on: !!on }); try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} }
+  function setVol(type, v) { var s = read(); s[type] = Object.assign({}, s[type]); if (typeof v === 'number') s[type].vol = Math.max(0, Math.min(1, v)); else delete s[type].vol; try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} }
   function level(type) { var s = read()[type], t = TRACKS[GAMES[type]], v = s && typeof s.vol === 'number' ? s.vol : t.gain; return Math.max(0, Math.min(1, v)); }
 
   function dropSource() { if (src) { try { src.stop(); } catch (e) {} try { src.disconnect(); } catch (e) {} src = null; srcTrack = ''; } if (el) { try { el.pause(); el.currentTime = 0; } catch (e) {} } }
@@ -68,6 +70,11 @@
     if (type === 'head-tilt') return g.querySelector('.tilt-options') && !g.querySelector('.tilt-finish') ? 'play' : 'stop';
     if (type === 'balloon') return window.hmvBalloon && typeof window.hmvBalloon.musicState === 'function' ? window.hmvBalloon.musicState() : 'stop';
     if (type === 'magic-hand') return window.hmvMagicHand && typeof window.hmvMagicHand.musicState === 'function' ? window.hmvMagicHand.musicState() : 'stop';
+    if (type === 'race') {
+      if (!g.querySelector('.race-game') || g.querySelector('.race-result')) return 'stop';
+      var held = Array.prototype.some.call(g.querySelectorAll('.race-game .page-title .toolbar button'), function (b) { return /Tiếp tục/.test(b.textContent); });
+      return held ? 'hold' : 'play';
+    }
     if (type === 'raise-hand') return window.hmvRaiseHand && typeof window.hmvRaiseHand.musicState === 'function' ? window.hmvRaiseHand.musicState() : 'stop';
     return 'stop';
   }
@@ -90,7 +97,7 @@
     var type = window.classroomGame && window.classroomGame.type || '';
     if (!GAMES[type]) { if (current) { stop(); current = ''; } return; }
     current = type;
-    ensureButton(type);
+    if (type !== 'race' || gamesEl() && gamesEl().querySelector('.race-game')) ensureButton(type);
     var st = stateOf(type);
     if (st === 'stop' || !isOn(type) || level(type) <= 0) { stop(); return; }
     if (st === 'hold' || !onStage(type)) { hold(); return; }
@@ -108,7 +115,7 @@
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', boot); else boot();
 
   window.hmvMusic = {
-    sync: sync, isOn: isOn, setOn: function (type, on) { setOn(type, on); sync(); }, tracks: TRACKS, games: GAMES,
+    sync: sync, isOn: isOn, setOn: function (type, on) { setOn(type, on); sync(); }, level: level, setVol: function (type, v) { setVol(type, v); sync(); }, tracks: TRACKS, games: GAMES,
     state: function () { return { game: current, want: want, track: srcTrack || (el && !el.paused ? elTrack : ''), mode: src ? 'webaudio' : (el && !el.paused ? 'element' : ''), ctx: ctx ? ctx.state : '', playing: !!(src && ctx && ctx.state === 'running') || !!(el && !el.paused), loop: src ? [src.loopStart, src.loopEnd] : null, gain: gain ? gain.gain.value : null, time: ctx ? ctx.currentTime : 0 }; }
   };
 })();
