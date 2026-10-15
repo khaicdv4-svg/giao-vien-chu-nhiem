@@ -6,6 +6,16 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0a. Cập nhật 2.16 (15/10/2026) – Giới thiệu dự án, nhóm phát triển
+
+- **Cuối trang chủ** có dòng chân trang: “© 2026 Trường TH Trần Văn Ơn · Nhóm thực hiện: thầy Võ Việt Khái, thầy Lê Thanh Tùng” và nút **ℹ️ Giới thiệu dự án**.
+- **Bấm nút** mở khung Giới thiệu. Nhóm phát triển chia theo vai trò:
+  - **Chỉ đạo:** Ban Giám hiệu – Trường TH Trần Văn Ơn.
+  - **Phối hợp:** Chi đoàn, Công đoàn – Trường TH Trần Văn Ơn.
+  - **Thực hiện:** Thầy Võ Việt Khái, thầy Lê Thanh Tùng – Trường TH Trần Văn Ơn.
+- Đóng khung bằng nút ×, phím Esc hoặc bấm ra ngoài. Không hiện trong màn hình trò chơi.
+- Tệp mới: `app\gioi-thieu.js` (muốn sửa tên, vai trò thì sửa mảng `TEAM` ở đầu tệp). Bộ nhớ đệm offline nâng lên `hmv-ban-chinh-2.17`.
+
 ## 0. Cập nhật 2.15 (15/10/2026) – Luật trận đấu chung, bộ câu hỏi demo, bộ nhiệm vụ cho Vòng quay, cảnh Kéo co mới
 
 Thầy yêu cầu bốn việc:
