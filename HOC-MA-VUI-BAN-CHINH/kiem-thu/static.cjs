@@ -1,7 +1,7 @@
 // Máy chủ tệp tĩnh giả lập nơi đặt web (kiểu Vercel): chỉ trả tệp trong thư mục, không có /api. Đổi thư mục gốc khi đang chạy qua /__root?dir=…
 const http = require('http'), fs = require('fs'), path = require('path');
 let root = path.resolve(process.argv[2]); const port = Number(process.argv[3] || 8790);
-const types = { html: 'text/html; charset=utf-8', js: 'application/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', css: 'text/css; charset=utf-8', json: 'application/json', webmanifest: 'application/manifest+json', png: 'image/png', mp3: 'audio/mpeg', woff2: 'font/woff2', wasm: 'application/wasm' };
+const types = { html: 'text/html; charset=utf-8', js: 'application/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', css: 'text/css; charset=utf-8', json: 'application/json', webmanifest: 'application/manifest+json', svg: 'image/svg+xml', png: 'image/png', mp3: 'audio/mpeg', woff2: 'font/woff2', wasm: 'application/wasm' };
 http.createServer((req, res) => {
   const u = new URL(req.url, 'http://x');
   if (u.pathname === '/__root') { root = path.resolve(u.searchParams.get('dir')); res.writeHead(200); return res.end(root); }
