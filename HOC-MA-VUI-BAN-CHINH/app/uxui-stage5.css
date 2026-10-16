@@ -45,5 +45,17 @@ html body .sidebar .nav button{min-width:0!important;height:auto!important;min-h
 html body .sidebar .nav button span,html body .sidebar .nav button em{flex:0 0 auto}
 html body .sidebar .nav button>*{min-width:0}
 @media(max-width:760px){html body .sidebar .nav button{font-size:clamp(12px,3.3vw,15px)!important;padding:8px 7px!important;gap:6px!important;align-items:center!important}}
+/* Compact library cards: keep actions together instead of stretching each row. */
+#games .game-library{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));align-items:stretch;gap:16px}
+#games .game-library-card{height:auto;min-height:0;padding:16px;gap:9px}
+#games .game-library-card .game-library-icon{flex:0 0 64px;width:64px;height:64px;min-height:64px;font-size:44px;margin:0 auto 8px;border-radius:18px}
+#games .game-library-card h3,#games .game-library-card h4{min-height:0;margin:0;font-size:20px;line-height:1.25}
+#games .game-library-card p{flex:0 0 auto;margin:0;font-size:14px;line-height:1.45}
+#games .game-library-card .game-tags{min-height:0;margin:2px 0;justify-content:center;gap:5px}
+#games .game-library-card .game-tags span{padding:5px 8px;font-size:11px}
+#games .game-library-card .game-card-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;width:100%;margin-top:8px}
+#games .game-library-card .game-card-actions .btn{width:100%;min-width:0;min-height:40px;padding:8px 7px;font-size:14px;line-height:1.2;white-space:nowrap}
+#games .game-library-card .game-card-actions .btn:nth-child(3){grid-column:1/-1;justify-self:center;width:auto;min-height:32px;padding:5px 12px;background:transparent;box-shadow:none}
+@media(max-width:760px){#games .game-library{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}#games .game-library-card{padding:15px}}
 html,body{max-width:100%;overflow-x:hidden}
 html body .app,html body .main,html body .sidebar{min-width:0;max-width:100%}
