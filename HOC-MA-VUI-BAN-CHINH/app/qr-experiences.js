@@ -35,6 +35,7 @@
   b.onclick=function(e){e.preventDefault();e.stopPropagation();show(x);};host.appendChild(b);
  }
  function decorate(){
+  var games=doc.getElementById('games');if(games&&!doc.getElementById('hmvQrLanding'))games.classList.remove('hmv-qr-entry');
   if(!doc.getElementById('hmvQrGalleryLink')){var dash=doc.getElementById('dashboard');if(dash){var box=doc.createElement('section');box.className='card hmv-qr-home';box.innerHTML='<h2>Trải nghiệm HỌC MÀ VUI</h2><p>Quét mã để khám phá trên điện thoại của bạn.</p><a id="hmvQrGalleryLink" class="btn color" href="./qr.html">Xem 8 mã QR · Tải ảnh · In</a>';dash.appendChild(box);attach(box,items[0]);}}
   var picker=doc.getElementById('picker');if(picker)attach(picker.querySelector('.picker-side')||picker,items[1]);
   var bank=doc.getElementById('questions');if(bank)attach(bank.querySelector('.page-title')||bank,items[7]);
@@ -49,10 +50,46 @@
    if(card.tagName==='BUTTON'||card.tagName==='A')return;attach(card,x);
   });
  }
+ function clearLanding(){
+  var root=doc.getElementById('games');if(root)root.classList.remove('hmv-qr-entry');
+  var entry=doc.getElementById('hmvQrLanding');if(entry)entry.remove();
+ }
+ function gameLanding(x){
+  win.openView('games');win.gameBack();
+  var root=doc.getElementById('games');
+  var descriptions={tug:'Hai đội trả lời đúng để kéo cờ về phía mình.',race:'Trả lời câu hỏi, tăng tốc và cùng về đích.',millionaire:'Vượt qua từng câu hỏi để chinh phục tri thức.','head-tilt':'Chọn Đúng hoặc Sai bằng cách chạm; bật camera khi muốn thử nghiêng đầu.',balloon:'Chạm vào quả bóng có đáp án đúng để ghi điểm.'};
+  var icons={tug:'🏆',race:'🏎️',millionaire:'⛰️','head-tilt':'😊',balloon:'🎈'};
+  var entry=doc.createElement('section');entry.id='hmvQrLanding';entry.className='hmv-qr-landing';entry.style.setProperty('--entry-color',x.color);
+  entry.innerHTML='<div class="hmv-entry-brand">HỌC MÀ VUI <span>ThayKhaiEdu</span></div><article class="hmv-entry-card"><div class="hmv-entry-icon" aria-hidden="true"></div><h2 tabindex="-1"></h2><p class="hmv-entry-desc"></p><div class="hmv-entry-tags"><span>✨ Có câu hỏi mẫu</span><span>👆 Chạm để chơi</span></div><div class="hmv-entry-actions"><button type="button" class="btn color" data-entry-play>▶ Chơi ngay</button><button type="button" class="btn soft" data-entry-settings>⚙ Cài đặt</button></div><details class="hmv-entry-help"><summary>Hướng dẫn chơi</summary><p>Nhấn <b>Chơi ngay</b> để dùng câu hỏi và thiết lập có sẵn. Vào <b>Cài đặt</b> nếu muốn đổi bộ câu hỏi, số câu hoặc cách chơi. Camera là tùy chọn; không cần bật để trải nghiệm.</p></details><button type="button" class="hmv-entry-share">Chia sẻ mã QR</button><p class="hmv-entry-status" role="status"></p></article><a class="hmv-entry-more" href="./qr.html">Khám phá 8 nội dung →</a>';
+  entry.querySelector('h2').textContent=x.title;entry.querySelector('.hmv-entry-icon').textContent=icons[x.game];entry.querySelector('.hmv-entry-desc').textContent=descriptions[x.game];
+  var qr=doc.createElement('img');qr.src=image(x);qr.alt='Mã QR '+x.title;qr.width=64;qr.height=64;entry.querySelector('.hmv-entry-share').prepend(qr);
+  function launch(play){
+   clearLanding();
+   try{
+    if(!play){win.gameSetup(x.game);return;}
+    if(x.game==='head-tilt'){
+     win.gameSetup(x.game);
+     if(typeof win.tiltCameraOff==='function')win.tiltCameraOff();
+     // The existing begin button validates the source and keeps camera opt-in.
+     var start=doc.querySelector('#tiltSetupModal .tilt-begin-button');
+     if(start)start.click();
+     return;
+    }
+    if(x.game==='balloon'){
+     win.gameSetup(x.game);var control=doc.getElementById('bbControl');if(control)control.value='touch';win.gameStart();return;
+    }
+    win.hmvStage5PlayNow(x.game);
+   }catch(e){gameLanding(x);entry=doc.getElementById('hmvQrLanding');entry.querySelector('[role="status"]').textContent='Chưa thể bắt đầu. Mở Cài đặt để kiểm tra câu hỏi.';}
+  }
+  entry.querySelector('[data-entry-play]').onclick=function(){launch(true);};entry.querySelector('[data-entry-settings]').onclick=function(){launch(false);};entry.querySelector('.hmv-entry-share').onclick=function(){show(x);};
+  root.prepend(entry);root.classList.add('hmv-qr-entry');entry.querySelector('h2').focus({preventScroll:true});win.scrollTo(0,0);
+ }
  function route(){
+  clearLanding();
+  var old=doc.getElementById('hmvQrExperience');if(old)old.remove();
   var m=/^#trai-nghiem\/([a-z-]+)$/.exec(win.location.hash);if(!m)return;
   var x=items.find(function(x){return x.id===m[1];});if(!x)return;
-  if(x.game){win.openView('games');win.gameSetup(x.game);}else win.openView(x.view);
+  if(x.game){gameLanding(x);return;}else win.openView(x.view);
   var old=doc.getElementById('hmvQrExperience');if(old)old.remove();
   var box=doc.createElement('aside');box.id='hmvQrExperience';box.className='hmv-qr-welcome';box.innerHTML='<b id="hmvQrExperienceTitle"></b><span></span><a href="./qr.html">Khám phá 8 nội dung</a><button aria-label="Đóng hướng dẫn">✕</button>';
   box.querySelector('b').textContent=x.title;box.querySelector('span').textContent=x.game?'Chọn Bắt đầu để chơi. Có thể dùng câu hỏi mẫu; camera là tùy chọn.':x.hint;

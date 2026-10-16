@@ -20,14 +20,16 @@ Mỗi mã dùng `https://giao-vien-chu-nhiem.vercel.app/#trai-nghiem/` kèm:
 
 ## Trạng thái bàn giao
 
-Đây là bản sửa trên nhánh riêng; chưa xuất bản lên website. Không in dùng chính thức trước khi cập nhật website và quét thử đường dẫn trên điện thoại thật.
-Khách truy cập lần đầu cần Internet. Cơ chế cache hỗ trợ truy cập lại, không thay thế kết nối lần đầu.
-QR mở màn hình chức năng/thiết lập có sẵn; người dùng bấm Bắt đầu hoặc chọn Luyện tập. Không tự bật camera, tự gọi AI hay tự ghi đè dữ liệu lớp.
-Không tạo môi trường lưu trữ demo cách ly: các thao tác chơi vẫn theo cơ chế lưu dữ liệu hiện có của app trên thiết bị người dùng. Máy gian hàng cần dùng lớp/hồ sơ demo riêng.
-Nguồn câu hỏi và thiết lập có sẵn được giữ nguyên. Với máy mới, dùng bộ mẫu có sẵn. Máy từng dùng app cần kiểm tra lại nguồn câu hỏi trước khi trình diễn.
+Bộ 8 QR đã được xuất bản trên website chính thức ngày 16/10/2026. Giữ nguyên tất cả đường dẫn và ảnh QR đã phát hành.
+
+QR trò chơi mở màn hình chính riêng: tên, mô tả, Chơi ngay, Cài đặt, hướng dẫn thu gọn và QR chia sẻ. Chỉ mở cấu hình khi người dùng chọn Cài đặt. Chơi nhanh Quiz Nghiêng Đầu và Bóng bay dùng chạm; người dùng có thể bật camera sau đó.
+
+Máy gian hàng cần dùng lớp/hồ sơ demo riêng. Khách truy cập lần đầu cần Internet; cache hỗ trợ truy cập lại.
 
 ## Xác minh
 
 `kiem-thu/t-qr.cjs`: tám đường dẫn, QR trên thẻ, đóng hộp thoại, màn hình điện thoại, giải mã độc lập tám poster bằng jsQR, tạo PDF; kiểm tra truy cập offline sau khi cache hoàn tất.
 Phụ thuộc kiểm thử ngoài ứng dụng: Playwright (Chrome), jsqr, pngjs; tạo lại ảnh cần qrcode. Có thể cấu hình đường dẫn module bằng `HMV_PLAYWRIGHT`, `HMV_JSQR`, `HMV_PNGJS`, `HMV_QRCODE`.
 Không dùng dịch vụ QR từ xa; QR và poster là SVG tĩnh, giữ vùng trắng 4 mô-đun quanh mã.
+
+Kiểm thử t-qr-entry.cjs: 5 trò ở 390px và 1440px; mở Cài đặt và Chơi ngay thực sự khởi động ván; kiểm tra 3 QR còn lại. Tài nguyên phục vụ từ tệp bằng Playwright request routing; không thay cho thử mạng, cache hoặc điện thoại thật.

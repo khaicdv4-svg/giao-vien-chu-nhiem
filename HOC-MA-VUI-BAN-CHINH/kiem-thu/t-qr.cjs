@@ -20,7 +20,7 @@ const {PNG}=require(process.env.HMV_PNGJS||'pngjs');
   for(const [slug,view] of routes){
    await page.goto(base+'#trai-nghiem/'+slug); await page.waitForTimeout(600);
    assert.equal(await page.locator('#'+view).evaluate(e=>e.classList.contains('active')),true,slug);
-   assert.equal(await page.locator('#hmvQrExperienceTitle').innerText(),await page.evaluate(s=>hmvQr.items.find(x=>x.id===s).title,slug));
+   assert.equal(await page.locator('#hmvQrLanding h2, #hmvQrExperienceTitle').innerText(),await page.evaluate(s=>hmvQr.items.find(x=>x.id===s).title,slug));
   }
   await page.goto(base); await page.waitForTimeout(600);
   await page.evaluate(()=>{openView('games');gameBack();}); await page.waitForTimeout(400);
