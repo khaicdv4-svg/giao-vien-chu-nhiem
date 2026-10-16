@@ -13,11 +13,11 @@
   'use strict';
   var doc = win.document; if (!doc) return;
   var SRC = { right: 'assets/audio/tra-loi-dung.mp3', wrong: 'assets/audio/tra-loi-sai.mp3' };
-  var els = {}, cur = null, watch = 0, counts = { right: 0, wrong: 0 }, last = null;
+  var els = {}, cur = null, watch = 0, counts = { right: 0, wrong: 0 }, last = null, epoch = 0;
 
   function el(k) { if (!els[k]) { els[k] = new win.Audio(SRC[k]); els[k].preload = 'auto'; } return els[k]; }
   function quiet(k) { var a = els[k]; if (a) { try { a.pause(); a.currentTime = 0; } catch (e) {} } }
-  function stop() { if (watch) { win.clearInterval(watch); watch = 0; } quiet('right'); quiet('wrong'); cur = null; }
+  function stop() { epoch++; if (win.hmvEffectAudio) win.hmvEffectAudio.stop('answer'); if (watch) { win.clearInterval(watch); watch = 0; } quiet('right'); quiet('wrong'); cur = null; }
   function level(v) { v = Number(v); if (isNaN(v)) return 0.8; if (v <= 0) return 0; return Math.min(1, 0.5 + v * 0.5); }   /* cùng cách tính với tiếng mừng chiến thắng */
   function reading() { return typeof win.hmvDuck === 'number' && win.hmvDuck < 1; }
   function mungOn() { try { return !!(win.hmvMung && win.hmvMung.state().playing); } catch (e) { return false; } }
@@ -26,16 +26,23 @@
     stop(); counts[k]++; last = { ok: !!ok, at: Date.now(), volume: v, fallback: false, skipped: '' };
     if (v <= 0) { last.skipped = 'tắt tiếng'; return true; }
     if (mungOn()) { last.skipped = 'đang phát tiếng mừng'; return true; }
-    function back() { last.fallback = true; if (typeof fallback === 'function') { try { fallback(); } catch (e) {} } }
-    var a;
+    var generation = epoch;
+    function back() { if (generation !== epoch) return; nativeStarted = true; last.fallback = true; if (typeof fallback === 'function') { try { fallback(); } catch (e) {} } }
+    var a, nativeAudio = !!win.hmvEffectAudio, nativeStarted = false;
     try {
+      if (nativeAudio) win.hmvEffectAudio.play('answer', SRC[k], v, null, back);
+      else {
       a = el(k); a.volume = v; try { a.currentTime = 0; } catch (e) {}
       var p = a.play(); if (p && p.catch) p.catch(back);
+      }
     } catch (e) { back(); return false; }
     cur = k;
     var wasReading = reading();
     watch = win.setInterval(function () {
-      if (!a || a.ended || a.paused) { win.clearInterval(watch); watch = 0; if (cur === k) cur = null; return; }
+      var ended;
+      if (nativeAudio) { var playing = win.hmvEffectAudio.state('answer').playing; if (playing) nativeStarted = true; ended = nativeStarted && !playing; }
+      else ended = !a || a.ended || a.paused;
+      if (ended) { win.clearInterval(watch); watch = 0; if (cur === k) cur = null; return; }
       if (!reading()) wasReading = false; else if (!wasReading) stop();   /* giọng đọc câu kế tiếp vừa cất lên */
     }, 100);
     return true;
@@ -44,7 +51,7 @@
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', warm); else warm();
   win.addEventListener('pagehide', stop);
 
-  function st(k) { var a = els[k]; return { playing: !!(a && !a.paused && !a.ended), time: a ? a.currentTime : 0, volume: a ? a.volume : null, ready: a ? a.readyState : 0, error: a && a.error ? a.error.code : 0, duration: a && isFinite(a.duration) ? a.duration : 0 }; }
+  function st(k) { var a = els[k]; return { playing: !!(cur === k && win.hmvEffectAudio ? win.hmvEffectAudio.state('answer').playing : a && !a.paused && !a.ended), time: a ? a.currentTime : 0, volume: a ? a.volume : null, ready: a ? a.readyState : 0, error: a && a.error ? a.error.code : 0, duration: a && isFinite(a.duration) ? a.duration : 0 }; }
   win.hmvDungSai = { play: play, right: function (v, f) { return play(true, v, f); }, wrong: function (v, f) { return play(false, v, f); }, stop: stop, src: SRC,
     state: function () { return { right: counts.right, wrong: counts.wrong, playing: cur && st(cur).playing ? cur : '', last: last, audio: { right: st('right'), wrong: st('wrong') } }; } };
 })(window);
