@@ -37,7 +37,7 @@
   var S = { state: 'idle', token: 0, engine: '', audio: null, url: '', utter: [], watch: 0, last: null, lastText: '', autoTimer: 0, tryNote: '', mem: {}, voices: [], scanTimer: 0, gameRead: false, holdTimer: 0, pop: null };
 
   function load() {
-    var d = { engine: 'auto', voice: '', aiVoice: 'Kore', rate: 0.95, answers: true, auto: true, wait: true }, s = null;
+    var d = { engine: 'auto', voice: '', aiVoice: 'Kore', rate: 0.95, answers: true, auto: true, autoWelcome: true, wait: true }, s = null;
     try { s = JSON.parse(win.localStorage.getItem(LS) || 'null'); } catch (e) {}
     if (s && typeof s === 'object') {
       if (s.engine === 'auto' || s.engine === 'browser' || s.engine === 'ai') d.engine = s.engine;
@@ -46,6 +46,7 @@
       if (RATES.some(function (r) { return Number(r[0]) === Number(s.rate); })) d.rate = Number(s.rate);
       if (typeof s.answers === 'boolean') d.answers = s.answers;
       if (typeof s.auto === 'boolean') d.auto = s.auto;
+      if (typeof s.autoWelcome === 'boolean') d.autoWelcome = s.autoWelcome;
       if (typeof s.wait === 'boolean') d.wait = s.wait;
     }
     return d;
@@ -310,7 +311,8 @@
       + '<label>Giọng AI<select id="dtAiVoice" class="input"' + (ai ? '' : ' disabled') + '>' + AI_VOICES.map(function (x) { return opt(x[0], cfg.aiVoice, x[1]); }).join('') + '</select></label>'
       + '<label>Tốc độ đọc<select id="dtRate" class="input">' + RATES.map(function (r) { return opt(r[0], cfg.rate, r[1]); }).join('') + '</select></label></div>'
       + '<label class="dt-check"><input type="checkbox" id="dtAnswers"' + (cfg.answers ? ' checked' : '') + '> Đọc cả các phương án A, B, C, D</label>'
-      + '<label class="dt-check"><input type="checkbox" id="dtAuto"' + (cfg.auto ? ' checked' : '') + '> Tự đọc mỗi khi sang câu mới (không cần bấm nút loa)</label>'
+       + '<label class="dt-check"><input type="checkbox" id="dtAuto"' + (cfg.auto ? ' checked' : '') + '> Tự đọc mỗi khi sang câu mới (không cần bấm nút loa)</label>'
+      + '<label class="dt-check"><input type="checkbox" id="dtAutoWelcome"' + (cfg.autoWelcome ? ' checked' : '') + '> Tự đọc lời chào và hướng dẫn khi mở trò chơi bằng QR</label>'
       + '<label class="dt-check"><input type="checkbox" id="dtWait"' + (cfg.wait ? ' checked' : '') + '> Chờ đọc xong mới tính giờ (đồng hồ và việc tự chuyển câu của trò chơi tạm chờ trong lúc máy đọc)</label>'
       + '<div class="dt-try"><button type="button" class="btn color" id="dtTry"' + (ready ? '' : ' disabled') + '>▶ Nghe thử</button><span id="dtTryNote" class="dt-try-note"></span></div>'
       + '<p class="dt-foot">Dùng được trong: Kéo co, Ai nhanh hơn, Hộp quà, Đường đua, Chinh phục tri thức, Quiz Nghiêng Đầu, Bóng bay, Bình chọn ngón tay, Chế độ giấy. Chỉ câu hỏi và phương án được đọc, không có lời dẫn; không gửi tên học sinh. Trong trò chơi, nút bánh răng cạnh nút loa mở nhanh các lựa chọn này.</p></section>';
@@ -331,7 +333,7 @@
   function onChange(e) {
     var t = e.target; if (!t || !t.id || t.id.indexOf('dt') !== 0 || !t.closest('.dt-card')) return;
     if (t.id === 'dtEngine') cfg.engine = t.value; else if (t.id === 'dtVoice') cfg.voice = t.value; else if (t.id === 'dtAiVoice') cfg.aiVoice = t.value;
-    else if (t.id === 'dtRate') cfg.rate = Number(t.value) || 0.95; else if (t.id === 'dtAnswers') cfg.answers = !!t.checked; else if (t.id === 'dtAuto') cfg.auto = !!t.checked; else if (t.id === 'dtWait') cfg.wait = !!t.checked; else return;
+    else if (t.id === 'dtRate') cfg.rate = Number(t.value) || 0.95; else if (t.id === 'dtAnswers') cfg.answers = !!t.checked; else if (t.id === 'dtAuto') cfg.auto = !!t.checked; else if (t.id === 'dtAutoWelcome') cfg.autoWelcome = !!t.checked; else if (t.id === 'dtWait') cfg.wait = !!t.checked; else return;
     save(); S.tryNote = ''; if (S.state !== 'idle') stop(); syncHold(); rerender();
   }
   /* ---------- Bảng chọn nhanh trong trò chơi (nút bánh răng cạnh nút loa) ---------- */
@@ -340,6 +342,7 @@
       + '<div class="hmv-dt-pop-row"><span>Tốc độ đọc</span><div class="hmv-dt-seg" role="group" aria-label="Tốc độ đọc">' + RATES.map(function (r) { var on = Number(r[0]) === Number(cfg.rate); return '<button type="button" data-dt-rate="' + r[0] + '"' + (on ? ' class="on"' : '') + ' aria-pressed="' + (on ? 'true' : 'false') + '">' + r[1] + '</button>'; }).join('') + '</div></div>'
       + '<label class="hmv-dt-pop-check"><input type="checkbox" data-dt-opt="wait"' + (cfg.wait ? ' checked' : '') + '><span>Chờ đọc xong mới tính giờ</span></label>'
       + '<label class="hmv-dt-pop-check"><input type="checkbox" data-dt-opt="auto"' + (cfg.auto ? ' checked' : '') + '><span>Tự đọc khi sang câu mới</span></label>'
+      + '<label class="hmv-dt-pop-check"><input type="checkbox" data-dt-opt="autoWelcome"' + (cfg.autoWelcome ? ' checked' : '') + '><span>Tự đọc lời chào khi mở QR</span></label>'
       + '<label class="hmv-dt-pop-check"><input type="checkbox" data-dt-opt="answers"' + (cfg.answers ? ' checked' : '') + '><span>Đọc cả phương án A, B, C, D</span></label>';
   }
   function placePop(anchor) {
@@ -356,7 +359,7 @@
   function popChanged() { save(); syncHold(); if (S.pop) S.pop.innerHTML = popHtml(); var h = doc.getElementById('dtSettings'); if (h) renderSettings(h); }
   function onPopChange(e) {
     var t = e.target; if (!t || !t.dataset || !t.dataset.dtOpt || !S.pop || !S.pop.contains(t)) return;
-    var k = t.dataset.dtOpt; if (k === 'wait' || k === 'auto' || k === 'answers') { cfg[k] = !!t.checked; popChanged(); }
+    var k = t.dataset.dtOpt; if (k === 'wait' || k === 'auto' || k === 'answers' || k === 'autoWelcome') { cfg[k] = !!t.checked; popChanged(); }
   }
   function onClick(e) {
     var el = e.target && e.target.closest ? e.target : null; if (!el) return;
