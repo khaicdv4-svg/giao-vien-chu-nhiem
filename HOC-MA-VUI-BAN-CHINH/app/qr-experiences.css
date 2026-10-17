@@ -18,3 +18,24 @@
 .hmv-entry-share{margin-top:16px;background:transparent;border:0;color:#475569;text-decoration:underline;cursor:pointer;font-size:14px;padding:8px}.hmv-entry-status:empty{display:none}.hmv-entry-status{color:#b91c1c;font-size:15px}.hmv-entry-more{display:inline-block;margin-top:20px;color:#475569;font-size:15px}
 @media(max-width:480px){.hmv-qr-landing{margin:4px auto 18px}.hmv-entry-brand{margin-bottom:12px}.hmv-entry-card{border-radius:22px;padding:24px 16px}.hmv-entry-icon{font-size:52px;margin-bottom:12px}.hmv-entry-desc{font-size:16px}.hmv-entry-actions .btn{font-size:16px;padding:12px 8px}.hmv-entry-tags{margin-bottom:20px}}
 .hmv-entry-brand{color:#fff}.hmv-entry-brand span{color:#fde68a}.hmv-entry-more{color:#fff;background:#ffffff1a;border:1px solid #ffffff55;border-radius:24px;padding:10px 18px;text-decoration:none}.hmv-entry-share{display:inline-flex;align-items:center;gap:10px;border:1px solid #e2e8f0;border-radius:12px;background:white;padding:6px 12px;color:#334155;text-decoration:none}.hmv-entry-share img{display:block;flex-shrink:0}
+
+/* Mobile home layout: keep the QR action compact and leave room for bottom navigation. */
+@media(max-width:680px){
+  .main{padding-top:max(18px,env(safe-area-inset-top));padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+  .main>.topbar{scroll-margin-top:100px}
+  #thHome.th-home{grid-template-columns:minmax(0,1fr);gap:14px}
+  #thHome .th-main,#thHome .th-side{min-width:0;width:100%}
+  #thHome .th-big,#thHome .th-small{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  #thHome .th-tile{min-width:0;max-width:100%;height:auto;min-height:138px;padding:12px}
+  #thHome .hmv-qr-tile{min-width:0;max-width:100%;overflow:hidden}
+  #thHome .hmv-qr-inline{width:calc(100% - 12px);min-height:42px;margin:7px auto 2px;padding:7px 9px;gap:0;border-radius:12px}
+  #thHome .hmv-qr-inline img{display:none}
+  #thHome .hmv-qr-inline span{display:block;min-width:0;text-align:center}
+  #thHome .hmv-qr-inline b{font-size:13px;line-height:1.25}
+  #thHome .hmv-qr-inline small{display:none}
+  #dashboard{scroll-padding-top:100px}
+}
+@media(max-width:390px){
+  #thHome .th-big,#thHome .th-small{grid-template-columns:minmax(0,1fr)}
+  #thHome .th-tile{min-height:104px;flex-direction:row;justify-content:flex-start;gap:14px}
+}
