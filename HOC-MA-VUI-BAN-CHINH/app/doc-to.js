@@ -37,7 +37,7 @@
   var S = { state: 'idle', token: 0, engine: '', audio: null, url: '', utter: [], watch: 0, last: null, lastText: '', autoTimer: 0, tryNote: '', mem: {}, voices: [], scanTimer: 0, gameRead: false, holdTimer: 0, pop: null };
 
   function load() {
-    var d = { engine: 'auto', voice: '', aiVoice: 'Kore', rate: 0.95, answers: true, auto: false, wait: true }, s = null;
+    var d = { engine: 'auto', voice: '', aiVoice: 'Kore', rate: 0.95, answers: true, auto: true, wait: true }, s = null;
     try { s = JSON.parse(win.localStorage.getItem(LS) || 'null'); } catch (e) {}
     if (s && typeof s === 'object') {
       if (s.engine === 'auto' || s.engine === 'browser' || s.engine === 'ai') d.engine = s.engine;
