@@ -58,10 +58,15 @@
   win.openView('games');win.gameBack();
   var root=doc.getElementById('games');
   var descriptions={tug:'Hai đội trả lời đúng để kéo cờ về phía mình.',race:'Trả lời câu hỏi, tăng tốc và cùng về đích.',millionaire:'Vượt qua từng câu hỏi để chinh phục tri thức.','head-tilt':'Chọn Đúng hoặc Sai bằng cách chạm; bật camera khi muốn thử nghiêng đầu.',balloon:'Chạm vào quả bóng có đáp án đúng để ghi điểm.'};
+  var voiceInstructions={tug:'Hãy trả lời đúng để cùng kéo cờ chiến thắng.',race:'Chọn đáp án đúng để tăng tốc về đích.',millionaire:'Nghe câu hỏi và chọn đáp án để chinh phục thử thách.','head-tilt':'Chạm Đúng hoặc Sai; nghiêng đầu là tùy chọn.',balloon:'Chạm vào quả bóng có đáp án đúng để ghi điểm.'};
   var icons={tug:'🏆',race:'🏎️',millionaire:'⛰️','head-tilt':'😊',balloon:'🎈'};
   var entry=doc.createElement('section');entry.id='hmvQrLanding';entry.className='hmv-qr-landing';entry.style.setProperty('--entry-color',x.color);
-  entry.innerHTML='<div class="hmv-entry-brand">HỌC MÀ VUI <span>ThayKhaiEdu</span></div><article class="hmv-entry-card"><div class="hmv-entry-icon" aria-hidden="true"></div><h2 tabindex="-1"></h2><p class="hmv-entry-desc"></p><div class="hmv-entry-tags"><span>✨ Có câu hỏi mẫu</span><span>👆 Chạm để chơi</span></div><div class="hmv-entry-actions"><button type="button" class="btn color" data-entry-play>▶ Chơi ngay</button><button type="button" class="btn soft" data-entry-settings>⚙ Cài đặt</button></div><details class="hmv-entry-help"><summary>Hướng dẫn chơi</summary><p>Nhấn <b>Chơi ngay</b> để dùng câu hỏi và thiết lập có sẵn. Vào <b>Cài đặt</b> nếu muốn đổi bộ câu hỏi, số câu hoặc cách chơi. Camera là tùy chọn; không cần bật để trải nghiệm.</p></details><button type="button" class="hmv-entry-share">Chia sẻ mã QR</button><p class="hmv-entry-status" role="status"></p></article><a class="hmv-entry-more" href="./qr.html">Khám phá 8 nội dung →</a>';
+  entry.innerHTML='<div class="hmv-entry-brand">HỌC MÀ VUI <span>ThayKhaiEdu</span></div><article class="hmv-entry-card"><div class="hmv-entry-icon" aria-hidden="true"></div><h2 tabindex="-1"></h2><p class="hmv-entry-desc"></p><div class="hmv-entry-tags"><span>✨ Có câu hỏi mẫu</span><span>👆 Chạm để chơi</span></div><div class="hmv-entry-actions"><button type="button" class="btn color" data-entry-play>▶ Chơi ngay</button><button type="button" class="btn soft" data-entry-settings>⚙ Cài đặt</button></div><button type="button" class="btn soft" data-entry-voice>🔊 Nghe lời chào và hướng dẫn</button><details class="hmv-entry-help"><summary>Hướng dẫn chơi</summary><p>Nhấn <b>Chơi ngay</b> để dùng câu hỏi và thiết lập có sẵn. Vào <b>Cài đặt</b> nếu muốn đổi bộ câu hỏi, số câu hoặc cách chơi. Camera là tùy chọn; không cần bật để trải nghiệm.</p></details><button type="button" class="hmv-entry-share">Chia sẻ mã QR</button><p class="hmv-entry-status" role="status"></p></article><a class="hmv-entry-more" href="./qr.html">Khám phá 8 nội dung →</a>';
   entry.querySelector('h2').textContent=x.title;entry.querySelector('.hmv-entry-icon').textContent=icons[x.game];entry.querySelector('.hmv-entry-desc').textContent=descriptions[x.game];
+  var spokenWelcome='Chào mừng bạn đến với Học Mà Vui! '+voiceInstructions[x.game];
+  var voiceButton=entry.querySelector('[data-entry-voice]'), entryStatus=entry.querySelector('.hmv-entry-status');
+  function speakWelcome(){if(!win.hmvDocTo||typeof win.hmvDocTo.speak!=='function'){entryStatus.textContent='Thiết bị chưa sẵn sàng đọc. Bạn vẫn có thể xem hướng dẫn bên dưới.';return;}voiceButton.disabled=true;voiceButton.textContent='🔊 Đang đọc…';win.hmvDocTo.speak(spokenWelcome).then(function(){voiceButton.disabled=false;voiceButton.textContent='🔊 Nghe lại lời chào và hướng dẫn';},function(){voiceButton.disabled=false;voiceButton.textContent='🔊 Nghe lời chào và hướng dẫn';entryStatus.textContent='Nếu chưa nghe được, hãy chạm nút nghe lại hoặc bật giọng đọc tiếng Việt trong Cài đặt.';});}
+  voiceButton.onclick=speakWelcome;
   var qr=doc.createElement('img');qr.src=image(x);qr.alt='Mã QR '+x.title;qr.width=64;qr.height=64;entry.querySelector('.hmv-entry-share').prepend(qr);
   function launch(play){
    clearLanding();
@@ -83,6 +88,8 @@
   }
   entry.querySelector('[data-entry-play]').onclick=function(){launch(true);};entry.querySelector('[data-entry-settings]').onclick=function(){launch(false);};entry.querySelector('.hmv-entry-share').onclick=function(){show(x);};
   root.prepend(entry);root.classList.add('hmv-qr-entry');entry.querySelector('h2').focus({preventScroll:true});win.scrollTo(0,0);
+  var audioCfg=win.hmvDocTo&&win.hmvDocTo.state?win.hmvDocTo.state().cfg:null;
+  if(!audioCfg||audioCfg.autoWelcome!==false)win.setTimeout(speakWelcome,500);
  }
  function route(){
   clearLanding();
