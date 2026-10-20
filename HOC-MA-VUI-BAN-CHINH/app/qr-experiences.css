@@ -68,3 +68,12 @@
 .hmv-entry-note{margin:10px 0 14px;font-size:14px;color:#64748b}
 .hmv-entry-last:empty{display:none}.hmv-entry-last{margin:12px 0 0;font-size:13px;color:#64748b}
 @media(max-width:560px){.hmv-entry-top{flex-direction:column;gap:10px}.hmv-entry-back{position:static;transform:none;align-self:flex-start}}
+
+/* 2.19: chữ “Vào trò chơi” không tràn lề khi thẻ hẹp (lưới 2–5 cột). */
+#games .hmv-game-card{container-type:inline-size;min-width:0}
+.hmv-card-foot{min-width:0}
+.hmv-card-enter{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.hmv-card-qr{min-width:0}
+@container (max-width:400px){.hmv-card-qr small{display:none}.hmv-card-enter{font-size:15px;padding:10px 12px}}
+@container (max-width:340px){.hmv-card-qr{padding:4px}.hmv-card-qr span{display:none}.hmv-card-qr img{width:56px;height:56px}.hmv-card-foot{gap:8px}}
+@container (max-width:230px){.hmv-card-foot{flex-direction:column;align-items:stretch}.hmv-card-qr{align-self:center}}

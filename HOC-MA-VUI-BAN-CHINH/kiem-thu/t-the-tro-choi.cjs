@@ -7,12 +7,14 @@ const app=path.resolve(__dirname,'../app');
 async function serve(ctx){await ctx.route('**/*',async route=>{const url=new URL(route.request().url());if(url.hostname!=='hmv.test')return route.fulfill({status:404,body:''});let p=path.join(app,decodeURIComponent(url.pathname));if(url.pathname==='/')p=path.join(app,'index.html');if(!p.startsWith(app)||!fs.existsSync(p)||fs.statSync(p).isDirectory())return route.fulfill({status:404,body:''});const ext=path.extname(p);await route.fulfill({path:p,contentType:({'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.woff2':'font/woff2'})[ext]||'application/octet-stream'});});}
 async function card(p,t){const L=p.locator('#games .hmv-game-card[data-game-type="'+t+'"] h3');await L.scrollIntoViewIfNeeded();const bb=await L.boundingBox();await p.mouse.click(bb.x+bb.width/2,bb.y+bb.height/2);await p.waitForTimeout(300);}
 (async()=>{const b=await chromium.launch();
-for(const w of [390,1440]){const ctx=await b.newContext({viewport:{width:w,height:900},serviceWorkers:'block'});await serve(ctx);const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
+for(const w of [390,1280,1440,1600,1920]){const ctx=await b.newContext({viewport:{width:w,height:900},serviceWorkers:'block'});await serve(ctx);const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
  await p.goto('https://hmv.test/');await p.waitForTimeout(1300);await p.evaluate(()=>openView('games'));await p.waitForTimeout(900);
  assert.equal(await p.locator('#games .game-library-card').count(),11);
  assert.equal(await p.locator('#games .game-library-card .hmv-card-qr').count(),11,'QR on every card');
  assert.equal(await p.locator('#games .game-card-actions').count(),0,'no old buttons on cards');
  assert.equal(await p.locator('#games .hmv-card-qr img').evaluateAll(es=>es.filter(e=>e.complete&&e.naturalWidth>0).length),11,'QR images load');
+ // 2.19: nút Vào trò chơi và QR nằm gọn trong thẻ (không tràn lề, không cắt chữ).
+ assert.deepEqual(await p.evaluate(()=>[...document.querySelectorAll('#games .hmv-game-card')].filter(c=>{const cr=c.getBoundingClientRect();return [...c.querySelectorAll('.hmv-card-enter,.hmv-card-qr')].some(e=>{const r=e.getBoundingClientRect();return r.right>cr.right-6||r.left<cr.left+6||e.scrollWidth>e.clientWidth+1})}).map(c=>c.dataset.gameType)),[],'card footer fits');
  // QR trên thẻ mở hộp phóng lớn, không mở trò.
  await p.locator('#games .hmv-game-card[data-game-type="poll"] .hmv-card-qr').click();assert.equal(await p.locator('#hmvQrDialog').count(),1);assert.equal(await p.locator('#hmvQrLanding').count(),0);
  await p.keyboard.press('Escape');assert.equal(await p.locator('#hmvQrDialog').count(),0);
