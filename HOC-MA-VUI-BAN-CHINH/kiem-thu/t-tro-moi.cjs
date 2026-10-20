@@ -32,7 +32,7 @@ const dsCount = page => page.evaluate(() => { const s = hmvDungSai.state(); retu
   const lib = await page.evaluate(() => Array.from(document.querySelectorAll('#games .game-library-card')).map(c => ({ t: c.querySelector('h3').textContent.trim(), isNew: !!c.querySelector('.bb-new'), tags: Array.from(c.querySelectorAll('.game-tags span')).map(s => s.textContent).join('|') })));
   const m0 = lib.find(c => c.t === 'Bàn tay phép thuật'), r0 = lib.find(c => c.t === 'Giơ tay giành quyền');
   ok('1 Thư viện có 10 thẻ (kể cả Nốt nhạc vui), thêm "Bàn tay phép thuật" và "Giơ tay giành quyền" (nhãn Mới, ghi rõ dùng camera AI)', lib.length === 10 && m0 && r0 && m0.isNew && r0.isNew && /Camera AI/.test(m0.tags) && /Camera AI/.test(r0.tags), lib);
-  await page.click('#games .game-library-card:has(h3:text-is("Bàn tay phép thuật")) .game-card-actions button:has-text("Chơi ngay")').catch(() => {}); await page.waitForTimeout(400); const fromLib = await page.evaluate(() => classroomGame.type);
+  /* 2.16: thẻ không còn nút Chơi ngay; bấm thẻ → màn hình chính → Bắt đầu chơi. */ await page.click('#games .game-library-card:has(h3:text-is("Bàn tay phép thuật")) .hmv-card-enter').catch(() => {}); await page.click('#hmvQrLanding [data-entry-play]').catch(() => {}); await page.waitForTimeout(400); const fromLib = await page.evaluate(() => classroomGame.type);
   if (fromLib !== 'magic-hand') await page.evaluate(() => gameSetup('magic-hand'));
   const libPlay = await page.evaluate(() => { const m = hmvMagicHand.state().match; return m ? m.phase : null; });
   ok('2 Thẻ "Bàn tay phép thuật" trong thư viện: bấm "Chơi ngay" vào chơi ngay với bộ mẫu', fromLib === 'magic-hand' && libPlay === 'ask', [fromLib, libPlay]);

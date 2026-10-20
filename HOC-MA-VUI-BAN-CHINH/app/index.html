@@ -13,6 +13,7 @@
   <script src="./cai-ung-dung.js"></script>
   <script src="./mau-giao-dien.js"></script>
   <script src="./nhiem-vu-mau.js"></script>
+  <script src="./cap-nhat.js"></script>
   <title>HỌC MÀ VUI | HMV-BAN-CHINH-2.15-20261015</title>
   <script>console.info('[HOC-MA-VUI] Build kiểm tra: HMV-BAN-CHINH-2.15-20261015'); console.info('[HOC-MA-VUI] location.href:', location.href);</script>
   <style id="lexend-local-font">
@@ -581,7 +582,7 @@ audioEnsureUI();document.querySelector('#picker .picker-stage')?.addEventListene
 function audioApply(){audioSave();audioRender();closeAudioSettings();showToast('✅ Đã áp dụng cài đặt âm thanh')}
 function audioAddApplyButton(){var p=document.getElementById('audioSettingsPanel');if(!p||document.getElementById('audioApplyButton'))return;var b=document.createElement('button');b.id='audioApplyButton';b.className='btn color';b.textContent='✅ ÁP DỤNG';b.style.cssText='width:100%;margin-top:10px;font-weight:900';b.onclick=audioApply;p.appendChild(b)}
 audioAddApplyButton();
-function registerOfflineCache(){if(!('serviceWorker' in navigator)||location.protocol==='file:')return;navigator.serviceWorker.register('./sw.js').then(function(reg){function offer(){if(!reg.waiting||window.__hmvUpdating)return;var reload=confirm('Đã có bản cập nhật. Nhấn OK để tải lại.');if(reload){/* 2.11: chờ bản mới nhận quyền rồi mới tải lại – trước đây tải lại ngay nên đôi khi hỏi lần thứ hai */window.__hmvUpdating=true;var done=false,go=function(){if(done)return;done=true;window.location.reload()};navigator.serviceWorker.addEventListener('controllerchange',go);setTimeout(go,4000);if(reg.waiting)reg.waiting.postMessage('SKIP_WAITING');else go()}}if(reg.waiting)offer();reg.addEventListener('updatefound',function(){var worker=reg.installing;if(worker)worker.addEventListener('statechange',function(){if(worker.state==='installed'&&navigator.serviceWorker.controller)offer()})})}).catch(function(){showToast('Chế độ offline nâng cao chưa được bật; trò chơi vẫn dùng được offline')})}
+function registerOfflineCache(){if(!('serviceWorker' in navigator)||location.protocol==='file:')return;navigator.serviceWorker.register('./sw.js').then(function(reg){function offer(){if(!reg.waiting||window.__hmvUpdating)return;/* 2.17: thông báo + nút Cập nhật ngay thay cho hộp confirm */if(window.hmvCapNhat){window.hmvCapNhat.offer(reg);return}var reload=confirm('Đã có bản cập nhật. Nhấn OK để tải lại.');if(reload){/* 2.11: chờ bản mới nhận quyền rồi mới tải lại – trước đây tải lại ngay nên đôi khi hỏi lần thứ hai */window.__hmvUpdating=true;var done=false,go=function(){if(done)return;done=true;window.location.reload()};navigator.serviceWorker.addEventListener('controllerchange',go);setTimeout(go,4000);if(reg.waiting)reg.waiting.postMessage('SKIP_WAITING');else go()}}if(reg.waiting)offer();reg.addEventListener('updatefound',function(){var worker=reg.installing;if(worker)worker.addEventListener('statechange',function(){if(worker.state==='installed'&&navigator.serviceWorker.controller)offer()})})}).catch(function(){showToast('Chế độ offline nâng cao chưa được bật; trò chơi vẫn dùng được offline')})}
 registerOfflineCache();
  var audioWasRunning=false;document.addEventListener('visibilitychange',function(){if(document.hidden){audioWasRunning=!!audioTimers.background||!!audioNodes.background;audioStop('spin');var bg=audioNodes.background;if(bg)bg.pause();if(audioTimers.background){clearinterval(audioTimers.background);delete audioTimers.background}}else if(audioWasRunning&&audioMasterEnabled&&!pickerSpinning){audioStart('background')}});window.addEventListener('pagehide',function(){audioStopAll()});
 /* Khi quay lại tab, trạng thái chờ không được tự khởi động lại nhạc nền. */
@@ -2287,6 +2288,7 @@ if(localStorage.getItem('hmv_backup_restore_pending')){location.replace('./backu
 <script src="./dien-thoai.js"></script>
 <link rel="stylesheet" href="./qr-experiences.css">
 <script src="./qr-experiences.js"></script>
+<script src="./chon-bo-cau-hoi.js"></script>
 </body></html>
 
 

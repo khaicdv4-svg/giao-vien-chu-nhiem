@@ -16,7 +16,7 @@ const {PNG}=require(process.env.HMV_PNGJS||'pngjs');
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base); await page.waitForTimeout(1200);
   assert.equal(await page.locator('#hmvQrGalleryLink').count(),1,'QR gallery entry exists');
-  const routes=[['gioi-thieu','dashboard'],['vong-quay','picker'],['keo-co','games'],['duong-dua','games'],['chinh-phuc','games'],['nghieng-dau','games'],['bong-bay','games'],['luyen-tap','questions']];
+  const routes=[['gioi-thieu','dashboard'],['vong-quay','picker'],['keo-co','games'],['duong-dua','games'],['chinh-phuc','games'],['nghieng-dau','games'],['bong-bay','games'],['luyen-tap','questions'],['binh-chon','games'],['ban-tay-phep-thuat','games'],['gio-tay','games'],['hop-qua','games'],['ai-nhanh-hon','games'],['not-nhac','games']];
   for(const [slug,view] of routes){
    await page.goto(base+'#trai-nghiem/'+slug); await page.waitForTimeout(600);
    assert.equal(await page.locator('#'+view).evaluate(e=>e.classList.contains('active')),true,slug);
@@ -24,14 +24,16 @@ const {PNG}=require(process.env.HMV_PNGJS||'pngjs');
   }
   await page.goto(base); await page.waitForTimeout(600);
   await page.evaluate(()=>{openView('games');gameBack();}); await page.waitForTimeout(400);
-  assert.ok(await page.locator('#games .hmv-qr-inline').count()>=5,'QR attached to game cards');
-  await page.locator('#games .hmv-qr-inline').first().click();
+  assert.equal(await page.locator('#games .game-library-card').count(),await page.locator('#games .game-library-card .hmv-card-qr').count(),'QR attached to every game card');
+  assert.ok(await page.locator('#games .hmv-card-qr').count()>=11,'11 game cards with QR');
+  await page.locator('#games .hmv-card-qr').first().click();
   assert.equal(await page.locator('#hmvQrDialog').count(),1);
   await page.keyboard.press('Escape'); assert.equal(await page.locator('#hmvQrDialog').count(),0);
   await page.setViewportSize({width:390,height:844});
   await page.goto(base+'qr.html'); await page.waitForTimeout(400);
-  assert.equal(await page.locator('.qr-poster').count(),8);
-  assert.equal(await page.locator('.qr-poster img').evaluateAll(es=>es.filter(e=>e.complete&&e.naturalWidth>0).length),8,'all poster images render');
+  const total=await page.evaluate(()=>hmvQr.items.length);assert.equal(total,14);
+  assert.equal(await page.locator('.qr-poster').count(),total);
+  assert.equal(await page.locator('.qr-poster img').evaluateAll(es=>es.filter(e=>e.complete&&e.naturalWidth>0).length),total,'all poster images render');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'mobile gallery fits');
   const out=path.join(__dirname,'../qr-delivery');fs.mkdirSync(out,{recursive:true});
   await page.screenshot({path:path.join(out,'qr-mobile.png'),fullPage:true});
@@ -45,7 +47,7 @@ const {PNG}=require(process.env.HMV_PNGJS||'pngjs');
    const decoded=jsQR(new Uint8ClampedArray(shot.data),shot.width,shot.height);
    assert.equal(decoded?.data,'https://giao-vien-chu-nhiem.vercel.app/#trai-nghiem/'+x.id,'independent decode '+x.id);
   }
-  await page.goto(base+'qr.html');await page.evaluate(()=>document.fonts.ready);await page.pdf({path:path.join(out,'8-ma-QR-ThayKhaiEdu.pdf'),printBackground:true,preferCSSPageSize:true});
+  await page.goto(base+'qr.html');await page.evaluate(()=>document.fonts.ready);await page.pdf({path:path.join(out,'ma-QR-ThayKhaiEdu.pdf'),printBackground:true,preferCSSPageSize:true});
   for(const [slug,view] of routes){
    console.log('Cold mobile '+slug);
    const ctx=await browser.newContext({viewport:{width:390,height:844}});const cold=await ctx.newPage();
@@ -57,9 +59,9 @@ const {PNG}=require(process.env.HMV_PNGJS||'pngjs');
   await page.goto(base);await page.evaluate(()=>Promise.race([navigator.serviceWorker.ready,new Promise((_,reject)=>setTimeout(()=>reject(Error('Service worker not ready')),15000))]));await page.reload();
   await page.context().setOffline(true);await page.goto(base+'#trai-nghiem/keo-co');await page.waitForTimeout(500);
   assert.ok(await page.locator('#games').evaluate(e=>e.classList.contains('active')),'offline route');
-  await page.goto(base+'qr.html');assert.equal(await page.locator('.qr-poster').count(),8,'offline gallery');
+  await page.goto(base+'qr.html');assert.equal(await page.locator('.qr-poster').count(),14,'offline gallery');
   await page.context().setOffline(false);
   assert.deepEqual(errors,[],'no page errors');
-  console.log('PASS: eight routes, game card QR, dialog, mobile gallery');
+  console.log('PASS: 14 routes, QR on every game card, dialog, mobile gallery');
  }finally{await browser.close();server.kill()}
 })().catch(e=>{console.error(e);process.exitCode=1});

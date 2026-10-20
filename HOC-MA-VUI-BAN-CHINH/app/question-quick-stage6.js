@@ -316,6 +316,33 @@
     startNow();
     return { ok: true, count: list.length, total: candidates.length, needsSetup: type === 'head-tilt' };
   };
+  /* BAN-CHINH 2.18: chọn bộ câu hỏi từ màn hình trò chơi (hai chiều với Kho → Chơi ngay). Chỉ gắn bộ, không tự bắt đầu. */
+  function usableList(type, setId, ids) {
+    var set = setById(setId); if (!set) return { set: null, list: [], total: 0 };
+    var wanted = Array.isArray(ids) ? ids.map(String) : [], candidates = (set.questions || []).filter(function (q) { return !wanted.length || wanted.indexOf(String(q.id)) >= 0; });
+    var list = candidates.map(function (q, i) { return normalize(forGame(q), i, set); }).filter(function (q) { return !errors(q, type).length; });
+    return { set: set, list: list, total: candidates.length };
+  }
+  window.hmvC6UsableCount = function (type, setId) { var u = usableList(type, setId); return { count: u.list.length, total: u.total }; };
+  window.hmvC6SelectBankSet = function (type, setId, ids) {
+    var u = usableList(type, setId, ids);
+    if (!u.set) return { ok: false, reason: 'Không tìm thấy bộ câu hỏi đã chọn.' };
+    if (!u.list.length) return { ok: false, reason: 'Bộ này chưa có câu hợp lệ cho ' + gameName(type) + '.' };
+    var keep = currentGame; currentGame = type;
+    chooseGameQuestions(u.list, { setId: u.set.id, ids: u.list.map(function (q) { return q.id; }) });
+    currentGame = keep || type;
+    return { ok: true, count: u.list.length, total: u.total, name: u.set.name || u.set.setTitle || '' };
+  };
+  window.hmvC6ClearSelection = function (type) {
+    if (!type) return; delete session[type];
+    if (saved[type]) { delete saved[type]; try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (_) {} }
+  };
+  window.hmvC6Selection = function (type) {
+    var cfg = saved[type], list = activeQuestions(type);
+    if (!list) return null;
+    var s = cfg && cfg.setId ? setById(cfg.setId) : null;
+    return { setId: s ? s.id : '', name: s ? (s.name || s.setTitle || '') : 'Câu hỏi vừa chọn', count: list.length };
+  };
   window.hmvC6ParseQuestions = parse;
   window.hmvC6QuestionErrors = errors;
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true }); else boot();

@@ -1,9 +1,9 @@
-const CACHE_NAME = 'hmv-ban-chinh-2.27-compact-cards';
+const CACHE_NAME = 'hmv-ban-chinh-2.28-the-tro-choi-chon-bo';
 const APP_SHELL = ['./', './index.html', './sw.js', './backup.html', './backup-full.js', './backup-entry.js', './clip-batch-05c.js', './game-recovery-06.js', './demo-09.js', './question-bank-stage2.js', './uxui-stage5.js', './uxui-stage5.css', './question-quick-stage6.js', './question-quick-stage6.css', './question-quick-stage7.css', './question-bank-stage7.js', './bo-cau-hoi-mau.js', './kho-cau-hoi.js', './quiz-camera.js', './vong-quay.js', './toan-man-hinh.js', './ban-tay-camera.js', './bong-bay.js', './binh-chon.js', './nhac-nen.js', './trang-chu.js', './gioi-thieu.js', './chon-hoc-sinh.js', './ai-tren-web.js', './cai-ung-dung.js', './mau-giao-dien.js', './dien-thoai.js', './tran-dau.js', './nhiem-vu-mau.js', './keo-co-canh.js', './cai-dat.html', './assets/qr-cai-dat.svg', './manifest.webmanifest', './assets/icons/icon-192.png', './assets/icons/icon-512.png', './assets/icons/icon-maskable-512.png', './assets/icons/apple-touch-icon.png', './assets/icons/favicon-48.png',
   './tro-ly-ai.js', './ket-qua.js', './doc-to.js', './mung-chien-thang.js', './dung-sai.js', './ban-tay-phep-thuat.js', './gio-tay-gianh-quyen.js', './ban-chinh.css', './assets/fonts/Pacifico-Vietnamese.woff2', './cover-clean.png', './thaykhaiedu-logo.png', './assets/audio/background.mp3', './assets/audio/spin.mp3', './assets/audio/win.mp3', './assets/audio/cheer.mp3', './assets/audio/ai-nhanh-hon.mp3', './assets/audio/nhac-boc-tham.mp3', './assets/audio/nhac-nghich-ngom.mp3', './assets/audio/mung-chien-thang.mp3', './assets/audio/tra-loi-dung.mp3', './assets/audio/tra-loi-sai.mp3'];
 
-APP_SHELL.push('./qr.html', './qr-experiences.js', './qr-experiences.css', './am-thanh-hieu-ung.js');
-['gioi-thieu','vong-quay','keo-co','duong-dua','chinh-phuc','nghieng-dau','bong-bay','luyen-tap'].forEach(id => {
+APP_SHELL.push('./qr.html', './qr-experiences.js', './qr-experiences.css', './am-thanh-hieu-ung.js', './cap-nhat.js', './chon-bo-cau-hoi.js');
+['gioi-thieu','vong-quay','keo-co','duong-dua','chinh-phuc','nghieng-dau','bong-bay','luyen-tap','binh-chon','ban-tay-phep-thuat','gio-tay','hop-qua','ai-nhanh-hon','not-nhac'].forEach(id => {
   APP_SHELL.push('./assets/qr/' + id + '.svg', './assets/qr/' + id + '-poster.svg');
 });
 self.addEventListener('install', event => {
@@ -19,6 +19,15 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('message', event => {
   if (event.data === 'SKIP_WAITING') self.skipWaiting();
+  // 2.17: nút "Cập nhật phiên bản mới" – tải lại tệp ứng dụng từ mạng (giống Ctrl+F5), chỉ trong APP_SHELL.
+  if (event.data && event.data.type === 'REFRESH_SHELL') {
+    const port = event.ports && event.ports[0];
+    event.waitUntil(caches.open(CACHE_NAME).then(cache => Promise.all(APP_SHELL.map(file =>
+      fetch(new Request(file, { cache: 'reload' })).then(response => {
+        if (response && response.ok && !response.redirected) return cache.put(file, response);
+      }).catch(() => {})
+    ))).then(() => { if (port) port.postMessage({ ok: true }); }, () => { if (port) port.postMessage({ ok: false }); }));
+  }
 });
 
 self.addEventListener('fetch', event => {

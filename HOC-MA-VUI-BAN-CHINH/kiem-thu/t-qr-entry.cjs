@@ -9,7 +9,7 @@ const {chromium}=require(process.env.HMV_PLAYWRIGHT || 'playwright');
   for(const width of [390,1440]){
    const ctx=await browser.newContext({viewport:{width,height:900},serviceWorkers:'block'});const page=await ctx.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await ctx.route('**/*',async route=>{const url=new URL(route.request().url());let p=path.join(app,decodeURIComponent(url.pathname));if(url.pathname==='/')p=path.join(app,'index.html');if(!p.startsWith(app)||!fs.existsSync(p)||fs.statSync(p).isDirectory())return route.fulfill({status:404,body:''});const ext=path.extname(p);await route.fulfill({path:p,contentType:({'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml'})[ext]||'application/octet-stream'});});
-   for(const id of ['keo-co','duong-dua','chinh-phuc','nghieng-dau','bong-bay']){
+   for(const id of ['keo-co','duong-dua','chinh-phuc','nghieng-dau','bong-bay','binh-chon','ban-tay-phep-thuat','gio-tay','hop-qua','ai-nhanh-hon']){
     await page.goto('https://hmv.test/#trai-nghiem/'+id);await page.waitForTimeout(900);
     assert.equal(await page.locator('#hmvQrLanding').isVisible(),true,id+' landing');
     assert.equal(await page.locator('#tiltSetupModal').count(),0,'no camera settings on arrival');

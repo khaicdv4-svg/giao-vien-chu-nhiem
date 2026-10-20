@@ -1,4 +1,4 @@
-# 8 mã QR – HỌC MÀ VUI · ThayKhaiEdu
+# 14 mã QR – HỌC MÀ VUI · ThayKhaiEdu
 
 Mở `app/qr.html` qua máy chủ ứng dụng để xem, tải từng ảnh SVG hoặc in mỗi mã một trang A4.
 Bản PDF và ảnh tổng quan ở `qr-delivery/`. SVG gốc ở `app/assets/qr/`.
@@ -17,10 +17,18 @@ Mỗi mã dùng `https://giao-vien-chu-nhiem.vercel.app/#trai-nghiem/` kèm:
 | 06 | Quiz Nghiêng Đầu | nghieng-dau |
 | 07 | Bóng bay tri thức | bong-bay |
 | 08 | Kho câu hỏi – Luyện tập | luyen-tap |
+| 09 | Bình chọn ngón tay | binh-chon |
+| 10 | Bàn tay phép thuật | ban-tay-phep-thuat |
+| 11 | Giơ tay giành quyền | gio-tay |
+| 12 | Hộp quà bí mật | hop-qua |
+| 13 | Ai nhanh hơn | ai-nhanh-hon |
+| 14 | Nốt nhạc vui | not-nhac |
 
 ## Trạng thái bàn giao
 
-Bộ 8 QR đã được xuất bản trên website chính thức ngày 16/10/2026. Giữ nguyên tất cả đường dẫn và ảnh QR đã phát hành.
+Bộ 8 QR (01–08) đã được xuất bản trên website chính thức ngày 16/10/2026. Giữ nguyên tất cả đường dẫn và ảnh QR đã phát hành. Mã 09–14 thêm ngày 20/10/2026 (bản 2.16), chỉ hoạt động trên web sau khi bản này được đưa lên Vercel.
+
+Từ bản 2.16, mọi thẻ trong Thư viện trò chơi đều có QR; bấm thẻ mở cùng màn hình chính như khi quét QR (có thêm nút ← Thư viện trò chơi).
 
 QR trò chơi mở màn hình chính riêng: tên, mô tả, Chơi ngay, Cài đặt, hướng dẫn thu gọn và QR chia sẻ. Chỉ mở cấu hình khi người dùng chọn Cài đặt. Chơi nhanh Quiz Nghiêng Đầu và Bóng bay dùng chạm; người dùng có thể bật camera sau đó.
 

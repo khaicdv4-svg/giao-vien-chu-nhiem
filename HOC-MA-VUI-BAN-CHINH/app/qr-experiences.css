@@ -39,3 +39,32 @@
   #thHome .th-big,#thHome .th-small{grid-template-columns:minmax(0,1fr)}
   #thHome .th-tile{min-height:104px;flex-direction:row;justify-content:flex-start;gap:14px}
 }
+
+/* BAN-CHINH 2.16: thẻ trò chơi gọn — thông tin + QR; bấm thẻ để vào màn hình chính của trò. */
+#games .hmv-game-card{--card-color:#6848ef;position:relative;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
+#games .hmv-game-card:hover{transform:translateY(-3px)}
+#games .hmv-game-card:has(.hmv-card-enter:focus-visible){outline:3px solid #f59e0b;outline-offset:3px}
+#games .hmv-game-card p{flex:1}
+.hmv-card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px;border-top:1px dashed #d8d0fb}
+.hmv-card-enter{flex:1 1 auto;min-height:46px;border:0;border-radius:14px;padding:10px 14px;background:var(--card-color);color:#fff;font:inherit;font-size:16px;font-weight:800;cursor:pointer;white-space:nowrap}
+.hmv-card-enter span{display:inline-block;transition:transform .15s ease}
+.hmv-game-card:hover .hmv-card-enter span{transform:translateX(4px)}
+.hmv-card-enter:focus-visible{outline:none}
+/* Cả thẻ là vùng bấm của nút “Vào trò chơi”; nút QR nằm trên lớp này. */
+.hmv-card-enter::after{content:"";position:absolute;inset:0;border-radius:inherit;z-index:1}
+#games .hmv-game-card .hmv-card-enter::after{border-radius:20px}
+.hmv-card-qr{position:relative;z-index:2;flex:0 0 auto;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #c4b5fd;border-radius:12px;padding:5px 9px 5px 5px;color:#17324d;cursor:pointer;font:inherit}
+.hmv-card-qr img{display:block;width:52px;height:52px}
+.hmv-card-qr span{display:grid;gap:2px;text-align:left}.hmv-card-qr b{font-size:13px;line-height:1.2}.hmv-card-qr small{font-size:11px;color:#475569;line-height:1.2}
+.hmv-card-qr:hover{border-color:var(--card-color)}.hmv-card-qr:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+.hmv-card-last{flex:0 0 auto!important;margin:8px 0 0!important;font-size:12px!important;color:#64748b!important;font-weight:600!important}
+@media(max-width:420px){.hmv-card-qr small{display:none}.hmv-card-enter{font-size:15px;padding:10px}}
+
+/* Màn hình chính của trò khi mở từ thư viện */
+.hmv-entry-top{display:flex;align-items:center;justify-content:center;position:relative;margin:0 0 18px;min-height:40px}
+.hmv-entry-top .hmv-entry-brand{margin:0}
+.hmv-entry-back{position:absolute;left:0;top:50%;transform:translateY(-50%);background:#ffffff1f;color:#fff;border:1px solid #ffffff66;border-radius:22px;padding:8px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.hmv-entry-back:hover{background:#ffffff33}.hmv-entry-back:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+.hmv-entry-note{margin:10px 0 14px;font-size:14px;color:#64748b}
+.hmv-entry-last:empty{display:none}.hmv-entry-last{margin:12px 0 0;font-size:13px;color:#64748b}
+@media(max-width:560px){.hmv-entry-top{flex-direction:column;gap:10px}.hmv-entry-back{position:static;transform:none;align-self:flex-start}}
