@@ -1,15 +1,93 @@
-/* BAN-CHINH 2.30 (21/10/2026): Đường đua kiến thức – chữ to, rõ để cả lớp nhìn thấy trên máy chiếu/TV.
-   Chỉ tăng cỡ chữ và độ đậm; không đổi luật chơi. Cỡ chữ co giãn theo cả bề ngang lẫn chiều cao màn hình,
-   để màn hình thấp (laptop) vẫn thấy đủ câu hỏi và 4 đáp án. */
-html body #games .race-game .race-question h2{font-size:clamp(26px,min(3.4vw,5.4vh),60px)!important;line-height:1.25;font-weight:850;letter-spacing:-.01em;margin:10px 0 14px}
-html body #games .race-game .race-question .pill.yellow{font-size:clamp(16px,min(1.35vw,2.4vh),22px)!important;font-weight:800;padding:7px 14px}
-html body #games .race-game .race-answer{font-size:clamp(19px,min(2.1vw,3.2vh),36px)!important;font-weight:800;line-height:1.3;min-height:clamp(50px,min(6vw,8vh),96px);padding:10px 20px;color:#1e1b4b}
+/* BAN-CHINH 2.30–2.31 (21/10/2026): chữ to, rõ cho cả lớp nhìn trên máy chiếu/TV – mọi trò chơi.
+   Chỉ tăng cỡ chữ và độ đậm; không đổi luật chơi hay bố cục.
+   Cỡ chữ co giãn theo cả bề ngang lẫn chiều cao màn hình để laptop màn hình thấp vẫn thấy đủ câu hỏi và đáp án.
+   --hmv-q: câu hỏi · --hmv-a: đáp án · --hmv-t: lượt/đồng hồ · --hmv-n: tên đội · --hmv-s: chữ phụ (điểm, trạng thái) */
+#games{--hmv-q:clamp(28px,min(3.4vw,5.6vh),60px);--hmv-a:clamp(19px,min(2.1vw,3.2vh),36px);--hmv-t:clamp(16px,min(1.35vw,2.4vh),22px);--hmv-n:clamp(17px,1.5vw,24px);--hmv-s:clamp(14px,1.05vw,17px)}
+
+/* Chung: dòng mô tả dưới tên trò, đồng hồ trên thanh công cụ */
+html body #games .page-title p{font-size:clamp(16px,1.25vw,20px)!important;font-weight:700}
+html body #games .toolbar .pill{font-size:var(--hmv-t)!important;font-weight:800;padding:7px 14px}
+
+/* Đường đua kiến thức */
+html body #games .race-game .race-question h2{font-size:var(--hmv-q)!important;line-height:1.25;font-weight:850;letter-spacing:-.01em;margin:10px 0 14px}
+html body #games .race-game .race-question .pill.yellow{font-size:var(--hmv-t)!important;font-weight:800;padding:7px 14px}
+html body #games .race-game .race-answer{font-size:var(--hmv-a)!important;font-weight:800;line-height:1.3;min-height:clamp(50px,min(6vw,8vh),96px);padding:10px 20px;color:#1e1b4b}
 html body #games .race-game .race-answer-grid{gap:12px}
 html body #games .race-game .race-auto-hint{font-size:clamp(16px,1.3vw,21px)!important}
-html body #games .race-game .race-lane-head b{font-size:clamp(17px,1.5vw,24px)!important}
+html body #games .race-game .race-lane-head b{font-size:var(--hmv-n)!important}
 html body #games .race-game .race-lane-head span{font-size:clamp(13px,1vw,15px)!important;font-weight:700}
-html body #games .race-game .race-lane small{font-size:clamp(13px,1.05vw,17px)!important;font-weight:700}
+html body #games .race-game .race-lane small{font-size:var(--hmv-s)!important;font-weight:700}
 html body #games .race-game .race-road strong{font-size:clamp(25px,2.2vw,36px)!important}
-html body #games .race-game .page-title p{font-size:clamp(16px,1.25vw,20px)!important;font-weight:700}
-html body #games .race-game .toolbar .pill{font-size:clamp(15px,1.3vw,22px)!important;font-weight:800;padding:7px 14px}
-@media(max-width:680px){html body #games .race-game .race-answer{font-size:20px!important;min-height:52px;padding:10px 14px}html body #games .race-game .race-question h2{font-size:28px!important}}
+
+/* Kéo co kiến thức */
+html body #games .tug-question h2{font-size:var(--hmv-q)!important;line-height:1.25;font-weight:850}
+html body #games .tug-game .tug-answers button{font-size:var(--hmv-a)!important;font-weight:800!important;min-height:clamp(50px,min(6vw,8vh),96px);line-height:1.3}
+html body #games .tug-question-head .pill{font-size:var(--hmv-t)!important;font-weight:800;padding:7px 14px}
+html body #games .tug-timer{font-size:clamp(18px,min(1.8vw,3vh),30px)!important;font-weight:850}
+html body #games .tug-team-card b{font-size:var(--hmv-n)!important}
+html body #games .tug-team-card strong{font-size:clamp(32px,3vw,48px)!important}
+html body #games .tug-team-card small{font-size:var(--hmv-s)!important;font-weight:700}
+html body #games .tug-feedback{font-size:clamp(18px,1.5vw,24px)!important}
+
+/* Hộp quà bí mật */
+html body #games .gift-question h2{font-size:var(--hmv-q)!important;line-height:1.25;font-weight:850}
+html body #games .gift-question .pill{font-size:var(--hmv-t)!important;font-weight:800;padding:7px 14px}
+html body #games .gift-question p{font-size:clamp(16px,1.3vw,21px)!important}
+html body #games .gift-answer{font-size:var(--hmv-a)!important;font-weight:800;min-height:clamp(50px,min(6vw,8vh),96px);line-height:1.3;padding:10px 18px}
+html body #games .gift-score b{font-size:var(--hmv-n)!important}
+html body #games .gift-score strong{font-size:clamp(32px,3vw,48px)!important}
+html body #games .gift-score small{font-size:var(--hmv-s)!important;font-weight:700}
+html body #games .gift-box-tile strong{font-size:clamp(28px,2.6vw,42px)!important}
+
+/* Ai nhanh hơn */
+html body #games .buzz-question h2{font-size:var(--hmv-q)!important;line-height:1.25;font-weight:850}
+html body #games .buzz-answer{font-size:var(--hmv-a)!important;font-weight:800;min-height:clamp(50px,min(6vw,8vh),96px);line-height:1.3}
+html body #games .buzz-question .pill{font-size:var(--hmv-t)!important;font-weight:800;padding:7px 14px}
+html body #games .buzz-status{font-size:clamp(26px,min(2.6vw,4.4vh),44px)!important}
+html body #games .buzz-response,html body #games .buzz-response b{font-size:clamp(18px,1.6vw,26px)!important}
+html body #games .buzz-feedback,html body #games .buzz-feedback b{font-size:clamp(18px,1.5vw,24px)!important}
+html body #games .buzz-team b{font-size:var(--hmv-n)!important}
+html body #games .buzz-team strong{font-size:clamp(28px,2.6vw,42px)!important}
+html body #games .buzz-team span,html body #games .buzz-team kbd{font-size:var(--hmv-s)!important;font-weight:700}
+
+/* Chinh phục tri thức */
+html body #games .millionaire-question-text{font-size:var(--hmv-q)!important;line-height:1.25;font-weight:850}
+html body #games .millionaire-answer{font-size:var(--hmv-a)!important;font-weight:800;min-height:clamp(50px,min(6vw,8vh),96px);line-height:1.3}
+html body #games .millionaire-count{font-size:var(--hmv-t)!important;font-weight:800}
+html body #games .millionaire-timer{font-size:clamp(20px,min(2vw,3.2vh),32px)!important;font-weight:850}
+html body #games .millionaire-meta .pill{font-size:var(--hmv-t)!important;font-weight:800;padding:7px 14px}
+html body #games .millionaire-help{font-size:clamp(16px,1.3vw,21px)!important;font-weight:800}
+html body #games .millionaire-prize span,html body #games .millionaire-prize b{font-size:clamp(15px,1.15vw,19px)!important}
+
+/* Bóng bay tri thức · Bàn tay phép thuật · Giơ tay giành quyền (cùng khung bb-) */
+html body #games .bb-question{font-size:clamp(32px,min(3.8vw,6vh),64px)!important;font-weight:850}
+html body #games .bb-chip b{font-size:clamp(15px,1.2vw,19px)!important}
+html body #games .bb-chip strong{font-size:clamp(24px,2.2vw,34px)!important}
+html body #games .bb-timer{font-size:clamp(24px,2.2vw,36px)!important;font-weight:850}
+html body #games .bb-status{font-size:clamp(17px,1.4vw,22px)!important}
+html body #games .mh-ask,html body #games .mh-ask b{font-size:clamp(20px,1.8vw,30px)!important}
+html body #games .mh-bin-head b{font-size:clamp(26px,2.4vw,40px)!important}
+html body #games .rh-question{font-size:var(--hmv-q)!important;font-weight:850}
+html body #games .rh-ans-text{font-size:var(--hmv-a)!important;font-weight:800}
+html body #games .rh-ans b{font-size:clamp(20px,1.7vw,28px)!important}
+html body #games .rh-zone-name{font-size:clamp(22px,2vw,32px)!important}
+html body #games .rh-zone-state{font-size:clamp(18px,1.6vw,26px)!important}
+
+/* Bình chọn ngón tay */
+html body #games .bc-question{font-size:clamp(28px,min(3vw,5vh),52px)!important;font-weight:850;line-height:1.25}
+html body #games .bc-label{font-size:clamp(20px,1.9vw,32px)!important;font-weight:700}
+html body #games .bc-key b{font-size:clamp(18px,1.6vw,26px)!important}
+html body #games .bc-num{font-size:clamp(32px,2.8vw,48px)!important}
+
+/* Quiz Nghiêng Đầu */
+html body #games .tilt-rule{font-size:clamp(18px,1.6vw,26px)!important;font-weight:800}
+html body #games .tilt-question-text{font-size:clamp(34px,min(3.8vw,6.4vh),66px)!important}
+html body #games .tilt-keyhint{font-size:clamp(14px,1.1vw,18px)!important}
+html body #games .tilt-score>span{font-size:var(--hmv-t)!important;font-weight:800}
+html body #games .tilt-status,html body #games .tilt-status b{font-size:clamp(16px,1.3vw,21px)!important}
+
+/* Điện thoại: giữ chữ to nhưng vừa màn hình nhỏ */
+@media(max-width:680px){
+ #games{--hmv-q:26px;--hmv-a:19px;--hmv-t:15px;--hmv-n:17px;--hmv-s:13px}
+ html body #games .race-game .race-answer,html body #games .tug-game .tug-answers button,html body #games .gift-answer,html body #games .buzz-answer,html body #games .millionaire-answer{min-height:50px;padding:10px 14px}
+}
