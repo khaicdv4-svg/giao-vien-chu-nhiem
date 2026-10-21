@@ -25,7 +25,11 @@ async function main(){
     await c.route('**/*',r=>{const u=r.request().url();if(u===origin+'/api/ai/generate'){sent=JSON.parse(r.request().postData());return r.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,model:'gemini-3.8-flash',text:'```json\n'+JSON.stringify(AI)+'\n```'})});}return u.startsWith(origin+'/')?r.continue():r.abort();});
     const p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));await p.goto(origin+'/');await p.waitForFunction(()=>!!window.HmvReviewUI&&!!window.HmvReviewAI);
     await p.evaluate(()=>HmvReviewUI.open());
-    await p.locator('#rv-ai-import').setInputFiles({name:'de-on-tap.pdf',mimeType:'application/pdf',buffer:Buffer.from('%PDF-1.4 thu')});
+    await p.waitForSelector('#rv-drop');assert.equal(await p.locator('#rv-drop input[type=file]').count(),1,'chỉ còn một nút chọn file đề');
+    assert.equal(await p.locator('#rv-use-ai').isChecked(),false,'chưa có khóa thì không tự bật AI');assert.match(await p.locator('#rv-ai-hint').textContent(),/Kết nối AI/);
+    await p.screenshot({path:path.join(output,'kho-tai-de.png'),fullPage:true});
+    await p.locator('#rv-use-ai').check();
+    await p.locator('#rv-import').setInputFiles({name:'de-on-tap.pdf',mimeType:'application/pdf',buffer:Buffer.from('%PDF-1.4 thu')});
     await p.waitForSelector('#rv-export-scorm');
     const part=sent.contents[0].parts[0];assert.equal(part.inlineData.mimeType,'application/pdf');assert.equal(Buffer.from(part.inlineData.data,'base64').toString(),'%PDF-1.4 thu');
     assert.equal(sent.json,true);assert.match(sent.system,/grid-calculation/);

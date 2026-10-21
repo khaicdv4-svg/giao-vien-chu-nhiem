@@ -14,7 +14,7 @@
   async function library() {
     releasePreview(); doc = null; attempt = null;card=0;
     const docs = await list('documents');
-    shell(`<div class="rv-tools">${button('rv-new','＋ Tạo học liệu')}<label class="rv-file">⇧ Nhập PDF, Word, ảnh<input id="rv-import" type="file" accept=".pdf,.docx,.txt,.json,image/*"></label><label class="rv-file rv-ai" title="Dùng khóa Gemini trong Trợ lý AI → Kết nối AI">✨ Đọc đề bằng AI<input id="rv-ai-import" type="file" accept=".pdf,.docx,.txt,image/*"></label>${button('rv-backup','Tải bản sao lưu')}<label class="rv-file">Khôi phục bản sao<input id="rv-restore" type="file" accept=".json"></label></div><div class="rv-filters"><label>Tìm học liệu<input id="rv-search" placeholder="Tên bài, chủ đề…"></label><label>Lớp<select id="rv-grade"><option value="">Tất cả</option>${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join('')}</select></label><label>Môn học<input id="rv-subject" placeholder="Tất cả môn"></label></div><div class="rv-grid" id="rv-documents"></div>`);
+    shell(`<section class="rv-upload" id="rv-drop"><h2>Tạo bài ôn tập từ file đề</h2><ol class="rv-steps"><li>Chọn file đề (PDF, Word hoặc ảnh chụp đề).</li><li>Chờ app đọc đề, các câu hỏi hiện ra để thầy cô xem lại.</li><li>Bấm <b>Xuất gói SCORM (QLMS)</b> ở cuối trang để lấy file gửi lên QLMS.</li></ol><label class="rv-check"><input type="checkbox" id="rv-use-ai"> <span>✨ Dùng AI đọc đề <small>(khuyên dùng: đọc được cả PDF scan, ảnh chụp, đề không theo mẫu)</small></span></label><p class="rv-ai-hint" id="rv-ai-hint"></p><label class="rv-pick">📄 Chọn file đề<input id="rv-import" type="file" accept=".pdf,.docx,.txt,.json,image/*"></label><span class="rv-or">hoặc kéo thả file vào khung này</span><div id="rv-progress" class="rv-progress" role="status" aria-live="polite" hidden></div></section><div class="rv-tools rv-more">${button('rv-new','✍ Soạn tay từ đầu')}<details><summary>Sao lưu / khôi phục</summary><div class="rv-tools">${button('rv-backup','Tải bản sao lưu')}<label class="rv-file">Khôi phục bản sao<input id="rv-restore" type="file" accept=".json"></label></div></details></div><div class="rv-filters"><label>Tìm học liệu<input id="rv-search" placeholder="Tên bài, chủ đề…"></label><label>Lớp<select id="rv-grade"><option value="">Tất cả</option>${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join('')}</select></label><label>Môn học<input id="rv-subject" placeholder="Tất cả môn"></label></div><div class="rv-grid" id="rv-documents"></div>`);
     const render = () => {
       const text = $('#rv-search').value.toLocaleLowerCase('vi'), grade = $('#rv-grade').value, subject = $('#rv-subject').value.toLocaleLowerCase('vi');
       const filtered = docs.filter(d => (!grade || String(d.metadata?.grade) === grade) && (!subject || String(d.metadata?.subject || '').toLocaleLowerCase('vi').includes(subject)) && JSON.stringify([d.title,d.metadata]).toLocaleLowerCase('vi').includes(text));
@@ -23,8 +23,26 @@
     };
     ['rv-search','rv-grade','rv-subject'].forEach(id => $('#' + id).oninput = render); render();
     $('#rv-new').onclick = () => { doc = D().normalizeDocument({id:uid(),title:'Học liệu mới',metadata:{grade:4,subject:'Toán',purpose:'Bài tập thường xuyên',attemptLimit:3,scoreVisibility:'immediate',answerVisibility:'after-attempts'},questions:[],blocks:[]}); editor(); };
-    $('#rv-ai-import').onchange = async e => { const f=e.target.files[0]; e.target.value=''; if (!f) return; if (!window.HmvReviewAI) return notify('Chưa tải được phần Đọc đề bằng AI. Hãy tải lại trang.'); try { notify('AI đang đọc đề '+f.name+'… thường mất 30–90 giây, thầy cô chờ một chút.'); const r=await window.HmvReviewAI.readWithAI(f); doc=D().normalizeDocument(r); const w=r.aiWarnings||[]; await editor(); notify('AI đã đọc được '+doc.questions.length+' câu. Thầy cô xem lại đáp án và điểm từng câu trước khi xuất.'+(w.length?' Lưu ý: '+w.join(' '):'')); } catch(err) { notify('Không đọc được bằng AI: '+err.message); } };
-    $('#rv-import').onchange = async e => { const f=e.target.files[0]; if (!f) return; try { notify('Đang đọc tài liệu…'); doc=D().normalizeDocument(await window.HmvReviewImport.readFile(f)); await editor(); } catch(err) { notify('Không đọc được tài liệu: '+err.message); } };
+    const box=$('#rv-progress'),useAI=$('#rv-use-ai'),hint=$('#rv-ai-hint');let busy=false;
+    const progress=(html,kind)=>{box.hidden=!html;box.className='rv-progress'+(kind?' rv-'+kind:'');box.innerHTML=html||'';};
+    const aiStatus=s=>{const ok=!!(s&&s.server&&s.configured);useAI.checked=ok;hint.innerHTML=ok?'Đang dùng khóa Gemini đã lưu trong Trợ lý AI.':'Muốn dùng AI: vào <b>Trợ lý AI → Kết nối AI</b>, dán khóa Gemini một lần'+(typeof window.openView==='function'?' <button type="button" id="rv-go-ai">Mở Kết nối AI</button>':'')+'.';const go=$('#rv-go-ai');if(go)go.onclick=()=>window.openView('troLyAI');};
+    Promise.resolve().then(()=>(window.hmvAiFetch||window.fetch)('./api/ai/status?t='+Date.now(),{cache:'no-store'})).then(r=>r.ok?r.json():{}).catch(()=>({})).then(aiStatus);
+    async function readSource(f){
+      if(!f||busy)return;busy=true;const start=Date.now(),ai=useAI.checked&&!/\.json$/i.test(f.name);let timer=0;
+      const tick=()=>progress(`<span class="rv-spin" aria-hidden="true"></span> ${ai?'AI đang đọc':'Đang đọc'} <b>${esc(f.name)}</b>… ${Math.round((Date.now()-start)/1000)} giây${ai?' (thường 30–90 giây, thầy cô đừng đóng trang)':''}`);
+      tick();timer=setInterval(tick,1000);
+      try{
+        let r,w=[];
+        if(ai){if(!window.HmvReviewAI)throw Error('Chưa tải được phần Đọc đề bằng AI. Hãy tải lại trang.');r=await window.HmvReviewAI.readWithAI(f);w=r.aiWarnings||[];}
+        else r=await window.HmvReviewImport.readFile(f);
+        clearInterval(timer);doc=D().normalizeDocument(r);
+        if(!doc.questions.length){busy=false;return progress('Không tìm thấy câu hỏi nào trong file này'+(ai?'.':'. File có thể là PDF scan hoặc ảnh chụp: thầy cô đánh dấu <b>✨ Dùng AI đọc đề</b> rồi chọn lại file.'),'error');}
+        await editor();notify((ai?'AI':'App')+' đã đọc được '+doc.questions.length+' câu. Thầy cô xem lại đáp án và điểm từng câu, rồi bấm Xuất gói SCORM (QLMS) ở cuối trang.'+(w.length?'\nLưu ý: '+w.join('\n'):''));
+      }catch(err){clearInterval(timer);progress('⚠ Không đọc được: '+esc(err.message),'error');}
+      busy=false;
+    }
+    $('#rv-import').onchange = e => { const f=e.target.files[0]; e.target.value=''; readSource(f); };
+    const drop=$('#rv-drop');drop.ondragover=e=>{e.preventDefault();drop.classList.add('rv-over');};drop.ondragleave=()=>drop.classList.remove('rv-over');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('rv-over');readSource(e.dataTransfer.files[0]);};
     $('#rv-backup').onclick = async () => download('hmv-ban-sao.json', await repo.exportBackup());
     $('#rv-restore').onchange = async e => { const f=e.target.files[0]; if(!f)return; try { if(!confirm('Khôi phục sẽ thay thế toàn bộ học liệu và bài làm của phân hệ này trên thiết bị. Tiếp tục?'))return;await repo.importBackup(JSON.parse(await f.text())); await library(); notify('Đã khôi phục bản sao trên thiết bị.'); } catch(err){notify(err.message);} };
   }
