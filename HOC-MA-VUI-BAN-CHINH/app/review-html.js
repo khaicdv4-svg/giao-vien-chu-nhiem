@@ -97,7 +97,13 @@ function createPractice(raw) {
   const layoutErrors=doc.questions.flatMap((q,i)=>q.type==='OPEN'&&q.metadata.answerLayout!=null&&!['plain','grid-calculation','grid-text'].includes(q.metadata.answerLayout)?['Câu '+(i+1)+': chế độ khung tự luận không hợp lệ']:[]);
   if(errors.length || unsupported.length || shortErrors.length || layoutErrors.length) throw Error(unsupported.concat(errors,shortErrors,layoutErrors).join('; '));
   if(!doc.questions.length) throw Error('Đề chưa có câu hỏi');
-  if(doc.blocks.length || doc.questions.some(q=>q.blockIds.length)) throw Error('Chưa hỗ trợ ngữ liệu liên kết trong bản HTML này');
+  // Ngữ liệu dạng chữ (bài đọc, lý thuyết) được hiện một lần ở đầu phần câu hỏi dùng nó. Ảnh/khối khác chưa hỗ trợ.
+  const textBlocks=doc.blocks.map(b=>{
+    const text=String(b&&(b.text??b.content)||'').replace(/\r\n?/g,'\n').trim();
+    if(!b||b.type==='image'||!text)throw Error('Chưa hỗ trợ ngữ liệu liên kết trong bản HTML này');
+    if(text.length>20000)throw Error('Bài đọc quá dài (tối đa 20 000 ký tự)');
+    return {id:String(b.id),title:String(b.title||'').trim().slice(0,200),text,source:String(b.sourceNote||b.citation||'').trim().slice(0,300)};
+  });
   const attemptLimit=(!doc.metadata.purpose||doc.metadata.purpose==='Bài tập thường xuyên')?doc.metadata.attemptLimit:undefined;
   if(attemptLimit!==undefined&&![1,2,3,'unlimited'].includes(attemptLimit))throw Error('Số lần làm bài không hợp lệ');
   const submitUrl=doc.metadata.submitUrl==null||doc.metadata.submitUrl===''?undefined:String(doc.metadata.submitUrl).trim();
@@ -109,7 +115,7 @@ function createPractice(raw) {
     }
   }
   return {id:'practice-'+doc.id,documentId:doc.id,documentVersion:doc.version,title:doc.title,metadata:{grade:doc.metadata.grade,subject:doc.metadata.subject,topic:doc.metadata.topic},
-    ...((!doc.metadata.purpose||doc.metadata.purpose==='Bài tập thường xuyên')&&doc.metadata.backgroundMusic?{backgroundMusic:normalizeBackgroundMusic(doc.metadata.backgroundMusic)}:{}),feedbackAudio:normalizeFeedbackAudio(doc.metadata.feedbackAudio),...visibility,...(attemptLimit!==undefined?{attemptLimit}:{}),...(submitUrl?{submitUrl}:{}),mode:'practice',questions:doc.questions.map((q,i)=>({id:q.id,type:q.type,...(q.type==='MATCHING'?{pairs:q.pairs}:{}),...(q.type==='FILL'&&Array.isArray(q.blanks)?{blanks:q.blanks}:{}),...(q.type==='TRUEFALSE'&&Array.isArray(q.statements)?{statements:q.statements}:{}),text:q.text,options:q.options,correctAnswers:q.correctAnswers,points:q.points,
+    ...((!doc.metadata.purpose||doc.metadata.purpose==='Bài tập thường xuyên')&&doc.metadata.backgroundMusic?{backgroundMusic:normalizeBackgroundMusic(doc.metadata.backgroundMusic)}:{}),feedbackAudio:normalizeFeedbackAudio(doc.metadata.feedbackAudio),...visibility,...(attemptLimit!==undefined?{attemptLimit}:{}),...(submitUrl?{submitUrl}:{}),mode:'practice',...(textBlocks.length?{readingBlocks:textBlocks}:{}),questions:doc.questions.map((q,i)=>({id:q.id,type:q.type,...(q.blockIds.length?{blockIds:q.blockIds}:{}),...(q.type==='MATCHING'?{pairs:q.pairs}:{}),...(q.type==='FILL'&&Array.isArray(q.blanks)?{blanks:q.blanks}:{}),...(q.type==='TRUEFALSE'&&Array.isArray(q.statements)?{statements:q.statements}:{}),text:q.text,options:q.options,correctAnswers:q.correctAnswers,points:q.points,
       answerText:q.type==='FILL'&&!Array.isArray(q.blanks)||q.type==='SHORT'&&q.metadata.shortScoring==='exact'?q.answerText:'',
       metadata:q.type==='MATCHING'?{matchingScoring:q.metadata.matchingScoring}:q.type==='SHORT'?{shortScoring:q.metadata.shortScoring==='exact'?'exact':'manual',acceptedAnswers:Array.isArray(q.metadata.acceptedAnswers)?q.metadata.acceptedAnswers.filter(v=>typeof v==='string'&&v.trim()).map(v=>v.trim()):[]}:{},
       answerLayout:q.type==='OPEN'?q.metadata.answerLayout||'plain':'plain',
@@ -604,6 +610,14 @@ function renderHtml(raw, domainSource) {
   if(typeof domainSource!=='string' || !domainSource.trim()) throw Error('Thiếu mã chấm điểm offline');
   const source=domainSource.replace(/<\/script/gi,'<\\/script');
   const age=Number(attempt.metadata.grade)<=2?'early':Number(attempt.metadata.grade)===3?'middle':'upper';
+  const blocks=attempt.readingBlocks||[],shown=new Set();
+  const passage=b=>{shown.add(b.id);return `<section class="reading-passage" data-reading-block="${escapeHtml(b.id)}" style="margin:18px 0;padding:18px 20px;border:2px solid #a9d6e5;border-radius:18px;background:#f4fbfe"><h2 style="margin:0 0 10px;font-size:1.25rem;text-align:center">${escapeHtml(b.title||'Bài đọc')}</h2><div style="white-space:pre-wrap;line-height:1.7;text-align:justify">${escapeHtml(b.text)}</div>${b.source?`<p style="margin:10px 0 0;text-align:right;font-style:italic">${escapeHtml(b.source)}</p>`:''}</section>`;};
+  const passagesBefore=(q,i)=>{
+    const used=new Set(attempt.questions.flatMap(x=>x.blockIds||[]));
+    const lead=i===0?blocks.filter(b=>!used.has(b.id)&&!shown.has(b.id)):[];
+    const own=(q.blockIds||[]).map(id=>blocks.find(b=>b.id===id)).filter(b=>b&&!shown.has(b.id));
+    return lead.concat(own).map(passage).join('');
+  };
   const questions=attempt.questions.map((q,i)=>{
     const longest=Math.max(0,...(q.text.match(/\d+/g)||[]).map(number=>number.length));
     const columns=Math.max(7,Math.min(24,longest+4));
@@ -613,7 +627,7 @@ function renderHtml(raw, domainSource) {
     const questionContent=fill?q.text.split(/(\[\[[1-9]\d*\]\])/g).map(part=>/^\[\[[1-9]\d*\]\]$/.test(part)?`<input class="fill-inline" name="q${i}b${part.slice(2,-2)}" aria-label="Ô ${part.slice(2,-2)} câu ${i+1}" type="text" autocomplete="off" style="display:inline-block;width:9ch;max-width:45vw;min-height:42px;margin:4px;padding:6px;border:2px solid #a9d6e5;border-radius:8px;font:inherit">`:escapeHtml(part)).join(''):escapeHtml(q.text);
     const tf=q.type==='TRUEFALSE'&&Array.isArray(q.statements)?q.statements.map((item,j)=>`<section class="tf-statement"><p>${j+1}. ${escapeHtml(item.text)}</p><div class="options">${[true,false].map(v=>`<label class="option"><input type="radio" name="q${i}s${j}" value="${v}"><span>${v?'Đúng':'Sai'}</span></label>`).join('')}</div></section>`).join(''):null;
     const input=q.type==='MATCHING'?`<section data-matching="${i}" aria-label="Nối cặp câu ${i+1}"></section>`:fill?'':tf!==null?tf:q.type==='FILL'||q.type==='SHORT'?`<label class="written-label" for="answer-${i}">Trả lời ngắn<input class="written-answer" id="answer-${i}" name="q${i}" type="text" autocomplete="off"></label>`:q.type==='OPEN'?q.answerLayout==='grid-calculation'?calculation:text:` ${q.type==='MULTI'?'<p>Chọn tất cả đáp án đúng</p>':''}<div class="options">${q.options.map((o,j)=>`<label class="option"><input type="${q.type==='MULTI'?'checkbox':'radio'}" name="q${i}" value="${j}"><span class="option-letter" aria-hidden="true">${String.fromCharCode(65+j)}</span><span class="option-text">${escapeHtml(o)}</span></label>`).join('')}</div>`;
-    return `<fieldset class="question-card"><legend><span class="question-number">Câu ${i+1}</span><span class="question-points">${q.points} điểm</span></legend><div class="question-text" style="white-space:pre-wrap">${questionContent}</div>${input}<p id="feedback-${i}" class="feedback"></p></fieldset>`;
+    return `${passagesBefore(q,i)}<fieldset class="question-card"><legend><span class="question-number">Câu ${i+1}</span><span class="question-points">${String(q.points).replace('.',',')} điểm</span></legend><div class="question-text" style="white-space:pre-wrap">${questionContent}</div>${input}<p id="feedback-${i}" class="feedback"></p></fieldset>`;
   }).join('');
   return `<!doctype html>
 <html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">

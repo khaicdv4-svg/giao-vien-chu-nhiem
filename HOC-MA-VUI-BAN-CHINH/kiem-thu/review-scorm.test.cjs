@@ -23,6 +23,17 @@ test('đề nhập từ tệp: bỏ "trang văn bản gốc" khi xuất, không 
   const d=structuredClone(fixture);d.blocks=[{id:'page-1',type:'source-text',text:'TRANG GỐC BÍ MẬT'}];d.questions.forEach(q=>q.blockIds=['page-1']);
   const before=JSON.stringify(d),out=html.renderHtml(d);
   assert.doesNotMatch(out,/TRANG GỐC BÍ MẬT/);assert.equal(JSON.stringify(d),before);
-  const real=structuredClone(fixture);real.blocks=[{id:'b1',type:'text',text:'Bài đọc'}];real.questions[0].blockIds=['b1'];
-  assert.throws(()=>html.createPractice(real),/ngữ liệu liên kết/);
+  const img=structuredClone(fixture);img.blocks=[{id:'i1',type:'image',text:''}];img.questions[0].blockIds=['i1'];
+  assert.throws(()=>html.createPractice(img),/ngữ liệu liên kết/);
+});
+test('bài đọc chung: hiện một lần trước câu đầu tiên dùng nó; lý thuyết không gắn câu nào hiện ở đầu; thoát ký tự HTML',()=>{
+  const d=structuredClone(fixture);
+  d.blocks=[{id:'doc',type:'text',title:'Cảnh đồng con',text:'Đoạn 1 <b>đậm</b>\nĐoạn 2',sourceNote:'Thạch Lam'},{id:'lt',type:'text',title:'Ghi nhớ',text:'Danh từ là từ chỉ sự vật.'}];
+  d.questions[2].blockIds=['doc'];d.questions[3].blockIds=['doc'];
+  const out=html.renderHtml(d);
+  assert.equal((out.match(/data-reading-block="doc"/g)||[]).length,1);assert.equal((out.match(/data-reading-block="lt"/g)||[]).length,1);
+  assert.ok(out.indexOf('data-reading-block="lt"')<out.indexOf('class="question-card'));
+  const firstCards=out.split('data-reading-block="doc"')[0].match(/class="question-card/g).length;assert.equal(firstCards,2);
+  assert.match(out,/Đoạn 1 &lt;b&gt;đậm&lt;\/b&gt;\nĐoạn 2/);assert.match(out,/Thạch Lam/);
+  assert.equal(html.grade(html.createPractice(d),{},{submissionId:'b'}).maxScore,10);
 });
