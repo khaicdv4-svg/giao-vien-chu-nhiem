@@ -1,8 +1,9 @@
-const CACHE_NAME = 'hmv-ban-chinh-2.35-nhac-nen-chi-khi-quay';
+const CACHE_NAME = 'hmv-ban-chinh-2.36-on-tap-kiem-tra';
 const APP_SHELL = ['./', './index.html', './sw.js', './backup.html', './backup-full.js', './backup-entry.js', './clip-batch-05c.js', './game-recovery-06.js', './demo-09.js', './question-bank-stage2.js', './uxui-stage5.js', './uxui-stage5.css', './question-quick-stage6.js', './question-quick-stage6.css', './question-quick-stage7.css', './question-bank-stage7.js', './bo-cau-hoi-mau.js', './kho-cau-hoi.js', './quiz-camera.js', './vong-quay.js', './toan-man-hinh.js', './ban-tay-camera.js', './bong-bay.js', './binh-chon.js', './nhac-nen.js', './trang-chu.js', './gioi-thieu.js', './chon-hoc-sinh.js', './ai-tren-web.js', './cai-ung-dung.js', './mau-giao-dien.js', './dien-thoai.js', './tran-dau.js', './nhiem-vu-mau.js', './keo-co-canh.js', './cai-dat.html', './assets/qr-cai-dat.svg', './manifest.webmanifest', './assets/icons/icon-192.png', './assets/icons/icon-512.png', './assets/icons/icon-maskable-512.png', './assets/icons/apple-touch-icon.png', './assets/icons/favicon-48.png',
   './tro-ly-ai.js', './ket-qua.js', './doc-to.js', './mung-chien-thang.js', './dung-sai.js', './ban-tay-phep-thuat.js', './gio-tay-gianh-quyen.js', './ban-chinh.css', './assets/fonts/Pacifico-Vietnamese.woff2', './cover-clean.png', './thaykhaiedu-logo.png', './assets/audio/background.mp3', './assets/audio/spin.mp3', './assets/audio/win.mp3', './assets/audio/cheer.mp3', './assets/audio/ai-nhanh-hon.mp3', './assets/audio/nhac-boc-tham.mp3', './assets/audio/nhac-nghich-ngom.mp3', './assets/audio/mung-chien-thang.mp3', './assets/audio/tra-loi-dung.mp3', './assets/audio/tra-loi-sai.mp3'];
 
 APP_SHELL.push('./qr.html', './qr-experiences.js', './qr-experiences.css', './am-thanh-hieu-ung.js', './cap-nhat.js', './chon-bo-cau-hoi.js', './chu-to-tro-choi.css');
+APP_SHELL.push('./review-domain.js', './review-html.js', './review-storage.js', './review-lms.js', './review-import.js', './review-ui.js', './review.css', './vendor/review-pdf/pdf.mjs', './vendor/review-pdf/pdf.worker.mjs');
 ['gioi-thieu','vong-quay','keo-co','duong-dua','chinh-phuc','nghieng-dau','bong-bay','luyen-tap','binh-chon','ban-tay-phep-thuat','gio-tay','hop-qua','ai-nhanh-hon','not-nhac'].forEach(id => {
   APP_SHELL.push('./assets/qr/' + id + '.svg', './assets/qr/' + id + '-poster.svg');
 });
@@ -35,6 +36,15 @@ self.addEventListener('fetch', event => {
   // BAN-CHINH 1.9: yêu cầu tới máy chủ nội bộ (/api/…) luôn đi thẳng ra mạng, không lưu đệm.
   try { if (new URL(event.request.url).pathname.indexOf('/api/') === 0) return; } catch (e) {}
 
+  // Cache only the declared public app shell, never sessions or lesson responses.
+  const requestUrl = new URL(event.request.url);
+  if (requestUrl.origin !== self.location.origin || requestUrl.search ||
+      event.request.headers.has('Authorization') || event.request.headers.has('apikey') ||
+      !APP_SHELL.some(file => new URL(file, self.location.href).href === requestUrl.href)) return;
+  const canCache = response => response && response.ok &&
+    !/no-store|private/i.test(response.headers.get('Cache-Control') || '') &&
+    !response.redirected;
+
   const url = event.request.url;
   const isHtml = event.request.mode === 'navigate' || url.endsWith('index.html') || url.endsWith('/');
 
@@ -43,8 +53,10 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(event.request)
         .then(response => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+          if (canCache(response)) {
+            const copy = response.clone();
+            event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy)));
+          }
           return response;
         })
         .catch(() => caches.open(CACHE_NAME).then(cache => cache.match(event.request).then(cached => cached || cache.match('./index.html'))))
@@ -55,7 +67,7 @@ self.addEventListener('fetch', event => {
       caches.open(CACHE_NAME).then(cache => cache.match(event.request).then(cached =>
         cached || fetch(event.request).then(response => {
           // BAN-CHINH: chỉ lưu phản hồi thành công; không lưu lỗi 404 (vd. khi chưa có ./vendor/mediapipe/).
-          if (response && (response.ok || response.type === 'opaque')) cache.put(event.request, response.clone());
+          if (canCache(response)) event.waitUntil(cache.put(event.request, response.clone()));
           return response;
         }))
       )

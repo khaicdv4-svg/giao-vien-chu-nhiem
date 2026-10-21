@@ -14,6 +14,10 @@ HOC-MA-VUI-BAN-CHINH/kiem-thu/anh/
 
 # Bộ nhận diện camera tải về máy (bản web tự lấy từ máy chủ chính thức của MediaPipe)
 HOC-MA-VUI-BAN-CHINH/app/vendor/
+!HOC-MA-VUI-BAN-CHINH/app/vendor/
+HOC-MA-VUI-BAN-CHINH/app/vendor/*
+!HOC-MA-VUI-BAN-CHINH/app/vendor/review-pdf/
+HOC-MA-VUI-BAN-CHINH/kiem-thu/review-evidence/
 
 # Gói thử, hồ sơ trình duyệt thử và tệp nén cũ
 /BAN-CHAY-THU-*/

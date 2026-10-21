@@ -1,0 +1,5 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict');const h=require('../review-html.cjs'),D=require('../app/review-domain.js'),f=require('./fixtures/review-multi4.json');
+const grade=a=>h.grade(h.createPractice(f),{multi:a,'one-key':[1],old:0},{submissionId:'multi'});
+test('A-D: exact set only, including one-key MULTI and unordered answers',()=>{for(const a of [[0,2],[2,0]])assert.equal(grade(a).score,4);for(const a of [[0],[0,2,3],[],undefined,[0,0,2],['0','2']])assert.equal(grade(a).results[0].points,0);assert.equal(grade([0,2]).results[1].points,1);});
+test('E/F: preserve data, reject missing/invalid keys and do not mutate original',()=>{const before=JSON.stringify(f);assert.deepEqual(D.normalizeDocument(f).questions[0].correctAnswers,[0,2]);h.renderHtml(f);assert.equal(JSON.stringify(f),before);for(const keys of [[],[0,0],[9],['0']]){const d=structuredClone(f);d.questions[0].correctAnswers=keys;assert.throws(()=>h.createPractice(d),/đáp án/);}assert.match(h.renderHtml(f),/Chọn tất cả đáp án đúng/);});

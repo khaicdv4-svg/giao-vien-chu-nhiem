@@ -1,0 +1,10 @@
+{
+  "id": "mixed-math4",
+  "title": "Toán lớp 4 – đề hỗn hợp",
+  "metadata": {"grade": 4, "subject": "Toán", "topic": "Ôn tập phép tính"},
+  "questions": [
+    {"id": "choice", "type": "SINGLE", "text": "250 + 250 bằng bao nhiêu?", "options": ["400", "500", "600"], "correctAnswers": [1], "points": 2},
+    {"id": "short", "type": "SHORT", "text": "125 + 375 = ?", "answerText": "500", "points": 2, "metadata": {"shortScoring": "exact", "acceptedAnswers": ["500 đơn vị"]}, "explanation": "Cộng hàng đơn vị, chục và trăm."},
+    {"id": "essay", "type": "OPEN", "text": "Đặt tính rồi tính 125 + 375 và trình bày cách làm.", "answerText": "500", "points": 6, "explanation": "Đúng phép cộng: 2 điểm; trình bày đặt tính: 2 điểm; giải thích: 2 điểm."}
+  ]
+}

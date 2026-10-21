@@ -1,0 +1,14 @@
+{
+  "id": "grid-math4",
+  "title": "Toán lớp 4 – vở ô li",
+  "metadata": {"grade": 4, "subject": "Toán", "topic": "Đặt tính và trình bày"},
+  "questions": [
+    {"id":"add3","type":"OPEN","text":"Đặt tính rồi tính 125 + 375.","points":2,"metadata":{"answerLayout":"grid-calculation"}},
+    {"id":"subtract","type":"OPEN","text":"Đặt tính rồi tính 402 − 178 (có nhớ).","points":2,"metadata":{"answerLayout":"grid-calculation"}},
+    {"id":"add9","type":"OPEN","text":"Đặt tính rồi tính 123456789 + 234567891.","points":2,"metadata":{"answerLayout":"grid-calculation"}},
+    {"id":"billion","type":"OPEN","text":"Đặt tính rồi tính 1000000000 + 2000000000.","points":2,"metadata":{"answerLayout":"grid-calculation"}},
+    {"id":"writing","type":"OPEN","text":"Giải thích bằng lời cách làm.","points":2,"metadata":{"answerLayout":"grid-text"}},
+    {"id":"plain","type":"OPEN","text":"Viết nhận xét ngắn.","points":1,"metadata":{"answerLayout":"plain"}},
+    {"id":"choice","type":"SINGLE","text":"125 + 375 = ?","options":["400","500","600"],"correctAnswers":[1],"points":1}
+  ]
+}

@@ -1,0 +1,8 @@
+{
+ "id":"fill4-practice","title":"Ôn tập điền khuyết lớp 4","metadata":{"grade":4,"subject":"Toán và Tiếng Việt","topic":"Ôn tập","purpose":"Bài tập thường xuyên","scoreVisibility":"immediate","answerVisibility":"immediate"},
+ "questions":[
+  {"id":"one","type":"FILL","text":"Thủ đô Việt Nam là [[1]].","points":1,"blanks":[{"id":"1","answerText":"Hà Nội","acceptedAnswers":["Thành phố Hà Nội"]}]},
+  {"id":"many","type":"FILL","text":"1 + 1 = [[1]]. Điền từ: [[2]]. Độ dài: [[3]].","points":1,"blanks":[{"id":"1","answerText":"2","acceptedAnswers":["hai"]},{"id":"2","answerText":"cây xanh","acceptedAnswers":[]},{"id":"3","answerText":"0,5 m","acceptedAnswers":["50 cm"]}],"explanation":"Lời giải mẫu để kiểm thử thao tác mở lời giải."},
+  {"id":"old","type":"SINGLE","text":"1 + 1 = ?","options":["2","3"],"correctAnswers":[0],"points":1}
+ ]
+}

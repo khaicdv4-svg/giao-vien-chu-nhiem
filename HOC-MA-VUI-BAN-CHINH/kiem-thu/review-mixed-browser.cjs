@@ -1,0 +1,135 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http');
+const assert=require('node:assert/strict');
+const {pathToFileURL}=require('node:url');
+const {chromium}=require(process.env.HMV_PLAYWRIGHT_PATH||'playwright');
+const html=require('../review-html.cjs');
+const fixture=require('./fixtures/review-mixed4.json');
+const D=require('../app/review-domain.js');
+const output=path.resolve(process.env.HMV_EVIDENCE_DIR);
+const app=path.resolve(__dirname,'../app');
+const rows=[];const pass=(id,detail)=>{rows.push({id,status:'PASS',detail});console.log(id+' PASS '+detail);};
+
+async function main(){
+  fs.mkdirSync(output,{recursive:true});
+  const htmlFile=path.join(output,'toan-4-de-hon-hop.html');
+  fs.writeFileSync(htmlFile,html.renderHtml(fixture),'utf8');
+  const browser=await chromium.launch({headless:true,executablePath:process.env.HMV_CHROME_PATH});
+  const browserErrors=[],network=[];
+  try{
+    const context=await browser.newContext({offline:true,acceptDownloads:true,viewport:{width:390,height:900}});
+    const page=await context.newPage();page.setDefaultTimeout(10000);
+    page.on('pageerror',e=>browserErrors.push(e.message));page.on('request',r=>{if(/^https?:/.test(r.url()))network.push(r.url());});
+    await page.goto(pathToFileURL(htmlFile).href);
+    assert.equal(await page.locator('fieldset.question-card').count(),3);
+    await page.locator('input[name=q0][value="1"]').check();
+    await page.locator('input[name=q1]').fill('500 đơn vị');
+    const essay='125 + 375\n= 500\nEm cộng các hàng từ phải sang trái.';
+    await page.locator('textarea[name=q2]').fill(essay);
+    const id=await page.evaluate(()=>JSON.parse(Object.values(localStorage).find(v=>v.includes('hmv-practice-v1-')===false&&v.includes('"fingerprint"'))||'null')?.attempt?.id);
+    assert.ok(id,'offline draft has an attempt ID');
+    assert.match(await page.locator('#save-status').textContent(),/Bài làm được lưu/);
+    await page.reload();
+    assert.equal(await page.locator('textarea[name=q2]').inputValue(),essay);
+    assert.equal(await page.locator('input[name=q1]').inputValue(),'500 đơn vị');
+    assert.equal(await page.locator('input[name=q0][value="1"]').isChecked(),true);
+    pass('draft-reload','real file:// Chrome offline; multiline answer and all fields restored');
+    await page.screenshot({path:path.join(output,'390-draft.png'),fullPage:true});
+    page.once('dialog',d=>d.accept());await page.locator('#submit').click();
+    assert.match(await page.locator('#result').textContent(),/Đã chấm: 4 \/ 4 điểm.*tối đa 6 điểm.*Chưa có điểm tổng chính thức/);
+    assert.doesNotMatch(await page.locator('#result').textContent(),/4 \/ 10/);
+    assert.match(await page.locator('#feedback-2').textContent(),/Chờ giáo viên chấm/);
+    assert.equal(await page.locator('textarea[name=q2]').isDisabled(),true);
+    assert.equal(await page.locator('#submit').isDisabled(),true);
+    pass('mixed-score-lock','graded 4/4; essay pending 6; submitted answer locked');
+    const waiting=page.waitForEvent('download');await page.locator('#export-submission').click();
+    const download=await waiting;const submissionFile=path.join(output,download.suggestedFilename());await download.saveAs(submissionFile);
+    const submission=JSON.parse(fs.readFileSync(submissionFile,'utf8'));
+    assert.equal(submission.attemptId,id);assert.equal(submission.answers.essay,essay);
+    assert.equal(submission.score,null);assert.equal(submission.pendingManual,1);
+    assert.equal(submission.questions[2].text,fixture.questions[2].text);
+    assert.equal(submission.questions[2].maxPoints,6);
+    assert.ok(!fs.readFileSync(submissionFile,'utf8').includes('Đúng phép cộng: 2 điểm'));
+    assert.ok(!fs.readFileSync(submissionFile,'utf8').includes('correctAnswers'));
+    pass('submission-download','JSON contains questions, submitted answers and grading state, no teacher rubric or answer key');
+    await page.screenshot({path:path.join(output,'390-result.png'),fullPage:true});
+    await page.reload();
+    assert.equal(await page.locator('textarea[name=q2]').inputValue(),essay);
+    assert.equal(await page.locator('textarea[name=q2]').isDisabled(),true);
+    assert.match(await page.locator('#result').textContent(),/Chưa có điểm tổng chính thức/);
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+    pass('submitted-reload','same attempt and answers restored; no silent edit after reload; 390px no overflow');
+    await context.close();
+
+    const wide=await browser.newContext({offline:true,viewport:{width:1366,height:900}});
+    const desktop=await wide.newPage();desktop.on('pageerror',e=>browserErrors.push(e.message));
+    await desktop.goto(pathToFileURL(htmlFile).href);
+    await desktop.screenshot({path:path.join(output,'1366-draft.png'),fullPage:true});
+    assert.equal(await desktop.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+    pass('responsive-offline','1366px and 390px real screenshots; no HTTP requests');
+    await wide.close();
+
+    const server=http.createServer((req,res)=>{
+      const name=new URL(req.url,'http://localhost').pathname;
+      const file=path.resolve(app,'.'+decodeURIComponent(name==='/'?'/index.html':name));
+      if(!file.startsWith(app+path.sep)){res.writeHead(403);return res.end();}
+      const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript'};
+      fs.readFile(file,(err,bytes)=>{res.writeHead(err?404:200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream'});res.end(err?'Not found':bytes);});
+    });
+    await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+    try{
+      const origin='http://127.0.0.1:'+server.address().port;
+      const editorContext=await browser.newContext({acceptDownloads:true});
+      await editorContext.route('**/*',r=>r.request().url().startsWith(origin+'/')?r.continue():r.abort());
+      const editor=await editorContext.newPage();editor.setDefaultTimeout(10000);
+      editor.on('pageerror',e=>browserErrors.push(e.stack||e.message));
+      await editor.goto(origin+'/');await editor.waitForFunction(()=>!!window.HmvReviewUI);
+      const saved=D.normalizeDocument(fixture);await editor.evaluate(async value=>{await(await HmvReviewStorage.open()).put('documents',value);},saved);
+      await editor.evaluate(()=>HmvReviewUI.open());await editor.locator('[data-rv-open="mixed-math4"]').click();
+      await editor.locator('[data-question="1"] [data-q="acceptedAnswers"]').fill('500 đơn vị\n500 cái');
+      await editor.locator('[data-question="1"] [data-q="autoGrade"]').check();
+      await editor.locator('[data-question="2"] [data-q="explanation"]').fill('Tiêu chí chấm thử');
+      await editor.locator('[data-question="2"] [data-up]').click();
+      assert.match(await editor.locator('[data-question="1"] [data-q="text"]').inputValue(),/Đặt tính/);
+      await editor.locator('#rv-preview-html').click();
+      await editor.waitForFunction(()=>!document.querySelector('#rv-html-preview').hidden);
+      assert.equal(await editor.frameLocator('#rv-html-preview').locator('fieldset.question-card').count(),3);
+      const exportWait=editor.waitForEvent('download');await editor.locator('#rv-export-html').click();
+      const exported=await exportWait;const exportFile=path.join(output,'toan-4-tu-trinh-bien-tap.html');await exported.saveAs(exportFile);
+      const exportedText=fs.readFileSync(exportFile,'utf8');
+      assert.ok(exportedText.includes('500 cái'));assert.ok(exportedText.indexOf('Đặt tính')<exportedText.indexOf('125 + 375 = ?'));
+      const exportedContext=await browser.newContext({offline:true,viewport:{width:390,height:900}});
+      const exportedPage=await exportedContext.newPage();await exportedPage.goto(pathToFileURL(exportFile).href);
+      await exportedPage.locator('input[name=q0][value="1"]').check();
+      await exportedPage.locator('textarea[name=q1]').fill('125 + 375 = 500');
+      await exportedPage.locator('input[name=q2]').fill('500 cái');
+      exportedPage.once('dialog',d=>d.accept());await exportedPage.locator('#submit').click();
+      assert.match(await exportedPage.locator('#result').textContent(),/Đã chấm: 4 \/ 4 điểm.*tối đa 6 điểm/);
+      await exportedContext.close();
+      const stored=await editor.evaluate(async()=>await(await HmvReviewStorage.open()).get('documents','mixed-math4'));
+      assert.deepEqual(stored,saved);
+      pass('editor-preview-export','live editor accepted answers/reordering/preview/download; stored source unchanged');
+      await editor.locator('#rv-save').click();
+      await editor.waitForFunction(()=>document.querySelector('#rv-message')?.textContent.includes('Đã lưu bản nháp'));
+      const storedAfterSave=await editor.evaluate(async()=>await(await HmvReviewStorage.open()).get('documents','mixed-math4'));
+      assert.equal(storedAfterSave.questions[1].type,'OPEN');
+      assert.equal(storedAfterSave.questions[1].explanation,'Tiêu chí chấm thử');
+      assert.equal(storedAfterSave.questions[2].metadata.shortScoring,'exact');
+      assert.deepEqual(storedAfterSave.questions[2].metadata.acceptedAnswers,['500 đơn vị','500 cái']);
+      await editor.locator('#rv-add').click();
+      await editor.locator('[data-question="3"] [data-q="type"]').selectOption('OPEN');
+      await editor.locator('[data-question="3"] [data-q="text"]').fill('Giải thích cách tính khác');
+      await editor.locator('[data-question="3"] [data-q="points"]').fill('1');
+      await editor.locator('#rv-save').click();
+      await editor.waitForFunction(()=>document.querySelector('#rv-message')?.textContent.includes('Đã lưu bản nháp'));
+      const withAdded=await editor.evaluate(async()=>await(await HmvReviewStorage.open()).get('documents','mixed-math4'));
+      assert.equal(withAdded.questions.length,4);assert.equal(withAdded.questions[3].type,'OPEN');
+      pass('editor-save-add','reordered short/essay fields persist; adding a new essay persists');
+      await editorContext.close();
+    }finally{await new Promise(resolve=>server.close(resolve));}
+    assert.deepEqual(browserErrors,[]);assert.deepEqual(network,[]);
+    fs.writeFileSync(path.join(output,'browser-results.json'),JSON.stringify({rows,browserErrors,network},null,2));
+  }finally{await browser.close();}
+}
+main().catch(error=>{console.error(error);process.exitCode=1;});
+

@@ -1,0 +1,9 @@
+{
+ "id":"tf4-practice","title":"Ôn tập Đúng/Sai lớp 4","metadata":{"grade":4,"subject":"Toán","topic":"Số và phép tính","purpose":"Bài tập thường xuyên","scoreVisibility":"immediate","answerVisibility":"immediate"},
+ "questions":[
+  {"id":"one","type":"TRUEFALSE","text":"Chọn Đúng hoặc Sai","points":1,"statements":[{"text":"125 + 275 = 400","answer":true}]},
+  {"id":"many","type":"TRUEFALSE","text":"Đánh giá từng nhận định","points":1,"statements":[{"text":"3 × 4 = 12","answer":true},{"text":"Một giờ có 100 phút","answer":false},{"text":"Một nửa của 10 là 6","answer":false}],"explanation":"Kiểm tra từng nhận định theo kiến thức đã học."},
+  {"id":"legacy","type":"TRUEFALSE","text":"2 + 2 = 4","options":["Đúng","Sai"],"correctAnswers":[0],"points":1},
+  {"id":"choice","type":"SINGLE","text":"1 + 1 = ?","options":["1","2"],"correctAnswers":[1],"points":1}
+ ]
+}

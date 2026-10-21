@@ -1,0 +1,8 @@
+{
+ "id":"multi4-practice","title":"Ôn tập nhiều đáp án đúng lớp 4","metadata":{"grade":4,"subject":"Toán","topic":"Số và phép tính","purpose":"Bài tập thường xuyên","scoreVisibility":"immediate","answerVisibility":"immediate"},
+ "questions":[
+  {"id":"multi","type":"MULTI","text":"Chọn các số chẵn","options":["2","3","4","5"],"correctAnswers":[0,2],"points":2,"explanation":"2 và 4 chia hết cho 2."},
+  {"id":"one-key","type":"MULTI","text":"Chọn số bằng 10","options":["8","10","12","14","16"],"correctAnswers":[1],"points":1},
+  {"id":"old","type":"SINGLE","text":"1 + 1 = ?","options":["2","3"],"correctAnswers":[0],"points":1}
+ ]
+}

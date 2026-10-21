@@ -1,0 +1,12 @@
+{
+  "id":"math4-practice-01",
+  "title":"Em ôn tập Toán lớp 4",
+  "metadata":{"grade":4,"subject":"Toán","topic":"Số và phép tính","purpose":"Bài tập thường xuyên"},
+  "questions":[
+    {"id":"q1","type":"SINGLE","text":"125 + 275 bằng bao nhiêu?","options":["300","400","450","500"],"correctAnswers":[1],"points":2},
+    {"id":"q2","type":"SINGLE","text":"48 × 5 bằng bao nhiêu?","options":["240","200","245","280"],"correctAnswers":[0],"points":2},
+    {"id":"q3","type":"SINGLE","text":"3/8 + 2/8 bằng bao nhiêu?","options":["5/16","1/8","5/8","6/8"],"correctAnswers":[2],"points":2},
+    {"id":"q4","type":"SINGLE","text":"Hình chữ nhật dài 8 cm, rộng 5 cm. Chu vi là bao nhiêu?","options":["13 cm","40 cm","20 cm","26 cm"],"correctAnswers":[3],"points":2},
+    {"id":"q5","type":"SINGLE","text":"2 giờ 15 phút bằng bao nhiêu phút?","options":["125 phút","135 phút","150 phút","215 phút"],"correctAnswers":[1],"points":2}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+ "id":"matching4-practice","title":"Ôn tập nối cặp lớp 4","metadata":{"grade":4,"subject":"Toán","topic":"Phép tính","purpose":"Bài tập thường xuyên","scoreVisibility":"immediate","answerVisibility":"immediate"},
+ "questions":[
+  {"id":"match","type":"MATCHING","text":"Nối phép tính với kết quả","pairs":[{"left":"1 + 1","right":"2"},{"left":"2 + 2","right":"4"},{"left":"3 + 3","right":"6"}],"points":1,"metadata":{"matchingScoring":"per-pair"},"explanation":"Đối chiếu từng phép cộng với kết quả tương ứng."},
+  {"id":"old","type":"SINGLE","text":"1 + 1 = ?","options":["2","3"],"correctAnswers":[0],"points":1}
+ ]
+}
