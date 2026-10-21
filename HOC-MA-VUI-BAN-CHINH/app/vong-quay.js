@@ -78,5 +78,28 @@
 
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', later); else later();
   window.addEventListener('load', later);
-  window.hmvVongQuay = { arrange: arrange, version: '1.2' };
+  /* 1.3 (21/10/2026): nhạc nền vòng quay. Trước đây nhạc nền chỉ bật khi bấm nút "Bật âm thanh trò chơi";
+   * từ khi âm thanh được mở khóa tự động ở lần chạm đầu (am-thanh-hieu-ung.js) nút đó không còn hiện nên nhạc nền
+   * không bao giờ phát. Nay: thầy cô chạm/bấm trong màn hình Vòng quay là nhạc nền phát (lặp); tạm nghỉ trong lúc
+   * phát tiếng thắng cuộc/cổ vũ rồi tự phát lại; dừng khi rời màn hình. Tắt bằng "Âm thanh: Tắt" hoặc kéo âm lượng
+   * Nhạc nền về 0 như cũ. */
+  var bgWanted = false, lastBusy = 0;
+  function onWheel() { var v = doc.getElementById('picker'); return !!(v && v.classList.contains('active')) && !doc.hidden; }
+  function effectBusy() {
+    var t = window.audioTransient; if (t && Object.keys(t).length) return true;
+    var e = window.hmvEffectAudio; return !!(e && typeof e.state === 'function' && e.state('wheel').playing);
+  }
+  function bgNode() { try { return window.audioNodes && window.audioNodes.background; } catch (e) { return null; } }
+  function bgCheck() {
+    if (typeof window.audioStart !== 'function') return;
+    var n = bgNode(), on = onWheel() && bgWanted && window.audioMasterEnabled;
+    if (!on) { if (n && !n.paused && typeof window.audioStop === 'function' && !onWheel()) window.audioStop('background'); return; }
+    if (effectBusy()) { lastBusy = Date.now(); return; }
+    if (Date.now() - lastBusy < 2500) return; /* chờ hết chuỗi thắng cuộc → cổ vũ rồi mới phát lại */
+    if (!n || n.paused) { try { window.audioBgStarted = true; window.audioStart('background'); } catch (e) {} }
+  }
+  doc.addEventListener('pointerdown', function (e) { if (e.target && e.target.closest && e.target.closest('#picker')) { bgWanted = true; setTimeout(bgCheck, 0); } }, true);
+  setInterval(bgCheck, 1000);
+
+  window.hmvVongQuay = { arrange: arrange, version: '1.3', bgCheck: bgCheck };
 })();
