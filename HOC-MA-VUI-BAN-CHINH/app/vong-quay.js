@@ -78,28 +78,25 @@
 
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', later); else later();
   window.addEventListener('load', later);
-  /* 1.3 (21/10/2026): nhạc nền vòng quay. Trước đây nhạc nền chỉ bật khi bấm nút "Bật âm thanh trò chơi";
+  /* 1.4 (21/10/2026): nhạc nền vòng quay. Trước đây nhạc nền chỉ bật khi bấm nút "Bật âm thanh trò chơi";
    * từ khi âm thanh được mở khóa tự động ở lần chạm đầu (am-thanh-hieu-ung.js) nút đó không còn hiện nên nhạc nền
-   * không bao giờ phát. Nay: thầy cô chạm/bấm trong màn hình Vòng quay là nhạc nền phát (lặp); tạm nghỉ trong lúc
-   * phát tiếng thắng cuộc/cổ vũ rồi tự phát lại; dừng khi rời màn hình. Tắt bằng "Âm thanh: Tắt" hoặc kéo âm lượng
-   * Nhạc nền về 0 như cũ. */
-  var bgWanted = false, lastBusy = 0;
+   * không bao giờ phát. Nay: bấm QUAY là nhạc nền phát trong lúc quay; quay xong (tiếng thắng cuộc/vỗ tay) thì nhạc nền
+   * dừng hẳn, không tự phát lại; lần quay sau mới phát lại; rời màn hình thì dừng. Tắt bằng "Âm thanh: Tắt" hoặc kéo
+   * âm lượng Nhạc nền về 0 như cũ. */
+  var bgWanted = false, wasSpinning = false;
   function onWheel() { var v = doc.getElementById('picker'); return !!(v && v.classList.contains('active')) && !doc.hidden; }
-  function effectBusy() {
-    var t = window.audioTransient; if (t && Object.keys(t).length) return true;
-    var e = window.hmvEffectAudio; return !!(e && typeof e.state === 'function' && e.state('wheel').playing);
-  }
   function bgNode() { try { return window.audioNodes && window.audioNodes.background; } catch (e) { return null; } }
+  function bgStop() { bgWanted = false; var n = bgNode(); if (n && typeof window.audioStop === 'function') window.audioStop('background'); }
   function bgCheck() {
-    if (typeof window.audioStart !== 'function') return;
-    var n = bgNode(), on = onWheel() && bgWanted && window.audioMasterEnabled;
-    if (!on) { if (n && !n.paused && typeof window.audioStop === 'function' && !onWheel()) window.audioStop('background'); return; }
-    if (effectBusy()) { lastBusy = Date.now(); return; }
-    if (Date.now() - lastBusy < 2500) return; /* chờ hết chuỗi thắng cuộc → cổ vũ rồi mới phát lại */
-    if (!n || n.paused) { try { window.audioBgStarted = true; window.audioStart('background'); } catch (e) {} }
+    var spinning = !!window.pickerSpinning;
+    if (!wasSpinning && spinning) bgWanted = true; /* vừa bấm QUAY */
+    if (wasSpinning && !spinning) bgStop(); /* vừa quay xong */
+    wasSpinning = spinning;
+    if (!onWheel()) { if (bgWanted || bgNode()) bgStop(); return; }
+    if (!bgWanted || !spinning || !window.audioMasterEnabled || typeof window.audioStart !== 'function') return;
+    var n = bgNode(); if (!n || n.paused) { try { window.audioBgStarted = true; window.audioStart('background'); } catch (e) {} }
   }
-  doc.addEventListener('pointerdown', function (e) { if (e.target && e.target.closest && e.target.closest('#picker')) { bgWanted = true; setTimeout(bgCheck, 0); } }, true);
-  setInterval(bgCheck, 1000);
+  setInterval(bgCheck, 200);
 
-  window.hmvVongQuay = { arrange: arrange, version: '1.3', bgCheck: bgCheck };
+  window.hmvVongQuay = { arrange: arrange, version: '1.4', bgCheck: bgCheck };
 })();
