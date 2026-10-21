@@ -1,4 +1,5 @@
 /* BAN-CHINH 1.0 · Bộ câu hỏi mẫu Toán lớp 1–5: 7 dạng × 20 câu (mỗi lớp 4 câu mỗi dạng).
+ * Phiên bản 2 (21/10/2026): thêm 5 bộ Đạo đức lớp 1–5, mỗi bộ 10 câu A–B–C–D (mau-8 … mau-12).
  * Kho câu hỏi nạp các bộ này một lần ở lần chạy đầu; xóa rồi thì không tự nạp lại (dùng nút "Nạp bộ câu hỏi mẫu").
  * Mỗi dòng dữ liệu: [lớp, chủ đề, nội dung, ...]. Đáp án đã được kiểm tra bằng máy trong bộ kiểm thử.
  */
@@ -183,6 +184,70 @@
   function makeSet(order, slug, name, description, questions) {
     return { id: 'mau-' + order + '-' + slug, name: name, setTitle: name, description: description, grade: 'Lớp 1–5', schoolYear: 'Chưa xác định năm học', subject: 'Toán', topic: 'Tổng hợp lớp 1–5', lesson: 'Tổng hợp lớp 1–5', difficulty: 'Mức 1', source: SOURCE, purpose: 'Luyện tập', questions: questions, games: [] };
   }
+
+  /* Đạo đức lớp 1–5 (KNTT, học kì I) – 10 câu A–B–C–D mỗi lớp, dùng thử trò chơi toàn trường.
+     [lớp, chủ đề, câu hỏi, [A, B, C, D], vị trí đáp án đúng (0 = A)] */
+  var DAO_DUC = [
+    [1, "Giữ gìn vệ sinh, yêu thương gia đình", "Khi nào em cần rửa tay?", ["Khi đang hát", "Trước khi ăn", "Khi đang đọc truyện", "Khi đang ngủ"], 1],
+    [1, "Giữ gìn vệ sinh, yêu thương gia đình", "Em rửa tay bằng gì để sạch nhất?", ["Nước mưa đọng", "Nước sạch và xà phòng", "Chỉ lau vào áo", "Không cần rửa"], 1],
+    [1, "Giữ gìn vệ sinh, yêu thương gia đình", "Mỗi ngày em nên đánh răng mấy lần?", ["1 tuần 1 lần", "Không cần đánh", "Chỉ khi đau răng", "Ít nhất 2 lần"], 3],
+    [1, "Giữ gìn vệ sinh, yêu thương gia đình", "Để răng chắc khỏe, em nên làm gì?", ["Ăn ít bánh kẹo ngọt", "Ăn kẹo trước khi ngủ", "Cắn đồ cứng", "Không súc miệng"], 0],
+    [1, "Giữ gìn vệ sinh, yêu thương gia đình", "Đi chơi về, người đầy mồ hôi, em nên làm gì?", ["Mặc thêm áo", "Đi ngủ ngay", "Ngồi trước quạt thật lâu", "Tắm rửa sạch sẽ"], 3],
+    [1, "Giữ gìn vệ sinh, yêu thương gia đình", "Việc làm nào giúp em giữ đầu tóc sạch sẽ?", ["Không bao giờ gội đầu", "Nghịch đất cát", "Gội đầu thường xuyên", "Đội nón cả ngày"], 2],
+    [1, "Giữ gìn vệ sinh, yêu thương gia đình", "Bạn nào biết giữ móng tay sạch sẽ?", ["Bạn Bi để móng tay dài, bẩn", "Bạn Tèo chùi tay vào quần", "Bạn Na cắt móng tay gọn gàng", "Bạn Tí cắn móng tay"], 2],
+    [1, "Giữ gìn vệ sinh, yêu thương gia đình", "Khi ông bà, cha mẹ đi làm về mệt, em nên làm gì?", ["Mở ti vi thật to", "Lấy nước mời ông bà, cha mẹ", "Đòi quà ngay", "Chạy đi chơi"], 1],
+    [1, "Giữ gìn vệ sinh, yêu thương gia đình", "Em thể hiện tình yêu thương gia đình bằng cách nào?", ["Lễ phép, vâng lời người lớn", "Giành đồ chơi với em", "Bỏ đi chơi không xin phép", "Cãi lại cha mẹ"], 0],
+    [1, "Giữ gìn vệ sinh, yêu thương gia đình", "Lời nói nào lễ phép khi em đi học?", ["Con đi nha, khỏi chờ!", "Đi đây!", "Con chào ba mẹ, con đi học ạ!", "Không nói gì"], 2],
+    [2, "Quê hương, thầy cô, bạn bè", "Việc làm nào thể hiện em yêu quê hương?", ["Vẽ bậy lên tường", "Giữ gìn cảnh đẹp quê hương", "Xả rác ra đường", "Bẻ cây ở công viên"], 1],
+    [2, "Quê hương, thầy cô, bạn bè", "Gặp thầy cô ngoài đường, em nên làm gì?", ["Gọi to tên thầy cô", "Chạy trốn", "Lễ phép chào thầy cô", "Quay mặt đi chỗ khác"], 2],
+    [2, "Quê hương, thầy cô, bạn bè", "Khi thầy cô đang giảng bài, em cần làm gì?", ["Vẽ bậy ra bàn", "Nói chuyện riêng", "Chú ý lắng nghe", "Ngủ gật"], 2],
+    [2, "Quê hương, thầy cô, bạn bè", "Bạn bị té ngã trong giờ ra chơi, em nên làm gì?", ["Kể cho cả lớp chọc bạn", "Bỏ đi chỗ khác", "Đứng cười bạn", "Đỡ bạn dậy, hỏi han bạn"], 3],
+    [2, "Quê hương, thầy cô, bạn bè", "Bạn mới chuyển đến lớp, em nên làm gì?", ["Làm quen, rủ bạn cùng chơi", "Trêu chọc bạn", "Giấu đồ của bạn", "Không chơi với bạn"], 0],
+    [2, "Quê hương, thầy cô, bạn bè", "Việc làm nào giúp em quý trọng thời gian?", ["Làm việc theo thời gian biểu", "Đi học trễ", "Xem ti vi suốt buổi", "Để bài tập tới khuya mới làm"], 0],
+    [2, "Quê hương, thầy cô, bạn bè", "Buổi sáng, bạn Minh nên làm gì để đi học đúng giờ?", ["Vừa đi vừa chơi", "Xem hoạt hình trước", "Thức dậy đúng giờ", "Ngủ nướng thêm"], 2],
+    [2, "Quê hương, thầy cô, bạn bè", "Lỡ làm rơi bút của bạn, em nên nói gì?", ["Tại bút bạn để đó!", "Ai biểu bạn để gần mình!", "Mình xin lỗi bạn nhé!", "Không nói gì"], 2],
+    [2, "Quê hương, thầy cô, bạn bè", "Biết nhận lỗi và sửa lỗi giúp em điều gì?", ["Bị chê cười", "Không có bạn chơi", "Bị mọi người ghét", "Được mọi người yêu quý, tin tưởng"], 3],
+    [2, "Quê hương, thầy cô, bạn bè", "Ngày 20 tháng 11 là ngày gì?", ["Ngày Nhà giáo Việt Nam", "Ngày Tết Nguyên đán", "Ngày Quốc tế Thiếu nhi", "Ngày khai giảng"], 0],
+    [3, "Tổ quốc, cộng đồng, ham học hỏi", "Khi chào cờ, em cần có thái độ như thế nào?", ["Ngồi xuống đất", "Đứng nghiêm, mắt nhìn lá cờ", "Cười đùa, xô đẩy", "Nói chuyện với bạn"], 1],
+    [3, "Tổ quốc, cộng đồng, ham học hỏi", "Quốc ca Việt Nam là bài hát nào?", ["Em yêu trường em", "Bắc kim thang", "Kìa con bướm vàng", "Tiến quân ca"], 3],
+    [3, "Tổ quốc, cộng đồng, ham học hỏi", "Quốc kỳ Việt Nam có màu gì?", ["Nền vàng, ngôi sao đỏ", "Nền đỏ, ngôi sao vàng năm cánh", "Nền xanh, ngôi sao trắng", "Nền trắng, ngôi sao xanh"], 1],
+    [3, "Tổ quốc, cộng đồng, ham học hỏi", "Việc làm nào thể hiện em yêu Tổ quốc Việt Nam?", ["Chăm học, giữ gìn cảnh đẹp đất nước", "Chê bai quê hương mình", "Vẽ bậy lên di tích", "Xả rác nơi công cộng"], 0],
+    [3, "Tổ quốc, cộng đồng, ham học hỏi", "Nhà hàng xóm có việc buồn, em nên làm gì?", ["Cười đùa ồn ào", "Hỏi thăm, chia sẻ cùng gia đình", "Không quan tâm", "Mở nhạc thật to"], 1],
+    [3, "Tổ quốc, cộng đồng, ham học hỏi", "Việc làm nào thể hiện em biết ơn người có công trong cộng đồng?", ["Xả rác bừa bãi", "Làm bẩn đường phố", "Chê bai công việc của họ", "Lễ phép, chào hỏi các bác lao công"], 3],
+    [3, "Tổ quốc, cộng đồng, ham học hỏi", "Khi gặp bài toán khó, bạn ham học hỏi sẽ làm gì?", ["Bỏ qua không làm", "Suy nghĩ, hỏi thầy cô, bạn bè", "Khóc và bỏ học", "Chép bài của bạn"], 1],
+    [3, "Tổ quốc, cộng đồng, ham học hỏi", "Bạn Lan đã hứa trả sách cho bạn vào thứ Hai. Lan nên làm gì?", ["Quên luôn lời hứa", "Hẹn lần sau nữa", "Giữ sách luôn", "Trả sách đúng hẹn"], 3],
+    [3, "Tổ quốc, cộng đồng, ham học hỏi", "Vì sao chúng ta cần giữ lời hứa?", ["Vì bị bắt buộc", "Để được mọi người tin tưởng", "Để được khen thưởng tiền", "Để khỏi phải làm việc"], 1],
+    [3, "Tổ quốc, cộng đồng, ham học hỏi", "Được giao trực nhật lớp, em nên làm gì?", ["Nhờ bạn làm giùm", "Làm qua loa cho xong", "Trốn về sớm", "Hoàn thành tốt, đúng giờ"], 3],
+    [4, "Biết ơn người lao động, cảm thông giúp đỡ", "Người lao động là những ai?", ["Những người làm ra của cải, phục vụ mọi người", "Chỉ có bác sĩ", "Chỉ người làm ở văn phòng", "Chỉ có thầy cô giáo"], 0],
+    [4, "Biết ơn người lao động, cảm thông giúp đỡ", "Việc làm nào thể hiện lòng biết ơn bác lao công?", ["Làm đổ rác ra sân", "Chê bác lao công", "Xả rác ra đường", "Bỏ rác đúng nơi quy định"], 3],
+    [4, "Biết ơn người lao động, cảm thông giúp đỡ", "Ăn hết phần cơm của mình là thể hiện điều gì?", ["Không có ý nghĩa gì", "Không thích ăn", "Biết ơn người nông dân", "Ăn cho nhanh để đi chơi"], 2],
+    [4, "Biết ơn người lao động, cảm thông giúp đỡ", "Bạn cùng lớp bị gãy tay, không chép bài được. Em nên làm gì?", ["Không chơi với bạn", "Kể cho cả lớp chọc bạn", "Cười chê bạn", "Cho bạn mượn vở, giảng bài giúp bạn"], 3],
+    [4, "Biết ơn người lao động, cảm thông giúp đỡ", "Cảm thông, giúp đỡ người gặp khó khăn giúp em điều gì?", ["Bị mọi người chê", "Thấy vui và được mọi người yêu quý", "Mất thời gian vô ích", "Không có lợi gì"], 1],
+    [4, "Biết ơn người lao động, cảm thông giúp đỡ", "Gặp một cụ già muốn qua đường, em nên làm gì?", ["Chạy vượt lên trước", "Dắt cụ qua đường an toàn", "Đứng nhìn", "Bỏ đi chỗ khác"], 1],
+    [4, "Biết ơn người lao động, cảm thông giúp đỡ", "Bạn nào biết yêu lao động?", ["Bạn Tâm lười làm việc nhà", "Bạn Hùng tự giác giúp mẹ dọn nhà", "Bạn Nam chỉ thích chơi điện thoại", "Bạn Hoa nhờ bạn làm trực nhật giùm"], 1],
+    [4, "Biết ơn người lao động, cảm thông giúp đỡ", "Nhặt được ví tiền của người khác, em nên làm gì?", ["Vứt đi", "Giữ lại xài", "Tìm cách trả lại người mất", "Chia cho bạn bè"], 2],
+    [4, "Biết ơn người lao động, cảm thông giúp đỡ", "Muốn dùng bút của bạn, em cần làm gì?", ["Hỏi mượn và được bạn đồng ý", "Lấy luôn không trả", "Giấu đi", "Tự lấy dùng"], 0],
+    [4, "Biết ơn người lao động, cảm thông giúp đỡ", "Câu tục ngữ nào nói về lòng biết ơn?", ["Nước chảy đá mòn", "Ăn quả nhớ kẻ trồng cây", "Một cây làm chẳng nên non", "Có công mài sắt, có ngày nên kim"], 1],
+    [5, "Biết ơn, tôn trọng khác biệt, vượt khó", "Ngày 27 tháng 7 hằng năm là ngày gì?", ["Ngày Quốc khánh", "Ngày Nhà giáo Việt Nam", "Ngày Thương binh – Liệt sĩ", "Ngày Thầy thuốc Việt Nam"], 2],
+    [5, "Biết ơn, tôn trọng khác biệt, vượt khó", "Việc làm nào thể hiện lòng biết ơn người có công với đất nước?", ["Không quan tâm", "Đùa giỡn ở nghĩa trang liệt sĩ", "Thăm hỏi gia đình thương binh, liệt sĩ", "Vẽ bậy lên bia tưởng niệm"], 2],
+    [5, "Biết ơn, tôn trọng khác biệt, vượt khó", "Câu nào nói về truyền thống “Uống nước nhớ nguồn”?", ["Uống nước phải đun sôi", "Đi xa phải mang nước", "Tiết kiệm nước sạch", "Biết ơn những người đi trước"], 3],
+    [5, "Biết ơn, tôn trọng khác biệt, vượt khó", "Bạn mới đến lớp nói giọng miền khác, em nên làm gì?", ["Cười chê bạn", "Tôn trọng, làm quen với bạn", "Không chơi với bạn", "Bắt chước giọng để chọc bạn"], 1],
+    [5, "Biết ơn, tôn trọng khác biệt, vượt khó", "Tôn trọng sự khác biệt của người khác là gì?", ["Bắt mọi người giống mình", "Chấp nhận, không chê bai điểm khác của người khác", "Chê bai người khác mình", "Xa lánh người khác mình"], 1],
+    [5, "Biết ơn, tôn trọng khác biệt, vượt khó", "Học kém môn Toán, bạn Hà nên làm gì để vượt khó?", ["Bỏ không học Toán", "Nghỉ học", "Chăm chỉ luyện tập, nhờ thầy cô chỉ bảo", "Chép bài của bạn"], 2],
+    [5, "Biết ơn, tôn trọng khác biệt, vượt khó", "Câu tục ngữ nào khuyên em kiên trì vượt khó?", ["Lá lành đùm lá rách", "Có công mài sắt, có ngày nên kim", "Ăn cây nào rào cây nấy", "Gần mực thì đen"], 1],
+    [5, "Biết ơn, tôn trọng khác biệt, vượt khó", "Thấy bạn bị bắt nạt, em nên làm gì?", ["Đứng xem cho vui", "Cùng bắt nạt bạn", "Báo ngay cho thầy cô hoặc người lớn", "Bỏ đi coi như không thấy"], 2],
+    [5, "Biết ơn, tôn trọng khác biệt, vượt khó", "Việc làm nào góp phần bảo vệ môi trường?", ["Trồng cây, bỏ rác đúng nơi quy định", "Xả rác xuống kênh rạch", "Đốt rác bừa bãi", "Bẻ cành cây"], 0],
+    [5, "Biết ơn, tôn trọng khác biệt, vượt khó", "Bạn Long rủ em quay cóp trong giờ kiểm tra, em nên làm gì?", ["Cho bạn chép bài", "Đồng ý ngay", "Im lặng làm theo", "Từ chối và khuyên bạn tự làm bài"], 3]
+  ];
+  function makeDaoDucSet(lop, topic) {
+    var qs = DAO_DUC.filter(function (r) { return r[0] === lop; }).map(function (r, i) {
+      var q = choice(base('mau-dd' + lop + '-' + (i + 1), r, 'ABCD'), r[3], [r[4]]); q.subject = 'Đạo đức'; return q;
+    });
+    var name = 'Mẫu · Đạo đức lớp ' + lop + ' · ' + topic;
+    var s = makeSet(7 + lop, 'dao-duc-lop-' + lop, name, '10 câu A–B–C–D. Dùng cho mọi trò chơi trắc nghiệm.', qs);
+    s.grade = 'Lớp ' + lop; s.subject = 'Đạo đức'; s.topic = topic; s.lesson = topic; return s;
+  }
+
   var sets = [
     makeSet(1, 'abcd', 'Mẫu 1 · Trắc nghiệm A–B–C–D · Toán lớp 1–5', 'Bốn lựa chọn, một đáp án đúng. Dùng cho mọi trò chơi trắc nghiệm.', ABCD.map(function (r, i) { return choice(base('mau-abcd-' + (i + 1), r, 'ABCD'), r[3], [r[4]]); })),
     makeSet(2, 'dung-sai', 'Mẫu 2 · Đúng/Sai · Toán lớp 1–5', 'Mệnh đề Đúng hoặc Sai. Dùng cho Quiz Nghiêng Đầu và các trò theo đội.', TF.map(function (r, i) { return choice(base('mau-ds-' + (i + 1), r, 'TRUEFALSE'), ['Đúng', 'Sai'], [r[3] ? 0 : 1], ['Đúng', 'Sai']); })),
@@ -190,10 +255,15 @@
     makeSet(4, 'dien-khuyet', 'Mẫu 4 · Điền khuyết · Toán lớp 1–5', 'Điền số thích hợp vào chỗ trống. Dùng ở Luyện tập.', FILL.map(function (r, i) { var q = base('mau-dk-' + (i + 1), r, 'FILL'); q.answerText = r[3]; q.correctAnswer = r[3]; return q; })),
     makeSet(5, 'tra-loi-ngan', 'Mẫu 5 · Trả lời ngắn · Toán lớp 1–5', 'Trả lời bằng một số. Dùng ở Luyện tập.', SHORT.map(function (r, i) { var q = base('mau-tln-' + (i + 1), r, 'SHORT'); q.answerText = r[3]; q.correctAnswer = r[3]; return q; })),
     makeSet(6, 'ghep-doi', 'Mẫu 6 · Ghép đôi · Toán lớp 1–5', 'Ghép mỗi ý bên trái với một ý bên phải. Dùng ở Luyện tập.', MATCH.map(function (r, i) { var q = base('mau-gd-' + (i + 1), r, 'MATCHING'); q.pairs = r[3].map(function (p) { return { left: p[0], right: p[1] }; }); q.answerStatus = 'Hợp lệ · cặp rõ'; return q; })),
-    makeSet(7, 'cau-hoi-mo', 'Mẫu 7 · Câu hỏi mở · Toán lớp 1–5', 'Học sinh trả lời miệng, giáo viên nhận xét. Dùng cho trò chơi theo đội và Luyện tập.', OPEN.map(function (r, i) { var q = base('mau-mo-' + (i + 1), r, 'OPEN'); q.answerText = r[3]; return q; }))
+    makeSet(7, 'cau-hoi-mo', 'Mẫu 7 · Câu hỏi mở · Toán lớp 1–5', 'Học sinh trả lời miệng, giáo viên nhận xét. Dùng cho trò chơi theo đội và Luyện tập.', OPEN.map(function (r, i) { var q = base('mau-mo-' + (i + 1), r, 'OPEN'); q.answerText = r[3]; return q; })),
+    makeDaoDucSet(1, "Giữ gìn vệ sinh, yêu thương gia đình"),
+    makeDaoDucSet(2, "Quê hương, thầy cô, bạn bè"),
+    makeDaoDucSet(3, "Tổ quốc, cộng đồng, ham học hỏi"),
+    makeDaoDucSet(4, "Biết ơn người lao động, cảm thông giúp đỡ"),
+    makeDaoDucSet(5, "Biết ơn, tôn trọng khác biệt, vượt khó")
   ];
 
-  var api = { version: 1, sets: sets };
+  var api = { version: 2, sets: sets };
   if (typeof module === 'object' && module.exports) module.exports = api;
   if (root) root.HMV_DEMO = api;
 })(typeof window !== 'undefined' ? window : null);

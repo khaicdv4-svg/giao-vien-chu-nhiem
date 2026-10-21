@@ -13,7 +13,7 @@ exports.open = async function (opts = {}) {
   if (opts.beforeLoad) await opts.beforeLoad(page, ctx);
   await page.goto(BASE, { waitUntil: 'load' });
   await page.waitForFunction(() => window.audioDB && Array.isArray(window.questionBankSets) && window.questionBankSets.length > 0, null, { timeout: 10000 });
-  if (opts.demo !== false) await page.waitForFunction(() => window.questionBankSets.filter(s => /^mau-/.test(s.id)).length === 7, null, { timeout: 10000 });
+  if (opts.demo !== false) await page.waitForFunction(() => window.questionBankSets.filter(s => /^mau-/.test(s.id)).length === 12, null, { timeout: 10000 });
   return { browser, ctx, page, logs };
 };
 exports.importFile = async function (page, file) {
