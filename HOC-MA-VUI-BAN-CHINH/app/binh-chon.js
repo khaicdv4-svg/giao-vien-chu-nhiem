@@ -200,7 +200,7 @@
   }
   /* 2.15: hỏi theo bộ câu hỏi + Luật trận đấu chọn "chuyển câu sau … giây" → tự sang câu sau khi hiện kết quả. */
   var autoNx = 0;
-  function autoNext() { clearTimeout(autoNx); var r = win.hmvTran ? win.hmvTran.reveal(TYPE, 0) : 0; if (!(r > 0) || !S || !S.questions) return; var q = S.q; autoNx = setTimeout(function () { if (S && S.phase === 'result' && S.q === q && game().type === TYPE) next(); }, r * 1000); }
+  function autoNext() { clearTimeout(autoNx); var r = win.hmvTran ? win.hmvTran.reveal(TYPE, 5) : 5; if (!(r > 0) || !S || !S.questions) return; var q = S.q; autoNx = setTimeout(function () { if (S && S.phase === 'result' && S.q === q && game().type === TYPE) next(); }, r * 1000); }
   function next() {
     clearTimeout(autoNx);
     if (!S || S.phase === 'end' || S.phase === 'count') return;

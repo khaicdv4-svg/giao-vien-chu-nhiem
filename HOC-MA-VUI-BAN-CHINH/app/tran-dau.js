@@ -23,7 +23,7 @@
     tiles: { host: '.flip-settings', answer: 'flipTime', revealDef: 1, rule: 'Mở hết các mảnh ghép', auto: true },
     millionaire: { host: '#games .card .game-setup', after: true, count: 'millionaireMode', revealDef: 1, answerDef: 0, rule: '', auto: true },
     balloon: { host: '#bbSetup', count: 'bbCount', answer: 'bbTime', revealDef: 3 },
-    poll: { host: '#bcSetup', count: 'bcCount', answer: 'bcTime', revealDef: 0, manual: true, countNote: 'Áp dụng khi hỏi theo bộ câu hỏi' },
+    poll: { host: '#bcSetup', count: 'bcCount', answer: 'bcTime', revealDef: 5, manual: true, countNote: 'Áp dụng khi hỏi theo bộ câu hỏi' },
     'magic-hand': { host: '#mhSetup', count: 'mhCount', answer: 'mhTime', revealDef: 3 },
     'raise-hand': { host: '#rhSetup', count: 'rhCount', answer: 'rhAnswerTime', revealDef: 4 },
     'head-tilt': { host: '#tiltSetupModal .tilt-setup-grid', before: true, count: 'tiltLimit', revealDef: 2, answerDef: 0 },
