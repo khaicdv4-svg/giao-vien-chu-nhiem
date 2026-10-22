@@ -26,7 +26,7 @@ async function main(){
       if(mode==='nokey'){res.writeHead(503,{'Content-Type':'application/json'});return res.end(JSON.stringify({ok:false,code:'NO_KEY',message:'Chưa có khóa Gemini.'}));}
       const solve=body.schema&&body.schema.properties&&body.schema.properties.answers;
       const items=solve?JSON.parse(body.contents[0].parts[0].text.replace(/^[\s\S]*?Giải các câu sau:\n/,'')):null;
-      const answers=solve?items.map(q=>q.type==='FILL'?{id:q.id,blanks:['120']}:{id:q.id,answerText:'Góc đỉnh O: 60°; góc đỉnh I: 120°',guide:'Mỗi số đo đúng 0,5 điểm.'}):null;
+      const answers=solve?items.map(q=>q.type==='FILL'?{id:q.id,blanks:['120']}:q.options?{id:q.id,correct:[1]}:{id:q.id,answerText:'Góc đỉnh O: 60°; góc đỉnh I: 120°',guide:'Mỗi số đo đúng 0,5 điểm.'}):null;
       res.writeHead(200,{'Content-Type':'application/json'});setTimeout(()=>res.end(JSON.stringify({ok:true,text:JSON.stringify(solve?{answers}:AI),model:'gemini-gia-lap'})),300);});return;}
     if(u.pathname==='/api/ai/status'){res.writeHead(200,{'Content-Type':'application/json'});return res.end(JSON.stringify({ok:true,server:2,configured:mode!=='nokey-status'}));}
     if(u.pathname.startsWith('/api/')){res.writeHead(404,{'Content-Type':'application/json'});return res.end('{"ok":false}');}
@@ -107,6 +107,17 @@ async function main(){
       const n=calls.length;await p.locator('#rv-ai-reanalyze').click();await p.waitForFunction(()=>/AI đã đọc lại/.test(document.querySelector('#rv-message').textContent));assert.ok(calls.length>=n+1);
       pass('ai-pdf','PDF gửi nguyên tệp cho AI (đọc được cả bản scan); nút "AI đọc lại đề" chạy');
     }
+    // 7) Nhập không qua AI, đề không có đáp án → nút "AI điền đáp án còn thiếu"
+    await p.locator('#rv-library').click();await p.waitForFunction(()=>document.querySelector('#rv-use-ai')?.checked===true);await p.locator('#rv-use-ai').uncheck();
+    const txt=path.join(output,'de-khong-dap-an.txt');fs.writeFileSync(txt,'Câu 1. 2 + 2 = ?\nA. 3\nB. 4\nC. 5\nD. 6\nCâu 2. 3 + 3 = ?\nA. 5\nB. 6\nC. 7\nD. 8\n');
+    await p.locator('#rv-import').setInputFiles(txt);await p.locator('[data-question]').first().waitFor();
+    const nq=await p.locator('[data-question]').count();assert.ok(nq>=2);
+    await p.locator('#rv-ai-fill').waitFor();assert.match(await p.locator('.rv-ai-missing').textContent(),/chưa có đáp án/);
+    await p.locator('#rv-export-scorm').click();await p.waitForFunction(()=>/AI điền đáp án còn thiếu/.test(document.querySelector('#rv-message').textContent));
+    const before2=calls.length;await p.locator('#rv-ai-fill').click();await p.waitForFunction(()=>/AI đã điền đáp án cho/.test(document.querySelector('#rv-message').textContent));
+    assert.ok(calls.length>before2);assert.equal(await p.locator('#rv-ai-fill').count(),0);assert.match(await p.locator('[data-question="0"]').textContent(),/Đáp án: B\. 4/);
+    await p.locator('#rv-edit-subject').fill('Toán');await p.locator('#rv-topic').fill('Ôn tập');const w5=p.waitForEvent('download',{timeout:5000}).catch(()=>null);await p.locator('#rv-export-scorm').click();const d5=await w5;if(!d5)console.log('DBG',await p.locator('#rv-message').textContent(),await p.evaluate(()=>document.querySelectorAll('[data-question]').length));assert.match(d5.suggestedFilename(),/\.zip$/);
+    pass('ai-fill','đề không có đáp án nhập theo cách thường: báo câu thiếu, nút "✨ AI điền đáp án còn thiếu" điền hết, rồi xuất SCORM được');
     assert.deepEqual(errors,[]);pass('no-errors','không có lỗi JavaScript');
   }finally{await browser.close();await new Promise(r=>server.close(r));}
   fs.writeFileSync(path.join(output,'ket-qua.json'),JSON.stringify(rows,null,2));console.log('XONG '+rows.length+' mục PASS · '+output);

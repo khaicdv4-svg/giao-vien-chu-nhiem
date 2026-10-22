@@ -142,7 +142,10 @@ var FILL_SCHEMA={type:'OBJECT',properties:{answers:{type:'ARRAY',items:{type:'OB
  blanks:{type:'ARRAY',items:S.STRING},pairs:{type:'ARRAY',items:{type:'OBJECT',properties:{left:S.STRING,right:S.STRING},required:['left','right']}},
  answerText:S.STRING,guide:S.STRING},required:['id']}}},required:['answers']};
 var FILL_SYSTEM='Bạn là giáo viên tiểu học Việt Nam giỏi chuyên môn. Giải từng câu hỏi được gửi (đúng kiến thức lớp đó, chương trình GDPT 2018, sách Kết nối tri thức) và trả JSON đúng lược đồ, mỗi câu một phần tử theo id. correct là chỉ số phương án tính từ 0. statements: "Đúng"/"Sai" theo thứ tự nhận định. blanks: đáp án từng chỗ trống [[1]], [[2]]… theo thứ tự. pairs: ghép đúng từng vế trái với vế phải. Câu tự luận/giải toán: answerText là bài giải mẫu ngắn gọn có đáp số, guide là hướng dẫn chấm chia theo điểm của câu. Câu viết đoạn/bài văn: answerText là gợi ý ý chính, guide là tiêu chí và biểu điểm. Bắt buộc trả lời mọi câu.';
-function needsAnswer(q){var m=q.metadata||{};return m.aiAnswer==='missing'||(q.type==='OPEN'&&m.aiAnswer==='none');}
+function dom(){return (root&&root.HmvReviewDomain)||(typeof require==='function'&&require('./review-domain.js'));}
+// Câu còn thiếu đáp án (dùng cho mọi học liệu, kể cả nhập không qua AI hoặc soạn tay).
+function needsAnswer(q){var m=q.metadata||{};if(q.type==='OPEN')return !str(q.answerText)&&!str(q.explanation);if(q.type==='MATCHING'&&m.aiAnswer==='missing')return true;return dom().validateQuestion(q).some(function(e){return /khóa|đáp án|Nhận định|chỗ trống/i.test(e);});}
+function missingNumbers(doc){return ((doc&&doc.questions)||[]).map(function(q,i){return needsAnswer(q)?i+1:0;}).filter(Boolean);}
 function applyAnswer(q,a){
  var m=q.metadata=Object.assign({},q.metadata);
  if(['ABCD','SINGLE','MULTI'].indexOf(q.type)>=0||(q.type==='TRUEFALSE'&&!Array.isArray(q.statements))){var n=(q.options&&q.options.length)||2,k=(a.correct||[]).map(Number).filter(function(x){return Number.isInteger(x)&&x>=0&&x<n;});k=k.filter(function(x,i){return k.indexOf(x)===i;});if(!k.length)return false;q.correctAnswers=q.type==='MULTI'?k:k.slice(0,1);}
@@ -154,20 +157,28 @@ function applyAnswer(q,a){
  if(q.type!=='OPEN'&&str(a.guide)&&!q.explanation)q.explanation=str(a.guide);
  m.aiAnswer='suggested';return true;
 }
+// Gửi các câu còn thiếu đáp án cho AI giải (mỗi lần tối đa 12 câu). Trả về {total, done, error}.
 async function fillMissing(conv,opts){
- var list=conv.questions.filter(needsAnswer);if(!list.length)return 0;
- var blocks={};conv.blocks.forEach(function(b){blocks[b.id]=b;});
- var items=list.map(function(q){var o={id:q.id,type:q.type,text:q.text,points:q.points};
-  if(q.options&&q.options.length)o.options=q.options;if(Array.isArray(q.statements))o.statements=q.statements.map(function(x){return x.text;});
-  if(Array.isArray(q.blanks))o.blankCount=q.blanks.length;if(q.pairs&&q.pairs.length){o.left=q.pairs.map(function(p){return p.left;});o.right=q.pairs.map(function(p){return p.right;});}
-  var ps=(q.blockIds||[]).map(function(id){return blocks[id]&&blocks[id].text;}).filter(Boolean);if(ps.length)o.passage=ps.join('\n\n').slice(0,6000);return o;});
+ opts=opts||{};
+ var list=(conv.questions||[]).filter(function(q){return (q.metadata||{}).aiAnswer!=='checked-empty'&&needsAnswer(q);}),res={total:list.length,done:0,error:''};if(!list.length)return res;
+ var blocks={};(conv.blocks||[]).forEach(function(b){blocks[b.id]=b;});
  var meta=conv.metadata||{};
- var r=await callAI([{text:'Môn '+(meta.subject||'')+', lớp '+(meta.grade||4)+'. Giải các câu sau:\n'+JSON.stringify(items)}],Object.assign({},opts,{system:FILL_SYSTEM,schema:FILL_SCHEMA}));
- var got={};((r.data&&r.data.answers)||[]).forEach(function(a){if(a&&a.id)got[a.id]=a;});
- var done=0;list.forEach(function(q){if(got[q.id]&&applyAnswer(q,got[q.id]))done++;});
- var filled={};list.forEach(function(q){if(q.metadata.aiAnswer==='suggested')filled[q.id]=1;});
- conv.notes=conv.notes.filter(function(n){return !(n.kind==='missing'&&filled[n.id]);});
- return done;
+ for(var i=0;i<list.length;i+=12){
+  var part=list.slice(i,i+12);
+  var items=part.map(function(q){var o={id:q.id,type:q.type,text:q.text,points:q.points};
+   if(q.options&&q.options.length)o.options=q.options;else if(q.type==='TRUEFALSE'&&!Array.isArray(q.statements))o.options=['Đúng','Sai'];
+   if(Array.isArray(q.statements))o.statements=q.statements.map(function(x){return x.text;});
+   if(Array.isArray(q.blanks))o.blankCount=q.blanks.length;if(q.pairs&&q.pairs.length){o.left=q.pairs.map(function(p){return p.left;});o.right=q.pairs.map(function(p){return p.right;});}
+   var ps=(q.blockIds||[]).map(function(id){var b=blocks[id];return b&&b.type!=='source-text'&&(b.text||b.content);}).filter(Boolean);if(ps.length)o.passage=ps.join('\n\n').slice(0,6000);return o;});
+  try{
+   if(opts.onProgress)opts.onProgress(i,list.length);
+   var r=await callAI([{text:'Môn '+(meta.subject||'')+', lớp '+(meta.grade||4)+'. Giải các câu sau:\n'+JSON.stringify(items)}],Object.assign({},opts,{system:FILL_SYSTEM,schema:FILL_SCHEMA}));
+   var got={};((r.data&&r.data.answers)||[]).forEach(function(a){if(a&&a.id)got[a.id]=a;});
+   part.forEach(function(q){if(got[q.id]&&applyAnswer(q,got[q.id]))res.done++;});
+  }catch(e){res.error=e.message;break;}
+ }
+ if(Array.isArray(conv.notes)){var filled={};list.forEach(function(q){if(!needsAnswer(q))filled[q.id]=1;});conv.notes=conv.notes.filter(function(n){return !(n.kind==='missing'&&filled[n.id]);});}
+ return res;
 }
 
 // Phân tích tệp: sourceDoc là kết quả HmvReviewImport.readFile (giữ nguồn để đối chiếu). Trả về {doc, report}.
@@ -175,12 +186,13 @@ async function analyze(file,sourceDoc,opts){
  opts=opts||{};
  var parts=await buildParts(file,sourceDoc),r=await callAI(parts,opts),conv=toDocument(r.data,opts);
  if(!conv.questions.length)throw Error('AI không tìm thấy câu hỏi nào trong tệp. Thầy cô kiểm tra lại tệp hoặc nhập tay.');
- if(opts.suggestAnswers!==false){try{await fillMissing(conv,opts);}catch(_){/* lượt giải bổ sung lỗi thì giữ kết quả lượt đầu */}}
+ var fill=opts.suggestAnswers!==false?await fillMissing(conv,opts):{total:0,done:0,error:''};
  var base=sourceDoc||{},meta=Object.assign({},base.metadata||{},conv.metadata);
  if(!meta.topic)meta.topic='Ôn tập';
  var doc=Object.assign({},base,{title:conv.title||base.title,metadata:meta,blocks:conv.blocks,questions:conv.questions,importStatus:'ready-for-review'});
  var report=Object.assign(summary(conv.questions),{model:r.model,at:new Date().toISOString(),suggestAnswers:opts.suggestAnswers!==false,truncated:r.truncated,notes:conv.notes,warnings:conv.warnings});
  if(r.truncated)report.warnings.unshift('Đề dài, AI có thể chưa đọc hết. Thầy cô so lại số câu với đề gốc.');
+ var left=missingNumbers({questions:conv.questions});if(left.length)report.warnings.unshift('AI chưa giải được '+left.length+' câu (Câu '+left.join(', ')+')'+(fill.error?' – '+fill.error:'')+'. Thầy cô bấm "✨ AI điền đáp án còn thiếu" để thử lại, hoặc nhập tay.');
  return {doc:doc,report:report};
 }
 
@@ -199,7 +211,7 @@ function decorate(rootEl,doc){
   if(q.type==='OPEN'&&!str(q.answerText)&&!str(q.explanation))missing=true;
   var html='';
   if(m.aiAnswer==='suggested'&&!missing)html+=' <span class="rv-ai-tag">✨ AI giải</span>';
-  if(missing&&(m.aiAnswer||doc.aiReport))html+=' <span class="rv-ai-flag">Chưa có đáp án – thầy cô nhập</span>';
+  if(missing)html+=' <span class="rv-ai-flag">Chưa có đáp án – thầy cô nhập</span>';
   if(m.needsFigure)html+=' <span class="rv-ai-flag">Cần hình vẽ'+(m.figureNote?': '+esc(m.figureNote):'')+'</span>';
   if(m.aiNote)html+=' <span class="rv-ai-flag">'+esc(m.aiNote)+'</span>';
   if(html)legend.insertAdjacentHTML('beforeend',html);
@@ -212,5 +224,5 @@ function decorate(rootEl,doc){
   (notes.length||(rp.warnings||[]).length?'<ul>'+notes.map(function(n){return '<li>'+esc(n.text)+'</li>';}).join('')+(rp.warnings||[]).map(function(w){return '<li>'+esc(w)+'</li>';}).join('')+'</ul>':'')+'</div>');
 }
 
-return {analyze:analyze,aiSolved:aiSolved,fillMissing:fillMissing,applyAnswer:applyAnswer,buildParts:buildParts,callAI:callAI,toDocument:toDocument,summary:summary,decorate:decorate,SCHEMA:SCHEMA,SYSTEM:SYSTEM,MAX_INLINE:MAX_INLINE};
+return {analyze:analyze,aiSolved:aiSolved,fillMissing:fillMissing,needsAnswer:needsAnswer,missingNumbers:missingNumbers,applyAnswer:applyAnswer,buildParts:buildParts,callAI:callAI,toDocument:toDocument,summary:summary,decorate:decorate,SCHEMA:SCHEMA,SYSTEM:SYSTEM,MAX_INLINE:MAX_INLINE};
 });

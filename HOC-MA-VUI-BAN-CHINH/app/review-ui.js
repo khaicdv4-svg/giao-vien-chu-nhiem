@@ -60,6 +60,19 @@
       await editor();notify(`AI đã đọc lại ${r.report.count} câu. Thầy cô xem lướt, sửa chỗ cần rồi bấm Lưu bản nháp.`);}
     finally{if(btn&&btn.isConnected)btn.disabled=false;}
   }
+  async function fillAnswers(){
+    const AI=window.HmvReviewAi;collect();
+    const left=AI.missingNumbers(doc);if(!left.length){notify('Tất cả các câu đã có đáp án.');return;}
+    const btn=$('#rv-ai-fill');if(btn)btn.disabled=true;
+    try{
+      notify(`✨ AI đang giải ${left.length} câu còn thiếu đáp án, thường mất 20–60 giây…`);
+      const r=await AI.fillMissing(doc,{onProgress:(i,n)=>notify(`✨ AI đang giải câu còn thiếu đáp án (${Math.min(i+12,n)}/${n})…`)});
+      await editor();
+      const still=AI.missingNumbers(doc);
+      notify(still.length?`AI đã điền ${r.done} câu. Còn ${still.length} câu chưa có đáp án (Câu ${still.join(', ')})${r.error?': '+r.error:''}. Thầy cô bấm lại nút hoặc nhập tay.`:`✨ AI đã điền đáp án cho ${r.done} câu (gắn nhãn ✨ AI giải). Thầy cô xem lướt, sửa chỗ cần rồi bấm Lưu bản nháp.`);
+    }finally{const b=$('#rv-ai-fill');if(b)b.disabled=false;}
+  }
+  function missingGuard(snapshot){const left=window.HmvReviewAi?.missingNumbers(snapshot)||[];if(left.length)throw Error(`Còn ${left.length} câu chưa có đáp án (Câu ${left.join(', ')}). Thầy cô bấm "✨ AI điền đáp án còn thiếu" để AI làm, hoặc nhập đáp án vào các câu gắn nhãn đỏ.`);}
   function exportWord(){
     const snapshot=readEditorDocument(),layout=$('#rv-word-layout').value,minutes=Number($('#rv-word-minutes').value)||0;
     const bytes=window.HmvReviewWord.renderDocx(snapshot,{layout,minutes:minutes>0?minutes:null});
@@ -113,12 +126,14 @@
     return {snapshot,html:window.HmvReviewHtml.renderHtml(snapshot,await response.text())};
   }
   async function exportHtml() {
+    missingGuard(readEditorDocument());
     const {snapshot,html}=await buildHtml();
     download(window.HmvReviewHtml.filename(snapshot.title),html,'text/html;charset=utf-8');
     notify('Đã tải HTML luyện tập offline. Câu tự luận và câu ngắn chưa đủ căn cứ sẽ chờ giáo viên chấm. Đề gốc không thay đổi.');
   }
   async function exportScorm() {
     const snapshot=readEditorDocument();
+    missingGuard(snapshot);
     window.HmvReviewHtml.createPractice(snapshot);
     const response=await fetch(new URL('./review-domain.js',document.baseURI));
     if(!response.ok) throw Error('Không tải được mã chấm điểm offline. Hãy tải lại ứng dụng.');
@@ -186,6 +201,7 @@
     $('#rv-export-scorm').insertAdjacentHTML('afterend',`<div class="rv-word"><button type="button" id="rv-export-word">Xuất Word (đề in + đáp án)</button><label>Kiểu trình bày<select id="rv-word-layout"><option value="compact">Gọn – vừa số trang</option><option value="roomy">Thoáng – rộng chỗ viết</option></select></label><label>Thời gian làm bài (phút)<input id="rv-word-minutes" type="number" min="0" max="180" step="5" value="${esc(doc.metadata?.duration||40)}"></label></div>`);
     $('#rv-export-word').onclick=guarded(exportWord);
     if(window.HmvReviewAi&&doc.source?.blob instanceof Blob){$('#rv-export-word').insertAdjacentHTML('beforebegin','<button type="button" id="rv-ai-reanalyze">✨ AI đọc lại đề</button>');$('#rv-ai-reanalyze').onclick=guarded(reanalyze);}
+    if(window.HmvReviewAi){const left=window.HmvReviewAi.missingNumbers(doc);if(left.length){$('#rv-export-word').insertAdjacentHTML('beforebegin',`<button type="button" id="rv-ai-fill" class="rv-ai-fill">✨ AI điền đáp án còn thiếu (${left.length} câu)</button>`);$('#rv-ai-fill').onclick=guarded(fillAnswers);const tools=root.querySelector('.rv-tools');if(tools)tools.insertAdjacentHTML('afterend',`<p class="rv-ai-missing">Còn ${left.length} câu chưa có đáp án (Câu ${left.join(', ')}). Bấm <b>✨ AI điền đáp án còn thiếu</b> ở dưới để AI làm hết.</p>`);}}
     if(window.HmvReviewAi)window.HmvReviewAi.decorate(root,doc);
     $('#rv-edit-questions').insertAdjacentHTML('afterend','<iframe id="rv-html-preview" title="Xem trước HTML luyện tập" sandbox="allow-scripts allow-downloads" hidden></iframe>');
     $('#rv-add-block').onclick=guarded(()=>{collect();doc.blocks.push({id:uid(),type:'text',text:''});editor();});

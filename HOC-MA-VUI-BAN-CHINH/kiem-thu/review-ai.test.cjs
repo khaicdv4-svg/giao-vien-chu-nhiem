@@ -84,14 +84,14 @@ test('analyze ghép với tài liệu nguồn và lập báo cáo',async()=>{
  const {doc,report}=await ai.analyze({name:'de.docx',size:5},src,{fetcher});
  assert.equal(doc.source.name,'de.docx','giữ tài liệu nguồn để đối chiếu');
  assert.equal(doc.questions.length,11);assert.equal(report.count,11);assert.equal(report.points,8);
- assert.match(report.byType,/3 bốn lựa chọn/);assert.equal(report.model,'gemini-test');assert.deepEqual(report.warnings,['Câu 2: ảnh hơi mờ']);
+ assert.match(report.byType,/3 bốn lựa chọn/);assert.equal(report.model,'gemini-test');assert.ok(report.warnings.includes('Câu 2: ảnh hơi mờ'));assert.match(report.warnings[0],/AI chưa giải được/);
  await assert.rejects(ai.analyze({name:'de.docx',size:5},src,{fetcher:async()=>({ok:true,status:200,json:async()=>({ok:true,text:'{"questions":[]}'})})}),/không tìm thấy câu hỏi/);
 });
 
 test('lượt 2: chỉ gửi các câu còn thiếu đáp án, AI giải xong thì điền vào đúng dạng',async()=>{
  const c=ai.toDocument(SAMPLE);const seen=[];
  const fetcher=async(u,init)=>{const b=JSON.parse(init.body);seen.push(b);return {ok:true,status:200,json:async()=>({ok:true,text:JSON.stringify({answers:[{id:'cau-2',correct:[1]},{id:'cau-4',statements:['Đúng','Sai']},{id:'cau-6',pairs:[{left:'2 × 3',right:'6'},{left:'4 × 5',right:'20'}]},{id:'cau-8b',answerText:'937',guide:'Đặt tính đúng, tính đúng: 0,5 điểm'},{id:'cau-9',answerText:'Trước sân trường'}]})})};};
- const n=await ai.fillMissing(c,{fetcher});
+ const res=await ai.fillMissing(c,{fetcher});const n=res.done;assert.equal(res.total,6);assert.equal(res.error,'');
  assert.equal(seen.length,1);assert.ok(seen[0].schema.properties.answers);assert.match(seen[0].system,/Bắt buộc trả lời mọi câu/);
  const sent=JSON.parse(seen[0].contents[0].parts[0].text.replace(/^[\s\S]*?Giải các câu sau:\n/,''));
  assert.deepEqual(sent.map(q=>q.id),['cau-2','cau-4','cau-6','cau-8b','cau-9','cau-10']);assert.equal(sent.find(q=>q.id==='cau-9').passage,'Cây bàng trước sân trường…');
@@ -101,4 +101,13 @@ test('lượt 2: chỉ gửi các câu còn thiếu đáp án, AI giải xong th
  for(const id of ['cau-2','cau-4','cau-6','cau-8b','cau-9'])assert.equal(q(id).metadata.aiAnswer,'suggested');
  assert.equal(q('cau-10').metadata.aiAnswer,'none','AI không trả lời câu nào thì giữ nguyên để thầy cô nhập');
  assert.deepEqual(ai.aiSolved({questions:c.questions}),[2,3,4,6,9,10]);
+});
+
+test('câu thiếu đáp án nhận ra cả với học liệu không qua AI; lỗi AI được báo lại',async()=>{
+ const doc={questions:[{id:'a',type:'ABCD',text:'2 + 2 = ?',options:['3','4','5','6'],correctAnswers:[],pairs:[],points:1},{id:'b',type:'ABCD',text:'1 + 1 = ?',options:['1','2','3','4'],correctAnswers:[1],pairs:[],points:1},{id:'c',type:'OPEN',text:'Giải bài toán',options:[],correctAnswers:[],pairs:[],points:1}],blocks:[],metadata:{subject:'Toán',grade:4}};
+ assert.deepEqual(ai.missingNumbers(doc),[1,3]);
+ const r=await ai.fillMissing(doc,{fetcher:async()=>({ok:false,status:429,json:async()=>({ok:false,code:'RATE_LIMIT',message:'Gemini đang giới hạn lượt dùng.'})})});
+ assert.equal(r.done,0);assert.match(r.error,/giới hạn/);
+ const r2=await ai.fillMissing(doc,{fetcher:async()=>({ok:true,status:200,json:async()=>({ok:true,text:JSON.stringify({answers:[{id:'a',correct:[1]},{id:'c',answerText:'Đáp số: 5',guide:'Đúng 1 điểm'}]})})})});
+ assert.equal(r2.done,2);assert.deepEqual(ai.missingNumbers(doc),[]);assert.deepEqual(doc.questions[0].correctAnswers,[1]);
 });
