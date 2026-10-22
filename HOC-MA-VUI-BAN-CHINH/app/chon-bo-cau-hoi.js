@@ -19,7 +19,7 @@
  function styles(){
   if(doc.getElementById('hmvPickStyle'))return;
   var s=doc.createElement('style');s.id='hmvPickStyle';
-  s.textContent='.hmv-pick-overlay{position:fixed;inset:0;z-index:170000;display:grid;place-items:center;padding:14px;background:#172554b8}'+
+  s.textContent=/* 2.39: nút đổi bộ câu hỏi trong cài đặt mọi trò: to, nổi bật, nằm riêng một dòng */'#games .hmv-pick-big,#tiltSetupModal .hmv-pick-big{display:flex!important;align-items:center;justify-content:center;gap:8px;width:auto;max-width:100%;min-height:52px;margin:10px 0 4px!important;padding:12px 22px!important;border:2px solid #f59e0b!important;border-radius:14px!important;background:#fff7d6!important;color:#7c2d12!important;font:inherit;font-size:18px!important;font-weight:800!important;line-height:1.25;text-decoration:none!important;text-align:center;cursor:pointer;box-shadow:0 4px 12px #f59e0b33;transition:transform .12s ease,box-shadow .12s ease}'+'#games .hmv-pick-big:hover,#tiltSetupModal .hmv-pick-big:hover{background:#ffedb0!important;transform:translateY(-1px);box-shadow:0 8px 18px #f59e0b55}'+'#games .hmv-pick-big:focus-visible,#tiltSetupModal .hmv-pick-big:focus-visible{outline:3px solid #7c3aed;outline-offset:3px}'+'#games .question-source-head:has(.hmv-pick-big){flex-wrap:wrap}'+'.hmv-pick-overlay{position:fixed;inset:0;z-index:170000;display:grid;place-items:center;padding:14px;background:#172554b8}'+
   '.hmv-pick{width:min(640px,100%);max-height:92dvh;display:flex;flex-direction:column;background:#fff;color:#17324d;border-radius:22px;box-shadow:0 24px 60px #0f172a66;overflow:hidden}'+
   '.hmv-pick header{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;padding:18px 20px 10px}.hmv-pick h2{margin:0;font-size:21px}.hmv-pick header p{margin:4px 0 0;color:#475569;font-size:14px}'+
   '.hmv-pick-search{margin:0 20px 10px;padding:10px 12px;border:1px solid #c4b5fd;border-radius:12px;font:inherit}'+
@@ -101,7 +101,7 @@
  function relabel(){
   doc.querySelectorAll('#games button,#tiltSetupModal button').forEach(function(b){
    if(!isKhoButton(b)||b.dataset.hmvPickLabel)return;b.dataset.hmvPickLabel='1';
-   b.textContent=b.matches('[data-mh="kho"]')?'📚 Chọn bộ Đúng/Sai trong Kho':'📚 Chọn bộ câu hỏi khác';
+   b.textContent=b.matches('[data-mh="kho"]')?'📚 Chọn bộ Đúng/Sai trong Kho':'📚 Chọn bộ câu hỏi khác';b.classList.add('hmv-pick-big');
   });
  }
 
@@ -132,7 +132,7 @@
   var panel=doc.querySelector('#games .question-source-panel');if(!panel)return;
   var src=panel.querySelector('select[id$="Source"]');if(!src)return;var t=src.id.replace(/Source$/,'');
   var head=panel.querySelector('.question-source-head');
-  if(head&&!head.querySelector('.hmv-src-pick')){var b=doc.createElement('button');b.type='button';b.className='btn soft hmv-src-pick';b.textContent='📚 Chọn bộ từ Kho';b.onclick=function(){open(t);};head.appendChild(b);}
+  if(head&&!head.querySelector('.hmv-src-pick')){var b=doc.createElement('button');b.type='button';b.className='btn soft hmv-src-pick hmv-pick-big';b.textContent='📚 Chọn bộ câu hỏi khác';b.onclick=function(){open(t);};head.appendChild(b);}
   var sel=selection(t),note=panel.querySelector('.hmv-src-note');
   if(!sel){if(note)note.remove();return;}
   if(sel.setId){var setSel=panel.querySelector('#'+CSS.escape(t)+'Set');if(setSel&&Array.from(setSel.options).some(function(o){return o.value===String(sel.setId);})){src.value='set';setSel.value=String(sel.setId);}}
@@ -158,7 +158,7 @@
   if(currentType()!=='magic-hand')return;var setup=doc.getElementById('mhSetup');if(!setup)return;
   var host=Array.from(setup.querySelectorAll('p,div,span')).find(function(el){var f=el.firstChild;return f&&f.nodeType===3&&/^Đang dùng câu Đúng\/Sai của bộ/.test(f.textContent);});
   if(!host||host.querySelector('[data-hmv-mh-pick]'))return;
-  var b=doc.createElement('button');b.type='button';b.className='bb-link';b.dataset.hmvMhPick='1';b.textContent='📚 Đổi bộ câu hỏi';b.onclick=function(e){e.preventDefault();e.stopPropagation();open('magic-hand');};
+  var b=doc.createElement('button');b.type='button';b.className='bb-link hmv-pick-big';b.dataset.hmvMhPick='1';b.textContent='📚 Đổi bộ câu hỏi';b.onclick=function(e){e.preventDefault();e.stopPropagation();open('magic-hand');};
   host.appendChild(doc.createTextNode(' '));host.appendChild(b);
  }
  doc.addEventListener('change',function(e){
