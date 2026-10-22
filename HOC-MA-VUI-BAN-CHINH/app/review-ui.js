@@ -14,7 +14,7 @@
   async function library() {
     releasePreview(); doc = null; attempt = null;card=0;
     const docs = await list('documents');
-    shell(`<section class="rv-upload" id="rv-drop"><h2>Tạo bài ôn tập từ file đề</h2><ol class="rv-steps"><li>Chọn file đề (PDF, Word hoặc ảnh chụp đề).</li><li>Chờ app đọc đề, các câu hỏi hiện ra để thầy cô xem lại.</li><li>Bấm <b>Xuất gói SCORM (QLMS)</b> ở cuối trang để lấy file gửi lên QLMS.</li></ol><label class="rv-check"><input type="checkbox" id="rv-use-ai"> <span>✨ Dùng AI đọc đề <small>(khuyên dùng: đọc được cả PDF scan, ảnh chụp, đề không theo mẫu)</small></span></label><p class="rv-ai-hint" id="rv-ai-hint"></p><label class="rv-pick">📄 Chọn file đề<input id="rv-import" type="file" accept=".pdf,.docx,.txt,.json,image/*"></label><span class="rv-or">hoặc kéo thả file vào khung này</span><div id="rv-progress" class="rv-progress" role="status" aria-live="polite" hidden></div></section><div class="rv-tools rv-more">${button('rv-new','✍ Soạn tay từ đầu')}<details><summary>Sao lưu / khôi phục</summary><div class="rv-tools">${button('rv-backup','Tải bản sao lưu')}<label class="rv-file">Khôi phục bản sao<input id="rv-restore" type="file" accept=".json"></label></div></details></div><div class="rv-filters"><label>Tìm học liệu<input id="rv-search" placeholder="Tên bài, chủ đề…"></label><label>Lớp<select id="rv-grade"><option value="">Tất cả</option>${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join('')}</select></label><label>Môn học<input id="rv-subject" placeholder="Tất cả môn"></label></div><div class="rv-grid" id="rv-documents"></div>`);
+    shell(`<section class="rv-upload" id="rv-drop"><h2>Tạo bài ôn tập từ file đề</h2><ol class="rv-steps"><li>Chọn file đề (PDF, Word hoặc ảnh chụp đề).</li><li>Chờ app đọc đề, các câu hỏi hiện ra để thầy cô xem lại. Đề không có đáp án thì AI tự viết đáp án, thầy cô duyệt.</li><li>Bấm <b>Xuất gói SCORM (QLMS)</b> ở cuối trang để lấy file gửi lên QLMS, hoặc <b>Xuất Word</b> để in đề.</li></ol><label class="rv-check"><input type="checkbox" id="rv-use-ai"> <span>✨ Dùng AI đọc đề <small>(khuyên dùng: đọc được cả PDF scan, ảnh chụp, đề không theo mẫu)</small></span></label><p class="rv-ai-hint" id="rv-ai-hint"></p><label class="rv-pick">📄 Chọn file đề<input id="rv-import" type="file" accept=".pdf,.docx,.txt,.json,image/*"></label><span class="rv-or">hoặc kéo thả file vào khung này</span><div id="rv-progress" class="rv-progress" role="status" aria-live="polite" hidden></div></section><div class="rv-tools rv-more">${button('rv-new','✍ Soạn tay từ đầu')}<details><summary>Sao lưu / khôi phục</summary><div class="rv-tools">${button('rv-backup','Tải bản sao lưu')}<label class="rv-file">Khôi phục bản sao<input id="rv-restore" type="file" accept=".json"></label></div></details></div><div class="rv-filters"><label>Tìm học liệu<input id="rv-search" placeholder="Tên bài, chủ đề…"></label><label>Lớp<select id="rv-grade"><option value="">Tất cả</option>${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join('')}</select></label><label>Môn học<input id="rv-subject" placeholder="Tất cả môn"></label></div><div class="rv-grid" id="rv-documents"></div>`);
     const render = () => {
       const text = $('#rv-search').value.toLocaleLowerCase('vi'), grade = $('#rv-grade').value, subject = $('#rv-subject').value.toLocaleLowerCase('vi');
       const filtered = docs.filter(d => (!grade || String(d.metadata?.grade) === grade) && (!subject || String(d.metadata?.subject || '').toLocaleLowerCase('vi').includes(subject)) && JSON.stringify([d.title,d.metadata]).toLocaleLowerCase('vi').includes(text));
@@ -32,12 +32,15 @@
       const tick=()=>progress(`<span class="rv-spin" aria-hidden="true"></span> ${ai?'AI đang đọc':'Đang đọc'} <b>${esc(f.name)}</b>… ${Math.round((Date.now()-start)/1000)} giây${ai?' (thường 30–90 giây, thầy cô đừng đóng trang)':''}`);
       tick();timer=setInterval(tick,1000);
       try{
-        let r,w=[];
-        if(ai){if(!window.HmvReviewAI)throw Error('Chưa tải được phần Đọc đề bằng AI. Hãy tải lại trang.');r=await window.HmvReviewAI.readWithAI(f);w=r.aiWarnings||[];}
-        else r=await window.HmvReviewImport.readFile(f);
-        clearInterval(timer);doc=D().normalizeDocument(r);
-        if(!doc.questions.length){busy=false;return progress('Không tìm thấy câu hỏi nào trong file này'+(ai?'.':'. File có thể là PDF scan hoặc ảnh chụp: thầy cô đánh dấu <b>✨ Dùng AI đọc đề</b> rồi chọn lại file.'),'error');}
-        await editor();notify((ai?'AI':'App')+' đã đọc được '+doc.questions.length+' câu. Thầy cô xem lại đáp án và điểm từng câu, rồi bấm Xuất gói SCORM (QLMS) ở cuối trang.'+(w.length?'\nLưu ý: '+w.join('\n'):''));
+        const src=await window.HmvReviewImport.readFile(f);let report=null,aiError='';
+        if(ai){if(!window.HmvReviewAi)throw Error('Chưa tải được phần Đọc đề bằng AI. Hãy tải lại trang.');try{const r=await window.HmvReviewAi.analyze(f,src);doc=D().normalizeDocument(r.doc);report=r.report;}catch(e){aiError=e.message;}}
+        if(!report)doc=D().normalizeDocument(src);
+        clearInterval(timer);
+        if(!doc.questions.length){busy=false;return progress((aiError?'AI chưa đọc được: '+esc(aiError)+'<br>':'')+'Không tìm thấy câu hỏi nào trong file này'+(ai?'.':'. File có thể là PDF scan hoặc ảnh chụp: thầy cô đánh dấu <b>✨ Dùng AI đọc đề</b> rồi chọn lại file.'),'error');}
+        if(report)doc.aiReport=report;
+        await editor();
+        const waiting=report?window.HmvReviewAi.pending(doc).length:0;
+        notify(report?`AI đã đọc được ${report.count} câu, tổng ${String(report.points).replace('.',',')} điểm.${waiting?` Có ${waiting} câu đề không có đáp án, AI đã tự viết đáp án: thầy cô kiểm tra rồi bấm "✓ Duyệt đáp án" (câu gắn nhãn đỏ).`:''} Xong thì bấm Xuất gói SCORM (QLMS) hoặc Xuất Word ở cuối trang.`:(aiError?`AI chưa đọc được: ${aiError}\nApp đã đọc theo cách thường được ${doc.questions.length} câu, thầy cô kiểm tra kỹ.`:`App đã đọc được ${doc.questions.length} câu. Thầy cô xem lại đáp án và điểm từng câu, rồi bấm Xuất gói SCORM (QLMS) ở cuối trang.`));
       }catch(err){clearInterval(timer);progress('⚠ Không đọc được: '+esc(err.message),'error');}
       busy=false;
     }
@@ -47,7 +50,24 @@
     $('#rv-restore').onchange = async e => { const f=e.target.files[0]; if(!f)return; try { if(!confirm('Khôi phục sẽ thay thế toàn bộ học liệu và bài làm của phân hệ này trên thiết bị. Tiếp tục?'))return;await repo.importBackup(JSON.parse(await f.text())); await library(); notify('Đã khôi phục bản sao trên thiết bị.'); } catch(err){notify(err.message);} };
   }
   function releasePreview() { if(previewURL) URL.revokeObjectURL(previewURL); if(htmlPreviewURL) URL.revokeObjectURL(htmlPreviewURL); previewURL=null; htmlPreviewURL=null; }
-  function download(name,value,type='application/json') { const url=URL.createObjectURL(new Blob([typeof value==='string'?value:JSON.stringify(value,null,2)],{type})); const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000); }
+  async function reanalyze(){
+    const source=doc.source||{};if(!(source.blob instanceof Blob))throw Error('Học liệu này không còn tệp nguồn để AI đọc lại.');
+    if(!confirm('AI sẽ đọc lại tệp nguồn và THAY TOÀN BỘ câu hỏi đang có trong trình biên tập. Tiếp tục?'))return;
+    const file=source.blob instanceof File?source.blob:new File([source.blob],source.name||'de',{type:source.mime||source.blob.type});
+    const btn=$('#rv-ai-reanalyze');if(btn)btn.disabled=true;notify('AI đang đọc lại đề, thường mất 30–90 giây…');
+    try{const r=await window.HmvReviewAi.analyze(file,doc);const n=D().normalizeDocument(r.doc);
+      doc={...doc,title:n.title,metadata:n.metadata,blocks:n.blocks,questions:n.questions,status:'draft',version:(doc.version||1)+1,aiReport:r.report};
+      await editor();notify(`AI đã đọc lại ${r.report.count} câu. Chưa lưu – thầy cô kiểm tra, duyệt đáp án rồi bấm Lưu bản nháp.`);}
+    finally{if(btn&&btn.isConnected)btn.disabled=false;}
+  }
+  function exportWord(){
+    const snapshot=readEditorDocument(),layout=$('#rv-word-layout').value,minutes=Number($('#rv-word-minutes').value)||0;
+    const bytes=window.HmvReviewWord.renderDocx(snapshot,{layout,minutes:minutes>0?minutes:null});
+    download(window.HmvReviewWord.filename(snapshot.title,layout),bytes,'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    notify('Đã tải tệp Word: đề in theo mẫu của trường + trang hướng dẫn chấm. Thầy cô mở bằng Word để xem lại, chèn hình (nếu có) rồi in.');
+  }
+  function requireApproved(snapshot){const msg=window.HmvReviewAi?.pendingError(snapshot);if(msg)throw Error(msg);}
+  function download(name,value,type='application/json') { const url=URL.createObjectURL(new Blob([typeof value==='string'||value instanceof Uint8Array?value:JSON.stringify(value,null,2)],{type})); const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000); }
   function questionEditor(q,i) {
     const grouped=q.type==='TRUEFALSE'&&Array.isArray(q.statements);
     const choice=['ABCD','SINGLE','MULTI','TRUEFALSE'].includes(q.type)&&!grouped;
@@ -94,12 +114,14 @@
     return {snapshot,html:window.HmvReviewHtml.renderHtml(snapshot,await response.text())};
   }
   async function exportHtml() {
+    requireApproved(readEditorDocument());
     const {snapshot,html}=await buildHtml();
     download(window.HmvReviewHtml.filename(snapshot.title),html,'text/html;charset=utf-8');
     notify('Đã tải HTML luyện tập offline. Câu tự luận và câu ngắn chưa đủ căn cứ sẽ chờ giáo viên chấm. Đề gốc không thay đổi.');
   }
   async function exportScorm() {
     const snapshot=readEditorDocument();
+    requireApproved(snapshot);
     window.HmvReviewHtml.createPractice(snapshot);
     const response=await fetch(new URL('./review-domain.js',document.baseURI));
     if(!response.ok) throw Error('Không tải được mã chấm điểm offline. Hãy tải lại ứng dụng.');
@@ -164,6 +186,10 @@
     $('#rv-preview-html').onclick=guarded(previewHtml);
     $('#rv-preview-html').insertAdjacentHTML('afterend','<button type="button" id="rv-export-scorm">Xuất gói SCORM (QLMS)</button>');
     $('#rv-export-scorm').onclick=guarded(exportScorm);
+    $('#rv-export-scorm').insertAdjacentHTML('afterend',`<div class="rv-word"><button type="button" id="rv-export-word">Xuất Word (đề in + đáp án)</button><label>Kiểu trình bày<select id="rv-word-layout"><option value="compact">Gọn – vừa số trang</option><option value="roomy">Thoáng – rộng chỗ viết</option></select></label><label>Thời gian làm bài (phút)<input id="rv-word-minutes" type="number" min="0" max="180" step="5" value="${esc(doc.metadata?.duration||40)}"></label></div>`);
+    $('#rv-export-word').onclick=guarded(exportWord);
+    if(window.HmvReviewAi&&doc.source?.blob instanceof Blob){$('#rv-export-word').insertAdjacentHTML('beforebegin','<button type="button" id="rv-ai-reanalyze">✨ AI đọc lại đề</button>');$('#rv-ai-reanalyze').onclick=guarded(reanalyze);}
+    if(window.HmvReviewAi)window.HmvReviewAi.decorate(root,doc);
     $('#rv-edit-questions').insertAdjacentHTML('afterend','<iframe id="rv-html-preview" title="Xem trước HTML luyện tập" sandbox="allow-scripts allow-downloads" hidden></iframe>');
     $('#rv-add-block').onclick=guarded(()=>{collect();doc.blocks.push({id:uid(),type:'text',text:''});editor();});
     root.querySelectorAll('[data-q="type"]').forEach(select=>select.onchange=guarded(()=>{collect();if(select.value==='MATCHING'){const q=doc.questions[Number(select.closest('[data-question]').dataset.question)];q.metadata={...q.metadata,matchingScoring:'per-pair'};if(!q.pairs?.length)q.pairs=[{left:'',right:''},{left:'',right:''}];}if(select.value==='FILL')doc.questions[Number(select.closest('[data-question]').dataset.question)].blanks=[];if(select.value==='TRUEFALSE')doc.questions[Number(select.closest('[data-question]').dataset.question)].statements=[{text:'',answer:null}];editor();}));
