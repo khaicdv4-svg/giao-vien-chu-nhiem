@@ -26,7 +26,7 @@ var SYSTEM=[
 '13. Điều gì không chắc chắn thì ghi vào warnings bằng tiếng Việt ngắn gọn, ví dụ "Câu 5: ảnh mờ, phương án C đọc không rõ".'
 ].join('\n');
 var NO_SUGGEST='để correct rỗng, statements answer "?", blanks answer "", answerText "", answerSource "none". KHÔNG tự giải.';
-var SUGGEST='tự giải cẩn thận theo kiến thức đúng lớp đó (chương trình GDPT 2018, sách Kết nối tri thức) và điền đáp án, answerSource "ai". Câu trắc nghiệm: điền correct; Đúng/Sai: answer từng nhận định; điền khuyết: blanks; nối cặp: pairs đúng cặp; trả lời ngắn: answerText; tự luận/giải toán: answerText ghi bài giải mẫu ngắn gọn có đáp số, guide ghi hướng dẫn chấm chia theo điểm của câu (bội số 0,5 nếu được). Câu viết đoạn văn/bài văn: guide ghi tiêu chí chấm và biểu điểm. Không chắc chắn thì vẫn để trống và answerSource "none". Giáo viên sẽ duyệt lại mọi đáp án do AI viết.';
+var SUGGEST='tự giải cẩn thận theo kiến thức đúng lớp đó (chương trình GDPT 2018, sách Kết nối tri thức) và điền đáp án, answerSource "ai". Câu trắc nghiệm: điền correct; Đúng/Sai: answer "Đúng"/"Sai" cho từng nhận định; điền khuyết: blanks; nối cặp: pairs đúng cặp; trả lời ngắn: answerText; tự luận/giải toán: answerText ghi bài giải mẫu ngắn gọn có đáp số, guide ghi hướng dẫn chấm chia theo điểm của câu; viết đoạn văn/bài văn: answerText ghi gợi ý ý chính, guide ghi tiêu chí và biểu điểm. BẮT BUỘC có đáp án cho MỌI câu, không được để trống.';
 
 var S={STRING:{type:'STRING'},NUMBER:{type:'NUMBER'},INTEGER:{type:'INTEGER'},BOOLEAN:{type:'BOOLEAN'}};
 var SCHEMA={type:'OBJECT',properties:{
@@ -65,7 +65,7 @@ async function buildParts(file,sourceDoc){
 function aiFetch(){return root&&typeof root.hmvAiFetch==='function'?root.hmvAiFetch:function(u,i){return fetch(u,i);};}
 async function callAI(parts,opts){
  opts=opts||{};
- var body={system:SYSTEM.replace('{{GOI_Y}}',opts.suggestAnswers===false?NO_SUGGEST:SUGGEST),contents:[{role:'user',parts:parts}],json:true,schema:SCHEMA,tier:'quality',temperature:0.1,maxOutputTokens:16384,timeoutMs:120000};
+ var body={system:opts.system||SYSTEM.replace('{{GOI_Y}}',opts.suggestAnswers===false?NO_SUGGEST:SUGGEST),contents:[{role:'user',parts:parts}],json:true,schema:opts.schema||SCHEMA,tier:'quality',temperature:0.1,maxOutputTokens:16384,timeoutMs:120000};
  var res=await (opts.fetcher||aiFetch())('./api/ai/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:opts.signal});
  var out=null;try{out=await res.json();}catch(_){}
  if(!res.ok||!out||!out.ok){var e=Error((out&&out.message)||(res.status===404?'Chưa có máy chủ AI. Thầy cô mở ứng dụng bằng MO-HOC-MA-VUI.cmd hoặc kết nối khóa Gemini trong Trợ lý AI.':'AI chưa trả lời được. Thầy cô thử lại sau ít phút.'));e.code=out&&out.code||'AI_FAILED';throw e;}
@@ -120,7 +120,7 @@ function toDocument(data,opts){
   m.aiAnswer=q.type==='OPEN'?(q.answerText||q.explanation?(src==='ai'?'suggested':'key'):'none'):!hasKey?'missing':src==='ai'?'suggested':'key';
   questions.push(q);
   var pos=questions.length,label='Câu '+pos+(num&&num!==String(pos)?' (số '+num+' trong đề)':'');
-  if(m.aiAnswer==='suggested')notes.push({id:id,kind:'suggested',text:label+': đáp án do AI viết, chờ thầy cô duyệt'});
+  if(m.aiAnswer==='suggested')notes.push({id:id,kind:'suggested',text:label+': đáp án do AI giải'});
   if(m.aiAnswer==='missing')notes.push({id:id,kind:'missing',text:label+': chưa có đáp án'});
   if(m.needsFigure)notes.push({id:id,kind:'figure',text:label+': cần hình vẽ'+(m.figureNote?' ('+m.figureNote+')':'')});
   errors.filter(function(e){return !/khóa|đáp án|Nhận định|chỗ trống/i.test(e);}).forEach(function(e){notes.push({id:id,kind:'invalid',text:label+': '+e});});
@@ -136,11 +136,46 @@ function summary(questions){
  return {count:questions.length,points:Math.round(total*100)/100,byType:Object.keys(by).map(function(t){return by[t]+' '+(TYPE_LABEL[t]||t);}).join(', ')};
 }
 
+// Lượt 2: câu nào AI chưa có đáp án thì gửi riêng các câu đó cho AI giải (chỉ gửi chữ), để "AI làm tất cả".
+var FILL_SCHEMA={type:'OBJECT',properties:{answers:{type:'ARRAY',items:{type:'OBJECT',properties:{
+ id:S.STRING,correct:{type:'ARRAY',items:S.INTEGER},statements:{type:'ARRAY',items:{type:'STRING',enum:['Đúng','Sai']}},
+ blanks:{type:'ARRAY',items:S.STRING},pairs:{type:'ARRAY',items:{type:'OBJECT',properties:{left:S.STRING,right:S.STRING},required:['left','right']}},
+ answerText:S.STRING,guide:S.STRING},required:['id']}}},required:['answers']};
+var FILL_SYSTEM='Bạn là giáo viên tiểu học Việt Nam giỏi chuyên môn. Giải từng câu hỏi được gửi (đúng kiến thức lớp đó, chương trình GDPT 2018, sách Kết nối tri thức) và trả JSON đúng lược đồ, mỗi câu một phần tử theo id. correct là chỉ số phương án tính từ 0. statements: "Đúng"/"Sai" theo thứ tự nhận định. blanks: đáp án từng chỗ trống [[1]], [[2]]… theo thứ tự. pairs: ghép đúng từng vế trái với vế phải. Câu tự luận/giải toán: answerText là bài giải mẫu ngắn gọn có đáp số, guide là hướng dẫn chấm chia theo điểm của câu. Câu viết đoạn/bài văn: answerText là gợi ý ý chính, guide là tiêu chí và biểu điểm. Bắt buộc trả lời mọi câu.';
+function needsAnswer(q){var m=q.metadata||{};return m.aiAnswer==='missing'||(q.type==='OPEN'&&m.aiAnswer==='none');}
+function applyAnswer(q,a){
+ var m=q.metadata=Object.assign({},q.metadata);
+ if(['ABCD','SINGLE','MULTI'].indexOf(q.type)>=0||(q.type==='TRUEFALSE'&&!Array.isArray(q.statements))){var n=(q.options&&q.options.length)||2,k=(a.correct||[]).map(Number).filter(function(x){return Number.isInteger(x)&&x>=0&&x<n;});k=k.filter(function(x,i){return k.indexOf(x)===i;});if(!k.length)return false;q.correctAnswers=q.type==='MULTI'?k:k.slice(0,1);}
+ else if(q.type==='TRUEFALSE'){var st=a.statements||[];if(st.length<q.statements.length)return false;q.statements=q.statements.map(function(x,i){return {text:x.text,answer:st[i]==='Đúng'};});}
+ else if(q.type==='FILL'){var b=(a.blanks||[]).map(str);if(b.length<q.blanks.length||b.some(function(x,i){return i<q.blanks.length&&!x;}))return false;q.blanks=q.blanks.map(function(x,i){return {id:x.id,answerText:b[i],acceptedAnswers:x.acceptedAnswers||[]};});}
+ else if(q.type==='MATCHING'){var ps=(a.pairs||[]).map(function(p){return {left:str(p&&p.left),right:str(p&&p.right)};}).filter(function(p){return p.left&&p.right;});if(ps.length<2)return false;q.pairs=ps.slice(0,8);}
+ else if(q.type==='SHORT'){if(!str(a.answerText))return false;q.answerText=str(a.answerText);m.shortScoring='manual';}
+ else{if(!str(a.answerText)&&!str(a.guide))return false;if(str(a.answerText))q.answerText=str(a.answerText);if(str(a.guide))q.explanation=str(a.guide);}
+ if(q.type!=='OPEN'&&str(a.guide)&&!q.explanation)q.explanation=str(a.guide);
+ m.aiAnswer='suggested';return true;
+}
+async function fillMissing(conv,opts){
+ var list=conv.questions.filter(needsAnswer);if(!list.length)return 0;
+ var blocks={};conv.blocks.forEach(function(b){blocks[b.id]=b;});
+ var items=list.map(function(q){var o={id:q.id,type:q.type,text:q.text,points:q.points};
+  if(q.options&&q.options.length)o.options=q.options;if(Array.isArray(q.statements))o.statements=q.statements.map(function(x){return x.text;});
+  if(Array.isArray(q.blanks))o.blankCount=q.blanks.length;if(q.pairs&&q.pairs.length){o.left=q.pairs.map(function(p){return p.left;});o.right=q.pairs.map(function(p){return p.right;});}
+  var ps=(q.blockIds||[]).map(function(id){return blocks[id]&&blocks[id].text;}).filter(Boolean);if(ps.length)o.passage=ps.join('\n\n').slice(0,6000);return o;});
+ var meta=conv.metadata||{};
+ var r=await callAI([{text:'Môn '+(meta.subject||'')+', lớp '+(meta.grade||4)+'. Giải các câu sau:\n'+JSON.stringify(items)}],Object.assign({},opts,{system:FILL_SYSTEM,schema:FILL_SCHEMA}));
+ var got={};((r.data&&r.data.answers)||[]).forEach(function(a){if(a&&a.id)got[a.id]=a;});
+ var done=0;list.forEach(function(q){if(got[q.id]&&applyAnswer(q,got[q.id]))done++;});
+ var filled={};list.forEach(function(q){if(q.metadata.aiAnswer==='suggested')filled[q.id]=1;});
+ conv.notes=conv.notes.filter(function(n){return !(n.kind==='missing'&&filled[n.id]);});
+ return done;
+}
+
 // Phân tích tệp: sourceDoc là kết quả HmvReviewImport.readFile (giữ nguồn để đối chiếu). Trả về {doc, report}.
 async function analyze(file,sourceDoc,opts){
  opts=opts||{};
  var parts=await buildParts(file,sourceDoc),r=await callAI(parts,opts),conv=toDocument(r.data,opts);
  if(!conv.questions.length)throw Error('AI không tìm thấy câu hỏi nào trong tệp. Thầy cô kiểm tra lại tệp hoặc nhập tay.');
+ if(opts.suggestAnswers!==false){try{await fillMissing(conv,opts);}catch(_){/* lượt giải bổ sung lỗi thì giữ kết quả lượt đầu */}}
  var base=sourceDoc||{},meta=Object.assign({},base.metadata||{},conv.metadata);
  if(!meta.topic)meta.topic='Ôn tập';
  var doc=Object.assign({},base,{title:conv.title||base.title,metadata:meta,blocks:conv.blocks,questions:conv.questions,importStatus:'ready-for-review'});
@@ -149,46 +184,33 @@ async function analyze(file,sourceDoc,opts){
  return {doc:doc,report:report};
 }
 
-// Các câu có đáp án do AI viết mà giáo viên chưa duyệt (trả về số thứ tự câu, tính từ 1).
-function pending(doc){return ((doc&&doc.questions)||[]).map(function(q,i){return (q.metadata||{}).aiAnswer==='suggested'?i+1:0;}).filter(Boolean);}
-function pendingError(doc){var p=pending(doc);return p.length?'Còn '+p.length+' câu có đáp án do AI viết chưa được duyệt (Câu '+p.join(', ')+'). Thầy cô kiểm tra rồi bấm "✓ Duyệt đáp án" ở từng câu hoặc "Duyệt tất cả" trong bảng Kết quả AI phân tích.':'';}
+// Số thứ tự các câu có đáp án do AI tự giải (để báo cho giáo viên xem qua).
+function aiSolved(doc){return ((doc&&doc.questions)||[]).map(function(q,i){return (q.metadata||{}).aiAnswer==='suggested'?i+1:0;}).filter(Boolean);}
 
-// Gắn nhãn lên từng câu trong trình biên tập, nút duyệt đáp án và bảng tóm tắt.
+// Nhãn trên từng câu: đáp án AI giải hiện ngay cạnh tiêu đề câu để giáo viên xem nhanh; bảng tóm tắt ở đầu.
 function decorate(rootEl,doc){
  if(!rootEl||!doc)return;
  var esc=function(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
- var qs=doc.questions||[];
- function approve(q){q.metadata=Object.assign({},q.metadata,{aiAnswer:'checked'});}
- function paint(){
-  rootEl.querySelectorAll('.rv-ai-flag,.rv-ai-ok').forEach(function(n){n.remove();});
-  rootEl.querySelectorAll('[data-question]').forEach(function(el){
-   var q=qs[Number(el.dataset.question)],m=q&&q.metadata||{},tags=[];if(!q)return;
-   var D=root&&root.HmvReviewDomain,stillMissing=m.aiAnswer==='missing'&&(!D||D.validateQuestion(q).some(function(e){return /khóa|đáp án|Nhận định|chỗ trống/i.test(e);})||q.type==='MATCHING');
-   if(m.aiAnswer==='suggested')tags.push('Đáp án do AI viết – chờ duyệt');
-   if(stillMissing)tags.push('Chưa có đáp án');
-   if(m.needsFigure)tags.push('Cần hình vẽ'+(m.figureNote?': '+m.figureNote:''));
-   if(m.aiNote)tags.push(m.aiNote);
-   var legend=el.querySelector('legend');if(!legend||!tags.length)return;
-   legend.insertAdjacentHTML('beforeend',tags.map(function(t){return ' <span class="rv-ai-flag">'+esc(t)+'</span>';}).join('')+(m.aiAnswer==='suggested'||stillMissing?' <button type="button" class="rv-ai-ok">✓ Duyệt đáp án</button>':''));
-   var ok=legend.querySelector('.rv-ai-ok');
-   if(ok)ok.onclick=function(){approve(q);paint();};
-  });
-  var p=pending(doc),all=rootEl.querySelector('#rv-ai-approve-all'),cnt=rootEl.querySelector('#rv-ai-pending');
-  if(cnt)cnt.textContent=p.length?'Còn '+p.length+' câu có đáp án AI viết chờ duyệt (Câu '+p.join(', ')+'). Chưa duyệt thì chưa xuất được HTML/SCORM cho học sinh.':'Đã duyệt hết đáp án do AI viết.';
-  if(all)all.hidden=!p.length;
- }
+ var qs=doc.questions||[],W=root&&root.HmvReviewWord,D=root&&root.HmvReviewDomain;
+ rootEl.querySelectorAll('[data-question]').forEach(function(el){
+  var q=qs[Number(el.dataset.question)],m=q&&q.metadata||{};if(!q)return;
+  var legend=el.querySelector('legend');if(!legend)return;
+  var missing=D?D.validateQuestion(q).some(function(e){return /khóa|đáp án|Nhận định|chỗ trống/i.test(e);}):false;
+  if(q.type==='OPEN'&&!str(q.answerText)&&!str(q.explanation))missing=true;
+  var html='';
+  if(m.aiAnswer==='suggested'&&!missing)html+=' <span class="rv-ai-tag">✨ AI giải</span>';
+  if(missing&&(m.aiAnswer||doc.aiReport))html+=' <span class="rv-ai-flag">Chưa có đáp án – thầy cô nhập</span>';
+  if(m.needsFigure)html+=' <span class="rv-ai-flag">Cần hình vẽ'+(m.figureNote?': '+esc(m.figureNote):'')+'</span>';
+  if(m.aiNote)html+=' <span class="rv-ai-flag">'+esc(m.aiNote)+'</span>';
+  if(html)legend.insertAdjacentHTML('beforeend',html);
+  if(W&&!missing&&(m.aiAnswer==='suggested'||m.aiAnswer==='key')&&q.type!=='OPEN'){var k=W.keyText(q);if(k&&!k.missing)legend.insertAdjacentHTML('afterend','<p class="rv-ai-answer">Đáp án: <b>'+esc(k.text.split('\n')[0].slice(0,200))+'</b></p>');}
+ });
  var rp=doc.aiReport,box=rootEl.querySelector('#rv-ai-report');if(box)box.remove();
- var host=rootEl.querySelector('#rv-edit-questions');
- if(rp&&host){
-  var notes=(rp.notes||[]).filter(function(n){return n.kind!=='invalid'&&n.kind!=='suggested';}),bad=(rp.notes||[]).filter(function(n){return n.kind==='invalid';});
-  host.insertAdjacentHTML('beforebegin','<div id="rv-ai-report" class="rv-panel rv-ai-report"><h2>🤖 Kết quả AI phân tích</h2><p>AI tách được <b>'+rp.count+' câu</b>, tổng <b>'+String(rp.points).replace('.',',')+' điểm</b> ('+esc(rp.byType)+'). Đáp án có trong đề thì AI lấy nguyên; câu nào thiếu đáp án thì AI tự viết đáp án và hướng dẫn chấm để thầy cô duyệt.</p>'+
-   '<p id="rv-ai-pending" class="rv-ai-pending"></p><button type="button" id="rv-ai-approve-all">✓ Duyệt tất cả đáp án AI viết</button>'+
-   (notes.length||bad.length||(rp.warnings||[]).length?'<p><b>Thầy cô xem thêm:</b></p><ul>'+notes.concat(bad).map(function(n){return '<li>'+esc(n.text)+'</li>';}).join('')+(rp.warnings||[]).map(function(w){return '<li>'+esc(w)+'</li>';}).join('')+'</ul>':'')+
-   '<p class="rv-ai-small">AI có thể đọc sai hoặc giải sai. Đối chiếu với đề gốc ở mục Tài liệu nguồn trước khi duyệt.</p></div>');
-  rootEl.querySelector('#rv-ai-approve-all').onclick=function(){qs.forEach(function(q){if((q.metadata||{}).aiAnswer==='suggested')approve(q);});paint();};
- }
- paint();
+ var host=rootEl.querySelector('#rv-edit-questions');if(!rp||!host)return;
+ var solved=aiSolved(doc),notes=(rp.notes||[]).filter(function(n){return n.kind==='figure'||n.kind==='invalid'||n.kind==='missing';});
+ host.insertAdjacentHTML('beforebegin','<div id="rv-ai-report" class="rv-panel rv-ai-report"><h2>✨ AI đã làm xong</h2><p>AI đọc được <b>'+rp.count+' câu</b>, tổng <b>'+String(rp.points).replace('.',',')+' điểm</b> ('+esc(rp.byType)+'), đã điền đủ đáp án'+(solved.length?'; trong đó '+solved.length+' câu đề không có đáp án nên AI tự giải (Câu '+solved.join(', ')+', gắn nhãn ✨ AI giải)':'')+'.</p><p>Thầy cô xem lướt từng câu, chỗ nào chưa đúng thì sửa ngay trong ô, rồi bấm <b>Lưu bản nháp</b> là xong.</p>'+
+  (notes.length||(rp.warnings||[]).length?'<ul>'+notes.map(function(n){return '<li>'+esc(n.text)+'</li>';}).join('')+(rp.warnings||[]).map(function(w){return '<li>'+esc(w)+'</li>';}).join('')+'</ul>':'')+'</div>');
 }
 
-return {analyze:analyze,pending:pending,pendingError:pendingError,buildParts:buildParts,callAI:callAI,toDocument:toDocument,summary:summary,decorate:decorate,SCHEMA:SCHEMA,SYSTEM:SYSTEM,MAX_INLINE:MAX_INLINE};
+return {analyze:analyze,aiSolved:aiSolved,fillMissing:fillMissing,applyAnswer:applyAnswer,buildParts:buildParts,callAI:callAI,toDocument:toDocument,summary:summary,decorate:decorate,SCHEMA:SCHEMA,SYSTEM:SYSTEM,MAX_INLINE:MAX_INLINE};
 });

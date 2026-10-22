@@ -24,7 +24,10 @@ async function main(){
     const u=new URL(req.url,'http://x');
     if(u.pathname==='/api/ai/generate'&&req.method==='POST'){let b='';req.on('data',c=>b+=c);req.on('end',()=>{const body=JSON.parse(b);calls.push(body);
       if(mode==='nokey'){res.writeHead(503,{'Content-Type':'application/json'});return res.end(JSON.stringify({ok:false,code:'NO_KEY',message:'Chưa có khóa Gemini.'}));}
-      res.writeHead(200,{'Content-Type':'application/json'});setTimeout(()=>res.end(JSON.stringify({ok:true,text:JSON.stringify(AI),model:'gemini-gia-lap'})),300);});return;}
+      const solve=body.schema&&body.schema.properties&&body.schema.properties.answers;
+      const items=solve?JSON.parse(body.contents[0].parts[0].text.replace(/^[\s\S]*?Giải các câu sau:\n/,'')):null;
+      const answers=solve?items.map(q=>q.type==='FILL'?{id:q.id,blanks:['120']}:{id:q.id,answerText:'Góc đỉnh O: 60°; góc đỉnh I: 120°',guide:'Mỗi số đo đúng 0,5 điểm.'}):null;
+      res.writeHead(200,{'Content-Type':'application/json'});setTimeout(()=>res.end(JSON.stringify({ok:true,text:JSON.stringify(solve?{answers}:AI),model:'gemini-gia-lap'})),300);});return;}
     if(u.pathname==='/api/ai/status'){res.writeHead(200,{'Content-Type':'application/json'});return res.end(JSON.stringify({ok:true,server:2,configured:mode!=='nokey-status'}));}
     if(u.pathname.startsWith('/api/')){res.writeHead(404,{'Content-Type':'application/json'});return res.end('{"ok":false}');}
     const t=path.resolve(app,'.'+(u.pathname==='/'?'/index.html':decodeURIComponent(u.pathname)));if(!t.startsWith(app+path.sep)){res.writeHead(403);return res.end();}
@@ -39,34 +42,32 @@ async function main(){
     await p.goto(origin+'/');await p.waitForFunction(()=>!!window.HmvReviewUI&&!!window.HmvReviewAi&&!!window.HmvReviewWord);
     await p.evaluate(()=>HmvReviewUI.open());await p.locator('#rv-import').waitFor({state:'attached'});
     await p.waitForFunction(()=>document.querySelector('#rv-use-ai')?.checked===true);
-    assert.match(await p.locator('#rv-drop').textContent(),/AI tự viết đáp án, thầy cô duyệt/);
-    pass('ai-options','khung tải đề: "Dùng AI đọc đề" tự bật khi đã có khóa Gemini; ghi rõ AI tự viết đáp án còn thiếu để thầy cô duyệt');
+    assert.match(await p.locator('#rv-drop').textContent(),/AI làm hết, kể cả đáp án/);
+    pass('ai-options','khung tải đề: "Dùng AI đọc đề" tự bật khi đã có khóa Gemini; ghi rõ AI làm hết, thầy cô chỉ xem lướt và sửa');
 
     // 1) Word của trường → AI
     await p.locator('#rv-import').setInputFiles(path.join(__dirname,'files/de-toan-ghk1-mau-truong.docx'));
     await p.locator('#rv-ai-report').waitFor();
-    assert.equal(calls.length,1);const sent=calls[0];
-    assert.equal(sent.json,true);assert.doesNotMatch(sent.system,/KHÔNG tự giải/);assert.match(sent.system,/Giáo viên sẽ duyệt/);assert.match(sent.contents[0].parts[0].text,/Câu 1/);assert.ok(!sent.contents[0].parts.some(x=>x.inlineData),'Word gửi chữ, không gửi tệp');
+    assert.equal(calls.length,2,'lượt 1 đọc đề, lượt 2 giải các câu còn thiếu đáp án');const sent=calls[0];
+    assert.equal(sent.json,true);assert.match(sent.system,/BẮT BUỘC có đáp án cho MỌI câu/);assert.match(sent.contents[0].parts[0].text,/Câu 1/);assert.ok(!sent.contents[0].parts.some(x=>x.inlineData),'Word gửi chữ, không gửi tệp');
+    const second=JSON.parse(calls[1].contents[0].parts[0].text.replace(/^[\s\S]*?Giải các câu sau:\n/,''));assert.deepEqual(second.map(q=>q.id).sort(),['cau-4','cau-6'],'chỉ gửi lại các câu chưa có đáp án');
     assert.equal(await p.locator('[data-question]').count(),8);
     assert.equal(await p.locator('#rv-edit-subject').inputValue(),'Toán');
     const report=await p.locator('#rv-ai-report').textContent();
-    assert.match(report,/8 câu/);assert.match(report,/5 điểm/);assert.match(report,/Còn 1 câu có đáp án AI viết chờ duyệt \(Câu 2\)/);assert.match(report,/Câu 7 \(số 6 trong đề\): chưa có đáp án/);assert.match(report,/cần hình vẽ/);assert.match(report,/AI không chép được hình/);
-    assert.match(await p.locator('[data-question="1"] legend').textContent(),/AI viết – chờ duyệt/);assert.match(await p.locator('[data-question="3"] legend').textContent(),/Cần hình vẽ/);
-    assert.match(await p.locator('#rv-message').textContent(),/AI đã đọc được 8 câu/);
+    assert.match(report,/AI đã làm xong/);assert.match(report,/8 câu/);assert.match(report,/5 điểm/);assert.match(report,/3 câu đề không có đáp án nên AI tự giải \(Câu 2, 4, 7,/);assert.match(report,/cần hình vẽ/);assert.doesNotMatch(report,/chưa có đáp án/i);
+    assert.match(await p.locator('[data-question="1"] legend').textContent(),/✨ AI giải/);assert.match(await p.locator('[data-question="1"]').textContent(),/Đáp án: B\. Góc tù/);
+    assert.match(await p.locator('[data-question="0"]').textContent(),/Đáp án: B\. 2 405 018/);
+    assert.equal(await p.locator('[data-question="6"] [data-blank-key]').inputValue(),'120');assert.match(await p.locator('[data-question="6"] legend').textContent(),/✨ AI giải/);
+    assert.match(await p.locator('[data-question="3"] [data-q="answerText"]').inputValue(),/60°/);assert.match(await p.locator('[data-question="3"] legend').textContent(),/Cần hình vẽ/);
+    assert.equal(await p.locator('.rv-ai-ok, #rv-ai-approve-all').count(),0,'không còn nút duyệt');
+    assert.match(await p.locator('#rv-message').textContent(),/AI đã làm xong 8 câu.*3 câu AI tự giải/);
     await p.screenshot({path:path.join(output,'1-ket-qua-ai.png'),fullPage:false});
     await p.locator('#rv-ai-report').screenshot({path:path.join(output,'1b-bang-tom-tat.png')});
-    pass('ai-docx','nhập Word → AI tách 8 câu, nhận môn, báo câu AI gợi ý / chưa có đáp án / cần hình, gắn nhãn đỏ từng câu');
-
-    await p.locator('#rv-export-html').click();await p.waitForFunction(()=>/chưa được duyệt \(Câu 2\)/.test(document.querySelector('#rv-message').textContent));
-    await p.locator('#rv-export-scorm').click();await p.waitForFunction(()=>/chưa được duyệt/.test(document.querySelector('#rv-message').textContent));
-    pass('ai-block','còn đáp án AI viết chưa duyệt thì chặn xuất HTML/SCORM cho học sinh, nêu rõ câu nào');
-    await p.locator('[data-question="1"] .rv-ai-ok').click();
-    assert.doesNotMatch(await p.locator('[data-question="1"] legend').textContent(),/chờ duyệt/);assert.match(await p.locator('#rv-ai-pending').textContent(),/Đã duyệt hết/);
-    await p.locator('[data-question="6"] [data-blank-key]').fill('120');
+    pass('ai-docx','nhập Word → AI đọc 8 câu, tự giải đủ 3 câu thiếu đáp án (lượt 2 chỉ gửi câu thiếu), hiện đáp án ngay dưới tiêu đề câu, không còn bước duyệt');
+    await p.locator('[data-question="1"] [data-key="2"]').check();
     await p.locator('#rv-save').click();await p.waitForFunction(()=>/Đã lưu bản nháp/.test(document.querySelector('#rv-message').textContent));
-    assert.doesNotMatch(await p.locator('[data-question="1"] legend').textContent(),/chờ duyệt/,'đã duyệt thì không gắn nhãn lại sau khi lưu');
-    assert.doesNotMatch(await p.locator('[data-question="6"] legend').textContent(),/Chưa có đáp án/,'đã điền đáp án thì bỏ nhãn');
-    pass('ai-review','bấm "Duyệt đáp án" bỏ nhãn; điền đáp án còn thiếu thì nhãn tự mất; lưu bản nháp giữ trạng thái');
+    assert.match(await p.locator('[data-question="1"]').textContent(),/Đáp án: C\. Góc vuông/);
+    pass('ai-edit','thầy cô sửa đáp án trong ô rồi Lưu bản nháp là xong, đáp án hiển thị cập nhật theo');
 
     // 2) Xuất Word
     const w=p.waitForEvent('download');await p.locator('#rv-export-word').click();const d=await w;
@@ -102,9 +103,9 @@ async function main(){
     // 6) PDF gửi nguyên tệp + bật gợi ý đáp án + phân tích lại
     if(process.env.HMV_TEST_PDF&&fs.existsSync(process.env.HMV_TEST_PDF)){
       await p.locator('#rv-import').setInputFiles(process.env.HMV_TEST_PDF);await p.locator('#rv-ai-report').waitFor();
-      const last=calls[calls.length-1];assert.equal(last.contents[0].parts[0].inlineData.mimeType,'application/pdf');assert.doesNotMatch(last.system,/KHÔNG tự giải/);await p.locator('#rv-ai-approve-all').click();assert.match(await p.locator('#rv-ai-pending').textContent(),/Đã duyệt hết/);
-      const n=calls.length;await p.locator('#rv-ai-reanalyze').click();await p.waitForFunction(()=>/AI đã đọc lại/.test(document.querySelector('#rv-message').textContent));assert.equal(calls.length,n+1);
-      pass('ai-pdf','PDF gửi nguyên tệp cho AI (đọc được cả bản scan); nút "Duyệt tất cả"; nút "AI đọc lại đề" chạy');
+      const last=calls.filter(c=>!(c.schema&&c.schema.properties.answers)).pop();assert.equal(last.contents[0].parts[0].inlineData.mimeType,'application/pdf');
+      const n=calls.length;await p.locator('#rv-ai-reanalyze').click();await p.waitForFunction(()=>/AI đã đọc lại/.test(document.querySelector('#rv-message').textContent));assert.ok(calls.length>=n+1);
+      pass('ai-pdf','PDF gửi nguyên tệp cho AI (đọc được cả bản scan); nút "AI đọc lại đề" chạy');
     }
     assert.deepEqual(errors,[]);pass('no-errors','không có lỗi JavaScript');
   }finally{await browser.close();await new Promise(r=>server.close(r));}

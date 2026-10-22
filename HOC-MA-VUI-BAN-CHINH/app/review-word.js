@@ -157,7 +157,7 @@ function testBody(doc,L){
 
 // ---------- Hướng dẫn chấm ----------
 function keyText(q){
- var m=q.metadata||{},flag=m.aiAnswer==='suggested'?' (đáp án AI viết – chưa duyệt)':'';
+ var m=q.metadata||{},flag='';
  if(['ABCD','SINGLE','MULTI'].indexOf(q.type)>=0||(q.type==='TRUEFALSE'&&!Array.isArray(q.statements))){
   var opts=q.type==='TRUEFALSE'&&!(q.options||[]).length?['Đúng','Sai']:q.options||[];
   if(!(q.correctAnswers||[]).length)return {text:'(chưa có đáp án)',missing:true};

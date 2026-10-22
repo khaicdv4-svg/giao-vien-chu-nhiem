@@ -60,7 +60,7 @@ test('mặc định AI tự viết đáp án còn thiếu; tắt thì cấm tự
  await ai.callAI([{text:'x'}],{fetcher,suggestAnswers:false});
  await ai.callAI([{text:'x'}],{fetcher});
  assert.equal(seen[0].url,'./api/ai/generate');assert.equal(seen[0].body.json,true);assert.ok(seen[0].body.schema.properties.questions);
- assert.match(seen[0].body.system,/KHÔNG tự giải/);assert.doesNotMatch(seen[1].body.system,/KHÔNG tự giải/);assert.match(seen[1].body.system,/answerSource "ai"/);assert.match(seen[1].body.system,/hướng dẫn chấm/);
+ assert.match(seen[0].body.system,/KHÔNG tự giải/);assert.doesNotMatch(seen[1].body.system,/KHÔNG tự giải/);assert.match(seen[1].body.system,/answerSource "ai"/);assert.match(seen[1].body.system,/hướng dẫn chấm/);assert.match(seen[1].body.system,/BẮT BUỘC có đáp án cho MỌI câu/);
  assert.equal(seen[0].body.temperature,0.1);
 });
 
@@ -88,10 +88,17 @@ test('analyze ghép với tài liệu nguồn và lập báo cáo',async()=>{
  await assert.rejects(ai.analyze({name:'de.docx',size:5},src,{fetcher:async()=>({ok:true,status:200,json:async()=>({ok:true,text:'{"questions":[]}'})})}),/không tìm thấy câu hỏi/);
 });
 
-test('đếm câu đáp án AI chờ duyệt và thông báo chặn xuất',()=>{
- const c=ai.toDocument(SAMPLE);
- assert.deepEqual(ai.pending({questions:c.questions}),[3]);
- assert.match(ai.pendingError({questions:c.questions}),/Còn 1 câu.*Câu 3/);
- c.questions[2].metadata.aiAnswer='checked';
- assert.equal(ai.pendingError({questions:c.questions}),'');
+test('lượt 2: chỉ gửi các câu còn thiếu đáp án, AI giải xong thì điền vào đúng dạng',async()=>{
+ const c=ai.toDocument(SAMPLE);const seen=[];
+ const fetcher=async(u,init)=>{const b=JSON.parse(init.body);seen.push(b);return {ok:true,status:200,json:async()=>({ok:true,text:JSON.stringify({answers:[{id:'cau-2',correct:[1]},{id:'cau-4',statements:['Đúng','Sai']},{id:'cau-6',pairs:[{left:'2 × 3',right:'6'},{left:'4 × 5',right:'20'}]},{id:'cau-8b',answerText:'937',guide:'Đặt tính đúng, tính đúng: 0,5 điểm'},{id:'cau-9',answerText:'Trước sân trường'}]})})};};
+ const n=await ai.fillMissing(c,{fetcher});
+ assert.equal(seen.length,1);assert.ok(seen[0].schema.properties.answers);assert.match(seen[0].system,/Bắt buộc trả lời mọi câu/);
+ const sent=JSON.parse(seen[0].contents[0].parts[0].text.replace(/^[\s\S]*?Giải các câu sau:\n/,''));
+ assert.deepEqual(sent.map(q=>q.id),['cau-2','cau-4','cau-6','cau-8b','cau-9','cau-10']);assert.equal(sent.find(q=>q.id==='cau-9').passage,'Cây bàng trước sân trường…');
+ assert.equal(n,5);
+ const q=id=>c.questions.find(x=>x.id===id);
+ assert.deepEqual(q('cau-2').correctAnswers,[1]);assert.deepEqual(q('cau-4').statements.map(s=>s.answer),[true,false]);assert.equal(q('cau-8b').answerText,'937');
+ for(const id of ['cau-2','cau-4','cau-6','cau-8b','cau-9'])assert.equal(q(id).metadata.aiAnswer,'suggested');
+ assert.equal(q('cau-10').metadata.aiAnswer,'none','AI không trả lời câu nào thì giữ nguyên để thầy cô nhập');
+ assert.deepEqual(ai.aiSolved({questions:c.questions}),[2,3,4,6,9,10]);
 });
