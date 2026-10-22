@@ -66,7 +66,7 @@
   function ensureTopButton() {
     var bar = doc.querySelector('.topbar .actions'); if (!bar) return;
     var b = doc.getElementById('hmvInstallTop');
-    var show = state() === 'ready';
+    var show = true;   /* luôn hiện nút "Cài ứng dụng": bấm vào sẽ cài ngay hoặc mở phần hướng dẫn/trạng thái cài */
     if (!b && show) { b = doc.createElement('button'); b.type = 'button'; b.id = 'hmvInstallTop'; b.className = 'icon-btn hmv-inst-top'; b.setAttribute('data-hmv-install', ''); b.title = 'Cài HỌC MÀ VUI thành ứng dụng trên máy này'; b.textContent = '📲 Cài ứng dụng'; bar.insertBefore(b, bar.firstChild); }
     if (b) b.hidden = !show;
     bar.classList.toggle('hmv-has-install', !!(b && show));   /* thanh trên dùng lưới cố định: thêm một cột cho nút cài */
