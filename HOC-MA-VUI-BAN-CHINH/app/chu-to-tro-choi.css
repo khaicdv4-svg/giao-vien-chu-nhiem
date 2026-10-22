@@ -60,7 +60,7 @@ html body #games .millionaire-help{font-size:clamp(16px,1.3vw,21px)!important;fo
 html body #games .millionaire-prize span,html body #games .millionaire-prize b{font-size:clamp(15px,1.15vw,19px)!important}
 
 /* Bóng bay tri thức · Bàn tay phép thuật · Giơ tay giành quyền (cùng khung bb-) */
-html body #games .bb-question{font-size:clamp(32px,min(3.8vw,6vh),64px)!important;font-weight:850}
+html body #games .bb-question{font-size:calc(clamp(32px,min(3.8vw,6vh),64px)*var(--f,1))!important;font-weight:850}
 html body #games .bb-chip b{font-size:clamp(15px,1.2vw,19px)!important}
 html body #games .bb-chip strong{font-size:clamp(24px,2.2vw,34px)!important}
 html body #games .bb-timer{font-size:clamp(24px,2.2vw,36px)!important;font-weight:850}

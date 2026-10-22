@@ -172,7 +172,7 @@
   /* ---------- Giao diện ---------- */
   function fontFor(text) { var n = String(text).length; return n <= 4 ? 1.9 : n <= 9 ? 1.45 : n <= 18 ? 1.08 : n <= 32 ? .9 : .76; }
   function balloonsHtml(q) {
-    var n = q.answers.length, xs = n === 2 ? [30, 70] : n === 3 ? [20, 50, 80] : [14, 38, 62, 86], ys = n === 2 ? [57, 57] : n === 3 ? [58, 54, 58] : [59, 54, 59, 54];
+    var n = q.answers.length, xs = n === 2 ? [30, 70] : n === 3 ? [20, 50, 80] : [14, 38, 62, 86], ys = n === 2 ? [52, 52] : n === 3 ? [54, 48, 54] : [54, 46, 54, 46];
     return q.answers.map(function (a, i) { return '<button type="button" class="bb-balloon" data-bb-pick="' + i + '" style="left:' + xs[i] + '%;top:' + ys[i] + '%;--c:' + COLORS[i] + ';--d:' + (i * -0.7) + 's;--f:' + fontFor(a) + '"><span class="bb-body"><b>' + String.fromCharCode(65 + i) + '</b><span class="bb-text">' + esc(a) + '</span></span><i class="bb-string"></i></button>'; }).join('');
   }
   function hudHtml() {
@@ -190,7 +190,7 @@
     var stage = doc.getElementById('bbStage'), q = Q(); if (!S || !stage || !q) return;
     var sub = doc.getElementById('bbSub'); if (sub) sub.textContent = 'Câu ' + (S.q + 1) + '/' + S.questions.length + (cfg.mode === 'teams' ? ' · Lượt của ' + teamName(S.turn) : '') + ' · ' + S.sourceName;
     doc.getElementById('bbHud').innerHTML = hudHtml() + (cfg.time > 0 ? '<span class="bb-timer" id="bbTimer">' + Math.ceil(S.left) + '</span>' : '');
-    var qel = doc.getElementById('bbQuestion'); qel.textContent = q.text || q.question || ''; qel.style.setProperty('--f', String(q.text || '').length > 70 ? .72 : String(q.text || '').length > 36 ? .86 : 1);
+    var qel = doc.getElementById('bbQuestion'); qel.textContent = q.text || q.question || ''; qel.dataset.f0 = '1';   /* cỡ chữ do fit() tự thu cho vừa khung */
     var box = doc.getElementById('bbBalloons');
     if (box.dataset.q !== String(S.q)) { box.dataset.q = String(S.q); box.innerHTML = balloonsHtml(q); clearPointers(); }
     Array.prototype.forEach.call(box.querySelectorAll('.bb-balloon'), function (b, i) {
@@ -206,17 +206,30 @@
     stage.classList.toggle('paused', !!S.paused); stage.classList.toggle('done', S.phase === 'done');
     var pb = doc.getElementById('bbPauseBtn'); if (pb) pb.textContent = S.paused ? '▶ Tiếp tục' : 'Ⅱ Tạm dừng';
     var st = doc.getElementById('bbStatus'); if (st) st.hidden = S.phase !== 'ask';
+    fit(); if (win.requestAnimationFrame) win.requestAnimationFrame(fit);
     camLabel();
   }
+  /* Câu hỏi dài không được che bóng: thu chữ cho vừa tối đa 1/3 khung, rồi dồn các quả bóng vào vùng còn trống bên dưới câu hỏi. */
+  function fit() {
+    var stage = doc.getElementById('bbStage'), qel = doc.getElementById('bbQuestion'), box = doc.getElementById('bbBalloons'); if (!stage || !qel || !box) return;
+    var H = stage.clientHeight; if (!H) return;
+    var f = Number(qel.dataset.f0) || 1; qel.style.setProperty('--f', String(f));
+    for (var i = 0; i < 10 && qel.offsetHeight > H * .32 && f > .42; i++) { f *= .9; qel.style.setProperty('--f', f.toFixed(3)); }
+    var top = qel.offsetTop + qel.offsetHeight + 10, bottom = 58, h = Math.max(150, H - top - bottom);
+    box.style.setProperty('--bbt', top + 'px'); box.style.setProperty('--bbb', bottom + 'px'); box.style.setProperty('--bbh', h + 'px');
+  }
+  win.addEventListener('resize', function () { fit(); });
+  doc.addEventListener('fullscreenchange', function () { setTimeout(fit, 120); });
   function burst() { var st = doc.getElementById('bbStage') || doc.querySelector('.bb-end'); if (!st) return; var c = doc.createElement('div'); c.className = 'bb-confetti'; c.innerHTML = Array.from({ length: 26 }, function (_, i) { return '<i style="--i:' + i + '"></i>'; }).join(''); st.appendChild(c); setTimeout(function () { c.remove(); }, 2200); }
   function stars(p) { var n = p >= .8 ? 3 : p >= .5 ? 2 : 1; return '★'.repeat(n) + '<span>' + '★'.repeat(3 - n) + '</span>'; }
+  function timeOpts(cur) { return [0, 5, 10, 15, 20, 25, 30, 40, 45, 60, 90, 120, 180].map(function (n) { return opt(n, cur, n ? n + ' giây' : 'Không giới hạn'); }).join(''); }
   function opt(v, cur, label) { return '<option value="' + v + '"' + (String(v) === String(cur) ? ' selected' : '') + '>' + label + '</option>'; }
   function setupHtml() {
     var src = source(), ok = src.list.length > 0;
     return '<div class="bb-setup-screen"><div class="page-title"><div><h2>🎈 BÓNG BAY TRI THỨC</h2><p>Giơ tay chạm vào quả bóng có đáp án đúng. Camera AI nhận diện bàn tay, không cần chạm vào máy.</p></div><div class="toolbar"><button class="btn soft" data-bb="back">← Thư viện</button></div></div>'
       + '<div class="bb-setup" id="bbSetup"><section class="bb-how"><ol><li><span class="bb-step s1"></span><b>Đứng trước camera</b><small>Cả lớp thấy mình trên màn hình như soi gương.</small></li><li><span class="bb-step s2"></span><b>Giơ tay chạm bóng</b><small>Chấm sáng đi theo ngón tay trỏ. Chạm vào quả bóng có đáp án đúng.</small></li><li><span class="bb-step s3"></span><b>Giữ yên một giây</b><small>Bóng nổ, ứng dụng tự chấm và tự sang câu tiếp theo.</small></li></ol><p class="bb-privacy">Camera chỉ dùng để tìm vị trí bàn tay ngay trên máy này. Ứng dụng không nhận diện danh tính, không lưu và không gửi hình ảnh. Không có camera vẫn chơi được bằng chuột, chạm màn hình hoặc phím 1–4.</p></section>'
       + '<section class="bb-form"><p class="bb-source">' + (ok ? 'Bộ câu hỏi: <b>' + esc(src.name) + '</b> · <b>' + src.list.length + '</b> câu dùng được (A–B–C–D, Đúng/Sai).' : '<span class="bb-warn">Chưa có câu hỏi A–B–C–D hoặc Đúng/Sai. Vào Kho câu hỏi, chọn một bộ rồi bấm “Chơi ngay → Bóng bay tri thức”.</span>') + ' <button class="bb-link" type="button" data-bb="kho">Chọn bộ khác trong Kho</button></p>'
-      + '<div class="bb-grid"><label>Cách chơi<select id="bbMode">' + opt('solo', cfg.mode, 'Cả lớp chung điểm') + opt('teams', cfg.mode, 'Hai đội luân phiên') + '</select></label><label>Số câu<select id="bbCount">' + opt('5', cfg.count, '5 câu') + opt('10', cfg.count, '10 câu') + opt('all', cfg.count, 'Tất cả') + '</select></label><label>Thời gian mỗi câu<select id="bbTime">' + opt(0, cfg.time, 'Không giới hạn') + opt(15, cfg.time, '15 giây') + opt(20, cfg.time, '20 giây') + opt(30, cfg.time, '30 giây') + '</select></label><label>Điều khiển<select id="bbControl">' + opt('camera', cfg.control, '📷 Camera – chạm bằng tay') + opt('touch', cfg.control, '🖱 Chuột hoặc chạm màn hình') + '</select></label><label>Giữ tay bao lâu thì chọn<select id="bbDwell">' + opt(600, cfg.dwell, '0,6 giây (nhanh)') + opt(800, cfg.dwell, '0,8 giây') + opt(1100, cfg.dwell, '1,1 giây (chắc chắn)') + '</select></label><label>Tiếng hiệu ứng<select id="bbSound">' + opt(1, cfg.sound ? 1 : 0, 'Bật') + opt(0, cfg.sound ? 1 : 0, 'Tắt') + '</select></label><label class="bb-team-name">Tên đội 1<input id="bbName0" class="input" maxlength="20" value="' + esc(teamName(0)) + '"></label><label class="bb-team-name">Tên đội 2<input id="bbName1" class="input" maxlength="20" value="' + esc(teamName(1)) + '"></label></div>'
+      + '<div class="bb-grid"><label>Cách chơi<select id="bbMode">' + opt('solo', cfg.mode, 'Cả lớp chung điểm') + opt('teams', cfg.mode, 'Hai đội luân phiên') + '</select></label><label>Số câu<select id="bbCount">' + opt('5', cfg.count, '5 câu') + opt('10', cfg.count, '10 câu') + opt('all', cfg.count, 'Tất cả') + '</select></label><label>Thời gian mỗi câu<select id="bbTime">' + timeOpts(cfg.time) + '</select></label><label>Điều khiển<select id="bbControl">' + opt('camera', cfg.control, '📷 Camera – chạm bằng tay') + opt('touch', cfg.control, '🖱 Chuột hoặc chạm màn hình') + '</select></label><label>Giữ tay bao lâu thì chọn<select id="bbDwell">' + opt(600, cfg.dwell, '0,6 giây (nhanh)') + opt(800, cfg.dwell, '0,8 giây') + opt(1100, cfg.dwell, '1,1 giây (chắc chắn)') + '</select></label><label>Tiếng hiệu ứng<select id="bbSound">' + opt(1, cfg.sound ? 1 : 0, 'Bật') + opt(0, cfg.sound ? 1 : 0, 'Tắt') + '</select></label><label class="bb-team-name">Tên đội 1<input id="bbName0" class="input" maxlength="20" value="' + esc(teamName(0)) + '"></label><label class="bb-team-name">Tên đội 2<input id="bbName1" class="input" maxlength="20" value="' + esc(teamName(1)) + '"></label></div>'
       + '<button class="btn color bb-start" data-bb="start"' + (ok ? '' : ' disabled') + '>▶ Bắt đầu chơi</button></section></div></div>';
   }
   function playHtml() {
