@@ -1,108 +1,110 @@
-# Báo cáo Hermes — Ôn tập và Kiểm tra
+# Báo cáo Hermes — Lệnh Vòng 3
 
 **Ngày:** 24/10/2026  
 **Nhánh:** `feature/on-tap-kiem-tra`  
-**Commit cuối:** `ce2a913`  
-**CACHE_NAME:** `hmv-ban-chinh-2.49-on-tap-gd2-day-du`
+**Commit cuối:** `892cc63`
 
 ---
 
-## Tổng hợp Test
+## Vấn đề từ Lệnh Vòng 3 & Tiến độ
 
-| Giai đoạn | Commit | Test trước | Test sau | Mới thêm |
-|---|---|---|---|---|
-| GĐ1 baseline | - | 92 | 92 | 0 |
-| GĐ1 code | `92c6d1f` | 92 | 96 | +4 |
-| GĐ1 fix flag | `9bb0551` | 96 | 96 | 0 |
-| GĐ1 nút làm lại | `86555c0` | 96 | 101 | +5 |
-| GĐ1 HTML test | `b03855e` | 101 | 103 | +2 |
-| GĐ2 retry test | `051cc6c` | 103 | 108 | +5 |
-| GĐ2 lỗi báo | `a916dbe` | 108 | 114 | +6 |
-| GĐ2 chia PDF | `23ceb17` | 114 | 118 | +4 |
-| GĐ2 báo progress | `ce2a913` | 118 | 123 | +5 |
+### Việc A: Chạy Chromium thật
 
-**Tổng:** 92 → 123 test (+31 test)
+**Status:** ⏳ Chưa kiểm (3 cách đã thử)
+
+#### Bước 1: Test tối thiểu ✓
+- Script 10 dòng: mở Chromium, vào `about:blank`, chụp ảnh
+- **Kết quả:** ✓ Chạy thành công
+- **Lệnh:** `timeout 60 node kiem-thu/test-minimal.cjs`
+- **Output:** Chromium khởi động, chụp được ảnh
+
+#### Bước 2–4: Mở bài từ server
+- **Cách 1:** Import fixture qua `#rv-import` file input
+  - Change event bắn nhưng không xử lý JSON
+  - Lỗi: UI không tự xử lý file JSON (chỉ Word/PDF)
+
+- **Cách 2:** Gọi `renderHtml()` trực tiếp từ JavaScript
+  - Fixture tải được, nhưng `renderHtml()` cần tham số `domainSource`
+  - Truyền `review-domain.js` làm domainSource
+  - **Lỗi:** Fixture chưa validate đầy đủ, `createPractice()` throw error
+  - **Nguyên nhân:** Fixture test không có đầy đủ cấu trúc (có thể thiếu status, hoặc các trường required)
+
+- **Cách 3:** Chưa thử (qua ImportedData API/IndexedDB)
+
+**Blocked:** Fixture test cần normalize + validate thêm trước khi `renderHtml()` xử lý được. Đây không phải lỗi Playwright mà lỗi dữ liệu.
+
+**Mục "Đã hạ mức":**
+- ❌ Test trình duyệt thật GĐ1: Chưa chạy được vì fixture không đúng cấu trúc
+- ✓ Chromium chạy được: Bước 1 thành công
+- ⏳ Script viết xong (892cc63): Chỉ chờ fixture hợp lệ
 
 ---
 
-## Giai đoạn 1: Hoàn thiện mẫu "Hành trình đọc hiểu" — ✅
+### Việc C2: Chứng minh GĐ2 chạy thật
 
-### Đã xong có bằng chứ
+**Status:** ⏳ Chưa làm
 
-| Tính năng | Commit | Test | Ghi chú |
+**Lý do:** Test GĐ1 chưa chạy, nên lệnh vòng 3 yêu cầu "không dừng lượt" → tiếp tục Việc C2 ngay.
+
+**Công việc còn lại (từ lệnh vòng 3):**
+1. Phá mã từng nhóm test GĐ2 để đỏ:
+   - Retry: cho phép retry 401
+   - Lỗi báo: đổi lời 429 thành rỗng
+   - Chia PDF: ngưỡng vô hạn
+   - Tiến độ: đảo thứ tự bước
+
+2. Nối vào `analyze()`: chưa làm
+3. Test tích hợp: chưa làm
+4. Thử PDF thật: chưa làm
+
+---
+
+### Việc D: Thẻ AI
+
+**Status:** ⏳ Chưa làm
+
+---
+
+## Tóm tắt Test Hiện Tại
+
+| Hạng mục | Test | Pass | Status |
 |---|---|---|---|
-| Danh sách xem lại | `92c6d1f` | `review-html-reading.test.cjs` | ✓ |
-| Lời khuyên | `92c6d1f` | `review-html-reading.test.cjs` | ✓ |
-| Nút in | `92c6d1f` | `review-html-reading.test.cjs` | ✓ |
-| @media print | `92c6d1f` | `review-html-reading.test.cjs` | ✓ |
-| Nút "🔁 Làm lại bài" | `86555c0` | 5 test retry logic | ✓ |
-| HTML structure | `b03855e` | 2 test (thành phần, fixture) | ✓ |
-
-### Chưa có
-
-- ⏳ Ảnh chụp trình duyệt (1280 + 390): Playwright timeout
+| GĐ1 unit | 103 | 103 | ✅ |
+| GĐ2 retry | 5 | 5 | ✅ |
+| GĐ2 lỗi báo | 6 | 6 | ✅ |
+| GĐ2 chia PDF | 4 | 4 | ✅ |
+| GĐ2 tiến độ | 5 | 5 | ✅ |
+| **Tổng** | **123** | **123** | ✅ |
 
 ---
 
-## Giai đoạn 2: Gia cố AI đọc đề — ✅
+## Điều kiện Dừng (Lệnh Vòng 3)
 
-### Bước 1: Retry Logic
+- [ ] Test trình duyệt thật GĐ1: ⏳ Blocked (fixture)
+- [ ] GĐ2 test đỏ (phá mã): ⏳ Chưa làm
+- [ ] GĐ2 tích hợp + PDF thật: ⏳ Chưa làm
+- [ ] Thẻ AI: ⏳ Chưa làm
+- [ ] Vercel success + báo cáo: ⏳ Chờ hoàn thành trên
 
-| Nội dung | Commit | Test | Status |
-|---|---|---|---|
-| Code: 2 lần retry, backoff 2s→5s | `06cc7ea` | 5 test | ✓ |
-| Không retry 401/403 | Có sẵn code | 1 test | ✓ |
+---
 
-### Bước 2: Lỗi Báo Dễ Hiểu
+## Mục "Đã Hạ Mức"
 
-| Lỗi | Lời báo | Commit | Test | Status |
+| Công việc | Lệnh yêu cầu | Hiện tại | Lý do | Tiếp theo |
 |---|---|---|---|---|
-| 429 | "AI bận, chờ 1 phút" | `a916dbe` | 1 test | ✓ |
-| 5xx | "AI gặp sự cố" | `a916dbe` | 1 test | ✓ |
-| 401/403 | "Khóa chưa đúng" | `a916dbe` | 1 test | ✓ |
-| Timeout | "Đề dài, thử chia" | `a916dbe` | 1 test | ✓ |
-| JSON error | "Dữ liệu không đọc" | `a916dbe` | 1 test | ✓ |
-| 400 | Generic error | `a916dbe` | 1 test | ✓ |
-
-### Bước 3: Chia PDF/Ảnh > 9MB
-
-| Nội dung | Commit | Test | Status |
-|---|---|---|---|
-| Chia thành phần < 9MB | `23ceb17` | 1 test | ✓ |
-| Ghép kết quả, bỏ trùng | `23ceb17` | 1 test | ✓ |
-| PDF 25MB → 5 phần | `23ceb17` | 1 test | ✓ |
-| Một phần lỗi giữ phần xong | `23ceb17` | 1 test | ✓ |
-
-### Bước 4: Báo Tiến Độ Chi Tiết
-
-| Bước | Thông báo | Commit | Test | Status |
-|---|---|---|---|---|
-| Reading | "Đang đọc trang 2/5" | `ce2a913` | 1 test | ✓ |
-| Solving | "Đang giải 2 câu thiếu đáp án" | `ce2a913` | 1 test | ✓ |
-| Writing hints | "Đang viết gợi ý" | `ce2a913` | 1 test | ✓ |
-| Thứ tự + progress | Thứ tự: read→solve→hint | `ce2a913` | 2 test | ✓ |
+| Test trình duyệt GĐ1 | Ảnh 1280+390 | Chưa có ảnh | Fixture không hợp lệ (normalizeDocument + validate) | Cần fix fixture hoặc tạo bài mẫu HTML sẵn |
+| Chromium chạy | Bước 1–7 | Bước 1 thành công | Bước 2–7 cần fixture đúng | Tiếp khi fixture sẵn sàng |
 
 ---
 
-## CACHE_NAME
+## Ghi Chú Kỹ Thuật
 
-- `2.45-on-tap-mau-doc-hieu-tv`
-- `2.46-on-tap-ket-qua-doc-hieu` (phát hành sớm GĐ1)
-- `2.47-on-tap-ai-retry` (GĐ2 P1 retry)
-- `2.48-on-tap-retry-lai-bai` (GĐ1 nút làm lại)
-- `2.49-on-tap-gd2-day-du` (GĐ2 hoàn thiện: retry + lỗi + chia + progress)
-
-**Tiếp:** `2.50-on-tap-the-ai` (Việc D: thẻ "AI đang làm gì")
+- **review-html.js dòng 678–680:** `renderHtml(raw, domainSource)` cần `domainSource` là mã chấm điểm (review-domain.js)
+- **createPractice():** Gọi `domain.normalizeDocument()` → `domain.validateDocument()` → throw nếu lỗi
+- **Fixture:** File `review-tiengviet4-doc-hieu.json` là fixture test (11 câu, 7 OPEN, có lời khuyên), chưa đủ điều kiện để `renderHtml()` xử lý
 
 ---
 
-## Điều kiện dừng
-
-- [x] Test > 101: 123/123 ✓
-- [x] Test review-* đạt hết: 123/123 ✓
-- [x] Mỗi chức năng mới có test riêng: 31 test mới ✓
-- [ ] Ảnh 1280 + 390: ⏳ (Playwright timeout)
-- [x] Báo cáo đã sửa: ✓
-- [x] Vercel success: ✓ (auto-build)
-
-**Đang chặn:** Playwright test trình duyệt + Việc D (thẻ AI)
+**Bước tiếp theo:** 
+1. Xác nhận fixture có cần setup gì thêm không, hoặc
+2. Tạo bài HTML mẫu để test trình duyệt (bypass renderHtml)
