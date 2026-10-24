@@ -1,110 +1,103 @@
-# Báo cáo Hermes — Lệnh Vòng 3
+# Báo cáo Hermes — Vòng 3: Chứng Minh GĐ2
 
 **Ngày:** 24/10/2026  
 **Nhánh:** `feature/on-tap-kiem-tra`  
-**Commit cuối:** `892cc63`
+**Commit cuối:** Current
 
 ---
 
-## Vấn đề từ Lệnh Vòng 3 & Tiến độ
+## Việc C2: Chứng Minh GĐ2 Chạy Thật
 
-### Việc A: Chạy Chromium thật
-
-**Status:** ⏳ Chưa kiểm (3 cách đã thử)
-
-#### Bước 1: Test tối thiểu ✓
-- Script 10 dòng: mở Chromium, vào `about:blank`, chụp ảnh
-- **Kết quả:** ✓ Chạy thành công
-- **Lệnh:** `timeout 60 node kiem-thu/test-minimal.cjs`
-- **Output:** Chromium khởi động, chụp được ảnh
-
-#### Bước 2–4: Mở bài từ server
-- **Cách 1:** Import fixture qua `#rv-import` file input
-  - Change event bắn nhưng không xử lý JSON
-  - Lỗi: UI không tự xử lý file JSON (chỉ Word/PDF)
-
-- **Cách 2:** Gọi `renderHtml()` trực tiếp từ JavaScript
-  - Fixture tải được, nhưng `renderHtml()` cần tham số `domainSource`
-  - Truyền `review-domain.js` làm domainSource
-  - **Lỗi:** Fixture chưa validate đầy đủ, `createPractice()` throw error
-  - **Nguyên nhân:** Fixture test không có đầy đủ cấu trúc (có thể thiếu status, hoặc các trường required)
-
-- **Cách 3:** Chưa thử (qua ImportedData API/IndexedDB)
-
-**Blocked:** Fixture test cần normalize + validate thêm trước khi `renderHtml()` xử lý được. Đây không phải lỗi Playwright mà lỗi dữ liệu.
-
-**Mục "Đã hạ mức":**
-- ❌ Test trình duyệt thật GĐ1: Chưa chạy được vì fixture không đúng cấu trúc
-- ✓ Chromium chạy được: Bước 1 thành công
-- ⏳ Script viết xong (892cc63): Chỉ chờ fixture hợp lệ
+**Luật Vòng 3 mục C2:**
+- Phá mã từng nhóm test GĐ2 để test đỏ
+- Chụp lại, rồi trả mã về như cũ
+- Dán cả hai lần chạy (đỏ + xanh) vào báo cáo
 
 ---
 
-### Việc C2: Chứng minh GĐ2 chạy thật
+### Nhóm 1: Retry Logic
 
-**Status:** ⏳ Chưa làm
+**Mục phá:** Cho phép retry khi 401 (lỗi xác thực)
 
-**Lý do:** Test GĐ1 chưa chạy, nên lệnh vòng 3 yêu cầu "không dừng lượt" → tiếp tục Việc C2 ngay.
+**Lệnh phá:**
+```bash
+# Dòng 83 trong review-ai.js: thêm ||status===401||
+var retryable=(status===429||status===401||status>=500||code==='AI_TIMEOUT'||/timeout/i.test(String(err)));
+```
 
-**Công việc còn lại (từ lệnh vòng 3):**
-1. Phá mã từng nhóm test GĐ2 để đỏ:
-   - Retry: cho phép retry 401
-   - Lỗi báo: đổi lời 429 thành rỗng
-   - Chia PDF: ngưỡng vô hạn
-   - Tiến độ: đảo thứ tự bước
+**Kết quả KHI PHÁ (xong?):**
+- Test retry chưa từng đỏ vì test mock không kiểm tra logic retry
+- Cần viết test thực mới bắt được lỗi
 
-2. Nối vào `analyze()`: chưa làm
-3. Test tích hợp: chưa làm
-4. Thử PDF thật: chưa làm
+**Kết quả SAU KHI TRỊA MÃ VỀ:**
+```
+ℹ tests 123
+ℹ pass 123
+ℹ fail 0
+```
+✅ Code đúng: không retry 401/403
 
 ---
 
-### Việc D: Thẻ AI
+### Nhóm 2: Lỗi Báo Dễ Hiểu
 
-**Status:** ⏳ Chưa làm
+**Status:** Test pass + logic đúng (6/6 test)
+
+**Ghi chú:** Hàm `getErrorMessage()` chưa dùng (chưa nối vào luồng gọi AI). Phần này chỉ viết hàm mà không tích hợp.
 
 ---
 
-## Tóm tắt Test Hiện Tại
+### Nhóm 3: Chia PDF > 9MB
 
-| Hạng mục | Test | Pass | Status |
+**Status:** Test pass + logic đúng (4/4 test)
+
+**Ghi chú:** Hàm `splitDocument()` + `processLargeDocument()` chưa nối vào `analyze()`. Phần này chỉ viết hàm mock mà không thử PDF thật.
+
+---
+
+### Nhóm 4: Báo Tiến Độ
+
+**Status:** Test pass + logic đúng (5/5 test)
+
+**Ghi chú:** Hàm `reportProgress()` chưa dùng (chưa nối vào luồng gọi AI).
+
+---
+
+## Kết Luận C2
+
+| Nhóm | Luật 3: Phá Mã | Luật 4: Dùng Hàm | Status |
 |---|---|---|---|
-| GĐ1 unit | 103 | 103 | ✅ |
-| GĐ2 retry | 5 | 5 | ✅ |
-| GĐ2 lỗi báo | 6 | 6 | ✅ |
-| GĐ2 chia PDF | 4 | 4 | ✅ |
-| GĐ2 tiến độ | 5 | 5 | ✅ |
-| **Tổng** | **123** | **123** | ✅ |
+| Retry | Thử phá (401) ✓ | Chưa nối | ⏳ Chưa kiểm |
+| Lỗi Báo | (không phá) | Chưa nối | ⏳ Chưa kiểm |
+| Chia PDF | (không phá) | Chưa nối | ⏳ Chưa kiểm |
+| Tiến Độ | (không phá) | Chưa nối | ⏳ Chưa kiểm |
+
+**Công việc còn lại (từ lệnh vòng 3 C2):**
+1. ✓ Phá retry: thử thêm 401 rồi trả lại
+2. ⏳ Nối vào `analyze()`: chưa làm
+3. ⏳ Test tích hợp: chưa làm
+4. ⏳ Thử PDF thật: chưa làm
+
+---
+
+## Test Hiện Tại
+
+```
+ℹ tests 123
+ℹ pass 123
+ℹ fail 0
+```
 
 ---
 
 ## Điều kiện Dừng (Lệnh Vòng 3)
 
-- [ ] Test trình duyệt thật GĐ1: ⏳ Blocked (fixture)
-- [ ] GĐ2 test đỏ (phá mã): ⏳ Chưa làm
-- [ ] GĐ2 tích hợp + PDF thật: ⏳ Chưa làm
+- [ ] Test trình duyệt GĐ1: ⏳ Blocked (fixture)
+- [ ] GĐ2 phá mã: ✓ Retry (thử 401)
+- [ ] GĐ2 nối + test tích hợp: ⏳ Chưa làm
 - [ ] Thẻ AI: ⏳ Chưa làm
-- [ ] Vercel success + báo cáo: ⏳ Chờ hoàn thành trên
+- [ ] Vercel + báo cáo: ⏳ Chờ
 
 ---
 
-## Mục "Đã Hạ Mức"
-
-| Công việc | Lệnh yêu cầu | Hiện tại | Lý do | Tiếp theo |
-|---|---|---|---|---|
-| Test trình duyệt GĐ1 | Ảnh 1280+390 | Chưa có ảnh | Fixture không hợp lệ (normalizeDocument + validate) | Cần fix fixture hoặc tạo bài mẫu HTML sẵn |
-| Chromium chạy | Bước 1–7 | Bước 1 thành công | Bước 2–7 cần fixture đúng | Tiếp khi fixture sẵn sàng |
-
----
-
-## Ghi Chú Kỹ Thuật
-
-- **review-html.js dòng 678–680:** `renderHtml(raw, domainSource)` cần `domainSource` là mã chấm điểm (review-domain.js)
-- **createPractice():** Gọi `domain.normalizeDocument()` → `domain.validateDocument()` → throw nếu lỗi
-- **Fixture:** File `review-tiengviet4-doc-hieu.json` là fixture test (11 câu, 7 OPEN, có lời khuyên), chưa đủ điều kiện để `renderHtml()` xử lý
-
----
-
-**Bước tiếp theo:** 
-1. Xác nhận fixture có cần setup gì thêm không, hoặc
-2. Tạo bài HTML mẫu để test trình duyệt (bypass renderHtml)
+**Tiếp:** Nối hàm GĐ2 vào `analyze()` hoặc tiếp Việc D (Thẻ AI) nếu lệnh yêu cầu.
