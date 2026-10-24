@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src data:; base-uri 'none'; form-action 'none'">
+<title>Cuộc phiêu lưu của Bồ Công Anh</title><style>
+:root{color-scheme:light;--page:#f7f6f1;--paper:#fff;--ink:#243b42;--muted:#50666c;--accent:#225f7c;--accent-soft:#eaf5fb;--warm:#f9e7d7;--line:#c4d4cd;--focus:#963f1c;--font-body:18px;--font-question:21px;--card-space:28px;--option-space:15px;--radius:16px;--content-width:1000px}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font:var(--font-body)/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}body[data-age=early]{--font-body:22px;--font-question:25px;--option-space:20px;--card-space:30px}body[data-age=middle]{--font-body:20px;--font-question:23px;--option-space:18px}main{max-width:var(--content-width);margin:22px auto 30px;padding:24px 28px 16px;background:#fff;border:3px solid #b6dfe9;border-radius:26px;box-shadow:inset 0 0 0 5px white,inset 0 0 0 7px #f5df99}p,h1,h2{margin:0}h1{font-size:clamp(28px,4vw,40px);line-height:1.25;letter-spacing:-.025em;max-width:760px;margin:16px 0;color:var(--ink)}h2{font-size:18px}p,span,h1,h2{overflow-wrap:anywhere}p,.option-text{white-space:pre-wrap}small{display:block}header{position:relative;isolation:isolate;background:linear-gradient(110deg,#f5fbff,#fffdf5 55%,#fff4f8);border:2px solid #d6e6ed;border-radius:22px;padding:14px 156px 16px 20px;overflow:hidden}header:before{content:"";position:absolute;inset:5px;border:1px dashed #e8d495;border-radius:17px;pointer-events:none;z-index:-1}header h1{color:#943f64;font-weight:800;font-size:clamp(28px,3.6vw,37px);margin:9px 0 14px;line-height:1.25}.brand{font-size:12px;font-weight:750;letter-spacing:.05em;color:var(--accent);text-align:center;padding:2px 0 10px}.children-art{display:block;width:230px;max-width:80%;margin:0 auto 7px;line-height:0;pointer-events:none}.children-art img{display:block;width:100%;height:auto}.heading-content{padding:12px 18px 14px;text-align:center;border:2px solid #e5b9d0;border-radius:28px 21px 30px 22px;background:#fff}.eyebrow{display:inline-block;font-size:12px;font-weight:750;letter-spacing:.08em;color:#715923;background:#fff0bc;border-radius:20px;padding:3px 14px}.metadata{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:16px}.metadata span{background:var(--accent-soft);border-radius:7px;padding:4px 12px}.header-art{position:absolute;right:10px;top:50%;width:145px;transform:translateY(-42%);pointer-events:none}.header-art svg{display:block;width:100%;height:auto}.footer-art{height:55px;margin:0 0 6px;pointer-events:none}.footer-art svg{display:block;width:100%;height:100%}.progress-panel{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:18px 0 12px;padding:13px 20px;background:var(--accent-soft);border:1px solid var(--line);border-radius:12px}.progress-panel h2{color:var(--accent)}#progress-text{font-size:16px;color:var(--muted)}progress{width:34%;height:10px;border:0;border-radius:20px;overflow:hidden;appearance:none;background:var(--line);accent-color:var(--accent)}progress::-webkit-progress-bar{background:var(--line);border-radius:20px}progress::-webkit-progress-value{background:var(--accent);border-radius:20px}progress::-moz-progress-bar{background:var(--accent)}.instructions{color:var(--muted);font-size:16px;margin:0 0 20px}.question-card{--question-border:#acd9e8;--question-label:#d9f0f8;--question-tint:#f4fbff;--question-ink:#25546e;min-width:0;margin:0 0 23px;padding:15px var(--card-space) var(--card-space);border:2px solid var(--question-border);border-radius:18px;background:linear-gradient(180deg,var(--question-tint),#fff 100px)}.question-card:nth-of-type(4n+2){--question-border:#e8c0d1;--question-label:#f9dfeb;--question-tint:#fff8fb;--question-ink:#813951}.question-card:nth-of-type(4n+3){--question-border:#c3dcb3;--question-label:#e3f0d6;--question-tint:#f9fcf5;--question-ink:#41623b}.question-card:nth-of-type(4n+4){--question-border:#e7d690;--question-label:#fff0bb;--question-tint:#fffdf5;--question-ink:#73581e}legend{padding:0 10px;max-width:100%;font-weight:750;display:flex;align-items:center;gap:12px}.question-number{background:var(--question-label);color:var(--question-ink);padding:4px 15px;border-radius:12px 8px 12px 8px;white-space:nowrap}.question-points{font-size:14px;color:var(--muted);font-weight:600;background:#fff;padding:2px 7px;border-radius:7px}.question-text{font-size:var(--font-question);font-weight:600;line-height:1.65;margin:5px 0 20px}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.option{display:flex;align-items:center;gap:12px;padding:var(--option-space);min-height:60px;border:1px solid var(--line);border-radius:10px;background:var(--paper);cursor:pointer;min-width:0}.option:has(input:checked){border:2px solid var(--accent);padding:calc(var(--option-space) - 1px);background:var(--accent-soft)}.option-letter{font-size:14px;font-weight:750;color:var(--muted);flex-shrink:0}.option:has(input:checked) .option-letter{color:var(--accent)}input{width:23px;height:23px;margin:0;accent-color:var(--accent);flex-shrink:0}.option-text{min-width:0}.option:focus-within{outline:3px solid var(--focus);outline-offset:3px}.option input:focus-visible{outline:none}.question-card img{max-width:100%;height:auto;object-fit:contain}.feedback:empty{display:none}.feedback{margin-top:20px;padding:12px 16px;border-left:4px solid var(--accent);background:var(--accent-soft);color:var(--ink);font-size:16px;line-height:1.65;font-weight:600}.submit-panel{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:8px 0 24px;padding:22px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius)}.submit-panel p{color:var(--muted);font-size:16px;max-width:550px}button{background:var(--accent);color:white;border:2px solid var(--accent);border-radius:10px;padding:13px 32px;font:750 18px/1.5 system-ui;cursor:pointer;min-height:52px;flex-shrink:0}button:disabled{background:#e5ece8;border-color:var(--line);color:var(--muted);cursor:default}:focus-visible{outline:3px solid var(--focus);outline-offset:4px}.result-panel{border:2px solid var(--accent);border-radius:var(--radius);padding:28px;background:var(--accent-soft);margin-bottom:24px}.result-panel:has(#result:empty){display:none}.result-panel h2{color:var(--accent);margin-bottom:8px}#result{font-size:clamp(26px,4vw,34px);font-weight:800;line-height:1.4}.result-panel .encouragement{margin-top:12px;font-size:17px}.practice-notice{border-top:1px solid var(--line);padding:12px 0 8px;color:var(--muted);font-size:14px;line-height:1.7}.practice-notice strong{font-weight:700;color:var(--accent)}
+@media(max-width:600px){main{margin:8px;padding:14px 12px 10px;border-radius:20px}header{padding:12px 12px 14px;border-radius:18px}.brand{font-size:10px;letter-spacing:.02em;text-align:left;padding:0 72px 10px 3px;line-height:1.5;min-height:35px}.children-art{width:185px;margin:0 auto 6px}.heading-content{padding:10px 14px 14px;border-radius:25px 18px 25px 18px;position:relative}header h1{font-size:28px;margin:8px 0 12px}.eyebrow{font-size:10px;padding:2px 12px}.header-art{width:76px;top:0;right:3px;transform:translateY(-5%)}.metadata{font-size:14px;gap:6px}.metadata span{padding:3px 8px}.progress-panel{padding:12px 14px;gap:10px;align-items:flex-start;flex-direction:column;margin-top:14px}.progress-panel h2{font-size:17px}progress{width:100%}#progress-text{font-size:15px}.instructions{font-size:15px;margin-bottom:18px}.question-card{padding:12px 14px 18px;margin-bottom:20px}.question-text{font-size:var(--font-question);margin:2px 0 16px}.options{grid-template-columns:1fr;gap:10px}.option{gap:9px}.submit-panel{align-items:stretch;flex-direction:column;gap:14px;padding:17px}button{width:100%}.result-panel{padding:20px}body[data-age=early]{--card-space:20px}legend{padding:0 5px;gap:7px}.question-number{padding:3px 12px}.question-points{font-size:13px}.footer-art{height:39px;margin:0}.practice-notice{font-size:13px}}
+.teacher-feedback{margin-top:22px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:12px}.teacher-feedback h3{font-size:20px;color:var(--accent);margin:0 0 12px}#teacher-comment{font-size:var(--font-body);line-height:1.8}.speech-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:18px}.speech-controls button{padding:10px 18px;font-size:17px;min-height:48px}.speech-controls label{display:grid;font-size:15px;gap:4px}.speech-controls select{font:inherit;color:var(--ink);background:white;border:1px solid var(--line);border-radius:8px;min-height:48px;padding:8px 12px}#speech-stop{background:#fff;color:var(--accent)}[hidden]{display:none!important}#speech-status{font-size:15px;margin-top:12px;color:var(--accent)}.speech-note{font-size:13px;color:var(--muted);margin-top:10px}@media(max-width:600px){.teacher-feedback{padding:16px}.speech-controls{align-items:stretch}.speech-controls label{width:100%}}
+.written-label{display:grid;gap:8px;font-weight:700;color:var(--question-ink)}.written-answer{width:100%;min-width:0;padding:12px 15px;border:2px solid var(--question-border);border-radius:12px;background:#fff;color:var(--ink);font:inherit;font-weight:400}.written-answer:focus-visible{outline:3px solid var(--focus);outline-offset:3px}textarea.written-answer{resize:vertical;min-height:150px}.written-answer:disabled{background:#f5f7f5;opacity:1}.save-status{font-size:14px;color:var(--muted);margin:8px 0 16px}.submission-export{margin-top:16px}#export-submission{background:#fff;color:var(--accent)}@media(max-width:600px){.submission-export button{width:100%}}
+.grid-notebook{--grid-cell:42px;min-width:0}.grid-help{font-size:15px;color:var(--muted);margin:0 0 12px}.grid-tools{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}.grid-tools button{min-height:43px;padding:7px 12px;font-size:15px;flex:1 1 100px}.grid-tools button[aria-pressed=true]{background:#184e6a;border-color:#184e6a;color:#fff}.grid-scroll{width:max-content;max-width:100%;overflow:auto;border:2px solid var(--question-border);border-radius:12px;background:#fffdf6;scrollbar-color:#bad6e5 #fffdf6}.grid-board{position:relative;display:grid;touch-action:auto}.grid-board.ruler-active{touch-action:none;cursor:crosshair}.grid-cell{display:block!important;box-sizing:border-box!important;width:42px!important;height:42px!important;min-width:42px!important;margin:0!important;padding:0!important;border:0!important;border-right:1px solid #d5eaf2!important;border-bottom:1px solid #d5eaf2!important;border-radius:0!important;background:transparent!important;color:#173f5b!important;text-align:center;font:600 25px/42px ui-monospace,Consolas,monospace!important;caret-color:#173f5b;appearance:none}.grid-cell.is-selected{outline:2px solid #b96f40;outline-offset:-3px;background:#fff2d7!important}.grid-cell:disabled{opacity:1!important;color:#173f5b!important}.grid-stroke{position:absolute;z-index:2;background:#245c80;border-radius:2px;pointer-events:auto}.grid-stroke.horizontal{height:3px;transform:translateY(-1.5px)}.grid-stroke.vertical{width:3px;transform:translateX(-1.5px)}.grid-status{font-size:14px;color:var(--muted);min-height:24px;margin-top:9px}.notebook-text{line-height:42px!important;min-height:294px!important;background-color:#fffdf6!important;background-image:linear-gradient(to right,#dceef5 1px,transparent 1px),linear-gradient(to bottom,#dceef5 1px,transparent 1px)!important;background-size:42px 42px!important;background-position:14px 12px!important;overflow:auto}.notebook-text:disabled{background-color:#fffdf6!important}@media(max-width:600px){.grid-tools button{flex:1 1 calc(50% - 7px);min-width:0}.grid-help{font-size:14px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{body{background:#fff;color:#000}main{margin:0;padding:20px;border:0;box-shadow:none;max-width:100%}header,#answer-progress,.progress-panel,.guide-wrap,.guide-panel,.speech-controls,button:not(.reading-review-btn),#music-toggle,.submit-panel,.q-tool,.reading-review-btn{display:none!important}.reading-review-section{display:none!important}.question-card{page-break-inside:avoid;margin:16px 0;border:1px solid #ccc;padding:12px;box-shadow:none}.question-text{font-size:16px;font-weight:700;margin:10px 0}.feedback{font-size:14px;margin:8px 0}.reading-hint{display:none!important}body[data-theme=reading] .result-panel{background:transparent;border:0;box-shadow:none}body[data-theme=reading] .result-panel h2{font-size:20px;color:#000}#result{font-size:16px;color:#000;text-align:left}}
+body[data-theme=reading]{--page:#fffaf0;--ink:#293954;--muted:#78849a;--accent:#527ee4;--accent-soft:#eff5ff;--line:#e4eaf2;font-family:"Times New Roman",Times,serif;background:radial-gradient(at 10% 0%,#fff0c5,transparent 28%),radial-gradient(at 100% 20%,#e6f5ff,transparent 28%),#fffaf0}body[data-theme=reading] *{font-family:"Times New Roman",Times,serif}body[data-theme=reading] main{max-width:940px;background:transparent;border:0;box-shadow:none;padding:6px 18px 40px;margin:0 auto}.reading-top{max-width:940px;margin:auto;padding:16px 18px 0;display:flex;justify-content:space-between;gap:10px;font-weight:700;color:#3e609c}body[data-theme=reading] header.reading-hero{text-align:center;padding:18px 0 10px;background:none;border:0;border-radius:0;overflow:visible}body[data-theme=reading] header.reading-hero:before{display:none}body[data-theme=reading] legend{float:left;width:100%;margin:0 0 8px}body[data-theme=reading] legend+*{clear:both}.reading-hero small{display:block;color:#da9439;font-weight:700;letter-spacing:1px;font-size:13px}.reading-hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;color:#2b3f6d;margin:10px auto;letter-spacing:0}.reading-hero p{color:#78849a;margin:0 0 12px}.chips{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}.chips span{background:#fff;border:1px solid #e8edf3;padding:8px 13px;border-radius:20px;font-size:14px;font-weight:700}body[data-theme=reading] .progress-panel{background:#fff;border:1px solid #e9edf3;border-radius:16px;position:sticky;top:6px;z-index:5;box-shadow:0 8px 20px #2e477114}body[data-theme=reading] .progress-panel h2{color:#2b3f6d}body[data-theme=reading] progress::-webkit-progress-value{background:linear-gradient(90deg,#5cc391,#ffce64)}body[data-theme=reading] progress::-moz-progress-bar{background:linear-gradient(90deg,#5cc391,#ffce64)}.storycard{background:#fff;border:1px solid #e9edf3;border-top:5px solid #f0c450;border-radius:22px;padding:clamp(18px,4vw,32px);margin:16px 0;box-shadow:0 12px 30px #2e47710d}.story-badge{display:inline-block;background:#fff3d3;color:#956c21;padding:8px 13px;border-radius:20px;font-size:13px;font-weight:700}.storycard h2{text-align:center;color:#3b568e;font-size:23px;margin:12px 0}.story{font-size:18px;line-height:1.75;color:#3d4960;text-align:justify}.story-source{text-align:right;font-style:italic;margin-top:10px}body[data-theme=reading] .question-card{--question-border:#e9edf3!important;--question-label:transparent!important;--question-tint:#fff!important;--question-ink:#78849a!important;background:#fff;border:1px solid #e9edf3;border-radius:22px;padding:18px clamp(18px,4vw,30px) 24px;margin:16px 0;box-shadow:0 12px 30px #2e47710d}body[data-theme=reading] legend{width:100%;justify-content:space-between;padding:0}body[data-theme=reading] .question-number{background:transparent;color:#78849a;font-size:13px;letter-spacing:.5px;padding:0}body[data-theme=reading] .question-points{color:#8b67c6;background:#f4efff;padding:6px 10px;border-radius:20px;font-size:13px}body[data-theme=reading] .question-text{font-size:19px;font-weight:700;line-height:1.5;color:#293954}body[data-theme=reading] .options{grid-template-columns:1fr;gap:8px}body[data-theme=reading] .option{border:1.5px solid #e9edf4;border-radius:13px;min-height:52px;padding:12px;font-weight:700}body[data-theme=reading] .option:has(input:checked){background:#eff5ff;border-color:#7296e5;color:#385fa4}body[data-theme=reading] .option-letter{font-size:16px;color:#293954}body[data-theme=reading] .written-answer{border:1.5px solid #e4eaf2;border-radius:14px}body[data-theme=reading] .q-tool{color:#6380b6!important;border-color:#dfe7f5!important}body[data-theme=reading] .hint-tool{background:#f4efff!important;color:#7458b6!important;border-color:#e3d8fb!important}body[data-theme=reading] .q-hint{background:#faf7ff;border:0;border-left:4px solid #aa8bdf;border-radius:8px;color:#4b3a78}body[data-theme=reading] button:not(.q-tool):not(.matching-item):not([data-grid-tool]){background:linear-gradient(130deg,#527ee4,#765dd0);border-color:transparent;box-shadow:0 7px 18px #5c77d044}body[data-theme=reading] button:disabled{background:#e9edf3!important;color:#78849a!important;box-shadow:none!important}body[data-theme=reading] .instructions{text-align:center}body[data-theme=reading] .guide-wrap{justify-content:center}body[data-theme=reading] .result-panel{background:#fff;border:1px solid #e9edf3;box-shadow:0 12px 30px #2e47710d}body[data-theme=reading] #result{color:#4f79d4;text-align:center}body[data-theme=reading] .footer-art{display:none}@media(max-width:600px){.reading-top{padding:10px 12px 0;font-size:14px}body[data-theme=reading] main{padding:4px 10px 30px}.story{font-size:17px}body[data-theme=reading] .question-text{font-size:18px}}
+.q-tools{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 10px}.q-tool{background:#fff!important;color:var(--accent)!important;border:2px solid var(--line)!important;border-radius:999px!important;padding:6px 14px!important;min-height:40px!important;font:700 15px/1.3 system-ui!important;width:auto!important}.q-tool[aria-pressed=true],.q-tool[aria-expanded=true]{background:var(--accent-soft)!important;border-color:var(--accent)!important}.q-hint{margin:0 0 16px;padding:12px 16px;border-radius:12px;background:#fff7d6;border:1px dashed #e0b84a;color:#5b4410;font-size:17px;line-height:1.6;white-space:pre-wrap}.guide-wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:-8px 0 16px}.speak-status{font-size:14px;color:var(--muted)}.guide-panel{margin:0 0 20px;padding:16px 20px;border:2px solid #e7d690;border-radius:16px;background:#fffdf5}.guide-panel h2{color:#73581e;margin-bottom:8px}.guide-panel ol{margin:0;padding-left:22px;line-height:1.7}@media(max-width:600px){.q-tool{flex:1 1 auto}}
+.matching-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.matching-item{display:block;width:100%;min-height:48px;white-space:normal;overflow-wrap:anywhere;font-size:16px;line-height:1.5;padding:10px 8px;margin-bottom:10px;border:2px solid;border-radius:12px}.matching-item:disabled{opacity:1}</style></head><body data-theme="reading" data-age="upper"><div class="reading-top"><span>🌼 HỌC MÀ VUI</span><span>📚 Tiếng Việt · Lớp 4</span></div><main><header class="reading-hero"><small>HÀNH TRÌNH ĐỌC HIỂU THÚ VỊ</small><h1>Cuộc phiêu lưu của Bồ Công Anh</h1><p>Đọc bài, khám phá điều hay và tự tin hoàn thành bài nhé!</p><div class="chips"><span>⏱ 35 phút</span><span>🧩 11 câu hỏi</span><span>🏅 8 điểm</span></div></header><section class="progress-panel" aria-label="Tiến độ làm bài"><div><h2>Tiến độ làm bài</h2><p id="progress-text" aria-live="polite">Đã trả lời 0 / 11 câu</p></div><progress id="answer-progress" max="11" value="0" aria-labelledby="progress-text"></progress></section><p class="instructions">Em đọc kỹ từng câu, chọn đáp án hoặc nhập bài làm theo yêu cầu.</p><div class="guide-wrap"><button type="button" class="q-tool guide-btn" id="guide-toggle" aria-expanded="false" aria-controls="guide-panel">📖 Hướng dẫn làm bài</button><span id="speak-status" class="speak-status" role="status" aria-live="polite"></span></div><section id="guide-panel" class="guide-panel" hidden><h2>Hướng dẫn làm bài</h2><ol><li>Đọc kỹ từng câu. Chưa hiểu đề thì bấm <b>🔊 Nghe đọc đề</b> để nghe đọc lại, bấm lần nữa để dừng.</li><li>Câu trắc nghiệm: bấm vào ô đáp án em chọn. Câu Đúng/Sai: chọn Đúng hoặc Sai cho từng ý. Câu điền: gõ vào ô trống.</li><li>Câu nối: bấm một ô bên trái rồi bấm ô bên phải tương ứng.</li><li>Câu đặt tính: mỗi ô vở viết một chữ số, dùng nút <b>Kẻ thước</b> để kẻ gạch ngang.</li><li>Bí quá thì bấm <b>💡 Gợi ý</b>. Gợi ý chỉ chỉ cách nghĩ, không nói đáp án, em tự làm tiếp nhé.</li><li>Làm xong, kiểm tra lại rồi bấm <b>Nộp bài</b> ở cuối trang.</li></ol></section><form><section class="reading-passage storycard" data-reading-block="bai-doc"><div class="story-badge">📖 CÙNG ĐỌC</div><h2>CUỘC PHIÊU LƯU CỦA BỒ CÔNG ANH</h2><div class="story" style="white-space:pre-wrap">Một cơn gió ào tới, thổi tung những cánh hoa bồ công anh bay xao xác.
+– Tạm biệt mẹ! – Những cánh hoa bồ công anh vẫy đôi tay bé xíu. – Chúng con đi đây!
+Chúng bay bay trên cánh đồng. Rồi mỗi cánh hoa đều tìm thấy một nơi để dừng chân. Riêng cánh hoa bồ công anh út vẫn mải lang thang cùng chị gió. Có khi bồ công anh út bay tung lên cao. Có khi nó sà xuống mặt ao soi mình dưới nước. Nó nhẩn nha bay trên cánh đồng, ngắm nhìn muôn loài hoa đang khoe sắc.
+Thoảng đâu đó, bỗng có tiếng mẹ dịu dàng: “Cẩn thận nha út…”. Bồ công anh thì thầm: “Đừng lo, mẹ ơi!”.
+Bồ công anh tiếp tục bay. Và kìa, trước mắt nó là cánh đồng thênh thang, nơi những bông hoa cỏ mật tỏa hương ngào ngạt, nơi những bông hoa vàng li ti trải thảm đón chào, nơi những chú dế gảy lên khúc ca đồng quê rộn rã,… Bồ công anh muốn hét vang lên: “Con đã tìm thấy một nơi cho riêng mình, mẹ ơi, các anh chị ơi!”.
+Bồ công anh út đáp xuống mặt đất ấm áp và đầy hương thơm. Những chú dế tưng bừng gảy lên khúc ca hiếu khách. Và những đóa hoa đủ màu khẽ nghiêng mình để chắt lấy từng giọt sương đêm còn đọng trên cánh, dành riêng cho bồ công anh.
+Bồ công anh bé nhỏ khẽ rùng mình… Kìa, lớp áo dày của nó nứt ra và một chiếc mầm bé xíu nảy lên, xanh nõn…</div><div class="q-tools" style="justify-content:center"><button type="button" class="q-tool" data-listen-passage aria-pressed="false">🔊 Nghe đọc bài</button></div></section><fieldset class="question-card" data-question-index="0"><legend><span class="question-number">CÂU 1 / 11</span><span class="question-points">0,5 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="0" aria-pressed="false">🔊 Nghe câu hỏi</button></div><div class="question-text" style="white-space:pre-wrap">Chuyện gì đã xảy ra khi một cơn gió ào tới?</div> <div class="options"><label class="option"><input type="radio" name="q0" value="0"><span class="option-letter" aria-hidden="true">A</span><span class="option-text">Bầu trời trong xanh hơn.</span></label><label class="option"><input type="radio" name="q0" value="1"><span class="option-letter" aria-hidden="true">B</span><span class="option-text">Thổi tung những cánh hoa bồ công anh bay xao xác.</span></label><label class="option"><input type="radio" name="q0" value="2"><span class="option-letter" aria-hidden="true">C</span><span class="option-text">Mây đen kéo đến.</span></label><label class="option"><input type="radio" name="q0" value="3"><span class="option-letter" aria-hidden="true">D</span><span class="option-text">Mưa đổ xuống ào ào.</span></label></div><p id="feedback-0" class="feedback"></p></fieldset><fieldset class="question-card" data-question-index="1"><legend><span class="question-number">CÂU 2 / 11</span><span class="question-points">0,5 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="1" aria-pressed="false">🔊 Nghe câu hỏi</button></div><div class="question-text" style="white-space:pre-wrap">Khi các cánh hoa bồ công anh khác đã tìm được nơi dừng chân, cánh hoa út làm gì?</div> <div class="options"><label class="option"><input type="radio" name="q1" value="0"><span class="option-letter" aria-hidden="true">A</span><span class="option-text">Mải lang thang cùng chị gió.</span></label><label class="option"><input type="radio" name="q1" value="1"><span class="option-letter" aria-hidden="true">B</span><span class="option-text">Chỉ bay trên cánh đồng và ngắm hoa.</span></label><label class="option"><input type="radio" name="q1" value="2"><span class="option-letter" aria-hidden="true">C</span><span class="option-text">Bay đến khu rừng rồi tìm đường trở về.</span></label><label class="option"><input type="radio" name="q1" value="3"><span class="option-letter" aria-hidden="true">D</span><span class="option-text">Bay theo các cánh hoa khác đến nơi xa.</span></label></div><p id="feedback-1" class="feedback"></p></fieldset><fieldset class="question-card" data-question-index="2"><legend><span class="question-number">CÂU 3 / 11</span><span class="question-points">0,5 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="2" aria-pressed="false">🔊 Nghe câu hỏi</button></div><div class="question-text" style="white-space:pre-wrap">Đến cánh đồng thênh thang, bồ công anh út muốn hét lên điều gì?</div> <div class="options"><label class="option"><input type="radio" name="q2" value="0"><span class="option-letter" aria-hidden="true">A</span><span class="option-text">Nó muốn tiếp tục bay cùng chị gió.</span></label><label class="option"><input type="radio" name="q2" value="1"><span class="option-letter" aria-hidden="true">B</span><span class="option-text">Nó đã tìm thấy một nơi cho riêng mình.</span></label><label class="option"><input type="radio" name="q2" value="2"><span class="option-letter" aria-hidden="true">C</span><span class="option-text">Nó muốn trở về bên mẹ.</span></label><label class="option"><input type="radio" name="q2" value="3"><span class="option-letter" aria-hidden="true">D</span><span class="option-text">Nó muốn bay theo các anh chị.</span></label></div><p id="feedback-2" class="feedback"></p></fieldset><fieldset class="question-card" data-question-index="3"><legend><span class="question-number">CÂU 4 / 11</span><span class="question-points">0,5 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="3" aria-pressed="false">🔊 Nghe câu hỏi</button></div><div class="question-text" style="white-space:pre-wrap">Sau khi bồ công anh út đáp xuống mặt đất, điều gì đã xảy ra?</div> <div class="options"><label class="option"><input type="radio" name="q3" value="0"><span class="option-letter" aria-hidden="true">A</span><span class="option-text">Bồ công anh út tiếp tục bay cùng chị gió.</span></label><label class="option"><input type="radio" name="q3" value="1"><span class="option-letter" aria-hidden="true">B</span><span class="option-text">Bồ công anh út tìm đường trở về với mẹ.</span></label><label class="option"><input type="radio" name="q3" value="2"><span class="option-letter" aria-hidden="true">C</span><span class="option-text">Lớp áo dày nứt ra, một chiếc mầm xanh nõn nảy lên.</span></label><label class="option"><input type="radio" name="q3" value="3"><span class="option-letter" aria-hidden="true">D</span><span class="option-text">Những chú dế ngừng gảy khúc ca đồng quê.</span></label></div><p id="feedback-3" class="feedback"></p></fieldset><fieldset class="question-card" data-question-index="4"><legend><span class="question-number">CÂU 5 / 11</span><span class="question-points">1 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="4" aria-pressed="false">🔊 Nghe câu hỏi</button><button type="button" class="q-tool hint-tool" data-hint="4" aria-expanded="false" aria-controls="hint-4" data-label="✨ Gợi ý để em tự làm">✨ Gợi ý để em tự làm</button></div><div class="question-text" style="white-space:pre-wrap">Qua câu chuyện, tác giả muốn nhắn nhủ với em điều gì?</div><p class="q-hint" id="hint-4" hidden>💡 Hãy nghĩ về hành trình khám phá của bồ công anh út. Bạn ấy tìm thấy điều gì? Câu chuyện gợi cho em bài học nào về trải nghiệm và cuộc sống?</p><label class="written-label" for="answer-4">Bài làm của em<textarea class="written-answer" id="answer-4" name="q4" rows="6"></textarea></label><p id="feedback-4" class="feedback"></p></fieldset><fieldset class="question-card" data-question-index="5"><legend><span class="question-number">CÂU 6 / 11</span><span class="question-points">1 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="5" aria-pressed="false">🔊 Nghe câu hỏi</button><button type="button" class="q-tool hint-tool" data-hint="5" aria-expanded="false" aria-controls="hint-5" data-label="✨ Gợi ý để em tự làm">✨ Gợi ý để em tự làm</button></div><div class="question-text" style="white-space:pre-wrap">Theo em, bồ công anh út là nhân vật như thế nào? Chi tiết nào trong bài giúp em nhận ra điều đó?</div><p class="q-hint" id="hint-5" hidden>💡 Nêu một đặc điểm của bồ công anh út, rồi tìm một hành động trong bài làm bằng chứng. Em có thể nghĩ đến sự ham khám phá hoặc tình yêu thiên nhiên.</p><label class="written-label" for="answer-5">Bài làm của em<textarea class="written-answer" id="answer-5" name="q5" rows="6"></textarea></label><p id="feedback-5" class="feedback"></p></fieldset><fieldset class="question-card" data-question-index="6"><legend><span class="question-number">CÂU 7 / 11</span><span class="question-points">1 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="6" aria-pressed="false">🔊 Nghe câu hỏi</button><button type="button" class="q-tool hint-tool" data-hint="6" aria-expanded="false" aria-controls="hint-6" data-label="✨ Gợi ý để em tự làm">✨ Gợi ý để em tự làm</button></div><div class="question-text" style="white-space:pre-wrap">Nếu được trải nghiệm, khám phá một nơi mới giống như bồ công anh út, em muốn đến nơi nào? Vì sao?</div><p class="q-hint" id="hint-6" hidden>💡 Chọn một nơi em thật sự muốn đến. Em sẽ nhìn thấy, tìm hiểu hay trải nghiệm điều gì ở đó? Viết 1–3 câu theo ý của em.</p><label class="written-label" for="answer-6">Bài làm của em<textarea class="written-answer" id="answer-6" name="q6" rows="6"></textarea></label><p id="feedback-6" class="feedback"></p></fieldset><fieldset class="question-card" data-question-index="7"><legend><span class="question-number">CÂU 8 / 11</span><span class="question-points">0,5 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="7" aria-pressed="false">🔊 Nghe câu hỏi</button></div><div class="question-text" style="white-space:pre-wrap">Từ ngữ nào có nghĩa gần giống với “thênh thang”?</div> <div class="options"><label class="option"><input type="radio" name="q7" value="0"><span class="option-letter" aria-hidden="true">A</span><span class="option-text">Chật hẹp, nhỏ bé.</span></label><label class="option"><input type="radio" name="q7" value="1"><span class="option-letter" aria-hidden="true">B</span><span class="option-text">Bằng phẳng, nhẵn nhụi.</span></label><label class="option"><input type="radio" name="q7" value="2"><span class="option-letter" aria-hidden="true">C</span><span class="option-text">Gồ ghề, khúc khuỷu.</span></label><label class="option"><input type="radio" name="q7" value="3"><span class="option-letter" aria-hidden="true">D</span><span class="option-text">Mênh mông, bao la.</span></label></div><p id="feedback-7" class="feedback"></p></fieldset><fieldset class="question-card" data-question-index="8"><legend><span class="question-number">CÂU 9 / 11</span><span class="question-points">0,5 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="8" aria-pressed="false">🔊 Nghe câu hỏi</button></div><div class="question-text" style="white-space:pre-wrap">Tục ngữ hoặc thành ngữ nào nói về việc trải nghiệm, khám phá?</div> <div class="options"><label class="option"><input type="radio" name="q8" value="0"><span class="option-letter" aria-hidden="true">A</span><span class="option-text">Chớ thấy sóng cả mà ngã tay chèo.</span></label><label class="option"><input type="radio" name="q8" value="1"><span class="option-letter" aria-hidden="true">B</span><span class="option-text">Có công mài sắt, có ngày nên kim.</span></label><label class="option"><input type="radio" name="q8" value="2"><span class="option-letter" aria-hidden="true">C</span><span class="option-text">Đi một ngày đàng, học một sàng khôn.</span></label><label class="option"><input type="radio" name="q8" value="3"><span class="option-letter" aria-hidden="true">D</span><span class="option-text">Mỗi người mỗi vẻ.</span></label></div><p id="feedback-8" class="feedback"></p></fieldset><fieldset class="question-card" data-question-index="9"><legend><span class="question-number">CÂU 10 / 11</span><span class="question-points">1 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="9" aria-pressed="false">🔊 Nghe câu hỏi</button><button type="button" class="q-tool hint-tool" data-hint="9" aria-expanded="false" aria-controls="hint-9" data-label="✨ Gợi ý để em tự làm">✨ Gợi ý để em tự làm</button></div><div class="question-text" style="white-space:pre-wrap">Tìm 1 danh từ trong câu sau rồi đặt câu với danh từ vừa tìm được: “Bồ công anh út đáp xuống mặt đất ấm áp và đầy hương thơm.”</div><p class="q-hint" id="hint-9" hidden>💡 Các danh từ có thể chọn: bồ công anh, mặt đất, hương thơm. Chọn một từ rồi đặt một câu mới có từ ấy.</p><label class="written-label" for="answer-9">Bài làm của em<textarea class="written-answer" id="answer-9" name="q9" rows="6"></textarea></label><p id="feedback-9" class="feedback"></p></fieldset><fieldset class="question-card" data-question-index="10"><legend><span class="question-number">CÂU 11 / 11</span><span class="question-points">1 điểm</span></legend><div class="q-tools"><button type="button" class="q-tool" data-listen="10" aria-pressed="false">🔊 Nghe câu hỏi</button><button type="button" class="q-tool hint-tool" data-hint="10" aria-expanded="false" aria-controls="hint-10" data-label="✨ Gợi ý để em tự làm">✨ Gợi ý để em tự làm</button></div><div class="question-text" style="white-space:pre-wrap">Viết một câu chủ đề phù hợp với đoạn văn sau: “Bồ công anh út được bay trên cánh đồng, sà xuống mặt ao và ngắm nhìn những loài hoa. Trên hành trình ấy, nó được ngắm nhìn biết bao cảnh đẹp và khám phá nhiều điều mới lạ. Khi đáp xuống mặt đất ấm áp, nó vui mừng đón chờ một cuộc sống mới.”</div><p class="q-hint" id="hint-10" hidden>💡 Câu chủ đề nêu ý chính bao quát. Đoạn kể về hành trình bay, khám phá và tìm nơi sống mới của bồ công anh út. Hãy diễn đạt ý ấy bằng một câu.</p><label class="written-label" for="answer-10">Bài làm của em<textarea class="written-answer" id="answer-10" name="q10" rows="6"></textarea></label><p id="feedback-10" class="feedback"></p></fieldset><p id="save-status" class="save-status" role="status"></p><p id="attempt-limit-status" role="status"></p><div class="submit-panel"><p>Em kiểm tra lại các câu trả lời trước khi nộp nhé.</p><button id="submit" type="submit">Nộp bài</button></div></form><section class="result-panel" aria-label="Kết quả luyện tập"><h2>Bài luyện tập đã hoàn thành</h2><p id="result" role="status" tabindex="-1"></p><p id="visibility-status" role="status"></p><div class="submission-export"><button type="button" id="retry" hidden>🔁 Làm lại bài</button><button type="button" id="export-submission" hidden>Tải bản sao bài làm để giáo viên chấm</button><p id="send-status" role="status"></p><button type="button" id="resend" hidden>Gửi lại bài cho thầy cô</button></div><section class="teacher-feedback" aria-labelledby="teacher-feedback-heading"><h3 id="teacher-feedback-heading">Lời nhận xét của thầy cô</h3><p id="teacher-comment"></p><div class="speech-controls"><button type="button" id="speech-listen" disabled>Nghe nhận xét</button><button type="button" id="speech-stop" hidden>Dừng nghe</button><label>Tốc độ đọc<select id="speech-rate"><option value="0.8">Chậm</option><option value="0.95" selected>Vừa</option><option value="1.1">Nhanh hơn</option></select></label></div><p id="speech-status" role="status"></p><p class="speech-note">Âm thanh theo nhóm được tải khi em bấm nghe; bản dự phòng chỉ dùng được nếu đã đóng gói. Nếu chưa có tệp phù hợp, trình duyệt sẽ thử giọng Việt cục bộ hoặc giữ nhận xét bằng chữ.</p></section></section><div class="footer-art" aria-hidden="true"><svg viewBox="0 0 680 60" aria-hidden="true" focusable="false"><g stroke-linecap="round" stroke-linejoin="round"><path d="M8 53q65-9 126 0t116 0t130 0t134 0t157 0" fill="none" stroke="#c6dfb3" stroke-width="3"/><g fill="#a7cfa4" stroke="#719f72" stroke-width="1"><path d="M35 50Q7 51 13 32q22-3 22 18M36 49Q33 21 52 24q9 18-16 25M71 50Q48 34 62 24q21 8 9 26M77 50Q82 24 100 33q0 20-23 17M112 52Q100 29 120 27q12 17-8 25"/><path d="M553 51q-22-18-9-29 20 6 9 29M560 51q6-29 25-21 1 22-25 21M606 51q-26-14-15-29 22 4 15 29M614 50q4-27 22-22 4 22-22 22M649 52q-10-24 9-25 14 15-9 25"/></g><g transform="translate(48 22)"><g fill="#edb5cc"><ellipse cy="-8" rx="6" ry="8"/><ellipse cx="8" rx="8" ry="6"/><ellipse cy="8" rx="6" ry="8"/><ellipse cx="-8" rx="8" ry="6"/></g><circle r="5" fill="#f7d879"/></g><g transform="translate(98 37) scale(.7)"><g fill="#fff3c1" stroke="#e6ce7a"><ellipse cy="-8" rx="6" ry="8"/><ellipse cx="8" rx="8" ry="6"/><ellipse cy="8" rx="6" ry="8"/><ellipse cx="-8" rx="8" ry="6"/></g><circle r="5" fill="#d7a157"/></g><g transform="translate(595 23)"><g fill="#f6d67f"><ellipse cy="-8" rx="6" ry="8"/><ellipse cx="8" rx="8" ry="6"/><ellipse cy="8" rx="6" ry="8"/><ellipse cx="-8" rx="8" ry="6"/></g><circle r="5" fill="#bb8851"/></g><g transform="translate(640 36) scale(.8)"><g fill="#ecc1d4"><ellipse cy="-8" rx="6" ry="8"/><ellipse cx="8" rx="8" ry="6"/><ellipse cy="8" rx="6" ry="8"/><ellipse cx="-8" rx="8" ry="6"/></g><circle r="5" fill="#f6db85"/></g><g transform="translate(292 26)"><path d="M2 8Q22-1 46 8V26Q23 17 2 26z" fill="#fff7dc" stroke="#c1a56b" stroke-width="2"/><path d="M46 8Q69-1 91 8V26Q69 17 46 26z" fill="#fff7dc" stroke="#c1a56b" stroke-width="2"/><path d="M46 8v18M10 13q14-5 28 0M54 13q14-5 28 0" fill="none" stroke="#d4bc84" stroke-width="1.5"/></g></g></svg></div><footer class="practice-notice"><strong>HTML luyện tập – chấm phần đủ điều kiện offline</strong><p>Bản luyện tập offline có chứa đáp án để tự chấm. Không dùng làm kỳ thi bảo mật. Bài làm được lưu trên trình duyệt này nếu thiết bị cho phép; có thể tải bản sao sau khi nộp. Chưa đồng bộ LMS. Câu tự luận và trả lời ngắn không đủ căn cứ sẽ chờ giáo viên chấm.</p></footer></main>
+<script>
+(function() {
+  window.domain = {
+    submitAttempt: async (answers) => {
+      return { status: 'graded', score: 5.5, maxScore: 11, answers };
+    }
+  };
+})();
+</script><script>const createFeedback=function createFeedback(attempt, visibility) {
+  if(attempt.status==='in-progress')return '';
+  if(visibility&&(!visibility.score||!visibility.answers))return 'Cảm ơn em đã hoàn thành và nộp bài luyện tập. Em hãy tiếp tục ôn tập đều đặn và nhờ thầy cô hướng dẫn khi cần nhé.';
+  if(attempt.results.some(result=>result.status==='pending-manual'))return 'Cảm ơn em đã hoàn thành bài luyện tập. Một phần bài làm đang chờ thầy cô chấm nên chưa có kết quả toàn bài. Em có thể đọc lại bài làm và tiếp tục ôn tập nhé.';
+  if(!Number.isFinite(attempt.score)||attempt.status!=='graded') return '';
+  const correct=[],wrong=[],blank=[];
+  attempt.questions.forEach((question,index)=>{
+    const answer=attempt.answers[question.id];
+    const result=attempt.results.find(item=>item.questionId===question.id);
+    if(answer==null || (typeof answer==='string'&&!answer.trim()) || (Array.isArray(answer)&&answer.length===0)) blank.push(index+1);
+    else if(result&&result.points===question.points) correct.push(index+1);
+    else wrong.push(index+1);
+  });
+  const total=attempt.questions.length;
+  const shortList=numbers=>numbers.slice(0,4).join(', ')+(numbers.length>4?' và '+(numbers.length-4)+' câu khác':'');
+  const score=attempt.score.toLocaleString('vi-VN')+' trên '+attempt.maxScore.toLocaleString('vi-VN')+' điểm';
+  if(correct.length===total) return 'Em đã trả lời đúng cả '+total+' câu và đạt '+score+'. Cảm ơn em đã hoàn thành bài luyện tập! Em có thể thử thêm những bài tương tự để tiếp tục ôn tập.';
+  const sentences=[correct.length>=total*.6?
+    'Em đã trả lời đúng phần lớn bài: '+correct.length+' trong '+total+' câu, đạt '+score+'.':
+    'Ở lần luyện tập này, em trả lời đúng '+correct.length+' trong '+total+' câu và đạt '+score+'.'];
+  if(wrong.length){
+    const topics=[...new Set(wrong.map(number=>attempt.questions[number-1].topic).filter(Boolean))].slice(0,2);
+    sentences.push('Em hãy xem lại câu '+shortList(wrong)+(topics.length?' và ôn thêm chủ đề «'+topics.join('», «')+'»':'')+'.');
+  }
+  if(blank.length) sentences.push('Còn '+blank.length+' câu chưa trả lời (câu '+shortList(blank)+'); em hãy thử hoàn thành trong lần luyện tập tiếp theo nhé.');
+  sentences.push(correct.length?'Em hãy tiếp tục luyện từng bước; mỗi lần xem lại bài đều là một cơ hội để học thêm.':'Em có thể bắt đầu lại với từng câu và nhờ thầy cô hỗ trợ khi cần.');
+  return sentences.join(' ');
+};const chooseLocalVietnameseVoice=function chooseLocalVietnameseVoice(voices) {
+  return voices.filter(voice=>voice.localService===true&&/^vi(?:[-_]|$)/i.test(voice.lang||''))
+    .sort((a,b)=>Number(/^vi[-_]vn$/i.test(b.lang))-Number(/^vi[-_]vn$/i.test(a.lang))||Number(b.default===true)-Number(a.default===true))[0]||null;
+};const chooseFeedbackAudioGroup=function chooseFeedbackAudioGroup(attempt,visibility){
+  if(!visibility.score||!visibility.answers)return 'neutral';
+  if(attempt.results.some(result=>result.status==='pending-manual'))return 'pending';
+  if(attempt.questions.some(q=>{const a=attempt.answers[q.id];return a==null||typeof a==='string'&&!a.trim()||Array.isArray(a)&&!a.length;}))return 'unanswered';
+  const graded=attempt.results.filter(result=>result.status==='graded');
+  const correct=graded.filter(result=>result.points===result.maxPoints).length;
+  const ratio=graded.length?correct/graded.length:0;
+  return ratio===1?'excellent':ratio>=.8?'good':ratio>=.6?'satisfactory':ratio>=.4?'effort':'review';
+};const setupSpeech=function setupSpeech(getGroup, catalog) {
+  const listen=document.getElementById('speech-listen'),stop=document.getElementById('speech-stop');
+  const status=document.getElementById('speech-status'),text=document.getElementById('teacher-comment'),rate=document.getElementById('speech-rate');
+  const synth=window.speechSynthesis;
+  const supported=!!(synth&&typeof synth.getVoices==='function'&&typeof window.SpeechSynthesisUtterance==='function');
+  let voice=null,current=null,audio=null,timer=null,generation=0,hasRead=false;
+  function idle(message){stop.hidden=true;listen.textContent=hasRead?'Nghe lại':'Nghe nhận xét';status.textContent=message;}
+  function clearAudio(){clearTimeout(timer);timer=null;if(audio){const old=audio;audio=null;old.onplaying=old.onended=old.onerror=old.onwaiting=old.onstalled=null;old.pause();old.removeAttribute('src');old.load();}}
+  function cancel(message){generation++;clearAudio();if(current){current=null;synth.cancel();}idle(message);}
+  function refresh(){
+    try{voice=supported?chooseLocalVietnameseVoice(synth.getVoices()):null;}catch(_){voice=null;}
+    listen.disabled=!text.textContent;
+    if(!current&&!audio){const group=(catalog||[]).find(item=>item.id===getGroup?.());
+      idle(group?.teacherConfirmed&&(group.onlineUrl||group.offlineSrc)?'Bấm Nghe nhận xét để nghe lời động viên theo nhóm.':voice?'Bấm Nghe nhận xét để nghe giọng Việt trên thiết bị.':'Chưa có tệp âm thanh hoặc giọng Việt phù hợp. Em vẫn có thể đọc nhận xét bên trên.');}
+  }
+  function speakLocal(token){
+    if(token!==generation)return;refresh();
+    if(!voice){idle('Chưa có âm thanh hoặc giọng Việt phù hợp. Em hãy đọc nhận xét bằng chữ nhé.');return;}
+    const utterance=new window.SpeechSynthesisUtterance(text.textContent);utterance.voice=voice;utterance.lang='vi-VN';utterance.rate=Number(rate.value)||.95;utterance.volume=1;utterance.pitch=1;
+    current=utterance;stop.hidden=false;status.textContent='Đang đọc nhận xét…';
+    utterance.onend=()=>{if(token===generation&&current===utterance){current=null;idle('Đã đọc xong nhận xét.');}};
+    utterance.onerror=()=>{if(token===generation&&current===utterance){current=null;idle('Không phát được giọng Việt. Em hãy đọc nhận xét bằng chữ nhé.');}};
+    try{synth.speak(utterance);}catch(_){utterance.onerror();}
+  }
+  function playSources(sources,index,token){
+    if(token!==generation)return;
+    if(index>=sources.length){speakLocal(token);return;}
+    const source=sources[index];let player;try{player=new window.Audio();}catch(_){playSources(sources,index+1,token);return;}
+    audio=player;player.preload='none';let settled=false;
+    const next=()=>{if(settled||token!==generation||audio!==player)return;settled=true;clearAudio();playSources(sources,index+1,token);};
+    const arm=()=>{clearTimeout(timer);timer=setTimeout(next,6000);};
+    player.onerror=next;player.onwaiting=arm;player.onstalled=arm;
+    player.onplaying=()=>{if(token===generation&&audio===player){clearTimeout(timer);status.textContent=source.online?'Đang phát nhận xét online…':'Đang phát nhận xét dự phòng offline…';}};
+    player.onended=()=>{if(token===generation&&audio===player){settled=true;clearAudio();idle('Đã nghe xong nhận xét.');}};
+    status.textContent=source.online?'Đang tải nhận xét online…':'Đang mở nhận xét dự phòng…';stop.hidden=false;player.src=source.src;arm();
+    try{const promise=player.play();if(promise?.catch)promise.catch(next);}catch(_){next();}
+  }
+  listen.addEventListener('click',()=>{
+    if(!text.textContent)return;if(typeof window.CustomEvent==='function')window.dispatchEvent(new window.CustomEvent('hmv:feedback-listen'));cancel('');hasRead=true;listen.textContent='Nghe lại';
+    const token=generation,group=(catalog||[]).find(item=>item.id===getGroup?.()),sources=[];
+    if(group?.teacherConfirmed){if(group.onlineUrl)sources.push({src:group.onlineUrl,online:true});if(group.offlineSrc)sources.push({src:group.offlineSrc,online:false});}
+    playSources(sources,0,token);
+  });
+  stop.addEventListener('click',()=>cancel('Đã dừng nghe. Bấm Nghe lại để nghe từ đầu.'));
+  if(supported)synth.addEventListener('voiceschanged',refresh);
+  window.addEventListener('pagehide',()=>cancel('Đã dừng nghe.'));window.addEventListener('beforeunload',()=>cancel('Đã dừng nghe.'));
+  refresh();return refresh;
+};const setupBackgroundMusic=function setupBackgroundMusic(config,canPlay){
+  const button=document.getElementById('music-toggle'),volume=document.getElementById('music-volume'),status=document.getElementById('music-status');
+  if(!button)return;
+  let audio=null,timer=null,generation=0,playing=false;
+  const valid=config?.enabled&&(config.onlineUrl||config.offlineSrc);
+  function stop(message){generation++;clearTimeout(timer);timer=null;playing=false;if(audio){const old=audio;audio=null;old.onerror=old.onplaying=null;old.pause();old.removeAttribute('src');old.load();}button.textContent='Bật nhạc';if(message)status.textContent=message;}
+  button.disabled=!valid||!canPlay();volume.disabled=!valid;volume.value=String(config?.volume??.1);
+  if(!valid)status.textContent='Chưa có nguồn nhạc hợp lệ đã được xác nhận quyền sử dụng.';
+  function start(index,token,sources){
+    if(token!==generation||!canPlay())return;
+    if(index>=sources.length){stop('Không phát được nhạc. Khi offline cần nhạc đã đóng gói hoặc có trong bộ nhớ đệm.');return;}
+    let player;try{player=new window.Audio();}catch(_){stop('Thiết bị chưa hỗ trợ phát nhạc.');return;}
+    audio=player;player.preload='none';player.loop=true;player.volume=Number(volume.value);let failed=false;
+    const next=()=>{if(failed||token!==generation||audio!==player)return;failed=true;clearTimeout(timer);audio=null;player.onplaying=player.onerror=null;player.pause();player.removeAttribute('src');player.load();start(index+1,token,sources);};
+    player.onerror=next;player.onplaying=()=>{if(token!==generation||audio!==player)return;clearTimeout(timer);status.textContent='Nhạc nền đang bật.';};
+    player.src=sources[index];timer=setTimeout(next,6000);
+    try{const promise=player.play();if(promise?.catch)promise.catch(next);}catch(_){next();}
+  }
+  button.addEventListener('click',()=>{
+    if(!valid||!canPlay())return;
+    if(playing){stop('Đã tắt nhạc.');return;}
+    if(!document.getElementById('speech-stop').hidden){status.textContent='Em có thể bật nhạc sau khi dừng nghe nhận xét.';return;}
+    stop('Đang mở nhạc nền…');playing=true;button.textContent='Tắt nhạc';
+    const sources=[config.onlineUrl,config.offlineSrc].filter(Boolean);start(0,generation,sources);
+  });
+  volume.addEventListener('input',()=>{if(audio)audio.volume=Math.max(0,Math.min(1,Number(volume.value)));});
+  window.addEventListener('hmv:feedback-listen',()=>stop('Đã tạm dừng nhạc để nghe nhận xét.'));
+  window.addEventListener('hmv:submitted',()=>{stop('Nhạc đã dừng khi nộp bài.');button.disabled=true;volume.disabled=true;});
+  window.addEventListener('pagehide',()=>stop(''));window.addEventListener('beforeunload',()=>stop(''));
+};const setupMatching=function setupMatching(host,q,initialAnswer,locked,onChange){
+  const n=q.pairs.length,colors=['#e5f3fa','#fbe8ed','#e9f3df','#fff3ce','#eee8fa','#dcf3ef','#f8eadc','#e8edfc'];
+  let answer=Array.isArray(initialAnswer)?initialAnswer.slice(0,n):[],selected=null;
+  answer=Array.from({length:n},(_,i)=>Number.isInteger(answer[i])&&answer[i]>=0&&answer[i]<n?answer[i]:null);
+  answer=answer.map((b,i)=>b!==null&&answer.indexOf(b)!==i?null:b);
+  function render(){host.replaceChildren();const columns=document.createElement('div');columns.className='matching-columns';
+    const left=document.createElement('div'),right=document.createElement('div');
+    const label=document.createElement('p');label.textContent='Chạm cột A rồi chạm cột B. Chạm lại mục đã nối ở cột A để bỏ nối.';host.append(label);
+    function item(side,index,position){const button=document.createElement('button');button.type='button';button.className='matching-item';button.dataset[side]=String(index);button.disabled=locked();
+      const partner=side==='a'?answer[index]:answer.indexOf(index),paired=side==='a'?partner!==null:partner>=0;
+      const number=side==='a'?index:partner;
+      button.style.background=paired?colors[number]:'#fff';button.style.color='#173f5b';button.style.borderColor=side==='a'&&selected===index?'#245c80':'#c4dce5';button.setAttribute('aria-pressed',String(side==='a'&&selected===index));
+      button.textContent=(side==='a'?'A'+(index+1):'B'+(position+1))+'. '+(side==='a'?q.pairs[index].left:q.pairs[index].right)+(paired?' · Cặp '+(number+1):'');
+      button.addEventListener('click',()=>{if(locked())return;if(side==='a'){if(answer[index]!==null){answer[index]=null;selected=index;onChange(answer.slice());}else selected=selected===index?null:index;}else if(selected!==null){answer=answer.map((b,i)=>b===index&&i!==selected?null:b);answer[selected]=index;selected=null;onChange(answer.slice());}render();});return button;
+    }
+    q.pairs.forEach((_,i)=>left.append(item('a',i,i)));q.matchingOrder.forEach((i,j)=>right.append(item('b',i,j)));columns.append(left,right);host.append(columns);
+  }
+  render();return {serialize:()=>answer.slice(),render};
+};const setupCalculationGrid=function setupCalculationGrid(host, initial, onChange, isLocked, suggestedColumns) {
+  const size=42,board=host.querySelector('.grid-board'),status=host.querySelector('.grid-status');
+  const validMark=value=>typeof value==='string'&&/^[0-9+\-−×÷=,.:]$/.test(value);
+  const fresh=()=>({kind:'grid-v1',mode:'calculation',cols:Math.max(7,Math.min(24,suggestedColumns||7)),rows:5,cells:{},lines:[],history:[]});
+  let state=fresh();
+  if(initial?.kind==='grid-v1'&&initial.mode==='calculation'&&Number.isInteger(initial.cols)&&initial.cols>=7&&initial.cols<=32&&Number.isInteger(initial.rows)&&initial.rows>=5&&initial.rows<=24){
+    state.cols=initial.cols;state.rows=initial.rows;
+    state.cells=Object.fromEntries(Object.entries(initial.cells||{}).filter(([key,value])=>{const [r,c]=key.split(':').map(Number);return Number.isInteger(r)&&r>=0&&r<state.rows&&Number.isInteger(c)&&c>=0&&c<state.cols&&validMark(value);}));
+    state.lines=(Array.isArray(initial.lines)?initial.lines:[]).filter(line=>line&&['h','v'].includes(line.orientation)&&Number.isInteger(line.boundary)&&Number.isInteger(line.start)&&Number.isInteger(line.end)).slice(0,100).map(line=>({...line}));
+    state.history=Array.isArray(initial.history)?initial.history.slice(-30):[];
+  }
+  let tool='write',active={row:0,col:state.cols-2},typed='',pending=null,drag=null,lineNumber=0;
+  const snapshot=()=>({cols:state.cols,rows:state.rows,cells:{...state.cells},lines:state.lines.map(line=>({...line}))});
+  const checkpoint=()=>{state.history.push(snapshot());if(state.history.length>30)state.history.shift();};
+  const serialize=()=>JSON.parse(JSON.stringify(state));
+  const emit=()=>onChange(serialize());
+  const note=message=>{status.textContent=message;};
+  const key=(row,col)=>row+':'+col;
+  function highlight(){board.querySelectorAll('.grid-cell.is-selected').forEach(cell=>cell.classList.remove('is-selected'));board.querySelector(`.grid-cell[data-row="${active.row}"][data-col="${active.col}"]`)?.classList.add('is-selected');}
+  function syncCells(){board.querySelectorAll('.grid-cell').forEach(cell=>{cell.value=state.cells[key(Number(cell.dataset.row),Number(cell.dataset.col))]||'';});highlight();}
+  function render(){
+    board.replaceChildren();board.style.width=state.cols*size+'px';board.style.height=state.rows*size+'px';
+    board.style.gridTemplateColumns=`repeat(${state.cols}, ${size}px)`;board.style.gridTemplateRows=`repeat(${state.rows}, ${size}px)`;
+    for(let row=0;row<state.rows;row++)for(let col=0;col<state.cols;col++){
+      const cell=document.createElement('input');cell.type='text';cell.inputMode='decimal';cell.autocomplete='off';
+      cell.className='grid-cell';cell.dataset.row=row;cell.dataset.col=col;
+      cell.setAttribute('aria-label','Dòng '+(row+1)+', cột '+(col+1));cell.value=state.cells[key(row,col)]||'';cell.disabled=isLocked();board.append(cell);
+    }
+    state.lines.forEach(line=>{
+      const stroke=document.createElement('div');stroke.className='grid-stroke';stroke.dataset.lineId=line.id;
+      stroke.setAttribute('aria-label',line.orientation==='h'?'Đường ngang':'Đường dọc');
+      if(line.orientation==='h'){stroke.style.left=line.start*size+'px';stroke.style.top=line.boundary*size+'px';stroke.style.width=(line.end-line.start+1)*size+'px';stroke.classList.add('horizontal');}
+      else{stroke.style.left=line.boundary*size+'px';stroke.style.top=line.start*size+'px';stroke.style.height=(line.end-line.start+1)*size+'px';stroke.classList.add('vertical');}
+      board.append(stroke);
+    });
+    board.classList.toggle('ruler-active',tool==='ruler');highlight();
+    host.querySelectorAll('[data-grid-tool]').forEach(button=>{button.setAttribute('aria-pressed',String(button.dataset.gridTool===tool));button.disabled=isLocked()&&button.dataset.gridTool!=='undo';});
+    host.querySelector('[data-grid-tool="undo"]').disabled=isLocked()||!state.history.length;
+  }
+  function at(event){const rect=board.getBoundingClientRect();return {row:Math.max(0,Math.min(state.rows-1,Math.floor((event.clientY-rect.top)/size))),col:Math.max(0,Math.min(state.cols-1,Math.floor((event.clientX-rect.left)/size)))};}
+  function select(row,col,focus){active={row,col};typed='';highlight();if(focus)board.querySelector(`.grid-cell[data-row="${row}"][data-col="${col}"]`)?.focus();}
+  function setMark(row,col,value){const slot=key(row,col);if(state.cells[slot]===value)return;checkpoint();if(value)state.cells[slot]=value;else delete state.cells[slot];syncCells();renderUndo();emit();}
+  function renderUndo(){host.querySelector('[data-grid-tool="undo"]').disabled=isLocked()||!state.history.length;}
+  function writeSequence(sequence){
+    const marks=String(sequence).replace(/\s+/g,'');
+    if(!marks||marks.length>32||![...marks].every(validMark)){note('Chỉ nhập chữ số hoặc ký hiệu toán học, tối đa 32 ô.');syncCells();return;}
+    let {row,col}=active,extra=Math.max(0,marks.length-col-1);
+    if(state.cols+extra>32){note('Số quá dài: tối đa 32 cột ô li.');syncCells();return;}
+    checkpoint();
+    if(extra){
+      state.cells=Object.fromEntries(Object.entries(state.cells).map(([slot,value])=>{const [r,c]=slot.split(':').map(Number);return [key(r,c+extra),value];}));
+      state.lines=state.lines.map(line=>line.orientation==='h'?{...line,start:line.start+extra,end:line.end+extra}:{...line,boundary:line.boundary+extra});
+      state.cols+=extra;col+=extra;active.col=col;
+    }
+    [...marks].forEach((mark,index)=>{state.cells[key(row,col-marks.length+1+index)]=mark;});
+    const expandedRow=row===state.rows-1&&state.rows<24;
+    if(expandedRow)state.rows++;
+    if(extra||expandedRow){render();board.querySelector(`.grid-cell[data-row="${row}"][data-col="${col}"]`)?.focus();typed=marks;}
+    else syncCells();
+    renderUndo();emit();note('Đã ghi '+marks.length+' ô. Có thể chọn ô khác để sửa vị trí.');
+  }
+  function eraseLine(id){const index=state.lines.findIndex(line=>line.id===id);if(index<0)return;checkpoint();state.lines.splice(index,1);render();emit();note('Đã tẩy một đường kẻ.');}
+  function draw(first,last){
+    if(first.row===last.row&&first.col===last.col){pending=first;note('Chạm điểm cuối để kẻ. Có thể kéo chuột hoặc ngón tay.');return;}
+    const horizontal=Math.abs(first.col-last.col)>=Math.abs(first.row-last.row);
+    const line=horizontal?
+      {id:'line-'+Date.now()+'-'+(++lineNumber),orientation:'h',boundary:first.row+1,start:Math.min(first.col,last.col),end:Math.max(first.col,last.col)}:
+      {id:'line-'+Date.now()+'-'+(++lineNumber),orientation:'v',boundary:first.col+1,start:Math.min(first.row,last.row),end:Math.max(first.row,last.row)};
+    checkpoint();state.lines.push(line);pending=null;render();emit();
+    note('Đã kẻ '+(horizontal?'đường ngang':'đường dọc')+' trên mép ô li.');
+  }
+  host.querySelectorAll('[data-grid-tool]').forEach(button=>button.addEventListener('click',()=>{
+    if(isLocked())return;
+    if(button.dataset.gridTool==='undo'){
+      const previous=state.history.pop();if(!previous)return;
+      state={...state,...previous};typed='';pending=null;render();emit();note('Đã hoàn tác một thao tác.');return;
+    }
+    tool=button.dataset.gridTool;pending=null;render();
+    note(tool==='write'?'Viết số: chọn ô rồi gõ; dán nhiều chữ số sẽ căn theo ô đang chọn.':tool==='ruler'?'Kẻ thước: kéo hoặc chạm điểm đầu và điểm cuối.':'Tẩy: chạm một chữ số hoặc một đường kẻ.');
+  }));
+  board.addEventListener('focusin',event=>{if(event.target.classList.contains('grid-cell'))select(Number(event.target.dataset.row),Number(event.target.dataset.col),false);});
+  board.addEventListener('keydown',event=>{
+    if(!event.target.classList.contains('grid-cell')||isLocked())return;
+    if(['Backspace','Delete'].includes(event.key)){event.preventDefault();typed='';setMark(active.row,active.col,'');return;}
+    const move={ArrowLeft:[0,-1],ArrowRight:[0,1],ArrowUp:[-1,0],ArrowDown:[1,0]}[event.key];
+    if(move){event.preventDefault();let row=active.row+move[0],col=active.col+move[1];if(row===state.rows&&state.rows<24){checkpoint();state.rows++;render();emit();}select(Math.max(0,Math.min(state.rows-1,row)),Math.max(0,Math.min(state.cols-1,col)),true);}
+  });
+  board.addEventListener('paste',event=>{if(!event.target.classList.contains('grid-cell')||tool!=='write'||isLocked())return;event.preventDefault();typed=event.clipboardData.getData('text/plain').replace(/\s+/g,'');writeSequence(typed);});
+  board.addEventListener('input',event=>{
+    if(!event.target.classList.contains('grid-cell')||tool!=='write'||isLocked())return;
+    if(event.inputType?.startsWith('delete')){typed='';setMark(active.row,active.col,'');return;}
+    const incoming=event.data||event.target.value;if(!incoming)return;
+    typed+=incoming;writeSequence(typed);
+  });
+  board.addEventListener('pointerdown',event=>{
+    if(isLocked())return;
+    const line=event.target.closest('[data-line-id]');if(tool==='erase'&&line){event.preventDefault();eraseLine(line.dataset.lineId);return;}
+    const cell=event.target.closest('.grid-cell');
+    if(tool==='erase'&&cell){event.preventDefault();setMark(Number(cell.dataset.row),Number(cell.dataset.col),'');return;}
+    if(tool==='ruler'){event.preventDefault();drag={point:at(event),x:event.clientX,y:event.clientY};board.setPointerCapture?.(event.pointerId);}
+  });
+  board.addEventListener('pointerup',event=>{
+    if(tool!=='ruler'||!drag||isLocked())return;
+    event.preventDefault();const end=at(event),start=drag.point;
+    const moved=Math.hypot(event.clientX-drag.x,event.clientY-drag.y)>10;
+    drag=null;
+    if(moved){pending=null;draw(start,end);}
+    else if(pending){const first=pending;pending=null;draw(first,end);}
+    else draw(start,end);
+  });
+  render();note('Viết số: chọn ô rồi nhập. Chọn Kẻ thước để tự kẻ nét.');
+  return {serialize};
+};const setupScorm=function setupScorm(){
+  const none={active:false,studentName:'',report(){return false;}};
+  function find(win){
+    for(let i=0;win&&i<10;i++){
+      try{if(win.API_1484_11)return {v:2004,api:win.API_1484_11};if(win.API)return {v:12,api:win.API};}catch(_){return null;}
+      if(!win.parent||win.parent===win)break;win=win.parent;
+    }
+    return null;
+  }
+  let found=null;
+  try{found=(window.parent!==window?find(window.parent):null)||(window.opener?find(window.opener):null);}catch(_){found=null;}
+  if(!found)return none;
+  const v=found.v,api=found.api;
+  const call=(name,...args)=>{try{return api[name](...args);}catch(_){return '';}};
+  if(String(v===2004?call('Initialize',''):call('LMSInitialize',''))!=='true')return none;
+  const get=key=>String((v===2004?call('GetValue',key):call('LMSGetValue',key))||'');
+  const set=(key,value)=>String(v===2004?call('SetValue',key,String(value)):call('LMSSetValue',key,String(value)))==='true';
+  const commit=()=>String(v===2004?call('Commit',''):call('LMSCommit',''))==='true';
+  if(v===2004){if(get('cmi.completion_status')!=='completed')set('cmi.completion_status','incomplete');}
+  else if(!['completed','passed','failed'].includes(get('cmi.core.lesson_status')))set('cmi.core.lesson_status','incomplete');
+  commit();
+  let finished=false;
+  const finish=()=>{if(finished)return;finished=true;if(v===2004)call('Terminate','');else call('LMSFinish','');};
+  window.addEventListener('pagehide',finish);window.addEventListener('beforeunload',finish);
+  const rawName=get(v===2004?'cmi.learner_name':'cmi.core.student_name').trim();
+  const studentName=rawName.includes(',')?rawName.split(',').map(part=>part.trim()).filter(Boolean).reverse().join(' '):rawName;
+  return {active:true,version:v,studentName,report(attempt){
+    const graded=attempt.results.filter(r=>r.status==='graded');
+    const earned=graded.reduce((n,r)=>n+r.points,0),max=attempt.maxScore,r2=x=>Math.round(x*100)/100;
+    let ok;
+    if(v===2004)ok=set('cmi.score.min',0)&&set('cmi.score.max',r2(max))&&set('cmi.score.raw',r2(earned))&&set('cmi.score.scaled',max>0?Math.round(earned/max*10000)/10000:0)&&set('cmi.completion_status','completed');
+    else ok=set('cmi.core.score.min',0)&&set('cmi.core.score.max',r2(max))&&set('cmi.core.score.raw',r2(earned))&&set('cmi.core.lesson_status','completed');
+    return commit()&&ok;
+  }};
+};(function setupStudentHelp(){
+  const synth=window.speechSynthesis,status=document.getElementById('speak-status');
+  const can=!!(synth&&typeof window.SpeechSynthesisUtterance==='function');
+  let current=null;
+  const say=t=>{if(status)status.textContent=t||'';};
+  function voice(){try{const v=synth.getVoices().filter(x=>/^vi(?:[-_]|$)/i.test(x.lang||''));return v.find(x=>/^vi[-_]vn$/i.test(x.lang)&&x.localService)||v.find(x=>/^vi[-_]vn$/i.test(x.lang))||v[0]||null;}catch(_){return null;}}
+  function stop(){if(current){current.setAttribute('aria-pressed','false');current.textContent=current.dataset.label;current=null;}if(can)synth.cancel();}
+  function textOf(card){
+    const parts=[];const qn=card.querySelector('.question-number');if(qn)parts.push(qn.textContent+'.');
+    const qt=card.querySelector('.question-text');if(qt){const c=qt.cloneNode(true);c.querySelectorAll('input').forEach(x=>x.replaceWith(' chỗ trống '));parts.push(c.textContent);}
+    card.querySelectorAll('.tf-statement p').forEach(p=>parts.push(p.textContent+'. Đúng hay sai?'));
+    card.querySelectorAll('.options .option').forEach(o=>{const l=o.querySelector('.option-letter'),t=o.querySelector('.option-text');if(l&&t)parts.push(l.textContent+'. '+t.textContent+'.');});
+    const m=card.querySelectorAll('.matching-item');if(m.length){parts.push('Các ý cần nối:');m.forEach(x=>parts.push(x.textContent+'.'));}
+    return parts.join(' ').replace(/\s+/g,' ').replace(/×/g,' nhân ').replace(/:(?=\s*\d)/g,' chia ').replace(/−/g,' trừ ');
+  }
+  function speak(btn,text){
+    if(current===btn){stop();say('');return;}
+    stop();
+    if(!can){say('Thiết bị này chưa hỗ trợ đọc to. Em nhờ thầy cô hoặc bạn đọc giúp nhé.');return;}
+    const v=voice(),u=new SpeechSynthesisUtterance(text);u.lang='vi-VN';u.rate=0.9;if(v)u.voice=v;
+    if(!v)say('Máy chưa cài giọng đọc tiếng Việt nên có thể đọc chưa chuẩn. Trên điện thoại, em bật giọng Tiếng Việt trong Cài đặt → Chuyển văn bản thành giọng nói.');else say('');
+    current=btn;btn.setAttribute('aria-pressed','true');btn.textContent='⏹ Dừng đọc';
+    u.onend=u.onerror=()=>{if(current===btn)stop();};
+    synth.speak(u);
+  }
+  document.querySelectorAll('[data-listen],[data-listen-passage]').forEach(btn=>{btn.dataset.label=btn.textContent;btn.addEventListener('click',()=>{
+    const card=btn.closest('.question-card'),passage=btn.closest('.reading-passage');
+    const text=card?textOf(card):passage?(passage.querySelector('h2')?.textContent||'')+'. '+(passage.querySelector('div[style*="pre-wrap"]')?.textContent||''):'';
+    speak(btn,text);});});
+  document.querySelectorAll('[data-hint]').forEach(btn=>btn.addEventListener('click',()=>{const box=document.getElementById('hint-'+btn.dataset.hint);if(!box)return;box.hidden=!box.hidden;btn.setAttribute('aria-expanded',String(!box.hidden));btn.textContent=box.hidden?(btn.dataset.label||'💡 Gợi ý'):'🙈 Ẩn gợi ý';}));
+  const g=document.getElementById('guide-toggle'),panel=document.getElementById('guide-panel');
+  if(g&&panel)g.addEventListener('click',()=>{panel.hidden=!panel.hidden;g.setAttribute('aria-expanded',String(!panel.hidden));});
+  if(can&&synth.getVoices().length===0&&'onvoiceschanged' in synth)synth.onvoiceschanged=()=>{};
+  window.addEventListener('pagehide',stop);
+})();attempt.reading=true;(function runtime(initial) {
+  let attempt=initial;
+  const notebooks={},matchings={};
+  const form=document.querySelector('form');
+  const result=document.getElementById('result');
+  const button=document.getElementById('submit');
+  const saveStatus=document.getElementById('save-status');
+  const exportButton=document.getElementById('export-submission');
+  let feedbackAudioGroup='neutral';
+  setupBackgroundMusic(initial.backgroundMusic,()=>attempt.status==='in-progress');
+  const refreshSpeech=setupSpeech(()=>feedbackAudioGroup,initial.feedbackAudio||[]);
+  const configured=initial.attemptLimit!==undefined;
+  let submissions=[];
+  const sendUrl=initial.submitUrl||'',nameInput=document.getElementById('student-name'),sendStatus=document.getElementById('send-status'),resendButton=document.getElementById('resend');
+  let sentIds=[],sentNames={},sending=false;
+  const scorm=setupScorm();
+  function reportScorm(){if(!scorm.active||attempt.status==='in-progress')return;const ok=scorm.report(attempt);if(!sendUrl)sendStatus.textContent=ok?'Đã gửi kết quả về hệ thống học tập của trường.':'Chưa gửi được kết quả về hệ thống học tập của trường. Em báo thầy cô nhé.';}
+  const retryButton=document.getElementById('retry'),limitStatus=document.getElementById('attempt-limit-status');
+  const fingerprint=JSON.stringify([initial.documentId,initial.documentVersion,initial.questions,...(configured?[initial.attemptLimit]:[])]);
+  let hash=2166136261;for(let i=0;i<fingerprint.length;i++)hash=Math.imul(hash^fingerprint.charCodeAt(i),16777619);
+  const storageKey='hmv-practice-v1-'+(hash>>>0).toString(16)+'-'+encodeURIComponent(location.pathname);
+  const newId=()=>window.crypto?.randomUUID?.()||'local-'+Date.now()+'-'+Math.random().toString(36).slice(2);
+  function storedRecord(){try{const value=JSON.parse(localStorage.getItem(storageKey)||'null');return value?.fingerprint===fingerprint?value:null;}catch(_){return null;}}
+  function refreshSubmissions(){if(!configured)return;const stored=storedRecord();submissions=Array.from(new Map([...(stored?.submissions||[]),...submissions].map(item=>[item.id,item])).values());}
+  function exhausted(){return configured&&initial.attemptLimit!=='unlimited'&&submissions.length>=initial.attemptLimit;}
+  function updateLimit(){if(!configured)return;retryButton.hidden=attempt.status==='in-progress'||exhausted();limitStatus.textContent=exhausted()?'Em đã sử dụng hết lượt làm bài':'Đã nộp '+submissions.length+' lượt · '+(initial.attemptLimit==='unlimited'?'Không giới hạn':'Tối đa '+initial.attemptLimit+' lượt')+'. Số lượt chỉ lưu trên trình duyệt/thiết bị này.';}
+  function save(){try{refreshSubmissions();localStorage.setItem(storageKey,JSON.stringify({fingerprint,attempt,...(configured?{submissions}:{}),...(sendUrl?{studentName:nameInput?nameInput.value.trim():'',names:sentNames,sent:sentIds}:{})}));saveStatus.textContent='Bài làm được lưu trên trình duyệt này · Mã '+attempt.id;return true;}catch(_){saveStatus.textContent='Trình duyệt chưa cho phép lưu bài. Hãy giữ trang mở và tải bản sao sau khi nộp.';return false;}}
+  function readAnswers(){const answers={};attempt.questions.forEach((q,i)=>{if(q.type==='MATCHING'){const mapping=matchings[q.id].serialize();answers[q.id]=q.metadata.matchingScoring==='per-pair'?mapping:mapping.map((b,j)=>b===null?null:{left:q.pairs[j].left,right:q.pairs[b].right});}else if(q.type==='FILL'&&Array.isArray(q.blanks))answers[q.id]=Object.fromEntries(q.blanks.map(b=>[b.id,form.querySelector('[name="q'+i+'b'+b.id+'"]').value]));else if(q.type==='MULTI')answers[q.id]=Array.from(form.querySelectorAll('input[name="q'+i+'"]:checked')).map(input=>Number(input.value));else if(q.type==='TRUEFALSE'&&Array.isArray(q.statements))answers[q.id]=q.statements.map((_,j)=>{const selected=form.querySelector('input[name="q'+i+'s'+j+'"]:checked');return selected?selected.value==='true':null;});else if(q.type==='OPEN'&&q.answerLayout==='grid-calculation')answers[q.id]=notebooks[q.id].serialize();else if(q.type==='FILL'||q.type==='SHORT'||q.type==='OPEN')answers[q.id]=form.querySelector('[name="q'+i+'"]').value;else {const selected=form.querySelector('input[name="q'+i+'"]:checked');if(selected)answers[q.id]=Number(selected.value);}});return answers;}
+  function hasAnswer(q,answer){if(q.type==='MATCHING')return Array.isArray(answer)&&answer.length===q.pairs.length&&answer.every(b=>b!==null&&b!==undefined);if(q.type==='FILL'&&Array.isArray(q.blanks))return q.blanks.every(b=>typeof answer?.[b.id]==='string'&&answer[b.id].trim());if(q.type==='MULTI')return Array.isArray(answer)&&answer.length>0;if(q.type==='TRUEFALSE'&&Array.isArray(q.statements))return Array.isArray(answer)&&answer.length===q.statements.length&&answer.every(v=>typeof v==='boolean');if(q.type==='OPEN'&&q.answerLayout==='grid-calculation')return !!(answer&&((answer.cells&&Object.keys(answer.cells).length)||(answer.lines&&answer.lines.length)));return q.type==='FILL'||q.type==='SHORT'||q.type==='OPEN'?String(answer||'').trim()!=='':answer!==undefined;}
+  function progress(){
+    const answers=readAnswers();
+    const answered=attempt.questions.filter(q=>hasAnswer(q,answers[q.id])).length;
+    document.getElementById('answer-progress').value=answered;
+    document.getElementById('progress-text').textContent='Đã trả lời '+answered+' / '+initial.questions.length+' câu';
+  }
+  function visibleResults(){return {score:initial.scoreVisibility===undefined||initial.scoreVisibility==='immediate',answers:initial.answerVisibility===undefined||initial.answerVisibility==='immediate'||initial.answerVisibility==='after-attempts'&&exhausted()};}
+  const formatPoints=value=>initial.questions.some(q=>q.type==='MATCHING'&&q.metadata.matchingScoring==='per-pair'||q.type==='FILL'&&Array.isArray(q.blanks))?Number(value.toFixed(2)).toLocaleString('vi-VN'):String(value);
+  function showSubmitted(){
+    window.dispatchEvent(new window.CustomEvent('hmv:submitted'));
+    form.querySelectorAll('input,textarea,[data-grid-tool],.matching-item').forEach(input=>{input.disabled=true;});button.disabled=true;exportButton.hidden=false;
+    const visible=visibleResults();
+    const waiting=initial.scoreVisibility==='teacher'||initial.answerVisibility==='teacher';
+    document.getElementById('visibility-status').textContent=waiting?'Chờ giáo viên công bố':initial.answerVisibility==='after-attempts'&&!visible.answers?'Đáp án chỉ hiển thị sau khi sử dụng hết lượt làm. Nếu không có giới hạn lượt, đáp án sẽ không tự mở.':'';
+    const graded=attempt.results.filter(r=>r.status==='graded');
+    const earned=graded.reduce((sum,r)=>sum+r.points,0),gradedMax=graded.reduce((sum,r)=>sum+r.maxPoints,0);
+    const pendingMax=attempt.results.filter(r=>r.status==='pending-manual').reduce((sum,r)=>sum+r.maxPoints,0);
+    attempt.questions.forEach((q,i)=>{
+      const feedback=document.getElementById('feedback-'+i),points=attempt.results[i].points,answer=attempt.answers[q.id];
+      const previous=feedback.parentElement.querySelector('.wrong-explanation');if(previous)previous.remove();
+      const submittedAnswer=q.type==='MATCHING'?Array.isArray(answer)&&answer.some(b=>b!==null&&b!==undefined):q.type==='FILL'&&Array.isArray(q.blanks)?q.blanks.some(b=>typeof answer?.[b.id]==='string'&&answer[b.id].trim()):q.type==='MULTI'?Array.isArray(answer)&&answer.length>0:q.type==='TRUEFALSE'&&Array.isArray(q.statements)?Array.isArray(answer)&&answer.some(v=>typeof v==='boolean'):typeof answer==='string'?answer.trim()!=='':answer!==undefined;
+      if(visible.answers&&visible.score&&attempt.results[i].status==='graded'&&(q.type==='TRUEFALSE'||q.type==='FILL'||q.type==='MATCHING'?points<q.points:points===0)&&submittedAnswer&&q.studentExplanation){
+        const details=document.createElement('details');details.className='wrong-explanation';
+        const summary=document.createElement('summary');summary.textContent='Vì sao em sai?';
+        const heading=document.createElement('p');heading.textContent='Cách làm đúng';heading.style.fontWeight='700';
+        const content=document.createElement('p');content.className='explanation-content';content.style.whiteSpace='pre-wrap';content.textContent=q.studentExplanation;
+        details.append(summary,heading,content);feedback.after(details);
+      }
+      if(q.type==='MATCHING'){
+        if(!visible.answers){feedback.textContent='';return;}
+        feedback.style.whiteSpace='pre-wrap';feedback.textContent=q.pairs.map((p,j)=>{
+          const given=answer?.[j],correct=q.metadata.matchingScoring==='per-pair'?given===j:given?.left===p.left&&given?.right===p.right;
+          return 'A'+(j+1)+': '+(visible.score?(given===null||given===undefined?'Chưa nối':correct?'Đúng rồi!':'Chưa đúng')+' · ':'')+'Đáp án: '+p.left+' → '+p.right;
+        }).join('\n')+(visible.score?'\n'+formatPoints(points)+'/'+formatPoints(q.points)+' điểm':'');return;
+      }
+      if(q.type==='FILL'){
+        if(!visible.answers){feedback.textContent='';return;}
+        feedback.style.whiteSpace='pre-wrap';const blanks=q.blanks||[{id:'1',answerText:q.answerText,acceptedAnswers:q.answerText.split('|')}];
+        feedback.textContent=blanks.map(b=>{const given=Array.isArray(q.blanks)?answer?.[b.id]:answer;const clean=x=>String(x||'').normalize('NFC').trim().replace(/\s+/g,' ').toLocaleLowerCase('vi');const correct=typeof given==='string'&&clean(given)!==''&&[b.answerText,...b.acceptedAnswers].some(key=>clean(key)===clean(given));return 'Ô [['+b.id+']]: '+(visible.score?(!clean(given)?'Chưa trả lời':correct?'Đúng rồi!':'Chưa đúng')+' · ':'')+'Đáp án: '+b.answerText;}).join('\n')+(visible.score?'\n'+formatPoints(points)+'/'+formatPoints(q.points)+' điểm':'');return;
+      }
+      if(q.type==='MULTI'){
+        feedback.textContent=visible.answers?(visible.score?(!Array.isArray(answer)||!answer.length?'Chưa trả lời':points===q.points?'Đúng rồi!':'Chưa đúng')+' · ':'')+'Đáp án: '+q.correctAnswers.map(key=>String.fromCharCode(65+key)+'. '+q.options[key]).join('; ')+(visible.score?' · '+points+'/'+q.points+' điểm':''):'';return;
+      }
+      if(q.type==='TRUEFALSE'){
+        if(!visible.answers){feedback.textContent='';return;}
+        const grouped=Array.isArray(q.statements),items=grouped?q.statements:[{answer:q.correctAnswers[0]===0}];
+        feedback.style.whiteSpace='pre-wrap';feedback.textContent=items.map((item,j)=>{
+          const given=grouped?answer?.[j]:Number.isInteger(answer)?answer===0:null;
+          return (grouped?'Nhận định '+(j+1)+': ':'')+(visible.score?(typeof given!=='boolean'?'Chưa trả lời':given===item.answer?'Đúng rồi!':'Chưa đúng')+' · ':'')+'Đáp án: '+(grouped?(item.answer?'Đúng':'Sai'):q.options[q.correctAnswers[0]]);
+        }).join('\n')+(visible.score?'\n'+points+'/'+q.points+' điểm':'');return;
+      }
+      if(!visible.answers){feedback.textContent=points===null&&visible.score?'Chờ giáo viên chấm.':'';return;}
+      if(!visible.score){feedback.textContent=q.type==='SHORT'&&q.metadata.shortScoring==='exact'?'Đáp án: '+q.answerText:['SINGLE','ABCD','MULTI','TRUEFALSE','FILL','MATCHING'].includes(q.type)?'Đáp án: '+q.options[q.correctAnswers[0]]:'';return;}
+      if(points===null)feedback.textContent='Chờ giáo viên chấm · Tối đa '+q.points+' điểm.';
+      else if(q.type==='SHORT')feedback.textContent=(points>0?'Đúng rồi!':'Chưa đúng')+' · '+points+'/'+q.points+' điểm đã chấm.'+(initial.answerVisibility!==undefined&&q.metadata.shortScoring==='exact'?' · Đáp án: '+q.answerText:'');
+      else feedback.textContent=(answer===undefined?'Chưa trả lời':points>0?'Đúng rồi!':'Chưa đúng')+' · Đáp án: '+q.options[q.correctAnswers[0]]+' · '+points+'/'+q.points+' điểm';
+    });
+    result.textContent=!visible.score?'Đã nộp bài':pendingMax?'Đã chấm: '+formatPoints(earned)+' / '+formatPoints(gradedMax)+' điểm. Chờ giáo viên chấm: tối đa '+formatPoints(pendingMax)+' điểm. Chưa có điểm tổng chính thức.':'Kết quả: '+formatPoints(attempt.score)+' / '+formatPoints(attempt.maxScore)+' điểm';
+    // GĐ1: Thêm danh sách xem lại câu, lời khuyên tự luận, nút in cho mẫu reading
+    if(attempt.reading){
+      const resultPanel=document.querySelector('.result-panel');
+      // Danh sách xem lại câu
+      const reviewSection=document.createElement('section');reviewSection.className='reading-review-section';reviewSection.style.marginTop='20px';
+      const reviewTitle=document.createElement('h3');reviewTitle.textContent='📋 Xem lại bài làm';reviewTitle.style.fontSize='18px';reviewTitle.style.color='#2b3f6d';reviewTitle.style.marginBottom='12px';
+      const reviewList=document.createElement('div');reviewList.className='reading-review-list';reviewList.style.display='flex';reviewList.style.flexWrap='wrap';reviewList.style.gap='8px';
+      attempt.questions.forEach((q,i)=>{
+        const btn=document.createElement('button');btn.type='button';btn.className='reading-review-btn';btn.textContent='Câu '+(i+1);btn.style.padding='8px 12px';btn.style.borderRadius='8px';btn.style.border='2px solid';btn.style.fontWeight='700';btn.style.cursor='pointer';btn.style.background='#fff';btn.style.color='#293954';btn.style.borderColor='#e4eaf2';
+        const res=attempt.results[i];if(res?.status==='graded'&&res.points===q.points){btn.style.background='#c8e6c9';btn.style.borderColor='#4caf50';}else if(res?.status==='pending-manual'){btn.style.background='#fff9c4';btn.style.borderColor='#fbc02d';}else if(res?.status==='graded'&&res.points<q.points){btn.style.background='#ffcdd2';btn.style.borderColor='#f44336';}
+        btn.addEventListener('click',()=>{const card=document.querySelector('[data-question-index=\"'+i+'\"]');if(card){card.scrollIntoView({behavior:'smooth',block:'center'});}});
+        reviewList.appendChild(btn);
+      });
+      reviewSection.appendChild(reviewTitle);reviewSection.appendChild(reviewList);resultPanel.appendChild(reviewSection);
+      // Lời khuyên cho câu tự luận
+      attempt.questions.forEach((q,i)=>{if(q.type==='OPEN'&&q.metadata?.hint){const feedback=document.getElementById('feedback-'+i);if(feedback){const hintDiv=document.createElement('div');hintDiv.className='reading-hint';hintDiv.style.marginTop='10px';hintDiv.style.padding='12px';hintDiv.style.background='#faf7ff';hintDiv.style.border='1px solid #e3d8fb';hintDiv.style.borderRadius='8px';hintDiv.style.color='#4b3a78';hintDiv.style.fontSize='15px';hintDiv.innerHTML='💡 <strong>Gợi ý:</strong> '+escapeHtml(q.metadata.hint).replace(/\\n/g,'<br>');feedback.after(hintDiv);}}});
+      // Nút in kết quả
+      const exportDiv=document.querySelector('.submission-export');if(exportDiv){const printBtn=document.createElement('button');printBtn.type='button';printBtn.textContent='🖨️ In kết quả';printBtn.style.marginLeft='8px';printBtn.style.padding='10px 18px';printBtn.style.minHeight='44px';printBtn.style.background='#fff';printBtn.style.color='#527ee4';printBtn.style.border='2px solid #527ee4';printBtn.style.borderRadius='8px';printBtn.style.fontWeight='700';printBtn.style.cursor='pointer';printBtn.addEventListener('click',()=>{window.print();});exportDiv.appendChild(printBtn);}
+    }
+    document.querySelector('.teacher-feedback').hidden=false;
+    document.getElementById('teacher-comment').textContent=createFeedback(attempt,visible);
+    feedbackAudioGroup=chooseFeedbackAudioGroup(attempt,visible);refreshSpeech();progress();updateLimit();result.focus();
+  }
+  const stored=storedRecord();if(stored?.attempt?.documentId===initial.documentId&&stored.attempt?.id&&Array.isArray(stored.attempt.questions))attempt=stored.attempt;
+  if(configured)submissions=Array.isArray(stored?.submissions)?stored.submissions:[];
+  if(sendUrl){sentIds=Array.isArray(stored?.sent)?stored.sent.filter(x=>typeof x==='string'):[];sentNames=stored?.names&&typeof stored.names==='object'?stored.names:{};if(nameInput&&typeof stored?.studentName==='string')nameInput.value=stored.studentName;}
+  if(attempt===initial){attempt={...initial,id:newId()};save();}
+  attempt.questions.forEach((q,i)=>{
+    const answer=attempt.answers?.[q.id];
+    if(q.type==='MATCHING'){
+      if(!Array.isArray(q.matchingOrder)||q.matchingOrder.length!==q.pairs.length||new Set(q.matchingOrder).size!==q.pairs.length){q.matchingOrder=q.pairs.map((_,j)=>j);for(let j=q.matchingOrder.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[q.matchingOrder[j],q.matchingOrder[k]]=[q.matchingOrder[k],q.matchingOrder[j]];}if(q.matchingOrder.every((v,j)=>v===j))q.matchingOrder.push(q.matchingOrder.shift());save();}
+      const mapping=q.metadata.matchingScoring==='per-pair'?answer:Array.isArray(answer)?answer.map(item=>item?q.pairs.findIndex(p=>p.right===item.right):null):[];
+      matchings[q.id]=setupMatching(form.querySelector('[data-matching="'+i+'"]'),q,mapping,()=>attempt.status!=='in-progress',()=>{attempt.answers=readAnswers();save();progress();});
+    }else if(q.type==='OPEN'&&q.answerLayout==='grid-calculation'){
+
+      const host=form.querySelector('[data-grid-question="'+i+'"]');
+      notebooks[q.id]=setupCalculationGrid(host,answer,()=>{if(attempt.status!=='in-progress')return;attempt.answers=readAnswers();save();progress();},()=>attempt.status!=='in-progress',Number(host.dataset.suggestedCols));
+    }else if(q.type==='FILL'&&Array.isArray(q.blanks)){q.blanks.forEach(b=>{const input=form.querySelector('[name="q'+i+'b'+b.id+'"]');input.value=typeof answer?.[b.id]==='string'?answer[b.id]:'';});
+    }else if(q.type==='TRUEFALSE'&&Array.isArray(q.statements)){q.statements.forEach((_,j)=>{if(typeof answer?.[j]==='boolean'){const input=form.querySelector('input[name="q'+i+'s'+j+'"][value="'+answer[j]+'"]');if(input)input.checked=true;}});
+    }else if(q.type==='FILL'||q.type==='SHORT'||q.type==='OPEN')form.querySelector('[name="q'+i+'"]').value=typeof answer==='string'?answer:'';
+    else if(q.type==='MULTI'&&Array.isArray(answer)){answer.forEach(key=>{if(Number.isInteger(key)){const input=form.querySelector('input[name="q'+i+'"][value="'+key+'"]');if(input)input.checked=true;}});}
+    else if(Number.isInteger(answer)){const input=form.querySelector('input[name="q'+i+'"][value="'+answer+'"]');if(input)input.checked=true;}
+  });
+  const submitHint=document.querySelector('.submit-panel p'),submitHintText=submitHint?submitHint.textContent:'';let inlineConfirmed=false;
+  function resetInlineConfirm(){if(!inlineConfirmed)return;inlineConfirmed=false;if(submitHint)submitHint.textContent=submitHintText;button.textContent='Nộp bài';}
+  form.addEventListener('input',()=>{resetInlineConfirm();if(attempt.status!=='in-progress')return;attempt.answers=readAnswers();save();progress();});
+  form.addEventListener('change',()=>{if(attempt.status!=='in-progress')return;attempt.answers=readAnswers();save();progress();});
+  if(nameInput&&!nameInput.value.trim()&&scorm.studentName)nameInput.value=scorm.studentName.slice(0,80);
+  progress();updateLimit();if(attempt.status!=='in-progress'){showSubmitted();sendPending();reportScorm();}
+  retryButton.addEventListener('click',()=>{
+    if(!configured||attempt.status==='in-progress')return;refreshSubmissions();if(exhausted()){updateLimit();return;}
+    // GĐ1: Làm lại bài — xóa bài cũ, quay về câu 1, giữ nguyên đề+gợi ý, không tải lại trang
+    const previous=attempt;attempt={...JSON.parse(JSON.stringify(initial)),id:newId()};
+    if(save()){
+      window.speechSynthesis?.cancel();
+      // Reset form: xóa tất cả input, ẩn kết quả, hiển thị form
+      form.reset();
+      form.querySelectorAll('input,textarea,.written-answer,[data-grid-tool],.matching-item').forEach(el=>{el.disabled=false;});
+      document.querySelector('.result-panel').hidden=true;
+      document.querySelector('.submit-panel').hidden=false;
+      button.hidden=false;
+      exportButton.hidden=true;
+      if(retryButton)retryButton.hidden=true;
+      progress();save();
+      // Scroll lên đầu câu 1
+      document.querySelector('[data-question-index="0"]')?.scrollIntoView({behavior:'smooth',block:'start'});
+    }else{attempt=previous;retryButton.hidden=true;}
+  });
+  form.addEventListener('submit', event=>{
+    event.preventDefault();
+    if(attempt.status!=='in-progress') return;
+    const answers=readAnswers();
+    if(sendUrl&&!nameInput.value.trim()){submitHint.textContent='Em nhập họ và tên trước khi nộp bài nhé.';nameInput.focus();return;}
+    const missing=attempt.questions.filter(q=>!hasAnswer(q,answers[q.id])).length;
+    const question=missing ? 'Còn '+missing+' câu chưa trả lời. Nộp bài ngay?' : 'Em đã sẵn sàng nộp bài?';
+    if(!inlineConfirmed){
+      // Some phone viewers/in-app browsers block window.confirm and return false instantly; fall back to an on-page confirmation.
+      const started=Date.now();let ok=false;try{ok=window.confirm(question);}catch(e){ok=false;}
+      if(!ok){if(Date.now()-started<50){inlineConfirmed=true;submitHint.textContent=question+' Bấm “Xác nhận nộp bài” để nộp.';button.textContent='Xác nhận nộp bài';submitHint.focus?.();}return;}
+    }
+    resetInlineConfirm();
+    refreshSubmissions();if(exhausted()){updateLimit();button.disabled=true;return;}
+    const previous=attempt;
+    const submitted=window.HmvReviewDomain.submitAttempt(attempt,answers,{submissionId:newId()});
+    attempt=submitted;if(configured)submissions.push(submitted);if(sendUrl)sentNames={...sentNames,[submitted.submissionId]:nameInput.value.trim()};
+    if(!save()&&configured){submissions=submissions.filter(item=>item.id!==submitted.id);attempt=previous;saveStatus.textContent='Chưa lưu được lượt nộp. Em kiểm tra quyền lưu trữ rồi nộp lại nhé.';return;}
+    showSubmitted();sendPending();reportScorm();
+  });
+  function submissionPayload(item){
+    return {schemaVersion:1,kind:'hmv-online-submission',studentName:sentNames[item.submissionId]||(nameInput?nameInput.value.trim():''),attemptId:item.id,submissionId:item.submissionId,documentId:item.documentId,documentVersion:item.documentVersion,title:item.title,status:item.status,
+      questions:item.questions.map(q=>({id:q.id,type:q.type,text:q.text,maxPoints:q.points,...(q.type==='MATCHING'?{leftItems:q.pairs.map(p=>p.left),rightItems:q.matchingOrder.map(j=>({id:j,text:q.pairs[j].right}))}:{}),...(q.type==='FILL'&&Array.isArray(q.blanks)?{blanks:q.blanks.map(b=>({id:b.id}))}:{}),...(q.type==='TRUEFALSE'&&Array.isArray(q.statements)?{statements:q.statements.map(s=>({text:s.text}))}:{}),answerLayout:q.answerLayout})),
+      answers:item.answers,results:item.results,score:item.score,maxScore:item.maxScore,pendingManual:item.pendingManual};
+  }
+  async function sendPending(){
+    if(!sendUrl||sending)return;
+    const items=(configured?submissions:[attempt]).filter(item=>item.status!=='in-progress'&&item.submissionId&&!sentIds.includes(item.submissionId));
+    if(!items.length)return;
+    sending=true;resendButton.hidden=true;sendStatus.textContent='Đang gửi bài cho thầy cô…';
+    try{
+      for(const item of items){
+        const response=await fetch(sendUrl,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(submissionPayload(item))});
+        const reply=await response.json();
+        if(!response.ok||!reply||reply.ok!==true)throw Error('rejected');
+        sentIds=[...sentIds,item.submissionId];save();
+      }
+      sendStatus.textContent='Đã gửi bài cho thầy cô lúc '+new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})+'.';
+    }catch(_){
+      sendStatus.textContent='Chưa gửi được bài cho thầy cô. Em kiểm tra kết nối mạng rồi bấm “Gửi lại”. Bài đã được giữ trên máy này.';resendButton.hidden=false;
+    }finally{sending=false;}
+  }
+  if(resendButton)resendButton.addEventListener('click',()=>sendPending());
+  window.addEventListener('online',()=>sendPending());
+  exportButton.addEventListener('click',()=>{
+    if(attempt.status==='in-progress')return;
+    const payload={schemaVersion:1,kind:'hmv-offline-submission',attemptId:attempt.id,submissionId:attempt.submissionId,documentId:attempt.documentId,documentVersion:attempt.documentVersion,title:attempt.title,status:attempt.status,
+      questions:attempt.questions.map(q=>({id:q.id,type:q.type,text:q.text,maxPoints:q.points,...(q.type==='MATCHING'?{leftItems:q.pairs.map(p=>p.left),rightItems:q.matchingOrder.map(j=>({id:j,text:q.pairs[j].right}))}:{}),...(q.type==='FILL'&&Array.isArray(q.blanks)?{blanks:q.blanks.map(b=>({id:b.id}))}:{}),...(q.type==='TRUEFALSE'&&Array.isArray(q.statements)?{statements:q.statements.map(item=>({text:item.text}))}:{}),answerLayout:q.answerLayout})),answers:attempt.answers,results:attempt.results,score:attempt.score,maxScore:attempt.maxScore,pendingManual:attempt.pendingManual};
+    const visible=visibleResults();
+    if(!visible.score){delete payload.score;delete payload.maxScore;delete payload.pendingManual;}
+    if(!visible.score||!visible.answers)delete payload.results;
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),link=document.createElement('a');
+    link.href=url;link.download='bai-lam-'+String(attempt.id).replace(/[^a-zA-Z0-9_-]/g,'-')+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+})({"id":"practice-bca","documentId":"bca","documentVersion":1,"title":"Cuộc phiêu lưu của Bồ Công Anh","metadata":{"grade":4,"subject":"Tiếng Việt","topic":"Đọc hiểu"},"feedbackAudio":[{"id":"excellent","label":"Hoàn thành xuất sắc","text":"Em đã hoàn thành bài luyện tập rất tốt. Hãy tiếp tục phát huy và khám phá thêm những bài học mới nhé.","teacherConfirmed":false,"onlineUrl":null,"offlineSrc":null},{"id":"good","label":"Hoàn thành tốt","text":"Em đã hoàn thành tốt bài luyện tập. Hãy tiếp tục ôn tập để kiến thức thêm vững vàng nhé.","teacherConfirmed":false,"onlineUrl":null,"offlineSrc":null},{"id":"satisfactory","label":"Đạt yêu cầu","text":"Em đã hoàn thành bài luyện tập. Hãy dành thêm thời gian ôn tập và tiếp tục cố gắng nhé.","teacherConfirmed":false,"onlineUrl":null,"offlineSrc":null},{"id":"effort","label":"Cần cố gắng thêm","text":"Cảm ơn em đã cố gắng làm bài. Em hãy luyện tập từng bước và nhờ thầy cô hướng dẫn khi cần nhé.","teacherConfirmed":false,"onlineUrl":null,"offlineSrc":null},{"id":"review","label":"Còn nhiều nội dung cần ôn","text":"Cảm ơn em đã hoàn thành bài luyện tập. Em hãy dành thêm thời gian ôn bài cùng thầy cô nhé.","teacherConfirmed":false,"onlineUrl":null,"offlineSrc":null},{"id":"unanswered","label":"Có câu chưa trả lời","text":"Em đã nộp bài luyện tập. Lần sau, em hãy đọc lại đề và thử hoàn thành những phần còn để trống nhé.","teacherConfirmed":false,"onlineUrl":null,"offlineSrc":null},{"id":"pending","label":"Có phần tự luận chờ chấm","text":"Cảm ơn em đã hoàn thành bài luyện tập. Một phần bài làm đang chờ thầy cô chấm, em hãy tiếp tục ôn tập nhé.","teacherConfirmed":false,"onlineUrl":null,"offlineSrc":null},{"id":"neutral","label":"Chưa công bố","text":"Cảm ơn em đã hoàn thành và nộp bài luyện tập. Em hãy tiếp tục ôn tập đều đặn và nhờ thầy cô hướng dẫn khi cần nhé.","teacherConfirmed":false,"onlineUrl":null,"offlineSrc":null}],"mode":"practice","readingBlocks":[{"id":"bai-doc","title":"CUỘC PHIÊU LƯU CỦA BỒ CÔNG ANH","text":"Một cơn gió ào tới, thổi tung những cánh hoa bồ công anh bay xao xác.\n– Tạm biệt mẹ! – Những cánh hoa bồ công anh vẫy đôi tay bé xíu. – Chúng con đi đây!\nChúng bay bay trên cánh đồng. Rồi mỗi cánh hoa đều tìm thấy một nơi để dừng chân. Riêng cánh hoa bồ công anh út vẫn mải lang thang cùng chị gió. Có khi bồ công anh út bay tung lên cao. Có khi nó sà xuống mặt ao soi mình dưới nước. Nó nhẩn nha bay trên cánh đồng, ngắm nhìn muôn loài hoa đang khoe sắc.\nThoảng đâu đó, bỗng có tiếng mẹ dịu dàng: “Cẩn thận nha út…”. Bồ công anh thì thầm: “Đừng lo, mẹ ơi!”.\nBồ công anh tiếp tục bay. Và kìa, trước mắt nó là cánh đồng thênh thang, nơi những bông hoa cỏ mật tỏa hương ngào ngạt, nơi những bông hoa vàng li ti trải thảm đón chào, nơi những chú dế gảy lên khúc ca đồng quê rộn rã,… Bồ công anh muốn hét vang lên: “Con đã tìm thấy một nơi cho riêng mình, mẹ ơi, các anh chị ơi!”.\nBồ công anh út đáp xuống mặt đất ấm áp và đầy hương thơm. Những chú dế tưng bừng gảy lên khúc ca hiếu khách. Và những đóa hoa đủ màu khẽ nghiêng mình để chắt lấy từng giọt sương đêm còn đọng trên cánh, dành riêng cho bồ công anh.\nBồ công anh bé nhỏ khẽ rùng mình… Kìa, lớp áo dày của nó nứt ra và một chiếc mầm bé xíu nảy lên, xanh nõn…","source":""}],"questions":[{"id":"cau-1","type":"ABCD","blockIds":["bai-doc"],"text":"Chuyện gì đã xảy ra khi một cơn gió ào tới?","options":["Bầu trời trong xanh hơn.","Thổi tung những cánh hoa bồ công anh bay xao xác.","Mây đen kéo đến.","Mưa đổ xuống ào ào."],"correctAnswers":[1],"points":0.5,"answerText":"","metadata":{},"answerLayout":"plain","topic":"","confirmedExplanation":""},{"id":"cau-2","type":"ABCD","blockIds":["bai-doc"],"text":"Khi các cánh hoa bồ công anh khác đã tìm được nơi dừng chân, cánh hoa út làm gì?","options":["Mải lang thang cùng chị gió.","Chỉ bay trên cánh đồng và ngắm hoa.","Bay đến khu rừng rồi tìm đường trở về.","Bay theo các cánh hoa khác đến nơi xa."],"correctAnswers":[0],"points":0.5,"answerText":"","metadata":{},"answerLayout":"plain","topic":"","confirmedExplanation":""},{"id":"cau-3","type":"ABCD","blockIds":["bai-doc"],"text":"Đến cánh đồng thênh thang, bồ công anh út muốn hét lên điều gì?","options":["Nó muốn tiếp tục bay cùng chị gió.","Nó đã tìm thấy một nơi cho riêng mình.","Nó muốn trở về bên mẹ.","Nó muốn bay theo các anh chị."],"correctAnswers":[1],"points":0.5,"answerText":"","metadata":{},"answerLayout":"plain","topic":"","confirmedExplanation":""},{"id":"cau-4","type":"ABCD","blockIds":["bai-doc"],"text":"Sau khi bồ công anh út đáp xuống mặt đất, điều gì đã xảy ra?","options":["Bồ công anh út tiếp tục bay cùng chị gió.","Bồ công anh út tìm đường trở về với mẹ.","Lớp áo dày nứt ra, một chiếc mầm xanh nõn nảy lên.","Những chú dế ngừng gảy khúc ca đồng quê."],"correctAnswers":[2],"points":0.5,"answerText":"","metadata":{},"answerLayout":"plain","topic":"","confirmedExplanation":""},{"id":"cau-5","type":"OPEN","blockIds":["bai-doc"],"text":"Qua câu chuyện, tác giả muốn nhắn nhủ với em điều gì?","options":[],"correctAnswers":[],"points":1,"answerText":"","metadata":{},"answerLayout":"plain","hint":"Hãy nghĩ về hành trình khám phá của bồ công anh út. Bạn ấy tìm thấy điều gì? Câu chuyện gợi cho em bài học nào về trải nghiệm và cuộc sống?","topic":"","confirmedExplanation":""},{"id":"cau-6","type":"OPEN","blockIds":["bai-doc"],"text":"Theo em, bồ công anh út là nhân vật như thế nào? Chi tiết nào trong bài giúp em nhận ra điều đó?","options":[],"correctAnswers":[],"points":1,"answerText":"","metadata":{},"answerLayout":"plain","hint":"Nêu một đặc điểm của bồ công anh út, rồi tìm một hành động trong bài làm bằng chứng. Em có thể nghĩ đến sự ham khám phá hoặc tình yêu thiên nhiên.","topic":"","confirmedExplanation":""},{"id":"cau-7","type":"OPEN","blockIds":["bai-doc"],"text":"Nếu được trải nghiệm, khám phá một nơi mới giống như bồ công anh út, em muốn đến nơi nào? Vì sao?","options":[],"correctAnswers":[],"points":1,"answerText":"","metadata":{},"answerLayout":"plain","hint":"Chọn một nơi em thật sự muốn đến. Em sẽ nhìn thấy, tìm hiểu hay trải nghiệm điều gì ở đó? Viết 1–3 câu theo ý của em.","topic":"","confirmedExplanation":""},{"id":"cau-8","type":"ABCD","text":"Từ ngữ nào có nghĩa gần giống với “thênh thang”?","options":["Chật hẹp, nhỏ bé.","Bằng phẳng, nhẵn nhụi.","Gồ ghề, khúc khuỷu.","Mênh mông, bao la."],"correctAnswers":[3],"points":0.5,"answerText":"","metadata":{},"answerLayout":"plain","topic":"","confirmedExplanation":""},{"id":"cau-9","type":"ABCD","text":"Tục ngữ hoặc thành ngữ nào nói về việc trải nghiệm, khám phá?","options":["Chớ thấy sóng cả mà ngã tay chèo.","Có công mài sắt, có ngày nên kim.","Đi một ngày đàng, học một sàng khôn.","Mỗi người mỗi vẻ."],"correctAnswers":[2],"points":0.5,"answerText":"","metadata":{},"answerLayout":"plain","topic":"","confirmedExplanation":""},{"id":"cau-10","type":"OPEN","text":"Tìm 1 danh từ trong câu sau rồi đặt câu với danh từ vừa tìm được: “Bồ công anh út đáp xuống mặt đất ấm áp và đầy hương thơm.”","options":[],"correctAnswers":[],"points":1,"answerText":"","metadata":{},"answerLayout":"plain","hint":"Các danh từ có thể chọn: bồ công anh, mặt đất, hương thơm. Chọn một từ rồi đặt một câu mới có từ ấy.","topic":"","confirmedExplanation":""},{"id":"cau-11","type":"OPEN","text":"Viết một câu chủ đề phù hợp với đoạn văn sau: “Bồ công anh út được bay trên cánh đồng, sà xuống mặt ao và ngắm nhìn những loài hoa. Trên hành trình ấy, nó được ngắm nhìn biết bao cảnh đẹp và khám phá nhiều điều mới lạ. Khi đáp xuống mặt đất ấm áp, nó vui mừng đón chờ một cuộc sống mới.”","options":[],"correctAnswers":[],"points":1,"answerText":"","metadata":{},"answerLayout":"plain","hint":"Câu chủ đề nêu ý chính bao quát. Đoạn kể về hành trình bay, khám phá và tìm nơi sống mới của bồ công anh út. Hãy diễn đạt ý ấy bằng một câu.","topic":"","confirmedExplanation":""}],"blocks":[],"status":"in-progress","answers":{},"results":[],"pendingManual":0,"score":null,"maxScore":8,"theme":"reading","reading":true});</script></body></html>

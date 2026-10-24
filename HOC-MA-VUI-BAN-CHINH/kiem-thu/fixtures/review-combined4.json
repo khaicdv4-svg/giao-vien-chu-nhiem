@@ -1,13 +1,156 @@
 {
- "id":"combined-math4","title":"Toán lớp 4 – đề tổng hợp kiểm thử","metadata":{"grade":4,"subject":"Toán","topic":"Ôn tập số và phép tính","purpose":"Bài tập thường xuyên","attemptLimit":2,"scoreVisibility":"immediate","answerVisibility":"after-attempts"},
- "questions":[
-  {"id":"single","type":"SINGLE","text":"Số 45 678 làm tròn đến hàng nghìn là:","options":["45 000","46 000","45 700","50 000"],"correctAnswers":[1],"points":1,"explanation":"Chữ số hàng trăm là 6 (lớn hơn 5) nên làm tròn lên 46 000."},
-  {"id":"tf","type":"TRUEFALSE","text":"Chọn Đúng hoặc Sai cho mỗi nhận định.","points":1,"statements":[{"text":"36 × 10 = 360","answer":true},{"text":"1 tấn = 100 kg","answer":false},{"text":"Góc tù lớn hơn góc vuông","answer":true}],"explanation":"1 tấn = 1 000 kg."},
-  {"id":"multi","type":"MULTI","text":"Chọn các số chia hết cho 5.","options":["120","234","455","501"],"correctAnswers":[0,2],"points":1,"explanation":"Số có chữ số tận cùng là 0 hoặc 5 thì chia hết cho 5."},
-  {"id":"fill","type":"FILL","text":"2 giờ = [[1]] phút; 3 m = [[2]] cm; 5 kg = [[3]] g.","points":1,"blanks":[{"id":"1","answerText":"120","acceptedAnswers":[]},{"id":"2","answerText":"300","acceptedAnswers":[]},{"id":"3","answerText":"5000","acceptedAnswers":["5 000"]}],"explanation":"1 giờ = 60 phút; 1 m = 100 cm; 1 kg = 1 000 g."},
-  {"id":"match","type":"MATCHING","text":"Nối phép tính với kết quả.","pairs":[{"left":"25 × 4","right":"100"},{"left":"72 : 8","right":"9"},{"left":"150 + 250","right":"400"}],"points":1,"metadata":{"matchingScoring":"per-pair"},"explanation":"Tính từng phép rồi nối."},
-  {"id":"short","type":"SHORT","text":"Số liền sau của 99 999 là bao nhiêu?","answerText":"100 000","points":1,"metadata":{"shortScoring":"exact","acceptedAnswers":["100000"]},"explanation":"99 999 + 1 = 100 000."},
-  {"id":"essay","type":"OPEN","text":"Một cửa hàng có 1 250 kg gạo, đã bán 475 kg. Hỏi cửa hàng còn lại bao nhiêu ki-lô-gam gạo?","answerText":"775 kg","points":2,"metadata":{"answerLayout":"plain"},"explanation":"Lời giải đúng: 1 điểm; phép tính đúng: 1 điểm."},
-  {"id":"grid","type":"OPEN","text":"Đặt tính rồi tính 4 625 + 2 378.","answerText":"7 003","points":2,"metadata":{"answerLayout":"grid-calculation"},"explanation":"Đặt thẳng hàng: 1 điểm; kết quả đúng: 1 điểm."}
- ]
+  "id": "combined-math4",
+  "title": "Toán lớp 4 – đề tổng hợp kiểm thử",
+  "metadata": {
+    "grade": 4,
+    "subject": "Toán",
+    "topic": "Ôn tập số và phép tính",
+    "purpose": "Bài tập thường xuyên",
+    "attemptLimit": 2,
+    "scoreVisibility": "immediate",
+    "answerVisibility": "after-attempts"
+  },
+  "questions": [
+    {
+      "id": "single",
+      "type": "SINGLE",
+      "text": "Số 45 678 làm tròn đến hàng nghìn là:",
+      "options": [
+        "45 000",
+        "46 000",
+        "45 700",
+        "50 000"
+      ],
+      "correctAnswers": [
+        1
+      ],
+      "points": 1,
+      "explanation": "Chữ số hàng trăm là 6 (lớn hơn 5) nên làm tròn lên 46 000."
+    },
+    {
+      "id": "tf",
+      "type": "TRUEFALSE",
+      "text": "Chọn Đúng hoặc Sai cho mỗi nhận định.",
+      "points": 1,
+      "statements": [
+        {
+          "text": "36 × 10 = 360",
+          "answer": true
+        },
+        {
+          "text": "1 tấn = 100 kg",
+          "answer": false
+        },
+        {
+          "text": "Góc tù lớn hơn góc vuông",
+          "answer": true
+        }
+      ],
+      "explanation": "1 tấn = 1 000 kg."
+    },
+    {
+      "id": "multi",
+      "type": "MULTI",
+      "text": "Chọn các số chia hết cho 5.",
+      "options": [
+        "120",
+        "234",
+        "455",
+        "501"
+      ],
+      "correctAnswers": [
+        0,
+        2
+      ],
+      "points": 1,
+      "explanation": "Số có chữ số tận cùng là 0 hoặc 5 thì chia hết cho 5."
+    },
+    {
+      "id": "fill",
+      "type": "FILL",
+      "text": "2 giờ = [[1]] phút; 3 m = [[2]] cm; 5 kg = [[3]] g.",
+      "points": 1,
+      "blanks": [
+        {
+          "id": "1",
+          "answerText": "120",
+          "acceptedAnswers": []
+        },
+        {
+          "id": "2",
+          "answerText": "300",
+          "acceptedAnswers": []
+        },
+        {
+          "id": "3",
+          "answerText": "5000",
+          "acceptedAnswers": [
+            "5 000"
+          ]
+        }
+      ],
+      "explanation": "1 giờ = 60 phút; 1 m = 100 cm; 1 kg = 1 000 g."
+    },
+    {
+      "id": "match",
+      "type": "MATCHING",
+      "text": "Nối phép tính với kết quả.",
+      "pairs": [
+        {
+          "left": "25 × 4",
+          "right": "100"
+        },
+        {
+          "left": "72 : 8",
+          "right": "9"
+        },
+        {
+          "left": "150 + 250",
+          "right": "400"
+        }
+      ],
+      "points": 1,
+      "metadata": {
+        "matchingScoring": "per-pair"
+      },
+      "explanation": "Tính từng phép rồi nối."
+    },
+    {
+      "id": "short",
+      "type": "SHORT",
+      "text": "Số liền sau của 99 999 là bao nhiêu?",
+      "answerText": "100 000",
+      "points": 1,
+      "metadata": {
+        "shortScoring": "exact",
+        "acceptedAnswers": [
+          "100000"
+        ]
+      },
+      "explanation": "99 999 + 1 = 100 000."
+    },
+    {
+      "id": "essay",
+      "type": "OPEN",
+      "text": "Một cửa hàng có 1 250 kg gạo, đã bán 475 kg. Hỏi cửa hàng còn lại bao nhiêu ki-lô-gam gạo?",
+      "answerText": "775 kg",
+      "points": 2,
+      "metadata": {
+        "answerLayout": "plain"
+      },
+      "explanation": "Lời giải đúng: 1 điểm; phép tính đúng: 1 điểm."
+    },
+    {
+      "id": "grid",
+      "type": "OPEN",
+      "text": "Đặt tính rồi tính 4 625 + 2 378.",
+      "answerText": "7 003",
+      "points": 2,
+      "metadata": {
+        "answerLayout": "grid-calculation"
+      },
+      "explanation": "Đặt thẳng hàng: 1 điểm; kết quả đúng: 1 điểm."
+    }
+  ],
+  "submitUrl": "http://localhost/submit"
 }

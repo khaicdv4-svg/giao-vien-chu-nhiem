@@ -5,7 +5,7 @@ const path = require('node:path');
 const http = require('node:http');
 const { chromium } = require('playwright');
 
-const fixture = path.resolve(__dirname, 'fixtures/review-tiengviet4-doc-hieu.json');
+const fixture = path.resolve(__dirname, 'fixtures/review-simple-doc-hieu.json');
 const app = path.resolve(__dirname, '../app');
 const output = path.resolve(process.env.HMV_EVIDENCE_DIR || 'bang-chung-gd1');
 
@@ -42,9 +42,23 @@ const output = path.resolve(process.env.HMV_EVIDENCE_DIR || 'bang-chung-gd1');
       await p.goto(origin + '/');
       await p.waitForLoadState('domcontentloaded');
       
-      await p.evaluate(({raw, dom}) => {
-        if (window.HmvReviewHtml?.renderHtml) window.HmvReviewHtml.renderHtml(raw, dom);
+      // Gọi renderHtml với fixture
+      const renderResult = await p.evaluate(({raw, dom}) => {
+        try {
+          if (window.HmvReviewHtml?.renderHtml) {
+            window.HmvReviewHtml.renderHtml(raw, dom);
+            return {ok: true};
+          }
+          return {ok: false, err: 'HmvReviewHtml not found'};
+        } catch (e) {
+          return {ok: false, err: e.message};
+        }
       }, {raw: fixture_data, dom: domain_source});
+      
+      if (!renderResult.ok) {
+        console.error('renderHtml error:', renderResult.err);
+        throw new Error('renderHtml failed: ' + renderResult.err);
+      }
       
       await p.waitForFunction(() => document.querySelectorAll('fieldset[data-question-index]').length > 0, { timeout: 5000 });
       console.log('✓ 1280: bài render,', await p.evaluate(() => document.querySelectorAll('fieldset').length), 'fieldset');
@@ -89,9 +103,23 @@ const output = path.resolve(process.env.HMV_EVIDENCE_DIR || 'bang-chung-gd1');
       
       await p.goto(origin + '/');
       await p.waitForLoadState('domcontentloaded');
-      await p.evaluate(({raw, dom}) => {
-        if (window.HmvReviewHtml?.renderHtml) window.HmvReviewHtml.renderHtml(raw, dom);
+      // Gọi renderHtml với fixture
+      const renderResult = await p.evaluate(({raw, dom}) => {
+        try {
+          if (window.HmvReviewHtml?.renderHtml) {
+            window.HmvReviewHtml.renderHtml(raw, dom);
+            return {ok: true};
+          }
+          return {ok: false, err: 'HmvReviewHtml not found'};
+        } catch (e) {
+          return {ok: false, err: e.message};
+        }
       }, {raw: fixture_data, dom: domain_source});
+      
+      if (!renderResult.ok) {
+        console.error('renderHtml error:', renderResult.err);
+        throw new Error('renderHtml failed: ' + renderResult.err);
+      }
       await p.waitForFunction(() => document.querySelectorAll('fieldset[data-question-index]').length > 0, { timeout: 5000 });
       
       await p.screenshot({ path: path.join(output, 'gd1-lam-bai-390.png') });
