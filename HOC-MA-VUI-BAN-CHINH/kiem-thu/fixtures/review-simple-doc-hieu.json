@@ -6,7 +6,8 @@
     "subject": "Tiếng Việt",
     "topic": "Đọc hiểu",
     "purpose": "Bài tập thường xuyên",
-    "duration": 20
+    "duration": 20,
+    "attemptLimit": "unlimited"
   },
   "blocks": [
     {
