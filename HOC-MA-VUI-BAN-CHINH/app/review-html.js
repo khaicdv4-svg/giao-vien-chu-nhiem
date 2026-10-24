@@ -121,7 +121,7 @@ function createPractice(raw) {
       answerLayout:q.type==='OPEN'?q.metadata.answerLayout||'plain':'plain',
       ...((!doc.metadata.purpose||doc.metadata.purpose==='Bài tập thường xuyên')&&(['SINGLE','ABCD','MULTI','TRUEFALSE','FILL','MATCHING'].includes(q.type)||q.type==='SHORT'&&q.metadata.shortScoring==='exact')&&q.explanation?.trim()?{studentExplanation:q.explanation.trim()}:{}),
       ...(typeof raw.questions[i].metadata?.hint==='string'&&raw.questions[i].metadata.hint.trim()?{hint:raw.questions[i].metadata.hint.trim().slice(0,600)}:{}),topic:q.metadata.topicConfirmed===true&&typeof q.metadata.topic==='string'?q.metadata.topic.trim().slice(0,120):'',confirmedExplanation:(['SINGLE','ABCD','MULTI','TRUEFALSE','FILL','MATCHING'].includes(q.type)||q.type==='SHORT'&&q.metadata.shortScoring==='exact')&&raw.questions[i].metadata?.explanationConfirmed===true?q.explanation:''})),blocks:[],status:'in-progress',answers:{},results:[],pendingManual:0,
-    score:null,maxScore:doc.questions.reduce((n,q)=>n+q.points,0)};
+    score:null,maxScore:doc.questions.reduce((n,q)=>n+q.points,0),attempts:0};
 }
 
 function createFeedback(attempt, visibility) {
