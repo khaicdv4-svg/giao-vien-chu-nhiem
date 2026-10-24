@@ -1,0 +1,70 @@
+{
+  "id": "test-doc-hieu",
+  "title": "Bài Tập Đọc Hiểu - Test",
+  "metadata": {
+    "grade": 4,
+    "subject": "Tiếng Việt",
+    "topic": "Đọc hiểu",
+    "purpose": "Bài tập thường xuyên",
+    "duration": 20
+  },
+  "blocks": [
+    {
+      "id": "passage-1",
+      "type": "passage",
+      "title": "Bài Đọc",
+      "text": "Một buổi sáng đẹp trời, em đi học. Trên đường, em gặp một con chim. Con chim hót líu lo. Em tỏ ra rất vui. Em tiếp tục đi học."
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "ABCD",
+      "text": "Em gặp vật gì trên đường?",
+      "options": ["Con chim", "Con mèo", "Con chó", "Con ốc"],
+      "correctAnswers": [0],
+      "points": 1,
+      "blockIds": ["passage-1"],
+      "hint": "Hãy đọc kỹ dòng thứ hai."
+    },
+    {
+      "id": "q2",
+      "type": "ABCD",
+      "text": "Con chim hót như thế nào?",
+      "options": ["Hót líu lo", "Hót rao rao", "Hót inh ỏi", "Hót om sòm"],
+      "correctAnswers": [0],
+      "points": 1,
+      "blockIds": ["passage-1"],
+      "hint": "Tìm từ tả tiếng chim trong bài."
+    },
+    {
+      "id": "q3",
+      "type": "OPEN",
+      "text": "Em cảm thấy thế nào khi gặp con chim? Tại sao?",
+      "answerText": "Em cảm thấy vui vì con chim hót rất hay.",
+      "points": 2,
+      "blockIds": ["passage-1"],
+      "hint": "Tìm câu nói về cảm xúc của em trong bài."
+    },
+    {
+      "id": "q4",
+      "type": "TRUEFALSE",
+      "text": "Đúng hay Sai?",
+      "statements": [
+        {"text": "Em gặp con chim trên đường đi học", "answer": true},
+        {"text": "Em buồn khi gặp con chim", "answer": false}
+      ],
+      "points": 1
+    },
+    {
+      "id": "q5",
+      "type": "FILL",
+      "text": "Em đi học vào buổi [[1]]. Con chim hót [[2]].",
+      "blanks": [
+        {"id": "1", "answerText": "sáng", "acceptedAnswers": ["sáng", "buổi sáng"]},
+        {"id": "2", "answerText": "líu lo", "acceptedAnswers": ["líu lo", "hót líu lo"]}
+      ],
+      "points": 2
+    }
+  ]
+}
