@@ -38,3 +38,29 @@ test('GĐ1: CSS @media print ẩn danh sách xem lại',()=>{
  assert.match(out,/@media print/);
  assert.match(out,/display:none.*important/);
 });
+test('GĐ1: nút "🔁 Làm lại bài" có trong HTML',()=>{
+ const out=html.renderHtml(clone(fixture));
+ assert.match(out,/🔁 Làm lại bài/);
+ assert.match(out,/id="retry"/);
+});
+test('GĐ1: nút retry có event listener với form.reset()',()=>{
+ const out=html.renderHtml(clone(fixture));
+ assert.match(out,/retryButton\.addEventListener/);
+ assert.match(out,/form\.reset\(\)/);
+});
+test('GĐ1: nút retry có logic ẩn result-panel, hiện submit-panel',()=>{
+ const out=html.renderHtml(clone(fixture));
+ assert.match(out,/document\.querySelector\('\.result-panel'\)\.hidden=true/);
+ assert.match(out,/document\.querySelector\('\.submit-panel'\)\.hidden=false/);
+});
+test('GĐ1: attempt.theme và attempt.reading được gán từ lúc tạo HTML',()=>{
+ const out=html.renderHtml(clone(fixture));
+ // attempt.reading được gán trong script inline cuối HTML
+ assert.match(out,/attempt\.reading=/);
+ // Mẫu reading có bài đọc nên phải có HÀNH TRÌNH ĐỌC HIỂU
+ assert.match(out,/HÀNH TRÌNH ĐỌC HIỂU/);
+});
+test('GĐ1: scroll lên câu 1 khi bấm Làm lại',()=>{
+ const out=html.renderHtml(clone(fixture));
+ assert.match(out,/data-question-index="0"\].*scrollIntoView/);
+});
