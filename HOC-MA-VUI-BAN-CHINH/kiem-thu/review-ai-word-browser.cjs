@@ -61,6 +61,9 @@ async function main(){
     assert.match(await p.locator('[data-question="3"] [data-q="answerText"]').inputValue(),/60°/);assert.match(await p.locator('[data-question="3"] legend').textContent(),/Cần hình vẽ/);
     assert.equal(await p.locator('.rv-ai-ok, #rv-ai-approve-all').count(),0,'không còn nút duyệt');
     assert.match(await p.locator('#rv-message').textContent(),/AI đã làm xong 8 câu.*3 câu AI tự giải/);
+    await p.locator('#rv-ready-frame').waitFor();assert.match(await p.locator('#rv-ready').textContent(),/Bài tương tác đã sẵn sàng/);
+    await p.frameLocator('#rv-ready-frame').locator('text=Góc có số đo 120° là:').waitFor();
+    pass('ready','AI xong là hiện ngay bài tương tác (đúng mẫu xuất HTML) ở đầu trang, có nút tải HTML/SCORM/Word và nút sửa');
     await p.screenshot({path:path.join(output,'1-ket-qua-ai.png'),fullPage:false});
     await p.locator('#rv-ai-report').screenshot({path:path.join(output,'1b-bang-tom-tat.png')});
     pass('ai-docx','nhập Word → AI đọc 8 câu, tự giải đủ 3 câu thiếu đáp án (lượt 2 chỉ gửi câu thiếu), hiện đáp án ngay dưới tiêu đề câu, không còn bước duyệt');
@@ -112,12 +115,12 @@ async function main(){
     const txt=path.join(output,'de-khong-dap-an.txt');fs.writeFileSync(txt,'Câu 1. 2 + 2 = ?\nA. 3\nB. 4\nC. 5\nD. 6\nCâu 2. 3 + 3 = ?\nA. 5\nB. 6\nC. 7\nD. 8\n');
     await p.locator('#rv-import').setInputFiles(txt);await p.locator('[data-question]').first().waitFor();
     const nq=await p.locator('[data-question]').count();assert.ok(nq>=2);
-    await p.locator('#rv-ai-fill').waitFor();assert.match(await p.locator('.rv-ai-missing').textContent(),/chưa có đáp án/);
+    await p.locator('#rv-ai-fill').waitFor();assert.match(await p.locator('.rv-ai-missing').textContent(),/chưa có đáp án/);assert.equal(await p.locator('#rv-ready').count(),0,'còn thiếu đáp án thì chưa hiện bài sẵn sàng');
     await p.locator('#rv-export-scorm').click();await p.waitForFunction(()=>/AI điền đáp án còn thiếu/.test(document.querySelector('#rv-message').textContent));
     const before2=calls.length;await p.locator('#rv-ai-fill').click();await p.waitForFunction(()=>/AI đã điền đáp án cho/.test(document.querySelector('#rv-message').textContent));
-    assert.ok(calls.length>before2);assert.equal(await p.locator('#rv-ai-fill').count(),0);assert.match(await p.locator('[data-question="0"]').textContent(),/Đáp án: B\. 4/);
-    await p.locator('#rv-edit-subject').fill('Toán');await p.locator('#rv-topic').fill('Ôn tập');const w5=p.waitForEvent('download',{timeout:5000}).catch(()=>null);await p.locator('#rv-export-scorm').click();const d5=await w5;if(!d5)console.log('DBG',await p.locator('#rv-message').textContent(),await p.evaluate(()=>document.querySelectorAll('[data-question]').length));assert.match(d5.suggestedFilename(),/\.zip$/);
-    pass('ai-fill','đề không có đáp án nhập theo cách thường: báo câu thiếu, nút "✨ AI điền đáp án còn thiếu" điền hết, rồi xuất SCORM được');
+    assert.ok(calls.length>before2);await p.waitForFunction(()=>/Thiếu môn hoặc chủ đề/.test(document.querySelector('#rv-ready')?.textContent||''));assert.equal(await p.locator('#rv-ai-fill').count(),0);assert.match(await p.locator('[data-question="0"]').textContent(),/Đáp án: B\. 4/);
+    await p.locator('#rv-edit-subject').fill('Toán');await p.locator('#rv-topic').fill('Ôn tập');await p.locator('#rv-save').click();await p.locator('#rv-ready-frame').waitFor();const w5=p.waitForEvent('download',{timeout:5000}).catch(()=>null);await p.locator('#rv-export-scorm').click();const d5=await w5;if(!d5)console.log('DBG',await p.locator('#rv-message').textContent(),await p.evaluate(()=>document.querySelectorAll('[data-question]').length));assert.match(d5.suggestedFilename(),/\.zip$/);
+    pass('ai-fill','đề không có đáp án nhập theo cách thường: báo câu thiếu, nút "✨ AI điền đáp án còn thiếu" điền hết, rồi hiện bài sẵn sàng (thiếu môn/chủ đề thì nhắc rõ), xuất SCORM được');
     assert.deepEqual(errors,[]);pass('no-errors','không có lỗi JavaScript');
   }finally{await browser.close();await new Promise(r=>server.close(r));}
   fs.writeFileSync(path.join(output,'ket-qua.json'),JSON.stringify(rows,null,2));console.log('XONG '+rows.length+' mục PASS · '+output);

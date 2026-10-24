@@ -40,7 +40,7 @@
         if(report)doc.aiReport=report;
         await editor();
         const solved=report?window.HmvReviewAi.aiSolved(doc).length:0;
-        notify(report?`AI đã làm xong ${report.count} câu, tổng ${String(report.points).replace('.',',')} điểm${solved?`, trong đó ${solved} câu AI tự giải đáp án`:''}. Thầy cô xem lướt, sửa chỗ cần rồi bấm Lưu bản nháp. Sau đó bấm Xuất gói SCORM (QLMS) hoặc Xuất Word ở cuối trang.`:(aiError?`AI chưa đọc được: ${aiError}\nApp đã đọc theo cách thường được ${doc.questions.length} câu, thầy cô kiểm tra kỹ.`:`App đã đọc được ${doc.questions.length} câu. Thầy cô xem lại đáp án và điểm từng câu, rồi bấm Xuất gói SCORM (QLMS) ở cuối trang.`));
+        notify(report?`AI đã làm xong ${report.count} câu, tổng ${String(report.points).replace('.',',')} điểm${solved?`, trong đó ${solved} câu AI tự giải đáp án`:''}. Bài tương tác hiện ngay bên dưới, thầy cô làm thử rồi bấm tải về. Câu nào cần sửa thì bấm Sửa câu hỏi, đáp án.`:(aiError?`AI chưa đọc được: ${aiError}\nApp đã đọc theo cách thường được ${doc.questions.length} câu, thầy cô kiểm tra kỹ.`:`App đã đọc được ${doc.questions.length} câu. Thầy cô xem lại đáp án và điểm từng câu, rồi bấm Xuất gói SCORM (QLMS) ở cuối trang.`));
       }catch(err){clearInterval(timer);progress('⚠ Không đọc được: '+esc(err.message),'error');}
       busy=false;
     }
@@ -141,6 +141,22 @@
     const url=URL.createObjectURL(new Blob([bytes],{type:'application/zip'}));const a=document.createElement('a');a.href=url;a.download=window.HmvReviewHtml.scormFilename(snapshot.title);a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
     notify('Đã tải gói SCORM. Trên QLMS chọn Thêm mới học liệu → Scorm → tải tệp .zip này lên. Điểm phần tự chấm được gửi về hệ thống khi học sinh nộp bài.');
   }
+  // Khi học liệu đã đủ đáp án: hiện ngay bài tương tác học sinh sẽ thấy (đúng mẫu xuất HTML) ở đầu trang, kèm các nút tải.
+  async function showReady(){
+    if(!(doc.questions||[]).length)return;
+    if(window.HmvReviewAi&&window.HmvReviewAi.missingNumbers(doc).length)return;
+    let html;try{html=(await buildHtml()).html;}catch(e){root.querySelector('#rv-ready')?.remove();$('#rv-message').insertAdjacentHTML('afterend',`<section id="rv-ready" class="rv-ready rv-ready-wait"><p>Còn một bước nữa là có bài tương tác: <b>${esc(e.message)}</b>. Thầy cô sửa ở ô tương ứng bên dưới rồi bấm Lưu bản nháp.</p></section>`);return;}
+    if(!root.querySelector('#rv-edit-questions'))return;
+    if(htmlPreviewURL)URL.revokeObjectURL(htmlPreviewURL);
+    htmlPreviewURL=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));
+    root.querySelector('#rv-ready')?.remove();
+    const msg=$('#rv-message');
+    msg.insertAdjacentHTML('afterend',`<section id="rv-ready" class="rv-ready"><div class="rv-ready-bar"><div><h2>✅ Bài tương tác đã sẵn sàng</h2><p>Đây là bài học sinh sẽ làm. Thầy cô làm thử ngay trong khung bên dưới. Muốn sửa câu nào thì bấm <b>Sửa câu hỏi, đáp án</b>, sửa xong bấm Lưu bản nháp.</p></div><div class="rv-ready-actions"><button type="button" id="rv-ready-html">⬇ Tải bài tương tác (HTML)</button><button type="button" id="rv-ready-scorm">⬇ Gói SCORM cho QLMS</button><button type="button" id="rv-ready-word">⬇ Word đề in</button><button type="button" id="rv-ready-edit">✏ Sửa câu hỏi, đáp án</button></div></div><iframe id="rv-ready-frame" title="Bài tương tác học sinh sẽ làm" sandbox="allow-scripts allow-downloads"></iframe></section>`);
+    $('#rv-ready-frame').src=htmlPreviewURL;
+    const run=fn=>async()=>{try{await fn();}catch(e){notify(e.message);}};
+    $('#rv-ready-html').onclick=run(exportHtml);$('#rv-ready-scorm').onclick=run(exportScorm);$('#rv-ready-word').onclick=run(exportWord);
+    $('#rv-ready-edit').onclick=()=>{const q=root.querySelector('#rv-edit-questions');if(q)q.scrollIntoView({behavior:'smooth',block:'start'});};
+  }
   async function previewHtml() {
     const {html}=await buildHtml();
     if(htmlPreviewURL) URL.revokeObjectURL(htmlPreviewURL);
@@ -203,6 +219,7 @@
     if(window.HmvReviewAi&&doc.source?.blob instanceof Blob){$('#rv-export-word').insertAdjacentHTML('beforebegin','<button type="button" id="rv-ai-reanalyze">✨ AI đọc lại đề</button>');$('#rv-ai-reanalyze').onclick=guarded(reanalyze);}
     if(window.HmvReviewAi){const left=window.HmvReviewAi.missingNumbers(doc);if(left.length){$('#rv-export-word').insertAdjacentHTML('beforebegin',`<button type="button" id="rv-ai-fill" class="rv-ai-fill">✨ AI điền đáp án còn thiếu (${left.length} câu)</button>`);$('#rv-ai-fill').onclick=guarded(fillAnswers);const tools=root.querySelector('.rv-tools');if(tools)tools.insertAdjacentHTML('afterend',`<p class="rv-ai-missing">Còn ${left.length} câu chưa có đáp án (Câu ${left.join(', ')}). Bấm <b>✨ AI điền đáp án còn thiếu</b> ở dưới để AI làm hết.</p>`);}}
     if(window.HmvReviewAi)window.HmvReviewAi.decorate(root,doc);
+    showReady();
     $('#rv-edit-questions').insertAdjacentHTML('afterend','<iframe id="rv-html-preview" title="Xem trước HTML luyện tập" sandbox="allow-scripts allow-downloads" hidden></iframe>');
     $('#rv-add-block').onclick=guarded(()=>{collect();doc.blocks.push({id:uid(),type:'text',text:''});editor();});
     root.querySelectorAll('[data-q="type"]').forEach(select=>select.onchange=guarded(()=>{collect();if(select.value==='MATCHING'){const q=doc.questions[Number(select.closest('[data-question]').dataset.question)];q.metadata={...q.metadata,matchingScoring:'per-pair'};if(!q.pairs?.length)q.pairs=[{left:'',right:''},{left:'',right:''}];}if(select.value==='FILL')doc.questions[Number(select.closest('[data-question]').dataset.question)].blanks=[];if(select.value==='TRUEFALSE')doc.questions[Number(select.closest('[data-question]').dataset.question)].statements=[{text:'',answer:null}];editor();}));
