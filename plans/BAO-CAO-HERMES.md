@@ -2,40 +2,31 @@
 
 **Ngày:** 24/10/2026  
 **Nhánh:** `feature/on-tap-kiem-tra`  
-**Commit cuối:** `9bb0551`  
-**CACHE_NAME:** `hmv-ban-chinh-2.46-on-tap-ket-qua-doc-hieu`
+**Commit cuối:** `06cc7ea`  
+**CACHE_NAME:** `hmv-ban-chinh-2.47-on-tap-ai-retry`
 
 ---
 
-## Giai đoạn 1: Hoàn thiện mẫu "Hành trình đọc hiểu" — ✅ HOÀN THÀNH
+## Giai đoạn 1: Hoàn thiện mẫu "Hành trình đọc hiểu" — ✅
 
-### Công việc đã xong
-
-| Chức năng | Nơi test | Bằng chứng |
-|---|---|---|
-| Danh sách xem lại từng câu (Câu 1…11) | HTML mẫu reading | `reading-review-section`, tạo qua DOM, test ✓ |
-| Lời khuyên từ `metadata.hint` cho câu OPEN | Câu 5-7, 10-11 | `.reading-hint` div, test ✓ |
-| Nút "🖨️ In kết quả" | Phần export | Button có event `window.print()`, test ✓ |
-| CSS @media print (trắng đen, ẩn nút) | Bản in | `display:none!important`, test ✓ |
-| `data-question-index` trên fieldset | Scroll | Đánh dấu mỗi câu, test ✓ |
-| HTML đúng 2 thẻ `<script>` | Validation | Script count = 2, test ✓ |
-| Flag `attempt.reading` được đặt | Script thứ hai | `attempt.reading=true`, test ✓ |
-
-### Kiểm thử
-
-- **Unit test:** 96/96 pass (92 cũ + 4 reading)
-- **Kiểm tra code:** `review-reading-gd1-check.cjs` — 10/10 ✓
-
-### Commit
-
-- `9bb0551`: Sửa lỗi flag `attempt.reading`
+**Commit:** `92c6d1f` · **Test:** 96/96 pass
 
 ---
 
-## Giai đoạn 2: Gia cố AI đọc đề — CHƯA LÀM
+## Giai đoạn 2: Gia cố AI đọc đề — ✅ PART 1
 
-(Mục tiêu: retry, timeout, báo tiến độ, xử lý lỗi)
+**Commit:** `06cc7ea` · **Test:** 96/96 pass
+
+**Đã làm:**
+- ✓ Retry logic (tối đa 2 lần khi 429/5xx/timeout)
+- ✓ Backoff: 2s, 5s
+- ✓ Báo tiến độ qua onProgress()
+- ✓ Không retry khi 400/parse error
+
+**Còn dở:**
+- Chia PDF lớn theo trang
+- Xử lý khóa API sai
 
 ---
 
-**Branch:** `feature/on-tap-kiem-tra` (không gộp vào `main`)
+**Branch:** `feature/on-tap-kiem-tra`
