@@ -1,0 +1,34 @@
+[
+  {
+    "viewport": "desktop",
+    "step": "submit1",
+    "resultText": "",
+    "retryDisplay": "unknown",
+    "submissionCount": 1,
+    "pageErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "viewport": "desktop",
+    "step": "submit2",
+    "resultText": "",
+    "exhausted": false
+  },
+  {
+    "viewport": "mobile",
+    "step": "submit1",
+    "resultText": "",
+    "retryDisplay": "unknown",
+    "submissionCount": 1,
+    "pageErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "viewport": "mobile",
+    "step": "submit2",
+    "resultText": "",
+    "exhausted": false
+  }
+]
