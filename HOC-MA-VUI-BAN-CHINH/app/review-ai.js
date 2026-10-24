@@ -66,12 +66,28 @@ async function buildParts(file,sourceDoc){
 function aiFetch(){return root&&typeof root.hmvAiFetch==='function'?root.hmvAiFetch:function(u,i){return fetch(u,i);};}
 async function callAI(parts,opts){
  opts=opts||{};
- var body={system:opts.system||SYSTEM.replace('{{GOI_Y}}',opts.suggestAnswers===false?NO_SUGGEST:SUGGEST),contents:[{role:'user',parts:parts}],json:true,schema:opts.schema||SCHEMA,tier:opts.tier||'quality',temperature:0.1,maxOutputTokens:16384,timeoutMs:120000};
- var res=await (opts.fetcher||aiFetch())('./api/ai/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:opts.signal});
- var out=null;try{out=await res.json();}catch(_){}
- if(!res.ok||!out||!out.ok){var e=Error((out&&out.message)||(res.status===404?'Chưa có máy chủ AI. Thầy cô mở ứng dụng bằng MO-HOC-MA-VUI.cmd hoặc kết nối khóa Gemini trong Trợ lý AI.':'AI chưa trả lời được. Thầy cô thử lại sau ít phút.'));e.code=out&&out.code||'AI_FAILED';throw e;}
- var data;try{data=JSON.parse(String(out.text).replace(/^```(?:json)?\s*|\s*```$/g,''));}catch(_){var e2=Error(out.truncated?'Đề quá dài, AI trả lời bị cắt giữa chừng. Thầy cô tách đề thành hai phần rồi nhập từng phần.':'AI trả về dữ liệu không đọc được. Thầy cô thử lại.');e2.code='AI_BAD_JSON';throw e2;}
- return {data:data,model:out.model||'',truncated:!!out.truncated};
+ var maxRetries=2,delays=[2000,5000],lastError=null;
+ for(var attempt=0;attempt<=maxRetries;attempt++){
+  try{
+   if(opts.onProgress)opts.onProgress('Đang gọi AI (lần '+(attempt+1)+')…');
+   var body={system:opts.system||SYSTEM.replace('{{GOI_Y}}',opts.suggestAnswers===false?NO_SUGGEST:SUGGEST),contents:[{role:'user',parts:parts}],json:true,schema:opts.schema||SCHEMA,tier:opts.tier||'quality',temperature:0.1,maxOutputTokens:16384,timeoutMs:120000};
+   var res=await (opts.fetcher||aiFetch())('./api/ai/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:opts.signal});
+   var out=null;try{out=await res.json();}catch(_){}
+   if(!res.ok||!out||!out.ok){var e=Error((out&&out.message)||(res.status===404?'Chưa có máy chủ AI. Thầy cô mở ứng dụng bằng MO-HOC-MA-VUI.cmd hoặc kết nối khóa Gemini trong Trợ lý AI.':'AI chưa trả lời được. Thầy cô thử lại sau ít phút.'));e.code=out&&out.code||'AI_FAILED';e.status=res.status;throw e;}
+   var data;try{data=JSON.parse(String(out.text).replace(/^```(?:json)?\s*|\s*```$/g,''));}catch(_){var e2=Error(out.truncated?'Đề quá dài, AI trả lời bị cắt giữa chừng. Thầy cô tách đề thành hai phần rồi nhập từng phần.':'AI trả về dữ liệu không đọc được. Thầy cô thử lại.');e2.code='AI_BAD_JSON';throw e2;}
+   if(opts.onProgress)opts.onProgress('');
+   return {data:data,model:out.model||'',truncated:!!out.truncated};
+  }catch(err){
+   lastError=err;
+   var code=err.code||'',status=err.status||0;
+   var retryable=(status===429||status>=500||code==='AI_TIMEOUT'||/timeout/i.test(String(err)));
+   if(!retryable||code==='AI_BAD_JSON'||attempt>=maxRetries)throw err;
+   var delay=delays[attempt]||5000;
+   if(opts.onProgress)opts.onProgress('AI bận, chờ '+Math.round(delay/1000)+'s rồi thử lại…');
+   await new Promise(function(resolve){setTimeout(resolve,delay);});
+  }
+ }
+ throw lastError;
 }
 
 // Chuyển kết quả AI → câu hỏi đúng hợp đồng review-domain. Trả về cả danh sách cảnh báo theo từng câu.
