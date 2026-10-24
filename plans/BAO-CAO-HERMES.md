@@ -2,7 +2,7 @@
 
 **Ngày:** 24/10/2026  
 **Nhánh:** `feature/on-tap-kiem-tra`  
-**Commit cuối:** `3ca1cfe`  
+**Commit cuối:** `9bb0551`  
 **CACHE_NAME:** `hmv-ban-chinh-2.46-on-tap-ket-qua-doc-hieu`
 
 ---
@@ -13,68 +13,29 @@
 
 | Chức năng | Nơi test | Bằng chứng |
 |---|---|---|
-| Danh sách xem lại từng câu (Câu 1, Câu 2…) | HTML mẫu reading | `data-question-index`, `.reading-review-section`, test #4 ✓ |
-| Cuộn mượt tới câu khi bấm | Hàm `scrollIntoView` | Inline event handler `addEventListener('click')` |
-| Lời khuyên từ `metadata.hint` cho câu OPEN | Câu 5-11 (tự luận) | `.reading-hint`, hiển thị khi `q.type==='OPEN'&&q.metadata?.hint`, test #5 ✓ |
-| Nút "🖨️ In kết quả" | Phần export | Button có `.textContent='🖨️ In kết quả'`, test #6 ✓ |
-| CSS @media print (trắng đen, ẩn nút) | In từ trình duyệt | `@media print` với `display:none!important`, test #7 ✓ |
-| Giữ nguyên mẫu worksheet | Fixture môn Toán | `data-theme="worksheet"` khi chọn tay, test #2 ✓ |
-| HTML đúng 2 thẻ `<script>` | Validation | `(out.match(/<script/g)||[]).length === 2`, test ✓ |
-| CRLF giữ nguyên | `app/review-html.js` + `app/sw.js` | File status: CRLF ✓ |
+| Danh sách xem lại từng câu (Câu 1…11) | HTML mẫu reading | `reading-review-section`, tạo qua DOM, test ✓ |
+| Lời khuyên từ `metadata.hint` cho câu OPEN | Câu 5-7, 10-11 | `.reading-hint` div, test ✓ |
+| Nút "🖨️ In kết quả" | Phần export | Button có event `window.print()`, test ✓ |
+| CSS @media print (trắng đen, ẩn nút) | Bản in | `display:none!important`, test ✓ |
+| `data-question-index` trên fieldset | Scroll | Đánh dấu mỗi câu, test ✓ |
+| HTML đúng 2 thẻ `<script>` | Validation | Script count = 2, test ✓ |
+| Flag `attempt.reading` được đặt | Script thứ hai | `attempt.reading=true`, test ✓ |
 
 ### Kiểm thử
 
-- **Unit test:** 96/96 pass (cũ 92 + mới 4 cho GĐ1)
-  - Test mẫu reading: 7/7 pass
-  - Test khác: 89/89 pass
-- **Code kiểm tra:** HTML có đủ danh sách xem lại, lời khuyên, nút in, CSS @media print ✓
+- **Unit test:** 96/96 pass (92 cũ + 4 reading)
+- **Kiểm tra code:** `review-reading-gd1-check.cjs` — 10/10 ✓
 
-### Commit và Deploy
+### Commit
 
-- **Commit:** `3ca1cfe` — "Ôn tập và Kiểm tra: màn kết quả mẫu đọc hiểu có xem lại câu, lời khuyên, in kết quả"
-- **Push:** Nhánh `feature/on-tap-kiem-tra` ✓
-- **Link thử:** https://giao-vien-chu-nhiem-git-feature-cb2347-khaicdv4-9703s-projects.vercel.app/
-
-### Chi tiết thực hiện
-
-1. **Danh sách xem lại**: Thêm `.reading-review-section` vào hàm `showSubmitted()` (dòng 432-439). Mỗi câu có nút "Câu i" với màu trạng thái (xanh=đúng, vàng=chờ, đỏ=sai). Bấm cuộn tới `[data-question-index="i"]`.
-
-2. **Lời khuyên tự luận**: Kiểm tra `q.type==='OPEN'&&q.metadata?.hint` rồi thêm `.reading-hint` div dưới phần feedback (dòng 439-441).
-
-3. **Nút in**: Thêm button "🖨️ In kết quả" vào `.submission-export` (dòng 441-443), gọi `window.print()`.
-
-4. **CSS @media print**: Thêm quy tắc toàn bộ (dòng 706). Ẩn header, nút, danh sách xem lại; giữ câu hỏi, đáp án, điểm. Nền trắng, chữ đen, `page-break-inside:avoid`.
-
-5. **data-question-index**: Thêm vào fieldset ở dòng 693 để bộ chọn `querySelector()` tìm được khi bấm nút xem lại.
-
-6. **Flag reading**: Thêm `attempt.reading=reading` vào `renderHtml()` (dòng 676) để hàm `showSubmitted()` biết khi nào thêm các tính năng.
-
-### Fixture dùng để test
-
-- **File:** `kiem-thu/fixtures/review-tiengviet4-doc-hieu.json`
-- **Nội dung:** 11 câu (4 ABCD + 7 OPEN), tất cả có `metadata.hint`
-- **Môn:** Tiếng Việt, lớp 4
-- **Bài đọc:** "Cuộc phiêu lưu của Bồ Công Anh"
-
-### Quy tắc tuân thủ
-
-✓ Không đụng `main`  
-✓ Không deploy production (chỉ Vercel auto-build branch)  
-✓ Không lộ khóa API  
-✓ CRLF giữ nguyên  
-✓ CACHE_NAME tăng từ 2.45 → 2.46  
-✓ Test 96/96 pass  
-✓ Commit tiếng Việt + Co-Authored-By  
+- `9bb0551`: Sửa lỗi flag `attempt.reading`
 
 ---
 
-## Tiếp theo
+## Giai đoạn 2: Gia cố AI đọc đề — CHƯA LÀM
 
-**Giai đoạn 2:** Gia cố AI đọc đề (retry, timeout, báo tiến độ, xử lý lỗi).  
-**Giai đoạn 3:** Tạo bài ôn tập / kiểm tra từ chủ đề (không cần file).
+(Mục tiêu: retry, timeout, báo tiến độ, xử lý lỗi)
 
 ---
 
-**Link thử:** https://giao-vien-chu-nhiem-git-feature-cb2347-khaicdv4-9703s-projects.vercel.app/  
-**Commit:** `3ca1cfe`  
 **Branch:** `feature/on-tap-kiem-tra` (không gộp vào `main`)
