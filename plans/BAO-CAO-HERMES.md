@@ -54,7 +54,7 @@
 - **File:** `kiem-thu/fixtures/review-tiengviet4-doc-hieu.json`
 - **Nội dung:** 11 câu (4 ABCD + 7 OPEN), tất cả có `metadata.hint`
 - **Môn:** Tiếng Việt, lớp 4
-- **Bài đọc:** "Chuyến đi của bé Linh"
+- **Bài đọc:** "Cuộc phiêu lưu của Bồ Công Anh"
 
 ### Quy tắc tuân thủ
 
