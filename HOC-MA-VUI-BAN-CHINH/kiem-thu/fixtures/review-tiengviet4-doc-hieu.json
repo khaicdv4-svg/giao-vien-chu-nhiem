@@ -1,0 +1,192 @@
+{
+ "id": "bca",
+ "title": "Cuộc phiêu lưu của Bồ Công Anh",
+ "metadata": {
+  "grade": 4,
+  "subject": "Tiếng Việt",
+  "topic": "Đọc hiểu",
+  "purpose": "Bài tập thường xuyên",
+  "duration": 35
+ },
+ "blocks": [
+  {
+   "id": "bai-doc",
+   "type": "passage",
+   "title": "CUỘC PHIÊU LƯU CỦA BỒ CÔNG ANH",
+   "text": "Một cơn gió ào tới, thổi tung những cánh hoa bồ công anh bay xao xác.\n– Tạm biệt mẹ! – Những cánh hoa bồ công anh vẫy đôi tay bé xíu. – Chúng con đi đây!\nChúng bay bay trên cánh đồng. Rồi mỗi cánh hoa đều tìm thấy một nơi để dừng chân. Riêng cánh hoa bồ công anh út vẫn mải lang thang cùng chị gió. Có khi bồ công anh út bay tung lên cao. Có khi nó sà xuống mặt ao soi mình dưới nước. Nó nhẩn nha bay trên cánh đồng, ngắm nhìn muôn loài hoa đang khoe sắc.\nThoảng đâu đó, bỗng có tiếng mẹ dịu dàng: “Cẩn thận nha út…”. Bồ công anh thì thầm: “Đừng lo, mẹ ơi!”.\nBồ công anh tiếp tục bay. Và kìa, trước mắt nó là cánh đồng thênh thang, nơi những bông hoa cỏ mật tỏa hương ngào ngạt, nơi những bông hoa vàng li ti trải thảm đón chào, nơi những chú dế gảy lên khúc ca đồng quê rộn rã,… Bồ công anh muốn hét vang lên: “Con đã tìm thấy một nơi cho riêng mình, mẹ ơi, các anh chị ơi!”.\nBồ công anh út đáp xuống mặt đất ấm áp và đầy hương thơm. Những chú dế tưng bừng gảy lên khúc ca hiếu khách. Và những đóa hoa đủ màu khẽ nghiêng mình để chắt lấy từng giọt sương đêm còn đọng trên cánh, dành riêng cho bồ công anh.\nBồ công anh bé nhỏ khẽ rùng mình… Kìa, lớp áo dày của nó nứt ra và một chiếc mầm bé xíu nảy lên, xanh nõn…",
+   "source": "Theo Trương Huỳnh Như Trân (Tiếng Việt 4, tập 2 – Chân trời sáng tạo)"
+  }
+ ],
+ "questions": [
+  {
+   "type": "ABCD",
+   "text": "Chuyện gì đã xảy ra khi một cơn gió ào tới?",
+   "options": [
+    "Bầu trời trong xanh hơn.",
+    "Thổi tung những cánh hoa bồ công anh bay xao xác.",
+    "Mây đen kéo đến.",
+    "Mưa đổ xuống ào ào."
+   ],
+   "correctAnswers": [
+    1
+   ],
+   "points": 0.5,
+   "blockIds": [
+    "bai-doc"
+   ],
+   "id": "cau-1"
+  },
+  {
+   "type": "ABCD",
+   "text": "Khi các cánh hoa bồ công anh khác đã tìm được nơi dừng chân, cánh hoa út làm gì?",
+   "options": [
+    "Mải lang thang cùng chị gió.",
+    "Chỉ bay trên cánh đồng và ngắm hoa.",
+    "Bay đến khu rừng rồi tìm đường trở về.",
+    "Bay theo các cánh hoa khác đến nơi xa."
+   ],
+   "correctAnswers": [
+    0
+   ],
+   "points": 0.5,
+   "blockIds": [
+    "bai-doc"
+   ],
+   "id": "cau-2"
+  },
+  {
+   "type": "ABCD",
+   "text": "Đến cánh đồng thênh thang, bồ công anh út muốn hét lên điều gì?",
+   "options": [
+    "Nó muốn tiếp tục bay cùng chị gió.",
+    "Nó đã tìm thấy một nơi cho riêng mình.",
+    "Nó muốn trở về bên mẹ.",
+    "Nó muốn bay theo các anh chị."
+   ],
+   "correctAnswers": [
+    1
+   ],
+   "points": 0.5,
+   "blockIds": [
+    "bai-doc"
+   ],
+   "id": "cau-3"
+  },
+  {
+   "type": "ABCD",
+   "text": "Sau khi bồ công anh út đáp xuống mặt đất, điều gì đã xảy ra?",
+   "options": [
+    "Bồ công anh út tiếp tục bay cùng chị gió.",
+    "Bồ công anh út tìm đường trở về với mẹ.",
+    "Lớp áo dày nứt ra, một chiếc mầm xanh nõn nảy lên.",
+    "Những chú dế ngừng gảy khúc ca đồng quê."
+   ],
+   "correctAnswers": [
+    2
+   ],
+   "points": 0.5,
+   "blockIds": [
+    "bai-doc"
+   ],
+   "id": "cau-4"
+  },
+  {
+   "type": "OPEN",
+   "text": "Qua câu chuyện, tác giả muốn nhắn nhủ với em điều gì?",
+   "points": 1.0,
+   "answerText": "Học sinh trả lời theo ý hiểu.",
+   "metadata": {
+    "answerLayout": "plain",
+    "hint": "Hãy nghĩ về hành trình khám phá của bồ công anh út. Bạn ấy tìm thấy điều gì? Câu chuyện gợi cho em bài học nào về trải nghiệm và cuộc sống?"
+   },
+   "blockIds": [
+    "bai-doc"
+   ],
+   "id": "cau-5"
+  },
+  {
+   "type": "OPEN",
+   "text": "Theo em, bồ công anh út là nhân vật như thế nào? Chi tiết nào trong bài giúp em nhận ra điều đó?",
+   "points": 1.0,
+   "answerText": "Học sinh trả lời theo ý hiểu.",
+   "metadata": {
+    "answerLayout": "plain",
+    "hint": "Nêu một đặc điểm của bồ công anh út, rồi tìm một hành động trong bài làm bằng chứng. Em có thể nghĩ đến sự ham khám phá hoặc tình yêu thiên nhiên."
+   },
+   "blockIds": [
+    "bai-doc"
+   ],
+   "id": "cau-6"
+  },
+  {
+   "type": "OPEN",
+   "text": "Nếu được trải nghiệm, khám phá một nơi mới giống như bồ công anh út, em muốn đến nơi nào? Vì sao?",
+   "points": 1.0,
+   "answerText": "Học sinh trả lời theo ý hiểu.",
+   "metadata": {
+    "answerLayout": "plain",
+    "hint": "Chọn một nơi em thật sự muốn đến. Em sẽ nhìn thấy, tìm hiểu hay trải nghiệm điều gì ở đó? Viết 1–3 câu theo ý của em."
+   },
+   "blockIds": [
+    "bai-doc"
+   ],
+   "id": "cau-7"
+  },
+  {
+   "type": "ABCD",
+   "text": "Từ ngữ nào có nghĩa gần giống với “thênh thang”?",
+   "options": [
+    "Chật hẹp, nhỏ bé.",
+    "Bằng phẳng, nhẵn nhụi.",
+    "Gồ ghề, khúc khuỷu.",
+    "Mênh mông, bao la."
+   ],
+   "correctAnswers": [
+    3
+   ],
+   "points": 0.5,
+   "blockIds": [],
+   "id": "cau-8"
+  },
+  {
+   "type": "ABCD",
+   "text": "Tục ngữ hoặc thành ngữ nào nói về việc trải nghiệm, khám phá?",
+   "options": [
+    "Chớ thấy sóng cả mà ngã tay chèo.",
+    "Có công mài sắt, có ngày nên kim.",
+    "Đi một ngày đàng, học một sàng khôn.",
+    "Mỗi người mỗi vẻ."
+   ],
+   "correctAnswers": [
+    2
+   ],
+   "points": 0.5,
+   "blockIds": [],
+   "id": "cau-9"
+  },
+  {
+   "type": "OPEN",
+   "text": "Tìm 1 danh từ trong câu sau rồi đặt câu với danh từ vừa tìm được: “Bồ công anh út đáp xuống mặt đất ấm áp và đầy hương thơm.”",
+   "points": 1.0,
+   "answerText": "Học sinh trả lời theo ý hiểu.",
+   "metadata": {
+    "answerLayout": "plain",
+    "hint": "Các danh từ có thể chọn: bồ công anh, mặt đất, hương thơm. Chọn một từ rồi đặt một câu mới có từ ấy."
+   },
+   "blockIds": [],
+   "id": "cau-10"
+  },
+  {
+   "type": "OPEN",
+   "text": "Viết một câu chủ đề phù hợp với đoạn văn sau: “Bồ công anh út được bay trên cánh đồng, sà xuống mặt ao và ngắm nhìn những loài hoa. Trên hành trình ấy, nó được ngắm nhìn biết bao cảnh đẹp và khám phá nhiều điều mới lạ. Khi đáp xuống mặt đất ấm áp, nó vui mừng đón chờ một cuộc sống mới.”",
+   "points": 1.0,
+   "answerText": "Học sinh trả lời theo ý hiểu.",
+   "metadata": {
+    "answerLayout": "plain",
+    "hint": "Câu chủ đề nêu ý chính bao quát. Đoạn kể về hành trình bay, khám phá và tìm nơi sống mới của bồ công anh út. Hãy diễn đạt ý ấy bằng một câu."
+   },
+   "blockIds": [],
+   "id": "cau-11"
+  }
+ ]
+}
