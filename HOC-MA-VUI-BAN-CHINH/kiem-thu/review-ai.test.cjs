@@ -111,3 +111,13 @@ test('câu thiếu đáp án nhận ra cả với học liệu không qua AI; l�
  const r2=await ai.fillMissing(doc,{fetcher:async()=>({ok:true,status:200,json:async()=>({ok:true,text:JSON.stringify({answers:[{id:'a',correct:[1]},{id:'c',answerText:'Đáp số: 5',guide:'Đúng 1 điểm'}]})})})});
  assert.equal(r2.done,2);assert.deepEqual(ai.missingNumbers(doc),[]);assert.deepEqual(doc.questions[0].correctAnswers,[1]);
 });
+
+test('AI viết gợi ý cho câu chưa có, không đụng câu đã có; HTML học sinh có nghe đọc đề, gợi ý, hướng dẫn',async()=>{
+ const html=require('../app/review-html.js'),fs=require('node:fs'),path=require('node:path');
+ const doc={questions:[{id:'a',type:'ABCD',text:'2 + 2 = ?',options:['3','4','5','6'],correctAnswers:[1],pairs:[],points:1,metadata:{hint:'Em đếm thêm 2.'}},{id:'b',type:'ABCD',text:'3 + 3 = ?',options:['5','6','7','8'],correctAnswers:[1],pairs:[],points:1,metadata:{}}],blocks:[],metadata:{subject:'Toán',grade:4,topic:'Ôn tập'}};
+ const seen=[];const r=await ai.generateHints(doc,{fetcher:async(u,i)=>{seen.push(JSON.parse(i.body));return {ok:true,status:200,json:async()=>({ok:true,text:JSON.stringify({hints:[{id:'b',hint:'Em gộp hai nhóm 3.'}]})})};}});
+ assert.equal(r.done,1);assert.equal(seen[0].tier,'fast');assert.match(seen[0].system,/không nói ra đáp án/);
+ assert.equal(doc.questions[0].metadata.hint,'Em đếm thêm 2.');assert.equal(doc.questions[1].metadata.hint,'Em gộp hai nhóm 3.');
+ const out=html.renderHtml({...doc,title:'Thử'},fs.readFileSync(path.join(__dirname,'../app/review-domain.js'),'utf8'));
+ assert.equal((out.match(/data-listen="/g)||[]).length,2);assert.ok(out.includes('💡 Em gộp hai nhóm 3.'));assert.ok(out.includes('📖 Hướng dẫn làm bài'));assert.ok(out.includes('function setupStudentHelp'));
+});

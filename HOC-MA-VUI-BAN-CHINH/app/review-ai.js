@@ -23,6 +23,7 @@ var SYSTEM=[
 '10. Câu cần hình vẽ, bảng, sơ đồ mà dữ liệu chữ không thể hiện được: needsFigure = true và mô tả ngắn hình trong figureNote.',
 '11. section: tên phần như "PHẦN I: TRẮC NGHIỆM (3 điểm)" nếu đề có chia phần; sectionNote: lời dặn của phần (ví dụ "Khoanh vào chữ đặt trước ý đúng"). Câu cùng phần ghi cùng section.',
 '12. subject chỉ ghi tên môn (Toán, Tiếng Việt, Khoa học, Lịch sử và Địa lí, Công nghệ, Tin học, Tiếng Anh, Đạo đức…). topic ghi kỳ kiểm tra hoặc chủ đề (ví dụ "Kiểm tra giữa học kì I"). grade là số lớp.',
+'14. hint: với MỌI câu, viết 1–2 câu gợi ý ngắn, xưng "em", giúp học sinh tự tìm cách làm (nhắc kiến thức cần dùng, bước làm đầu tiên). TUYỆT ĐỐI không nói ra đáp án hay kết quả.',
 '13. Điều gì không chắc chắn thì ghi vào warnings bằng tiếng Việt ngắn gọn, ví dụ "Câu 5: ảnh mờ, phương án C đọc không rõ".'
 ].join('\n');
 var NO_SUGGEST='để correct rỗng, statements answer "?", blanks answer "", answerText "", answerSource "none". KHÔNG tự giải.';
@@ -40,7 +41,7 @@ var SCHEMA={type:'OBJECT',properties:{
   pairs:{type:'ARRAY',items:{type:'OBJECT',properties:{left:S.STRING,right:S.STRING},required:['left','right']}},
   answerText:S.STRING,guide:S.STRING,passageIds:{type:'ARRAY',items:S.STRING},
   answerSource:{type:'STRING',enum:['key','ai','none']},layout:{type:'STRING',enum:['plain','grid-calculation','grid-text']},
-  section:S.STRING,sectionNote:S.STRING,needsFigure:S.BOOLEAN,figureNote:S.STRING
+  section:S.STRING,sectionNote:S.STRING,needsFigure:S.BOOLEAN,figureNote:S.STRING,hint:S.STRING
  },required:['number','type','text','points','answerSource']}},
  warnings:{type:'ARRAY',items:S.STRING}
 },required:['questions']};
@@ -65,7 +66,7 @@ async function buildParts(file,sourceDoc){
 function aiFetch(){return root&&typeof root.hmvAiFetch==='function'?root.hmvAiFetch:function(u,i){return fetch(u,i);};}
 async function callAI(parts,opts){
  opts=opts||{};
- var body={system:opts.system||SYSTEM.replace('{{GOI_Y}}',opts.suggestAnswers===false?NO_SUGGEST:SUGGEST),contents:[{role:'user',parts:parts}],json:true,schema:opts.schema||SCHEMA,tier:'quality',temperature:0.1,maxOutputTokens:16384,timeoutMs:120000};
+ var body={system:opts.system||SYSTEM.replace('{{GOI_Y}}',opts.suggestAnswers===false?NO_SUGGEST:SUGGEST),contents:[{role:'user',parts:parts}],json:true,schema:opts.schema||SCHEMA,tier:opts.tier||'quality',temperature:0.1,maxOutputTokens:16384,timeoutMs:120000};
  var res=await (opts.fetcher||aiFetch())('./api/ai/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:opts.signal});
  var out=null;try{out=await res.json();}catch(_){}
  if(!res.ok||!out||!out.ok){var e=Error((out&&out.message)||(res.status===404?'Chưa có máy chủ AI. Thầy cô mở ứng dụng bằng MO-HOC-MA-VUI.cmd hoặc kết nối khóa Gemini trong Trợ lý AI.':'AI chưa trả lời được. Thầy cô thử lại sau ít phút.'));e.code=out&&out.code||'AI_FAILED';throw e;}
@@ -90,6 +91,7 @@ function toDocument(data,opts){
   var src=['key','ai','none'].indexOf(r.answerSource)>=0?r.answerSource:'none';
   var m={aiNumber:num};
   if(str(r.section))m.section=str(r.section);if(str(r.sectionNote))m.sectionNote=str(r.sectionNote);
+  if(str(r.hint))m.hint=str(r.hint).slice(0,600);
   if(r.needsFigure){m.needsFigure=true;if(str(r.figureNote))m.figureNote=str(r.figureNote);}
   var q={id:id,type:type,text:text,points:pts,options:[],correctAnswers:[],pairs:[],answerText:str(r.answerText),explanation:str(r.guide),blockIds:(Array.isArray(r.passageIds)?r.passageIds:[]).map(function(x){return idMap[str(x)];}).filter(Boolean),metadata:m};
   var opts2=(Array.isArray(r.options)?r.options:[]).map(function(o){return str(o).replace(/^[A-H][.)]\s+/,'');}).filter(Boolean);
@@ -140,8 +142,8 @@ function summary(questions){
 var FILL_SCHEMA={type:'OBJECT',properties:{answers:{type:'ARRAY',items:{type:'OBJECT',properties:{
  id:S.STRING,correct:{type:'ARRAY',items:S.INTEGER},statements:{type:'ARRAY',items:{type:'STRING',enum:['Đúng','Sai']}},
  blanks:{type:'ARRAY',items:S.STRING},pairs:{type:'ARRAY',items:{type:'OBJECT',properties:{left:S.STRING,right:S.STRING},required:['left','right']}},
- answerText:S.STRING,guide:S.STRING},required:['id']}}},required:['answers']};
-var FILL_SYSTEM='Bạn là giáo viên tiểu học Việt Nam giỏi chuyên môn. Giải từng câu hỏi được gửi (đúng kiến thức lớp đó, chương trình GDPT 2018, sách Kết nối tri thức) và trả JSON đúng lược đồ, mỗi câu một phần tử theo id. correct là chỉ số phương án tính từ 0. statements: "Đúng"/"Sai" theo thứ tự nhận định. blanks: đáp án từng chỗ trống [[1]], [[2]]… theo thứ tự. pairs: ghép đúng từng vế trái với vế phải. Câu tự luận/giải toán: answerText là bài giải mẫu ngắn gọn có đáp số, guide là hướng dẫn chấm chia theo điểm của câu. Câu viết đoạn/bài văn: answerText là gợi ý ý chính, guide là tiêu chí và biểu điểm. Bắt buộc trả lời mọi câu.';
+ answerText:S.STRING,guide:S.STRING,hint:S.STRING},required:['id']}}},required:['answers']};
+var FILL_SYSTEM='Bạn là giáo viên tiểu học Việt Nam giỏi chuyên môn. Giải từng câu hỏi được gửi (đúng kiến thức lớp đó, chương trình GDPT 2018, sách Kết nối tri thức) và trả JSON đúng lược đồ, mỗi câu một phần tử theo id. correct là chỉ số phương án tính từ 0. statements: "Đúng"/"Sai" theo thứ tự nhận định. blanks: đáp án từng chỗ trống [[1]], [[2]]… theo thứ tự. pairs: ghép đúng từng vế trái với vế phải. Câu tự luận/giải toán: answerText là bài giải mẫu ngắn gọn có đáp số, guide là hướng dẫn chấm chia theo điểm của câu. Câu viết đoạn/bài văn: answerText là gợi ý ý chính, guide là tiêu chí và biểu điểm. Bắt buộc trả lời mọi câu. hint: 1–2 câu gợi ý ngắn xưng "em" giúp học sinh tự tìm cách làm, không nói ra đáp án.';
 function dom(){return (root&&root.HmvReviewDomain)||(typeof require==='function'&&require('./review-domain.js'));}
 // Câu còn thiếu đáp án (dùng cho mọi học liệu, kể cả nhập không qua AI hoặc soạn tay).
 function needsAnswer(q){var m=q.metadata||{};if(q.type==='OPEN')return !str(q.answerText)&&!str(q.explanation);if(q.type==='MATCHING'&&m.aiAnswer==='missing')return true;return dom().validateQuestion(q).some(function(e){return /khóa|đáp án|Nhận định|chỗ trống/i.test(e);});}
@@ -155,6 +157,7 @@ function applyAnswer(q,a){
  else if(q.type==='SHORT'){if(!str(a.answerText))return false;q.answerText=str(a.answerText);m.shortScoring='manual';}
  else{if(!str(a.answerText)&&!str(a.guide))return false;if(str(a.answerText))q.answerText=str(a.answerText);if(str(a.guide))q.explanation=str(a.guide);}
  if(q.type!=='OPEN'&&str(a.guide)&&!q.explanation)q.explanation=str(a.guide);
+ if(str(a.hint)&&!m.hint)m.hint=str(a.hint).slice(0,600);
  m.aiAnswer='suggested';return true;
 }
 // Gửi các câu còn thiếu đáp án cho AI giải (mỗi lần tối đa 12 câu). Trả về {total, done, error}.
@@ -181,12 +184,32 @@ async function fillMissing(conv,opts){
  return res;
 }
 
+// Viết gợi ý cho các câu chưa có (mỗi lần 15 câu). Gợi ý chỉ chỉ cách nghĩ, không nói đáp án.
+var HINT_SCHEMA={type:'OBJECT',properties:{hints:{type:'ARRAY',items:{type:'OBJECT',properties:{id:S.STRING,hint:S.STRING},required:['id','hint']}}},required:['hints']};
+var HINT_SYSTEM='Bạn là giáo viên tiểu học Việt Nam. Với mỗi câu hỏi được gửi, viết 1–2 câu gợi ý ngắn, xưng "em", giúp học sinh tự tìm ra cách làm: nhắc kiến thức cần dùng hoặc bước làm đầu tiên. Lời lẽ đơn giản, gần gũi học sinh miền Nam. TUYỆT ĐỐI không nói ra đáp án, kết quả hay phương án đúng. Trả JSON đúng lược đồ, mỗi câu một phần tử theo id.';
+function needsHint(q){return !str((q.metadata||{}).hint);}
+async function generateHints(conv,opts){
+ opts=opts||{};var list=(conv.questions||[]).filter(needsHint),res={total:list.length,done:0,error:''};if(!list.length)return res;
+ var blocks={};(conv.blocks||[]).forEach(function(b){blocks[b.id]=b;});var meta=conv.metadata||{};
+ for(var i=0;i<list.length;i+=15){
+  var part=list.slice(i,i+15);
+  var items=part.map(function(q){var o={id:q.id,type:q.type,text:q.text};if(q.options&&q.options.length)o.options=q.options;if(Array.isArray(q.statements))o.statements=q.statements.map(function(x){return x.text;});var ps=(q.blockIds||[]).map(function(id){var b=blocks[id];return b&&b.type!=='source-text'&&(b.text||b.content);}).filter(Boolean);if(ps.length)o.passage=ps.join('\n\n').slice(0,4000);return o;});
+  try{
+   var r=await callAI([{text:'Môn '+(meta.subject||'')+', lớp '+(meta.grade||4)+'. Viết gợi ý cho các câu sau:\n'+JSON.stringify(items)}],Object.assign({},opts,{system:HINT_SYSTEM,schema:HINT_SCHEMA,tier:'fast'}));
+   var got={};((r.data&&r.data.hints)||[]).forEach(function(h){if(h&&h.id&&str(h.hint))got[h.id]=str(h.hint).slice(0,600);});
+   part.forEach(function(q){if(got[q.id]){q.metadata=Object.assign({},q.metadata,{hint:got[q.id]});res.done++;}});
+  }catch(e){res.error=e.message;break;}
+ }
+ return res;
+}
+
 // Phân tích tệp: sourceDoc là kết quả HmvReviewImport.readFile (giữ nguồn để đối chiếu). Trả về {doc, report}.
 async function analyze(file,sourceDoc,opts){
  opts=opts||{};
  var parts=await buildParts(file,sourceDoc),r=await callAI(parts,opts),conv=toDocument(r.data,opts);
  if(!conv.questions.length)throw Error('AI không tìm thấy câu hỏi nào trong tệp. Thầy cô kiểm tra lại tệp hoặc nhập tay.');
  var fill=opts.suggestAnswers!==false?await fillMissing(conv,opts):{total:0,done:0,error:''};
+ if(opts.hints!==false&&conv.questions.some(needsHint)){try{await generateHints(conv,opts);}catch(_){}}
  var base=sourceDoc||{},meta=Object.assign({},base.metadata||{},conv.metadata);
  if(!meta.topic)meta.topic='Ôn tập';
  var doc=Object.assign({},base,{title:conv.title||base.title,metadata:meta,blocks:conv.blocks,questions:conv.questions,importStatus:'ready-for-review'});
@@ -224,5 +247,5 @@ function decorate(rootEl,doc){
   (notes.length||(rp.warnings||[]).length?'<ul>'+notes.map(function(n){return '<li>'+esc(n.text)+'</li>';}).join('')+(rp.warnings||[]).map(function(w){return '<li>'+esc(w)+'</li>';}).join('')+'</ul>':'')+'</div>');
 }
 
-return {analyze:analyze,aiSolved:aiSolved,fillMissing:fillMissing,needsAnswer:needsAnswer,missingNumbers:missingNumbers,applyAnswer:applyAnswer,buildParts:buildParts,callAI:callAI,toDocument:toDocument,summary:summary,decorate:decorate,SCHEMA:SCHEMA,SYSTEM:SYSTEM,MAX_INLINE:MAX_INLINE};
+return {analyze:analyze,generateHints:generateHints,needsHint:needsHint,aiSolved:aiSolved,fillMissing:fillMissing,needsAnswer:needsAnswer,missingNumbers:missingNumbers,applyAnswer:applyAnswer,buildParts:buildParts,callAI:callAI,toDocument:toDocument,summary:summary,decorate:decorate,SCHEMA:SCHEMA,SYSTEM:SYSTEM,MAX_INLINE:MAX_INLINE};
 });

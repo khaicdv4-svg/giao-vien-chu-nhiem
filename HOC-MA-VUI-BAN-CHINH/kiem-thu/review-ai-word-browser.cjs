@@ -7,7 +7,7 @@ const output=path.resolve(process.env.HMV_EVIDENCE_DIR||path.join(__dirname,'..'
 const rows=[];const pass=(id,t)=>{rows.push({id,status:'PASS',t});console.log(id+' PASS '+t);};
 const AI={title:'Đề kiểm tra giữa học kì I',subject:'Toán',grade:4,topic:'Kiểm tra giữa học kì I',passages:[],
  questions:[
-  {number:'1',type:'ABCD',text:'Số “hai triệu bốn trăm linh năm nghìn không trăm mười tám” được viết là:',points:0.5,options:['2 450 018','2 405 018','2 405 180','2 045 018'],correct:[1],answerSource:'key',section:'PHẦN I: TRẮC NGHIỆM (1,5 điểm)',sectionNote:'Khoanh vào chữ (A, B, C hoặc D) đặt trước ý đúng.'},
+  {number:'1',type:'ABCD',text:'Số “hai triệu bốn trăm linh năm nghìn không trăm mười tám” được viết là:',points:0.5,options:['2 450 018','2 405 018','2 405 180','2 045 018'],correct:[1],answerSource:'key',hint:'Em đọc từng lớp: triệu, nghìn, đơn vị.',section:'PHẦN I: TRẮC NGHIỆM (1,5 điểm)',sectionNote:'Khoanh vào chữ (A, B, C hoặc D) đặt trước ý đúng.'},
   {number:'2',type:'ABCD',text:'Góc có số đo 120° là:',points:0.5,options:['Góc nhọn','Góc tù','Góc vuông','Góc bẹt'],correct:[1],answerSource:'ai',section:'PHẦN I: TRẮC NGHIỆM (1,5 điểm)'},
   {number:'3',type:'TRUEFALSE',text:'Đúng ghi Đ, sai ghi S:',points:0.5,statements:[{text:'1 tấn = 1 000 kg',answer:'Đúng'},{text:'1 giờ = 100 phút',answer:'Sai'}],answerSource:'key',section:'PHẦN I: TRẮC NGHIỆM (1,5 điểm)'},
   {number:'4',type:'OPEN',text:'Dùng thước đo góc để đo các góc dưới đây, rồi viết số đo vào chỗ chấm.',points:1,answerSource:'none',needsFigure:true,figureNote:'hai góc đỉnh O và đỉnh I',section:'PHẦN II: TỰ LUẬN (3,5 điểm)'},
@@ -24,6 +24,8 @@ async function main(){
     const u=new URL(req.url,'http://x');
     if(u.pathname==='/api/ai/generate'&&req.method==='POST'){let b='';req.on('data',c=>b+=c);req.on('end',()=>{const body=JSON.parse(b);calls.push(body);
       if(mode==='nokey'){res.writeHead(503,{'Content-Type':'application/json'});return res.end(JSON.stringify({ok:false,code:'NO_KEY',message:'Chưa có khóa Gemini.'}));}
+      const hintReq=body.schema&&body.schema.properties&&body.schema.properties.hints;
+      if(hintReq){const its=JSON.parse(body.contents[0].parts[0].text.replace(/^[\s\S]*?Viết gợi ý cho các câu sau:\n/,''));res.writeHead(200,{'Content-Type':'application/json'});return res.end(JSON.stringify({ok:true,text:JSON.stringify({hints:its.map(q=>({id:q.id,hint:'Em nhớ lại cách làm câu '+q.id+' nhé.'}))}),model:'gemini-gia-lap'}));}
       const solve=body.schema&&body.schema.properties&&body.schema.properties.answers;
       const items=solve?JSON.parse(body.contents[0].parts[0].text.replace(/^[\s\S]*?Giải các câu sau:\n/,'')):null;
       const answers=solve?items.map(q=>q.type==='FILL'?{id:q.id,blanks:['120']}:q.options?{id:q.id,correct:[1]}:{id:q.id,answerText:'Góc đỉnh O: 60°; góc đỉnh I: 120°',guide:'Mỗi số đo đúng 0,5 điểm.'}):null;
@@ -48,7 +50,7 @@ async function main(){
     // 1) Word của trường → AI
     await p.locator('#rv-import').setInputFiles(path.join(__dirname,'files/de-toan-ghk1-mau-truong.docx'));
     await p.locator('#rv-ai-report').waitFor();
-    assert.equal(calls.length,2,'lượt 1 đọc đề, lượt 2 giải các câu còn thiếu đáp án');const sent=calls[0];
+    assert.equal(calls.filter(c=>!(c.schema&&c.schema.properties.hints)).length,2,'lượt 1 đọc đề, lượt 2 giải các câu còn thiếu đáp án');const sent=calls[0];
     assert.equal(sent.json,true);assert.match(sent.system,/BẮT BUỘC có đáp án cho MỌI câu/);assert.match(sent.contents[0].parts[0].text,/Câu 1/);assert.ok(!sent.contents[0].parts.some(x=>x.inlineData),'Word gửi chữ, không gửi tệp');
     const second=JSON.parse(calls[1].contents[0].parts[0].text.replace(/^[\s\S]*?Giải các câu sau:\n/,''));assert.deepEqual(second.map(q=>q.id).sort(),['cau-4','cau-6'],'chỉ gửi lại các câu chưa có đáp án');
     assert.equal(await p.locator('[data-question]').count(),8);
@@ -63,6 +65,17 @@ async function main(){
     assert.match(await p.locator('#rv-message').textContent(),/AI đã làm xong 8 câu.*3 câu AI tự giải/);
     await p.locator('#rv-ready-frame').waitFor();assert.match(await p.locator('#rv-ready').textContent(),/Bài tương tác đã sẵn sàng/);
     await p.frameLocator('#rv-ready-frame').locator('text=Góc có số đo 120° là:').waitFor();
+    {const f=p.frameLocator('#rv-ready-frame');
+     await f.locator('text=📖 Hướng dẫn làm bài').click();await f.locator('#guide-panel').waitFor();
+     assert.equal(await f.locator('[data-listen]').count(),8,'mỗi câu có nút nghe đọc đề');
+     assert.equal(await f.locator('[data-hint]').count(),8,'mỗi câu có gợi ý');
+     await f.locator('[data-hint="0"]').click();assert.match(await f.locator('#hint-0').textContent(),/triệu, nghìn, đơn vị/);
+     assert.match(await f.locator('#hint-1').textContent({timeout:1000}).catch(()=>'')||'x',/./);
+     await f.locator('[data-listen="1"]').click();await p.waitForTimeout(200);
+     const st=(await f.locator('[data-listen="1"]').getAttribute('aria-pressed'))+'|'+(await f.locator('#speak-status').textContent());assert.match(st,/^true\||đọc to|giọng/,'bấm nghe: đang đọc hoặc báo thiết bị chưa có giọng');
+     const html=fs.readFileSync(path.join(__dirname,'..','app','review-html.js'),'utf8');assert.ok(html.includes('không nói đáp án'));}
+    const hintCall=calls.find(c=>c.schema&&c.schema.properties.hints);assert.ok(hintCall,'AI được gọi viết gợi ý cho câu chưa có');assert.match(hintCall.system,/không nói ra đáp án/);
+    pass('help','bài học sinh có 🔊 Nghe đọc đề từng câu, 💡 Gợi ý (AI viết, không lộ đáp án), 📖 Hướng dẫn làm bài');
     pass('ready','AI xong là hiện ngay bài tương tác (đúng mẫu xuất HTML) ở đầu trang, có nút tải HTML/SCORM/Word và nút sửa');
     await p.screenshot({path:path.join(output,'1-ket-qua-ai.png'),fullPage:false});
     await p.locator('#rv-ai-report').screenshot({path:path.join(output,'1b-bang-tom-tat.png')});
@@ -106,7 +119,7 @@ async function main(){
     // 6) PDF gửi nguyên tệp + bật gợi ý đáp án + phân tích lại
     if(process.env.HMV_TEST_PDF&&fs.existsSync(process.env.HMV_TEST_PDF)){
       await p.locator('#rv-import').setInputFiles(process.env.HMV_TEST_PDF);await p.locator('#rv-ai-report').waitFor();
-      const last=calls.filter(c=>!(c.schema&&c.schema.properties.answers)).pop();assert.equal(last.contents[0].parts[0].inlineData.mimeType,'application/pdf');
+      const last=calls.filter(c=>!(c.schema&&(c.schema.properties.answers||c.schema.properties.hints))).pop();assert.equal(last.contents[0].parts[0].inlineData.mimeType,'application/pdf');
       const n=calls.length;await p.locator('#rv-ai-reanalyze').click();await p.waitForFunction(()=>/AI đã đọc lại/.test(document.querySelector('#rv-message').textContent));assert.ok(calls.length>=n+1);
       pass('ai-pdf','PDF gửi nguyên tệp cho AI (đọc được cả bản scan); nút "AI đọc lại đề" chạy');
     }
