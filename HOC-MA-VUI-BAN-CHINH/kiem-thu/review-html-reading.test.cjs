@@ -17,3 +17,24 @@ test('môn khác mặc định phiếu luyện tập',()=>{
  const d=clone(fixture);d.metadata=Object.assign({},d.metadata,{subject:'Toán'});
  assert.match(html.renderHtml(d),/data-theme="worksheet"/);
 });
+test('GĐ1: mẫu reading có danh sách xem lại câu với data-question-index',()=>{
+ const out=html.renderHtml(clone(fixture));
+ assert.match(out,/data-question-index="0"/);
+ assert.match(out,/data-question-index="10"/);
+ assert.match(out,/reading-review-section/);
+ assert.match(out,/📋 Xem lại bài làm/);
+});
+test('GĐ1: mẫu reading có lời khuyên từ metadata.hint cho câu OPEN',()=>{
+ const out=html.renderHtml(clone(fixture));
+ assert.match(out,/reading-hint/);
+ assert.match(out,/💡.*Gợi ý/);
+});
+test('GĐ1: mẫu reading có nút in kết quả',()=>{
+ const out=html.renderHtml(clone(fixture));
+ assert.match(out,/🖨️ In kết quả/);
+});
+test('GĐ1: CSS @media print ẩn danh sách xem lại',()=>{
+ const out=html.renderHtml(clone(fixture));
+ assert.match(out,/@media print/);
+ assert.match(out,/display:none.*important/);
+});
