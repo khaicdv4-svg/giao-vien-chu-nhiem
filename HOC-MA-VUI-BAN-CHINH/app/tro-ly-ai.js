@@ -14,7 +14,7 @@
   var OLD_MSG = WEB ? WEB_MSG : 'Máy chủ nội bộ đang chạy bản cũ, chưa có phần AI. Hãy bấm đúp tệp KHOI-DONG-LAI-MAY-CHU.cmd trong thư mục ứng dụng, rồi tải lại trang này.';
   var SUBJECTS = ['Toán', 'Tiếng Việt', 'Khoa học', 'Lịch sử và Địa lí', 'Đạo đức', 'Tự nhiên và Xã hội', 'Tin học', 'Công nghệ', 'Tiếng Anh', 'Âm nhạc', 'Mĩ thuật', 'Giáo dục thể chất', 'Hoạt động trải nghiệm'];
   var LEVELS = { 'Mức 1': 'nhận biết, nhắc lại hoặc mô tả nội dung đã học, áp dụng trực tiếp vào tình huống quen thuộc', 'Mức 2': 'kết nối, sắp xếp nội dung đã học để giải quyết vấn đề có nội dung tương tự', 'Mức 3': 'vận dụng nội dung đã học để giải quyết vấn đề mới hoặc đưa ra phản hồi hợp lí trong học tập và cuộc sống' };
-  var S = { status: null, tab: 'quick', busy: '', drafts: [], images: [], dropped: 0, saved: null, note: '', task: 'matrix', chats: {}, test: '' };
+  var S = { status: null, tab: 'quick', busy: '', drafts: [], images: [], pdfs: [], dropped: 0, saved: null, note: '', task: 'matrix', chats: {}, test: '' };
 
   function $(id) { return doc.getElementById(id); }
   function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -37,6 +37,38 @@
         if (!x.r.ok || x.j.ok === false) throw fail(x.j.code || 'ERROR', x.j.message || 'AI gặp lỗi. Hãy thử lại.');
         return x.j;
       }, function (e) { done(); throw fail(e && e.name === 'AbortError' ? 'TIMEOUT' : 'OFFLINE', e && e.name === 'AbortError' ? 'AI xử lý quá lâu. Hãy thử lại với ít nội dung hơn.' : 'Không gọi được máy chủ nội bộ. Hãy kiểm tra ứng dụng còn đang chạy.'); });
+  }
+  /* Thêm file Word/PDF làm nguồn bài học (30/10/2026): chữ đọc được thì chép vào ô Nguồn để thầy cô xem, sửa;
+     PDF scan (không có chữ) thì gửi nguyên tệp cho AI đọc, tối đa 2 tệp, mỗi tệp 9 MB. */
+  function b64(buf) { var bytes = new Uint8Array(buf), out = '', step = 0x8000; for (var i = 0; i < bytes.length; i += step) out += String.fromCharCode.apply(null, bytes.subarray(i, i + step)); return win.btoa(out); }
+  function docText(file, ext) {
+    if (ext === 'txt') return file.text();
+    if (win.HmvReviewImport && typeof win.HmvReviewImport.readFile === 'function') return win.HmvReviewImport.readFile(file).then(function (d) { return ((d.source && d.source.pages) || []).map(function (p) { return p.text || ''; }).join('\n\n'); });
+    if (ext === 'docx' && win.hmvC7QuestionBank && typeof win.hmvC7QuestionBank.readFile === 'function') return win.hmvC7QuestionBank.readFile(file).then(function (r) { return r.raw || ''; });
+    return Promise.resolve('');
+  }
+  function addDocs(files) {
+    var list = Array.prototype.slice.call(files || []); if (!list.length) return;
+    list.reduce(function (chain, file) { return chain.then(function () {
+      var ext = String(file.name || '').split('.').pop().toLowerCase();
+      if (['docx', 'pdf', 'txt'].indexOf(ext) < 0) { toast((ext === 'doc' ? 'File .doc đời cũ chưa đọc được. Thầy cô mở bằng Word rồi lưu lại thành .docx nhé: ' : 'Chỉ nhận file Word (.docx), PDF hoặc .txt: ') + file.name); return; }
+      if (file.size > 20 * 1024 * 1024) { toast('File quá lớn (tối đa 20 MB): ' + file.name); return; }
+      setNote('Đang đọc file ' + file.name + '…');
+      return docText(file, ext).catch(function () { return ''; }).then(function (text) {
+        text = String(text || '').replace(/\r\n?/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+        var box = $('taSource');
+        if (text && box) {
+          var cur = box.value.trim(), next = (cur ? cur + '\n\n' : '') + '[Từ file ' + file.name + ']\n' + text, cut = next.length > 20000;
+          box.value = next.slice(0, 20000);
+          setNote('Đã chép ' + Math.min(text.length, 20000).toLocaleString('vi-VN') + ' ký tự từ file ' + file.name + ' vào ô Nguồn bài học.' + (cut ? ' Nguồn dài quá nên chỉ giữ 20 000 ký tự đầu, thầy cô xóa bớt phần không cần.' : ' Thầy cô xem lại, xóa phần không cần trước khi tạo câu hỏi.'));
+          return;
+        }
+        if (ext !== 'pdf') { setNote('File ' + file.name + ' không có chữ để đọc.', true); return; }
+        if (S.pdfs.length >= 2) { setNote('Chỉ gửi được tối đa 2 file PDF scan. Thầy cô bỏ bớt file cũ rồi thêm lại.', true); return; }
+        if (file.size > 9 * 1024 * 1024) { setNote('File ' + file.name + ' lớn hơn 9 MB nên chưa gửi được cho AI. Thầy cô tách bớt trang hoặc chụp ảnh trang sách.', true); return; }
+        return file.arrayBuffer().then(function (buf) { S.pdfs.push({ name: file.name, data: b64(buf) }); renderThumbs(); setNote('App không lấy được chữ trong file ' + file.name + ' (thường là bản scan), nên sẽ gửi nguyên file PDF cho AI đọc.'); });
+      });
+    }); }, Promise.resolve()).catch(function (e) { setNote('Chưa đọc được file: ' + (e && e.message || e), true); });
   }
   function loadStatus() {
     return (win.hmvAiFetch || win.fetch)('./api/ai/status?t=' + Date.now(), { cache: 'no-store', headers: { Accept: 'application/json' } })
@@ -112,7 +144,7 @@
     var p = ['Soạn đúng ' + f.count + ' câu hỏi cho học sinh lớp ' + f.grade + ', môn ' + f.subject + (f.topic ? ', bài/chủ đề: ' + f.topic : '') + '.', 'Dạng câu: ' + kind, 'Mức độ: ' + level,
       'Quy cách để chiếu trong trò chơi:', '- Câu hỏi không quá 150 ký tự; mỗi phương án không quá 45 ký tự.', '- Câu "ABCD": answers có đúng 4 phương án khác nhau, chỉ MỘT phương án đúng; correct là vị trí phương án đúng (0–3); phương án nhiễu là lỗi học sinh hay mắc; không dùng "Tất cả đều đúng", "Cả A và B"; answerText để chuỗi rỗng.', '- Câu "TRUEFALSE": text là một mệnh đề khẳng định; answers là ["Đúng","Sai"]; correct là 0 nếu mệnh đề đúng, 1 nếu sai; số mệnh đề đúng và sai xấp xỉ nhau.', '- Câu "SHORT": answers là mảng rỗng, correct là -1, answerText là đáp án ngắn (một số hoặc 1–4 từ).', '- explanation: một câu giải thích ngắn, dễ hiểu với học sinh.', '- level: "Mức 1", "Mức 2" hoặc "Mức 3".', '- Các câu không trùng ý nhau.'];
     if (avoid && avoid.length) p.push('Không lặp lại ý của các câu đã có sau đây:\n' + avoid.slice(0, 40).map(function (t) { return '- ' + t; }).join('\n'));
-    if (f.source || f.images) p.push('Chỉ dùng kiến thức có trong NGUỒN BÀI HỌC' + (f.images ? ' (gồm ' + f.images + ' ảnh trang sách/vở đính kèm' + (f.source ? ' và đoạn văn bản dưới đây' : '') + ')' : ' dưới đây') + '; không hỏi điều nằm ngoài nguồn.');
+    if (f.source || f.images) p.push('Chỉ dùng kiến thức có trong NGUỒN BÀI HỌC' + (f.images ? ' (gồm ' + f.images + ' ảnh/tệp PDF trang sách đính kèm' + (f.source ? ' và đoạn văn bản dưới đây' : '') + ')' : ' dưới đây') + '; không hỏi điều nằm ngoài nguồn.');
     else p.push('Không có nguồn kèm theo: hãy dựa vào nội dung chuẩn của bài/chủ đề này trong sách giáo khoa lớp ' + f.grade + ' theo Chương trình 2018.');
     if (f.source) p.push('NGUỒN BÀI HỌC:\n"""\n' + f.source + '\n"""');
     return p.join('\n');
@@ -167,17 +199,18 @@
   function blocking(issues) { return issues.filter(function (x) { return !/khó chiếu|Đã có trong Kho/.test(x); }); }
   function readForm() {
     var subject = $('taSubject') ? $('taSubject').value : 'Toán'; if (subject === '__other') subject = ($('taSubjectOther').value || '').trim();
-    return { grade: $('taGrade').value, subject: subject, topic: ($('taTopic').value || '').trim().slice(0, 200), count: Math.max(1, Math.min(20, parseInt($('taCount').value, 10) || 10)), kind: $('taKind').value, level: $('taLevel').value, source: ($('taSource').value || '').trim().slice(0, 20000), images: S.images.length };
+    return { grade: $('taGrade').value, subject: subject, topic: ($('taTopic').value || '').trim().slice(0, 200), count: Math.max(1, Math.min(20, parseInt($('taCount').value, 10) || 10)), kind: $('taKind').value, level: $('taLevel').value, source: ($('taSource').value || '').trim().slice(0, 20000), images: S.images.length + S.pdfs.length };
   }
   function runGenerate(more) {
     if (S.busy) return;
     var f = readForm(), map = [];
     if (!f.subject) return setNote('Hãy nhập tên môn học.', true);
-    if (!f.topic && !f.source && !f.images) return setNote('Hãy nhập bài/chủ đề, hoặc dán nội dung bài học, hoặc thêm ảnh trang sách.', true);
+    if (!f.topic && !f.source && !f.images) return setNote('Hãy nhập bài/chủ đề, hoặc dán nội dung bài học, hoặc thêm file Word/PDF, ảnh trang sách.', true);
     var p = prefs(); p.form = { grade: f.grade, subject: $('taSubject').value, other: $('taSubjectOther').value, topic: f.topic, count: f.count, kind: f.kind, level: f.level }; savePrefs(p);
     f.source = mask(f.source, map); f.topic = mask(f.topic, map);
     var parts = [{ text: questionPrompt(f, more ? S.drafts.map(function (d) { return d.text; }) : null) }];
     S.images.forEach(function (im) { parts.push({ inlineData: { mimeType: im.mime, data: im.data } }); });
+    S.pdfs.forEach(function (pf) { parts.push({ inlineData: { mimeType: 'application/pdf', data: pf.data } }); });
     if (!more) S.saved = null; // bỏ thẻ "Đã lưu" của lần trước để khung 3 chỉ nói về lần đang chạy
     setBusy(more ? 'more' : 'gen'); setNote('AI đang đọc nguồn và soạn ' + f.count + ' câu… (thường mất 10–40 giây)'); renderDrafts();
     generate({ system: Q_SYSTEM, contents: [{ role: 'user', parts: parts }], json: true, schema: Q_SCHEMA, temperature: 0.5, maxOutputTokens: Math.min(16000, 2500 + f.count * 450), timeoutMs: 90000 })
@@ -338,12 +371,12 @@
       + '<label class="ta-f ta-wide"><span>Bài học / chủ đề</span><input id="taTopic" class="input" placeholder="Ví dụ: Phân số bằng nhau" value="' + esc(f.topic || '') + '"></label>'
       + '</div><div class="ta-grid ta-three">' + sel('taCount', 'Số câu', ['5', '10', '15', '20'], String(f.count || 10)) + sel('taKind', 'Dạng câu', [['ABCD', 'Trắc nghiệm A–B–C–D'], ['TRUEFALSE', 'Đúng / Sai'], ['MIX', 'Hỗn hợp A–B–C–D và Đúng/Sai'], ['SHORT', 'Trả lời ngắn (hỏi miệng)']], f.kind || 'ABCD') + sel('taLevel', 'Mức độ', [['ALL', 'Đủ ba mức'], ['Mức 1', 'Chỉ Mức 1'], ['Mức 2', 'Chỉ Mức 2'], ['Mức 3', 'Chỉ Mức 3']], f.level || 'ALL')
       + '</div><h3>2 · Nguồn bài học <small>(không bắt buộc)</small></h3><textarea id="taSource" class="input ta-source" rows="4" placeholder="Dán nội dung bài học, ghi nhớ trong sách hoặc yêu cầu cần đạt. Để trống thì AI dựa vào tên bài."></textarea>'
-      + '<div class="ta-img-row"><label class="btn soft ta-file">📷 Thêm ảnh trang sách<input type="file" id="taImages" accept="image/png,image/jpeg,image/webp" multiple hidden></label><span class="ta-hint">Tối đa 4 ảnh. Không chụp trang có tên hay bài làm của học sinh.</span></div><div id="taThumbs" class="ta-thumbs"></div>'
+      + '<div class="ta-img-row"><label class="btn soft ta-file">📷 Thêm ảnh trang sách<input type="file" id="taImages" accept="image/png,image/jpeg,image/webp" multiple hidden></label><label class="btn soft ta-file">📄 Thêm file Word/PDF<input type="file" id="taDocs" accept=".docx,.pdf,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" multiple hidden></label><span class="ta-hint">Tối đa 4 ảnh và 2 file PDF gửi nguyên. Chữ trong file Word/PDF được chép vào ô trên để thầy cô xem, sửa. Không dùng tài liệu có tên hay bài làm của học sinh.</span></div><div id="taThumbs" class="ta-thumbs"></div>'
       + '<div class="ta-actions"><button type="button" class="btn color ta-big" id="taGenerate">✨ Tạo câu hỏi</button><button type="button" class="btn soft" data-ta-paste>Cách dán ChatGPT (không cần khóa)</button></div><div id="taNote" class="ta-note empty" role="status"></div></section>'
       + '<section class="card ta-result"><h3>3 · Duyệt, lưu và chơi</h3><div id="taDrafts"></div></section></div>';
     renderThumbs(); renderDrafts(); if (S.note) setNote(S.note); setBusy(S.busy);
   }
-  function renderThumbs() { var t = $('taThumbs'); if (!t) return; t.innerHTML = S.images.map(function (im, i) { return '<span class="ta-thumb"><img alt="Ảnh nguồn ' + (i + 1) + '" src="data:' + im.mime + ';base64,' + im.data + '"><button type="button" data-ta-img-del="' + i + '" aria-label="Bỏ ảnh ' + (i + 1) + '">×</button></span>'; }).join(''); }
+  function renderThumbs() { var t = $('taThumbs'); if (!t) return; t.innerHTML = S.images.map(function (im, i) { return '<span class="ta-thumb"><img alt="Ảnh nguồn ' + (i + 1) + '" src="data:' + im.mime + ';base64,' + im.data + '"><button type="button" data-ta-img-del="' + i + '" aria-label="Bỏ ảnh ' + (i + 1) + '">×</button></span>'; }).join('') + S.pdfs.map(function (pf, i) { return '<span class="ta-thumb ta-doc" title="' + esc(pf.name) + '"><span class="ta-doc-name">📄 ' + esc(pf.name) + '</span><button type="button" data-ta-pdf-del="' + i + '" aria-label="Bỏ file ' + esc(pf.name) + '">×</button></span>'; }).join(''); }
   function draftHtml(d, i, bank) {
     var issues = localIssues(d, i, bank), r = d.review, badge = r ? '<span class="ta-badge ' + r.verdict + '">' + (r.verdict === 'ok' ? '✅ AI: ổn' : r.verdict === 'warn' ? '⚠️ AI: nên chỉnh' : '❌ AI: sai') + '</span>' : '';
     var body = '';
@@ -437,6 +470,7 @@
     if (d.taDel) { syncDrafts(); S.drafts.splice(+d.taDel, 1); return renderDrafts(); }
     if (d.taFix) { syncDrafts(); return applyFix(+d.taFix); }
     if (d.taImgDel) { S.images.splice(+d.taImgDel, 1); return renderThumbs(); }
+    if (d.taPdfDel) { S.pdfs.splice(+d.taPdfDel, 1); return renderThumbs(); }
     if (d.taTask) { if (d.taTask === 'games') { S.tab = 'quick'; return render(); } S.task = d.taTask; return renderChatTab(); }
     if ('taNew' in d) { S.chats[S.task] = { messages: [], map: [] }; return renderChatTab(); }
     if (t.id === 'taTaskRun') { var task = taskOf(S.task), p = task.prompt ? task.prompt() : null; if (!p) return toast('Hãy điền nội dung chính trước khi soạn.'); return sendChat(p, task.title + ': ' + p.split('\n')[0].slice(0, 220)); }
@@ -467,6 +501,7 @@
     }
     if (t.id === 'taSubject') { var w = $('taOtherWrap'); if (w) w.hidden = t.value !== '__other'; return; }
     if (t.id === 'taImages') { addImages(t.files); t.value = ''; return; }
+    if (t.id === 'taDocs') { addDocs(t.files); t.value = ''; return; }
     if (d.taPick) { S.drafts[+d.taPick].pick = t.checked; var art = t.closest('.ta-draft'); if (art) art.classList.toggle('off', !t.checked); var c = $('taPicked'); if (c) c.textContent = 'Đã chọn ' + S.drafts.filter(function (x) { return x.pick; }).length + '/' + S.drafts.length + ' câu'; return; }
     if (d.taCorrect) { syncDrafts(); S.drafts[+d.taCorrect].correct = +t.value; return renderDrafts(); }
     if (d.taLevel) { S.drafts[+d.taLevel].level = t.value; return; }

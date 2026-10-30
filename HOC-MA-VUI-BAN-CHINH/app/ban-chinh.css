@@ -488,6 +488,8 @@ html body #troLyAI .ta-tabs button.active{background:#fff;color:var(--ta-accent)
 #troLyAI .ta-thumbs{display:flex;gap:8px;flex-wrap:wrap}
 #troLyAI .ta-thumb{position:relative;width:76px;height:76px;border-radius:10px;overflow:hidden;border:1px solid var(--ta-line);background:#fff}
 #troLyAI .ta-thumb img{width:100%;height:100%;object-fit:cover}
+#troLyAI .ta-thumb.ta-doc{width:auto;max-width:240px;height:44px;display:flex;align-items:center;padding:0 30px 0 10px}
+#troLyAI .ta-doc-name{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 html body #troLyAI .ta-thumb button{position:absolute;top:2px;right:2px;width:22px;height:22px;border:0;border-radius:50%;background:rgba(15,23,42,.75);color:#fff;font-size:14px!important;line-height:1;cursor:pointer;padding:0}
 #troLyAI .ta-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
 html body #troLyAI .ta-big{font-size:16px!important;padding:12px 22px}
