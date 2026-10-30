@@ -36,7 +36,7 @@
         if (!x.j) throw fail(x.r.status === 404 || x.r.status === 405 || x.r.status === 501 ? 'OLD_SERVER' : 'SERVER', x.r.status === 404 || x.r.status === 405 || x.r.status === 501 ? OLD_MSG : 'Máy chủ nội bộ trả lời không hợp lệ.');
         if (!x.r.ok || x.j.ok === false) throw fail(x.j.code || 'ERROR', x.j.message || 'AI gặp lỗi. Hãy thử lại.');
         return x.j;
-      }, function (e) { done(); throw fail(e && e.name === 'AbortError' ? 'TIMEOUT' : 'OFFLINE', e && e.name === 'AbortError' ? 'AI xử lý quá lâu. Hãy thử lại với ít nội dung hơn.' : 'Không gọi được máy chủ nội bộ. Hãy kiểm tra ứng dụng còn đang chạy.'); });
+      }, function (e) { done(); throw fail(e && e.name === 'AbortError' ? 'TIMEOUT' : 'OFFLINE', e && e.name === 'AbortError' ? 'AI xử lý quá lâu. Hãy bấm tạo lại, hoặc giảm số câu, bớt nội dung nguồn.' : 'Không gọi được máy chủ nội bộ. Hãy kiểm tra ứng dụng còn đang chạy.'); });
   }
   /* Thêm file Word/PDF làm nguồn bài học (30/10/2026): chữ đọc được thì chép vào ô Nguồn để thầy cô xem, sửa;
      PDF scan (không có chữ) thì gửi nguyên tệp cho AI đọc, tối đa 2 tệp, mỗi tệp 9 MB. */
@@ -213,7 +213,7 @@
     S.pdfs.forEach(function (pf) { parts.push({ inlineData: { mimeType: 'application/pdf', data: pf.data } }); });
     if (!more) S.saved = null; // bỏ thẻ "Đã lưu" của lần trước để khung 3 chỉ nói về lần đang chạy
     setBusy(more ? 'more' : 'gen'); setNote('AI đang đọc nguồn và soạn ' + f.count + ' câu… (thường mất 10–40 giây)'); renderDrafts();
-    generate({ system: Q_SYSTEM, contents: [{ role: 'user', parts: parts }], json: true, schema: Q_SCHEMA, temperature: 0.5, maxOutputTokens: Math.min(16000, 2500 + f.count * 450), timeoutMs: 90000 })
+    generate({ system: Q_SYSTEM, contents: [{ role: 'user', parts: parts }], json: true, schema: Q_SCHEMA, temperature: 0.5, thinking: 'low', maxOutputTokens: Math.min(16000, 2500 + f.count * 450), timeoutMs: 90000 })
       .then(function (r) {
         var res = normalizeQuestions(parseJson(unmask(r.text, map)));
         if (!res.list.length) throw fail('BAD_OUTPUT', 'AI trả về kết quả không dùng được. Hãy bấm tạo lại, hoặc giảm số câu.');

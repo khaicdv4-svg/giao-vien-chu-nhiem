@@ -79,15 +79,18 @@
   }
   function cleanContents(list) { return (Array.isArray(list) ? list : []).slice(-24).map(function (m) { return { role: m && m.role === 'model' ? 'model' : 'user', parts: cleanParts(m && m.parts) }; }).filter(function (m) { return m.parts.length; }); }
   function tryModels(list, key, build, timeoutMs, outer) {
-    var i = 0, last = null;
+    var i = 0, last = null, deadline = Date.now() + timeoutMs;
+    /* 30/10/2026: model đầu không được dùng hết thời gian, chừa lại để model dự phòng kịp chạy trước khi trang ngừng chờ. */
+    function budget() { var left = deadline - Date.now(); return i === 1 && list.length > 1 ? timeoutMs - Math.min(25000, Math.max(10000, Math.round(timeoutMs * 0.3))) : left; }
     function hide(err) { if (err && err.message) err.message = err.message.split(key).join('…'); return err; }
     function next() {
       if (i >= list.length) return Promise.resolve({ ok: false, error: last || { http: 502, code: 'UNKNOWN', message: 'Gemini không trả về kết quả.' } });
-      var model = list[i++];
-      return callGemini(model, key, build(false), timeoutMs, outer).then(function (r) {
+      var model = list[i++], per = budget();
+      if (i > 1 && per < 5000) return Promise.resolve({ ok: false, error: last || { http: 504, code: 'TIMEOUT', message: 'Gemini xử lý quá lâu. Hãy thử lại với ít nội dung hơn.' } });
+      return callGemini(model, key, build(false), per, outer).then(function (r) {
         if (r.status >= 200 && r.status < 300 && r.json) return { ok: true, model: model, json: r.json };
         var err = errorOf(r.status, r.json), retry = err.schemaIssue ? build(true) : null;
-        var after = retry ? callGemini(model, key, retry, timeoutMs, outer).then(function (r2) { if (r2.status >= 200 && r2.status < 300 && r2.json) return { ok: true, model: model, json: r2.json }; return errorOf(r2.status, r2.json); }, netError) : Promise.resolve(err);
+        var after = retry ? callGemini(model, key, retry, Math.max(8000, deadline - Date.now()), outer).then(function (r2) { if (r2.status >= 200 && r2.status < 300 && r2.json) return { ok: true, model: model, json: r2.json }; return errorOf(r2.status, r2.json); }, netError) : Promise.resolve(err);
         return after.then(function (x) { if (x && x.ok) return x; last = hide(x); return x.stop ? { ok: false, error: last } : next(); });
       }, function (e) {
         if (e && e.userAbort) throw e;
@@ -116,10 +119,13 @@
     var wantJson = !!body.json, schema = body.schema && typeof body.schema === 'object' ? body.schema : null;
     var temperature = Math.max(0, Math.min(1.2, Number(body.temperature))) || 0.4;
     var maxOut = Math.max(256, Math.min(16384, Number(body.maxOutputTokens) || 8192));
+    /* 30/10/2026: cho phép giảm mức suy nghĩ (Gemini 3.x: thinkingLevel low/medium/high) để soạn câu hỏi nhanh hơn. */
+    var thinking = /^(low|medium|high)$/.test(String(body.thinking || '')) ? body.thinking : '';
     var build = function (noSchema) {
       if (noSchema && !(wantJson && schema)) return null;
       var cfg = { temperature: temperature, maxOutputTokens: maxOut };
       if (wantJson) { cfg.responseMimeType = 'application/json'; if (schema && !noSchema) cfg.responseSchema = schema; }
+      if (thinking && !noSchema) cfg.thinkingConfig = { thinkingLevel: thinking }; /* lần thử lại khi Gemini báo lỗi 400 sẽ bỏ cả lược đồ lẫn mức suy nghĩ */
       var p = { contents: contents, generationConfig: cfg };
       if (system) p.systemInstruction = { parts: [{ text: system }] };
       return p;
