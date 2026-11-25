@@ -201,19 +201,24 @@
   function blocking(issues) { return issues.filter(function (x) { return !/khó chiếu|Đã có trong Kho/.test(x); }); }
   function readForm() {
     var subject = $('taSubject') ? $('taSubject').value : 'Toán'; if (subject === '__other') subject = ($('taSubjectOther').value || '').trim();
-    return { grade: $('taGrade').value, subject: subject, topic: ($('taTopic').value || '').trim().slice(0, 200), count: Math.max(1, Math.min(20, parseInt($('taCount').value, 10) || 10)), kind: $('taKind').value, level: $('taLevel').value, source: ($('taSource').value || '').trim().slice(0, 20000), images: S.images.length + S.pdfs.length + S.sgk.length, sgk: S.sgk.length ? S.sgkMeta : null, focus: S.sgkFocus && ($('taTopic').value || '').trim() === S.sgkFocus.topic ? S.sgkFocus.text : '' };
+    var pm = srcMode() === 'ppct' && S.sgkMeta && S.sgkMeta.form;
+    if (pm) return Object.assign(readFormRaw(subject), { grade: String(pm.grade || $('taGrade').value), subject: pm.subject || subject, topic: String(pm.topic || '').slice(0, 200) });
+    return readFormRaw(subject);
+  }
+  function readFormRaw(subject) {
+    return { grade: $('taGrade').value, subject: subject, topic: ($('taTopic').value || '').trim().slice(0, 200), count: Math.max(1, Math.min(20, parseInt($('taCount').value, 10) || 10)), kind: $('taKind').value, level: $('taLevel').value, source: srcMode() === 'manual' ? ($('taSource').value || '').trim().slice(0, 20000) : '', images: srcMode() === 'manual' ? S.images.length + S.pdfs.length : S.sgk.length, sgk: srcMode() === 'ppct' && S.sgk.length ? S.sgkMeta : null, focus: srcMode() === 'ppct' && S.sgkFocus ? S.sgkFocus.text : '', mode: srcMode() };
   }
   function runGenerate(more) {
     if (S.busy) return;
     var f = readForm(), map = [];
     if (!f.subject) return setNote('Hãy nhập tên môn học.', true);
+    if (f.mode === 'ppct' && !(S.sgkMeta && S.sgkMeta.form && f.topic)) return setNote('Hãy bấm “📚 Chọn tiết từ PPCT Hub” để chọn tiết cần soạn câu hỏi, hoặc chuyển sang “Tự nhập bài học”.', true);
     if (!f.topic && !f.source && !f.images) return setNote('Hãy nhập bài/chủ đề, hoặc dán nội dung bài học, hoặc thêm file Word/PDF, ảnh trang sách.', true);
     var p = prefs(); p.form = { grade: f.grade, subject: $('taSubject').value, other: $('taSubjectOther').value, topic: f.topic, count: f.count, kind: f.kind, level: f.level }; savePrefs(p);
     f.source = mask(f.source, map); f.topic = mask(f.topic, map);
     var parts = [{ text: questionPrompt(f, more ? S.drafts.map(function (d) { return d.text; }) : null) }];
-    S.sgk.forEach(function (im) { parts.push({ inlineData: { mimeType: im.mime, data: im.data } }); });
-    S.images.forEach(function (im) { parts.push({ inlineData: { mimeType: im.mime, data: im.data } }); });
-    S.pdfs.forEach(function (pf) { parts.push({ inlineData: { mimeType: 'application/pdf', data: pf.data } }); });
+    if (f.mode === 'ppct') S.sgk.forEach(function (im) { parts.push({ inlineData: { mimeType: im.mime, data: im.data } }); });
+    else { S.images.forEach(function (im) { parts.push({ inlineData: { mimeType: im.mime, data: im.data } }); }); S.pdfs.forEach(function (pf) { parts.push({ inlineData: { mimeType: 'application/pdf', data: pf.data } }); }); }
     if (!more) S.saved = null; // bỏ thẻ "Đã lưu" của lần trước để khung 3 chỉ nói về lần đang chạy
     setBusy(more ? 'more' : 'gen'); setNote('AI đang đọc nguồn và soạn ' + f.count + ' câu… (thường mất 10–40 giây)'); renderDrafts();
     generate({ system: Q_SYSTEM, contents: [{ role: 'user', parts: parts }], json: true, schema: Q_SCHEMA, temperature: 0.5, thinking: 'low', maxOutputTokens: Math.min(16000, 2500 + f.count * 450), timeoutMs: 90000 })
@@ -366,20 +371,36 @@
     if (S.tab === 'chat') renderChatTab(); else if (S.tab === 'setup') renderSetup(); else if (S.tab === 'stats' && win.hmvKetQua) win.hmvKetQua.render($('taBody')); else { if (S.tab === 'stats') S.tab = 'quick'; renderQuick(); }
     paintStatus();
   }
+  function srcMode() { return S.mode || (S.mode = prefs().srcMode === 'manual' ? 'manual' : 'ppct'); }
   function renderQuick() {
-    var f = prefs().form || {}, grade = f.grade || gradeNow(), body = $('taBody');
-    body.innerHTML = '<div class="ta-quick"><section class="card ta-form"><h3>1 · Thầy cô muốn hỏi về bài nào?</h3><div class="ta-grid">'
+    var f = prefs().form || {}, grade = f.grade || gradeNow(), body = $('taBody'), mode = srcMode();
+    body.innerHTML = '<div class="ta-quick"><section class="card ta-form"><h3>1 · Nguồn bài học</h3>'
+      + '<div class="ta-srcmode" role="tablist"><button type="button" role="tab" data-ta-src="ppct"><b>📚 Chọn từ kho chương trình</b><small>Theo PPCT của tổ · đúng tiết, đúng trang SGK</small></button><button type="button" role="tab" data-ta-src="manual"><b>✏️ Tự nhập bài học</b><small>Gõ tên bài, dán nội dung, thêm ảnh hoặc Word/PDF</small></button></div>'
+      + '<div id="taPpctBox" class="ta-srcbox"><div class="ph-slot"></div><div id="taSgkView"></div></div>'
+      + '<div id="taManualBox" class="ta-srcbox"><div class="ta-grid">'
       + sel('taGrade', 'Lớp', ['1', '2', '3', '4', '5'], grade) + sel('taSubject', 'Môn', SUBJECTS.concat([['__other', 'Môn khác…']]), f.subject || 'Toán')
       + '<label class="ta-f" id="taOtherWrap"' + (f.subject === '__other' ? '' : ' hidden') + '><span>Tên môn</span><input id="taSubjectOther" class="input" value="' + esc(f.other || '') + '"></label>'
       + '<label class="ta-f ta-wide"><span>Bài học / chủ đề</span><input id="taTopic" class="input" placeholder="Ví dụ: Phân số bằng nhau" value="' + esc(f.topic || '') + '"></label>'
-      + '</div><div class="ta-grid ta-three">' + sel('taCount', 'Số câu', ['5', '10', '15', '20'], String(f.count || 10)) + sel('taKind', 'Dạng câu', [['ABCD', 'Trắc nghiệm A–B–C–D'], ['TRUEFALSE', 'Đúng / Sai'], ['MIX', 'Hỗn hợp A–B–C–D và Đúng/Sai'], ['SHORT', 'Trả lời ngắn (hỏi miệng)']], f.kind || 'ABCD') + sel('taLevel', 'Mức độ', [['ALL', 'Đủ ba mức'], ['Mức 1', 'Chỉ Mức 1'], ['Mức 2', 'Chỉ Mức 2'], ['Mức 3', 'Chỉ Mức 3']], f.level || 'ALL')
-      + '</div><h3>2 · Nguồn bài học <small>(không bắt buộc)</small></h3><textarea id="taSource" class="input ta-source" rows="4" placeholder="Dán nội dung bài học, ghi nhớ trong sách hoặc yêu cầu cần đạt. Để trống thì AI dựa vào tên bài."></textarea>'
-      + '<div class="ta-img-row"><label class="btn soft ta-file">📷 Thêm ảnh trang sách<input type="file" id="taImages" accept="image/png,image/jpeg,image/webp" multiple hidden></label><label class="btn soft ta-file">📄 Thêm file Word/PDF<input type="file" id="taDocs" accept=".docx,.pdf,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" multiple hidden></label><span class="ta-hint">Tối đa 4 ảnh và 2 file PDF gửi nguyên. Chữ trong file Word/PDF được chép vào ô trên để thầy cô xem, sửa. Không dùng tài liệu có tên hay bài làm của học sinh.</span></div><div id="taThumbs" class="ta-thumbs"></div>'
+      + '</div><label class="ta-f ta-wide"><span>Nội dung bài học <small>(không bắt buộc)</small></span><textarea id="taSource" class="input ta-source" rows="4" placeholder="Dán nội dung bài học, ghi nhớ trong sách hoặc yêu cầu cần đạt. Để trống thì AI dựa vào tên bài."></textarea></label>'
+      + '<div class="ta-img-row"><label class="btn soft ta-file">📷 Thêm ảnh trang sách<input type="file" id="taImages" accept="image/png,image/jpeg,image/webp" multiple hidden></label><label class="btn soft ta-file">📄 Thêm file Word/PDF<input type="file" id="taDocs" accept=".docx,.pdf,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" multiple hidden></label><span class="ta-hint">Tối đa 4 ảnh và 2 file PDF gửi nguyên. Chữ trong file Word/PDF được chép vào ô trên để thầy cô xem, sửa. Không dùng tài liệu có tên hay bài làm của học sinh.</span></div><div id="taThumbs" class="ta-thumbs"></div></div>'
+      + '<h3>2 · Câu hỏi muốn soạn</h3><div class="ta-grid ta-three">' + sel('taCount', 'Số câu', ['5', '10', '15', '20'], String(f.count || 10)) + sel('taKind', 'Dạng câu', [['ABCD', 'Trắc nghiệm A–B–C–D'], ['TRUEFALSE', 'Đúng / Sai'], ['MIX', 'Hỗn hợp A–B–C–D và Đúng/Sai'], ['SHORT', 'Trả lời ngắn (hỏi miệng)']], f.kind || 'ABCD') + sel('taLevel', 'Mức độ', [['ALL', 'Đủ ba mức'], ['Mức 1', 'Chỉ Mức 1'], ['Mức 2', 'Chỉ Mức 2'], ['Mức 3', 'Chỉ Mức 3']], f.level || 'ALL') + '</div>'
       + '<div class="ta-actions"><button type="button" class="btn color ta-big" id="taGenerate">✨ Tạo câu hỏi</button><button type="button" class="btn soft" data-ta-paste>Cách dán ChatGPT (không cần khóa)</button></div><div id="taNote" class="ta-note empty" role="status"></div></section>'
       + '<section class="card ta-result"><h3>3 · Duyệt, lưu và chơi</h3><div id="taDrafts"></div></section></div>';
-    renderThumbs(); renderDrafts(); if (S.note) setNote(S.note); setBusy(S.busy);
+    paintMode(); renderThumbs(); renderDrafts(); if (S.note) setNote(S.note); setBusy(S.busy);
   }
-  function renderThumbs() { var t = $('taThumbs'); if (!t) return; t.innerHTML = S.sgk.map(function (im, i) { return '<span class="ta-thumb ta-sgk" title="' + esc(im.label || '') + '"><img alt="Trang SGK ' + esc(im.label || '') + '" src="data:' + im.mime + ';base64,' + im.data + '"><small>' + esc(im.label || 'SGK') + '</small><button type="button" data-ta-sgk-del="' + i + '" aria-label="Bỏ trang">×</button></span>'; }).join('') + S.images.map(function (im, i) { return '<span class="ta-thumb"><img alt="Ảnh nguồn ' + (i + 1) + '" src="data:' + im.mime + ';base64,' + im.data + '"><button type="button" data-ta-img-del="' + i + '" aria-label="Bỏ ảnh ' + (i + 1) + '">×</button></span>'; }).join('') + S.pdfs.map(function (pf, i) { return '<span class="ta-thumb ta-doc" title="' + esc(pf.name) + '"><span class="ta-doc-name">📄 ' + esc(pf.name) + '</span><button type="button" data-ta-pdf-del="' + i + '" aria-label="Bỏ file ' + esc(pf.name) + '">×</button></span>'; }).join(''); }
+  function paintMode() {
+    var mode = srcMode(), a = $('taPpctBox'), b = $('taManualBox'); if (!a || !b) return;
+    a.hidden = mode !== 'ppct'; b.hidden = mode !== 'manual';
+    Array.prototype.forEach.call(doc.querySelectorAll('[data-ta-src]'), function (x) { var on = x.dataset.taSrc === mode; x.classList.toggle('on', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
+  }
+  function setMode(m) { S.mode = m === 'manual' ? 'manual' : 'ppct'; var p = prefs(); p.srcMode = S.mode; savePrefs(p); paintMode(); renderThumbs(); }
+  function sgkView() {
+    var v = $('taSgkView'); if (!v) return;
+    var m = S.sgkMeta, f = m && m.form;
+    if (!f || !f.topic) { v.innerHTML = '<p class="ta-sgk-empty">Chưa chọn tiết. Bấm <b>📚 Chọn tiết từ PPCT Hub</b>: chọn lớp, môn, tuần rồi đánh dấu tiết cần soạn câu hỏi.</p>'; return; }
+    v.innerHTML = '<div class="ta-sgk-card"><div class="ta-sgk-head"><span>Lớp ' + esc(f.grade) + ' · ' + esc(f.subject) + '</span><b>' + esc(f.topic) + '</b><small>' + (S.sgk.length ? S.sgk.length + ' trang SGK: ' + S.sgk.map(function (x) { return esc(x.label || ''); }).join(', ') : 'Chưa có ảnh trang sách (chưa đăng nhập PPCT Hub hoặc môn chưa có SGK) – AI soạn theo tên tiết.') + '</small></div><div id="taSgkThumbs" class="ta-thumbs"></div></div>';
+  }
+  function renderThumbs() { sgkView(); var g = $('taSgkThumbs'); if (g) g.innerHTML = S.sgk.map(function (im, i) { return '<span class="ta-thumb ta-sgk" title="' + esc(im.label || '') + '"><img alt="Trang SGK ' + esc(im.label || '') + '" src="data:' + im.mime + ';base64,' + im.data + '"><small>' + esc(im.label || 'SGK') + '</small><button type="button" data-ta-sgk-del="' + i + '" aria-label="Bỏ trang">×</button></span>'; }).join(''); var t = $('taThumbs'); if (!t) return; t.innerHTML = S.images.map(function (im, i) { return '<span class="ta-thumb"><img alt="Ảnh nguồn ' + (i + 1) + '" src="data:' + im.mime + ';base64,' + im.data + '"><button type="button" data-ta-img-del="' + i + '" aria-label="Bỏ ảnh ' + (i + 1) + '">×</button></span>'; }).join('') + S.pdfs.map(function (pf, i) { return '<span class="ta-thumb ta-doc" title="' + esc(pf.name) + '"><span class="ta-doc-name">📄 ' + esc(pf.name) + '</span><button type="button" data-ta-pdf-del="' + i + '" aria-label="Bỏ file ' + esc(pf.name) + '">×</button></span>'; }).join(''); }
   function draftHtml(d, i, bank) {
     var issues = localIssues(d, i, bank), r = d.review, badge = r ? '<span class="ta-badge ' + r.verdict + '">' + (r.verdict === 'ok' ? '✅ AI: ổn' : r.verdict === 'warn' ? '⚠️ AI: nên chỉnh' : '❌ AI: sai') + '</span>' : '';
     var body = '';
@@ -463,6 +484,7 @@
     var t = e.target.closest ? e.target.closest('button,[data-ta-tab]') : null; if (!t || t.disabled) return; var d = t.dataset, i;
     if (d.taTab) { S.tab = d.taTab; render(); if (S.tab === 'setup') loadStatus(); return; }
     if ('taPaste' in d) return openPaste();
+    if (d.taSrc) return setMode(d.taSrc);
     if (t.id === 'taGenerate') return runGenerate(false);
     if (t.id === 'taMore') { syncDrafts(); return runGenerate(true); }
     if (t.id === 'taReview') return runReview();
@@ -525,8 +547,9 @@
   function loadDrafts(list, meta, note) { S.drafts = (list || []).slice(); S.meta = meta || S.meta; S.saved = null; S.dropped = 0; S.note = note || ''; S.tab = 'quick'; var box = $('taSetName'); if (box) box.value = ''; render(); }
   /* 2.46: nguồn từ PPCT Hub (ppct-hub-nguon.js) – ảnh trang SGK của bài đã chọn. */
   function setSgk(list, meta) {
-    S.sgk = (list || []).slice(0, 8); S.sgkMeta = S.sgk.length ? (meta || { note: 'bài đã chọn' }) : null;
+    S.sgk = (list || []).slice(0, 8); S.sgkMeta = meta && (S.sgk.length || meta.form) ? Object.assign({ note: 'bài đã chọn' }, meta) : null;
     var f = meta && meta.form;
+    if (f) { S.mode = 'ppct'; var pp = prefs(); pp.srcMode = 'ppct'; savePrefs(pp); paintMode(); }
     S.sgkFocus = meta && meta.focus && f && f.topic ? { text: meta.focus, topic: String(f.topic).slice(0, 200).trim() } : null;
     if (f) {
       if (f.grade && $('taGrade')) $('taGrade').value = String(f.grade);
@@ -535,6 +558,6 @@
     }
     renderThumbs();
   }
-  win.hmvTroLyAI = { setSgk: setSgk, sgkCount: function () { return S.sgk.length; }, loadDrafts: loadDrafts, open: function (tab) { if (typeof win.openView === 'function') win.openView(VIEW); open(tab); }, status: function () { return S.status; }, refresh: loadStatus, state: function () { return { tab: S.tab, busy: S.busy, drafts: S.drafts.length, saved: S.saved, task: S.task }; }, generate: generate, parseJson: parseJson, ready: ready, _test: { normalizeQuestions: normalizeQuestions, md: md, mask: mask, unmask: unmask, questionPrompt: questionPrompt, toKho: toKho } };
+  win.hmvTroLyAI = { setSgk: setSgk, hasSgk: function () { return !!(S.sgkMeta && S.sgkMeta.form && S.sgkMeta.form.topic); }, sgkCount: function () { return S.sgk.length; }, loadDrafts: loadDrafts, open: function (tab) { if (typeof win.openView === 'function') win.openView(VIEW); open(tab); }, status: function () { return S.status; }, refresh: loadStatus, state: function () { return { tab: S.tab, busy: S.busy, drafts: S.drafts.length, saved: S.saved, task: S.task }; }, generate: generate, parseJson: parseJson, ready: ready, _test: { normalizeQuestions: normalizeQuestions, md: md, mask: mask, unmask: unmask, questionPrompt: questionPrompt, toKho: toKho } };
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', function () { win.setTimeout(install, 0); }); else win.setTimeout(install, 0);
 })(window);

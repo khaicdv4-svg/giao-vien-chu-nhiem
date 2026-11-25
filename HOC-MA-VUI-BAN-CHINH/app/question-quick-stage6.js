@@ -115,7 +115,7 @@
       if (game === 'millionaire' || game === 'head-tilt' || game === 'paper-mode' || game === 'balloon' || game === 'poll') e.push('Trò này cần câu có lựa chọn và khóa đáp án');
       else if (!q.answers.length) return e;
     } else if (q.kind === 'TRUEFALSE') {
-      if (game === 'millionaire' || game === 'paper-mode') e.push('Trò này yêu cầu 4 phương án A–D');
+      if (game === 'millionaire') e.push('Trò này yêu cầu 4 phương án A–D');
       if (q.answers.length !== 2) e.push('Đúng/Sai cần đúng 2 phương án');
       if (!Number.isInteger(q.correct) || q.correct < 0 || q.correct > 1) e.push('Thiếu khóa Đúng/Sai rõ ràng');
     } else {
@@ -270,7 +270,7 @@
   }
   function startNow() {
     var type = currentGame;
-    if (type === 'head-tilt' || type === 'paper-mode') { close(); /* 7B-FIX1: mở luôn màn hình của trò, không để giáo viên phải tự tìm trong thư viện. */ if ((!window.classroomGame || window.classroomGame.type !== type) && typeof window.gameSetup === 'function') window.gameSetup(type); if (window.showToast) showToast(type === 'head-tilt' ? 'Đã gắn bộ câu hỏi. Bấm ▶ Bắt đầu để chơi.' : 'Câu hỏi đã gắn. Hoàn tất hiệu chỉnh thẻ trong thiết lập trước khi bắt đầu.'); return; }
+    if (type === 'head-tilt' || type === 'paper-mode') { close(); /* 7B-FIX1: mở luôn màn hình của trò, không để giáo viên phải tự tìm trong thư viện. */ if ((type === 'paper-mode' || !window.classroomGame || window.classroomGame.type !== type) && typeof window.gameSetup === 'function') window.gameSetup(type); if (window.showToast) showToast(type === 'head-tilt' ? 'Đã gắn bộ câu hỏi. Bấm ▶ Bắt đầu để chơi.' : 'Câu hỏi đã gắn. Hoàn tất hiệu chỉnh thẻ trong thiết lập trước khi bắt đầu.'); return; }
     if (window.classroomGame && window.classroomGame.type === type && gameInProgress(type)) {
       if (!confirm('Bắt đầu lại ván với bộ câu hỏi mới? Tiến trình ván hiện tại sẽ kết thúc.')) return;
       var backs = { balloon: 'balloonBack', poll: 'pollBack', 'magic-hand': 'magicHandBack', 'raise-hand': 'raiseHandBack', tug: 'tugBack', gift: 'giftBack', buzzer: 'buzzBack', race: 'raceBack', tiles: 'flipBack', lens: 'lensBack' };

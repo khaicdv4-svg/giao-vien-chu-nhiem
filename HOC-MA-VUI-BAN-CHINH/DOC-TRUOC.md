@@ -6,6 +6,13 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0i. Cập nhật 2.48 (25/11/2026) – Chơi ngay có Chế độ giấy; Tạo câu hỏi nhanh gọn hai nguồn; đăng nhập kho bằng Gmail
+
+- Kho câu hỏi / Trợ lý AI → "Chơi ngay": thêm **Chế độ giấy (thẻ A–B–C–D)** (nhận câu A–B–C–D và Đúng/Sai). Bấm là mở màn hình cài đặt của trò với đúng bộ vừa chọn. Ô "Chọn bộ câu hỏi khác" trong cài đặt Chế độ giấy hiện đúng tên trò.
+- Tạo câu hỏi nhanh, mục 1 "Nguồn bài học" chia hai lựa chọn: **📚 Chọn từ kho chương trình** (chọn tiết từ PPCT Hub, thẻ tóm tắt lớp · môn · tiết · trang SGK) và **✏️ Tự nhập bài học** (lớp, môn, tên bài, nội dung, ảnh, Word/PDF). Mục 2 "Câu hỏi muốn soạn" dùng chung. Mỗi chế độ chỉ gửi nguồn của chế độ đó cho AI; lựa chọn được nhớ.
+- Bài nhiều tiết không phải Tiếng Việt (Lịch sử và Địa lí, Khoa học…): chia trang của bài theo tiết (vd. Bài 1 tr.6–11, 2 tiết → tiết 1 tr.6–8, tiết 2 tr.9–11).
+- Đăng nhập kho bằng Gmail: nút "🟢 Đăng nhập bằng Gmail" chỉ hiện khi dự án PPCT Hub đã bật Google (đọc /auth/v1/settings). Đăng nhập xong app tự quay về Trợ lý AI và mở lại hộp chọn tiết.
+
 ## 0h. Cập nhật 2.47 (25/11/2026) – Soạn câu hỏi đúng tiết đã chọn; mã QR cho Chế độ giấy
 
 - PPCT Hub → Trợ lý AI: tên bài giữ nguyên tên tiết trong PPCT (vd. "LTVC: Danh từ", "Luyện tập (tr.10)"). Lời nhắc gửi AI có mục TRỌNG TÂM liệt kê từng tiết đã chọn kèm trang và quy tắc theo loại tiết (Đọc / Luyện từ và câu / Viết / Nói và nghe / Luyện tập / Ôn tập; tiết k/n của bài), dặn không hỏi phần khác của bài có trong trang ảnh.

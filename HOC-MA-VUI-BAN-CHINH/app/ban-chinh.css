@@ -1124,3 +1124,16 @@ html.hmv-m .hmv-td-clock b{font-size:15px}
 .tk-scene.rest .tk-body{transform:rotate(8deg)}
 @media (prefers-reduced-motion:reduce){.tk-scene *{animation:none!important}}
 html.hmv-m .tug-scene-wrap .tk-scene{max-height:none}
+/* 2.48: Trợ lý AI · nguồn bài học – Chọn từ kho chương trình / Tự nhập bài học */
+.ta-srcmode{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 12px}
+.ta-srcmode button{border:2px solid #ddd6fe;background:#faf5ff;border-radius:14px;padding:10px 12px;text-align:left;cursor:pointer;font:inherit;color:#3b0764;display:grid;gap:2px}
+.ta-srcmode button b{font-size:15.5px}.ta-srcmode button small{font-size:12.5px;color:#64748b;font-weight:600;line-height:1.3}
+.ta-srcmode button.on{border-color:#7c3aed;background:linear-gradient(135deg,#ede9fe,#fae8ff);box-shadow:0 5px 14px #7c3aed2e}
+.ta-srcbox[hidden]{display:none!important}
+.ta-srcbox .ph-bar{margin:0 0 10px}
+.ta-sgk-empty{margin:0 0 6px;padding:12px 14px;border:2px dashed #c4b5fd;border-radius:14px;color:#475569;font-size:14px;line-height:1.5}
+.ta-sgk-card{border:2px solid #a5f3fc;background:#f0fdff;border-radius:14px;padding:12px 14px;display:grid;gap:10px}
+.ta-sgk-head{display:grid;gap:3px}.ta-sgk-head span{font-size:13px;font-weight:800;color:#0e7490}.ta-sgk-head b{color:#17324d;font-size:15.5px;line-height:1.35}.ta-sgk-head small{color:#475569;font-size:12.5px}
+.ta-thumb.ta-sgk small{position:absolute;left:0;right:0;bottom:0;background:#0e7490d9;color:#fff;font-size:11px;font-weight:800;text-align:center;padding:1px 0}
+@media(max-width:560px){.ta-srcmode{grid-template-columns:1fr}}
+#taManualBox + h3,#taPpctBox + #taManualBox[hidden] + h3{margin-top:16px}

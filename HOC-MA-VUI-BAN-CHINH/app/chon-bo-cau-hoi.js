@@ -6,7 +6,7 @@
      đổi nguồn ở bảng này thì lựa chọn mới được áp dụng (trước đây bị bộ chọn từ Kho lấn át). */
 (function(win,doc){
  'use strict';
- var NAMES={tug:'Kéo co kiến thức',race:'Đường đua kiến thức',millionaire:'Chinh phục tri thức','head-tilt':'Quiz Nghiêng Đầu',balloon:'Bóng bay tri thức',poll:'Bình chọn ngón tay','magic-hand':'Bàn tay phép thuật','raise-hand':'Giơ tay giành quyền',gift:'Hộp quà bí mật',buzzer:'Ai nhanh hơn',tiles:'Lật mảnh ghép',lens:'Kính lúp'};
+ var NAMES={tug:'Kéo co kiến thức',race:'Đường đua kiến thức',millionaire:'Chinh phục tri thức','head-tilt':'Quiz Nghiêng Đầu',balloon:'Bóng bay tri thức',poll:'Bình chọn ngón tay','magic-hand':'Bàn tay phép thuật','raise-hand':'Giơ tay giành quyền',gift:'Hộp quà bí mật',buzzer:'Ai nhanh hơn',tiles:'Lật mảnh ghép',lens:'Kính lúp','paper-mode':'Chế độ giấy'};
  var bypass=false;
  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
  function toast(m){if(typeof win.showToast==='function')win.showToast(m);}

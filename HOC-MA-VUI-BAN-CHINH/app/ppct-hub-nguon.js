@@ -52,6 +52,32 @@
       saveAuth({ token: r.access_token, refresh: r.refresh_token, exp: Date.now() + (Number(r.expires_in) || 3600) * 1000 - 60000, email: auth.email, remember: auth.remember }, auth.remember); return auth;
     }).catch(function () { saveAuth(null); throw new Error('Phiên đăng nhập PPCT Hub đã hết. Thầy cô đăng nhập lại.'); });
   }
+  /* Đăng nhập bằng Gmail (Google) qua PPCT Hub – chỉ hiện khi kho đã bật Google. */
+  var gEnabled = null;
+  function googleOn() {
+    if (gEnabled !== null) return Promise.resolve(gEnabled);
+    return api('/auth/v1/settings').then(json).then(function (r) { gEnabled = !!(r && r.external && r.external.google); return gEnabled; }).catch(function () { return false; });
+  }
+  function googleLogin(remember) {
+    try { win.sessionStorage.setItem('hmv_ppct_oauth', JSON.stringify({ remember: !!remember, at: Date.now() })); } catch (e) {}
+    var back = win.location.origin + win.location.pathname;
+    win.location.href = HUB.url + '/auth/v1/authorize?provider=google&redirect_to=' + encodeURIComponent(back);
+  }
+  function oauthReturn() {
+    var h = String(win.location.hash || ''), pend = null;
+    try { pend = JSON.parse(win.sessionStorage.getItem('hmv_ppct_oauth') || 'null'); } catch (e) {}
+    if (!pend || !/(access_token|error_description)=/.test(h)) return;
+    try { win.sessionStorage.removeItem('hmv_ppct_oauth'); } catch (e) {}
+    var q = new URLSearchParams(h.replace(/^#/, ''));
+    try { win.history.replaceState(null, '', win.location.pathname + win.location.search); } catch (e) {}
+    if (!q.get('access_token')) { setTimeout(function () { toast('Đăng nhập Gmail chưa thành công: ' + (q.get('error_description') || 'bị hủy')); }, 800); return; }
+    auth = { token: q.get('access_token'), refresh: q.get('refresh_token'), exp: Date.now() + (Number(q.get('expires_in')) || 3600) * 1000 - 60000, email: '', remember: !!pend.remember };
+    saveAuth(auth, auth.remember);
+    api('/auth/v1/user', { auth: true }).then(json).then(function (u) { if (u && u.email) { auth.email = u.email; saveAuth(auth, auth.remember); } }).catch(function () {}).then(function () {
+      toast('Đã đăng nhập kho PPCT Hub bằng Gmail' + (auth.email ? ': ' + auth.email : ''));
+      if (win.hmvTroLyAI && typeof win.hmvTroLyAI.open === 'function') { win.hmvTroLyAI.open('quick'); setTimeout(open, 400); }
+    });
+  }
   function logout() { var a = auth; saveAuth(null); cache = {}; if (a && a.token) api('/auth/v1/logout', { method: 'POST', auth: true, headers: { Authorization: 'Bearer ' + a.token } }).catch(function () {}); }
 
   /* ---------- Dữ liệu ---------- */
@@ -113,6 +139,14 @@
     /* Tiết thứ mấy của bài: "Đọc: Thi nhạc (Tiết 2)" → 2/2. */
     var tot = {}; list.forEach(function (it) { var b = baseName(it.name); tot[b] = (tot[b] || 0) + 1; });
     list.forEach(function (it) { var m2 = it.name.match(/\(\s*tiết\s*(\d+)\s*\)/i), b = baseName(it.name); it.tietNo = m2 ? +m2[1] : 0; it.tietOf = tot[b] || 1; });
+    /* Bài nhiều tiết (Lịch sử và Địa lí, Khoa học…): chia trang của bài theo tiết – tiết 2/3 lấy phần giữa. Không chia bài đọc Tiếng Việt. */
+    list.forEach(function (it) {
+      if (!it.sec || !it.page || it.page.how !== 'bai' || !it.tietNo || it.tietOf < 2 || partOf(it.name)) return;
+      var len = it.sec.to - it.sec.from + 1, n = Math.min(it.tietOf, len), k = Math.min(it.tietNo, n), size = Math.ceil(len / n);
+      var from = it.sec.from + (k - 1) * size, to = Math.min(it.sec.to, from + size - 1);
+      if (from > it.sec.to) return;
+      it.page = { book: it.sec.book, from: from, to: Math.min(to, from + PER_LESSON - 1), how: 'bai', part: k + '/' + n };
+    });
     return list;
   }
   function baseName(n) { return String(n || '').replace(/\(\s*tiết\s*\d+\s*\)/ig, '').replace(/\s+/g, ' ').trim(); }
@@ -158,7 +192,7 @@
       + '.ph-ov{position:fixed;inset:0;z-index:1400;background:#0f172a99;display:grid;place-items:center;padding:12px}.ph-box{background:#fff;color:#17324d;border-radius:22px;width:min(860px,100%);max-height:94dvh;display:flex;flex-direction:column;box-shadow:0 24px 60px #0f172a66;overflow:hidden}'
       + '.ph-box header{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:16px 20px 8px}.ph-box h2{margin:0;font-size:21px}.ph-box header p{margin:4px 0 0;color:#475569;font-size:14px}'
       + '.ph-row{display:flex;flex-wrap:wrap;gap:10px;padding:0 20px 10px;align-items:end}.ph-row label{display:grid;gap:4px;font-weight:700;font-size:14px;color:#334155}.ph-row select,.ph-row input{min-height:40px;border:1px solid #c4b5fd;border-radius:10px;padding:6px 10px;font:inherit}'
-      + '.ph-auth{margin:0 20px 10px;padding:10px 12px;border-radius:14px;background:#fffbeb;border:1px solid #fde68a;font-size:14px}.ph-auth.ok{background:#f0fdf4;border-color:#86efac}.ph-auth form{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}.ph-auth input[type=email],.ph-auth input[type=password]{min-height:38px;border:1px solid #cbd5e1;border-radius:10px;padding:4px 10px;font:inherit;flex:1 1 180px}'
+      + '.ph-auth{margin:0 20px 10px;padding:10px 12px;border-radius:14px;background:#fffbeb;border:1px solid #fde68a;font-size:14px}.ph-auth.ok{background:#f0fdf4;border-color:#86efac}.ph-google{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}.ph-google[hidden]{display:none}.ph-google span{color:#64748b}.ph-auth form{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}.ph-auth input[type=email],.ph-auth input[type=password]{min-height:38px;border:1px solid #cbd5e1;border-radius:10px;padding:4px 10px;font:inherit;flex:1 1 180px}'
       + '.ph-list{overflow:auto;padding:0 20px 10px;display:grid;gap:6px;flex:1}.ph-week{font-weight:900;color:#6d28d9;margin:8px 0 2px;font-size:14px}'
       + '.ph-item{display:flex;gap:10px;align-items:center;border:2px solid #e2e8f0;border-radius:12px;padding:8px 10px;cursor:pointer;background:#fff}.ph-item:hover{border-color:#a78bfa}.ph-item.on{border-color:#7c3aed;background:#f5f3ff}.ph-item input{width:20px;height:20px}.ph-item .n{flex:1;font-weight:700}.ph-item .pg{font-size:12px;font-weight:800;border-radius:999px;padding:3px 9px;background:#e0f2fe;color:#075985;white-space:nowrap}.ph-item .pg.no{background:#f1f5f9;color:#64748b}.ph-item .pg.guess{background:#fef3c7;color:#92400e}'
       + '.ph-box footer{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px 20px 16px;border-top:1px solid #ede9fe}.ph-box footer .btn{min-height:46px}.ph-sum{font-weight:700;color:#334155}.ph-msg{padding:0 20px 8px;color:#b45309;font-weight:700;font-size:14px}.ph-empty{color:#64748b;padding:20px;text-align:center}';
@@ -166,14 +200,17 @@
   }
   function inject() {
     var form = doc.querySelector('#troLyAI .ta-form, .ta-form'); if (!form) return;
-    var old = form.querySelector('.ph-bar'), n = win.hmvTroLyAI && win.hmvTroLyAI.sgkCount ? win.hmvTroLyAI.sgkCount() : 0;
-    if (old) { if (String(n) !== old.dataset.n) { old.dataset.n = String(n); old.querySelector('small').innerHTML = barNote(n); } return; }
+    var slot = form.querySelector('#taPpctBox .ph-slot') || form, picked = !!(win.hmvTroLyAI && win.hmvTroLyAI.hasSgk && win.hmvTroLyAI.hasSgk()), key = (picked ? '1' : '0') + (auth ? 'a' : '');
+    var old = form.querySelector('.ph-bar');
+    if (old && old.parentNode === slot) { if (old.dataset.k !== key) { old.dataset.k = key; old.innerHTML = barHtml(picked); } return; }
+    if (old) old.remove();
     css();
-    var bar = doc.createElement('div'); bar.className = 'ph-bar';
-    bar.dataset.n = String(n); bar.innerHTML = '<button type="button" class="btn color" data-ph="open">📚 Chọn bài từ PPCT Hub</button><small>' + barNote(n) + '</small>';
-    var h3 = form.querySelector('h3'); if (h3 && h3.nextSibling) form.insertBefore(bar, h3.nextSibling); else form.prepend(bar);
+    var bar = doc.createElement('div'); bar.className = 'ph-bar'; bar.dataset.k = key; bar.innerHTML = barHtml(picked);
+    if (slot === form) { var h3 = form.querySelector('h3'); if (h3 && h3.nextSibling) form.insertBefore(bar, h3.nextSibling); else form.prepend(bar); } else slot.appendChild(bar);
   }
-  function barNote(n) { return n ? '✅ Đã gắn <b>' + n + ' trang SGK</b> làm nguồn (xem ở mục 2). Bấm “Tạo câu hỏi” là xong.' : 'Chọn lớp, môn, bài theo phân phối chương trình; app tự lấy đúng các trang SGK của bài gửi cho AI – không cần chụp ảnh sách.'; }
+  function barHtml(picked) {
+    return '<button type="button" class="btn color" data-ph="open">' + (picked ? '🔄 Chọn tiết khác' : '📚 Chọn tiết từ PPCT Hub') + '</button><small>' + (auth ? '🔐 Đã đăng nhập kho: <b>' + esc(auth.email || '') + '</b>' : 'Chọn lớp, môn, tuần, tiết theo phân phối chương trình; đăng nhập kho để app tự lấy đúng trang SGK của tiết.') + '</small>';
+  }
   function formVals() { var g = $('taGrade'), s = $('taSubject'); return { grade: g ? g.value : '4', subject: s && s.value !== '__other' ? s.value : 'Toán' }; }
 
   function open() {
@@ -194,7 +231,9 @@
     if (auth) { el.className = 'ph-auth ok'; el.innerHTML = '✅ Đã đăng nhập PPCT Hub: <b>' + esc(auth.email || '') + '</b> – app lấy được ảnh trang SGK. <button type="button" class="btn soft" data-ph="logout" style="min-height:32px;padding:2px 10px">Đăng xuất</button>'; return; }
     el.className = 'ph-auth';
     el.innerHTML = '🔐 <b>Đăng nhập tài khoản PPCT Hub</b> để app lấy ảnh trang SGK của bài (chưa đăng nhập vẫn chọn được tên bài).'
+      + '<div class="ph-google" id="phGoogle" hidden><button type="button" class="btn color" data-ph="google">🟢 Đăng nhập bằng Gmail</button><span>hoặc dùng email + mật khẩu PPCT Hub:</span></div>'
       + '<form id="phLogin"><input type="email" id="phEmail" placeholder="Email PPCT Hub" autocomplete="username" required><input type="password" id="phPass" placeholder="Mật khẩu" autocomplete="current-password" required><label style="display:flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="phRemember"> Ghi nhớ trên máy này</label><button class="btn color" type="submit" style="min-height:38px">Đăng nhập</button></form>';
+    googleOn().then(function (on) { var g = $('phGoogle'); if (g) g.hidden = !on; });
     $('phLogin').onsubmit = function (e) {
       e.preventDefault(); var b = e.target.querySelector('button'); b.disabled = true; b.textContent = 'Đang đăng nhập…';
       login($('phEmail').value.trim(), $('phPass').value, $('phRemember').checked).then(function () { toast('Đã đăng nhập PPCT Hub'); paintAuth(); load(); })
@@ -261,6 +300,7 @@
     var b = e.target.closest && e.target.closest('[data-ph]'); if (!b) return;
     var a = b.dataset.ph;
     if (a === 'open') open(); else if (a === 'close') close(); else if (a === 'use') use();
+    else if (a === 'google') { var r = $('phRemember'); googleLogin(r && r.checked); }
     else if (a === 'logout') { logout(); paintAuth(); if (M) { M.list.forEach(function (x) { delete x.page; delete x.sec; }); paint(); } }
   });
   doc.addEventListener('change', function (e) {
@@ -274,6 +314,7 @@
   var injT = 0;
   if (win.MutationObserver) new win.MutationObserver(function () { if (injT) return; injT = (win.requestAnimationFrame || win.setTimeout)(function () { injT = 0; inject(); }); }).observe(doc.body || doc.documentElement, { childList: true, subtree: true });
   setTimeout(inject, 0);
+  oauthReturn();
 
   win.hmvPpctHub = { open: open, match: match, fold: fold, state: function () { return M; }, loggedIn: function () { return !!auth; } };
 })(window);
