@@ -6,6 +6,11 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0l. Bản 2.51 – Quản lý Gmail ngay trong app
+- Menu bên trái có nút "👥 Quản lý Gmail GV" (trên điện thoại nằm trong mục "Thêm"); trang Cài đặt & dữ liệu có thẻ "Mở quản lý Gmail".
+- Bấm vào là mở thẳng hộp duyệt Gmail (chưa đăng nhập thì đăng nhập tài khoản quản lý trước). Link #quan-ly-gmail vẫn dùng được.
+- Code: app/ppct-hub-nguon.js (adminDirect, navInject).
+
 ## 0k. Cập nhật 2.50 (25/11/2026) – Đường vào thẳng màn hình duyệt Gmail
 
 - Mở `https://giao-vien-chu-nhiem.vercel.app/#quan-ly-gmail` (lưu thành dấu trang) → app mở Trợ lý AI, hộp PPCT Hub và bảng "Gmail được phép" ngay (cần đăng nhập tài khoản tổ trưởng/quản trị).
