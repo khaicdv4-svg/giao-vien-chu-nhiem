@@ -6,6 +6,15 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0g. Cập nhật 2.46 (25/11/2026) – Trợ lý AI lấy nguồn bài từ PPCT Hub
+
+- Tạo câu hỏi nhanh → nút **📚 Chọn bài từ PPCT Hub**: chọn lớp, môn, tuần, đánh dấu một hay nhiều bài theo phân phối chương trình của tổ (bảng công khai `ppct_kho_chung_tiet`).
+- Đăng nhập tài khoản PPCT Hub (email + mật khẩu, có ô "Ghi nhớ trên máy này") → app nối mỗi bài với trang SGK (`sgk_books`, `sgk_sections`) và tải ảnh trang (kho riêng `sgk-pages`) theo đúng quyền của tài khoản. App không mở thêm quyền nào trên PPCT Hub.
+- Cách nối bài ↔ trang: số trang ghi trong tên bài PPCT ("(tr.12)", "Trang 33") → "Bài k" → trùng tên bài đọc → bài liền trước (tiết LTVC, Viết, Nói và nghe của cùng bài). Tập 1/2 theo học kì.
+- Ảnh trang (tối đa 8 trang, mỗi bài tối đa 4) gửi kèm cho AI; lời nhắc yêu cầu bám sát nội dung, ví dụ, dạng bài trong trang. Giới hạn ảnh gửi AI nâng từ 6 lên 14 (`ai-tren-web.js`, `ai-server.cjs`).
+- Tệp: `app/ppct-hub-nguon.js` (mới), `app/tro-ly-ai.js`, `app/ai-tren-web.js`, `ai-server.cjs`, `app/index.html`, `app/sw.js` (`hmv-ban-chinh-2.46-ppct-hub`).
+- Kiểm thử: máy chủ PPCT Hub giả lập (dữ liệu mẫu lấy từ kho thật: Toán, Tiếng Việt, Lịch sử và Địa lí lớp 4): nối đúng trang cho 26/26 bài mẫu, đăng nhập sai/đúng, gắn 4 trang vào Trợ lý AI, yêu cầu gửi AI có đủ 4 ảnh và lời nhắc SGK. Chưa thử với tài khoản PPCT Hub thật.
+
 ## 0f. Cập nhật 2.45 (25/11/2026) – Chế độ giấy: quét bằng điện thoại qua mã QR
 
 - Cài đặt → "4 · Quét thẻ bằng": chọn **📱 Điện thoại** (mặc định) hoặc **💻 Camera máy tính**.

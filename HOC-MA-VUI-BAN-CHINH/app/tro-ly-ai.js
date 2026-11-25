@@ -14,7 +14,7 @@
   var OLD_MSG = WEB ? WEB_MSG : 'Máy chủ nội bộ đang chạy bản cũ, chưa có phần AI. Hãy bấm đúp tệp KHOI-DONG-LAI-MAY-CHU.cmd trong thư mục ứng dụng, rồi tải lại trang này.';
   var SUBJECTS = ['Toán', 'Tiếng Việt', 'Khoa học', 'Lịch sử và Địa lí', 'Đạo đức', 'Tự nhiên và Xã hội', 'Tin học', 'Công nghệ', 'Tiếng Anh', 'Âm nhạc', 'Mĩ thuật', 'Giáo dục thể chất', 'Hoạt động trải nghiệm'];
   var LEVELS = { 'Mức 1': 'nhận biết, nhắc lại hoặc mô tả nội dung đã học, áp dụng trực tiếp vào tình huống quen thuộc', 'Mức 2': 'kết nối, sắp xếp nội dung đã học để giải quyết vấn đề có nội dung tương tự', 'Mức 3': 'vận dụng nội dung đã học để giải quyết vấn đề mới hoặc đưa ra phản hồi hợp lí trong học tập và cuộc sống' };
-  var S = { status: null, tab: 'quick', busy: '', drafts: [], images: [], pdfs: [], dropped: 0, saved: null, note: '', task: 'matrix', chats: {}, test: '' };
+  var S = { status: null, tab: 'quick', busy: '', drafts: [], images: [], pdfs: [], sgk: [], sgkMeta: null, dropped: 0, saved: null, note: '', task: 'matrix', chats: {}, test: '' };
 
   function $(id) { return doc.getElementById(id); }
   function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -144,6 +144,7 @@
     var p = ['Soạn đúng ' + f.count + ' câu hỏi cho học sinh lớp ' + f.grade + ', môn ' + f.subject + (f.topic ? ', bài/chủ đề: ' + f.topic : '') + '.', 'Dạng câu: ' + kind, 'Mức độ: ' + level,
       'Quy cách để chiếu trong trò chơi:', '- Câu hỏi không quá 150 ký tự; mỗi phương án không quá 45 ký tự.', '- Câu "ABCD": answers có đúng 4 phương án khác nhau, chỉ MỘT phương án đúng; correct là vị trí phương án đúng (0–3); phương án nhiễu là lỗi học sinh hay mắc; không dùng "Tất cả đều đúng", "Cả A và B"; answerText để chuỗi rỗng.', '- Câu "TRUEFALSE": text là một mệnh đề khẳng định; answers là ["Đúng","Sai"]; correct là 0 nếu mệnh đề đúng, 1 nếu sai; số mệnh đề đúng và sai xấp xỉ nhau.', '- Câu "SHORT": answers là mảng rỗng, correct là -1, answerText là đáp án ngắn (một số hoặc 1–4 từ).', '- explanation: một câu giải thích ngắn, dễ hiểu với học sinh.', '- level: "Mức 1", "Mức 2" hoặc "Mức 3".', '- Các câu không trùng ý nhau.'];
     if (avoid && avoid.length) p.push('Không lặp lại ý của các câu đã có sau đây:\n' + avoid.slice(0, 40).map(function (t) { return '- ' + t; }).join('\n'));
+    if (f.sgk) p.push('Các ảnh đính kèm đầu tiên là trang sách giáo khoa Kết nối tri thức (bản 2026–2027) của ' + f.sgk.note + ', lấy từ kho PPCT của tổ. Đọc kĩ nội dung, ví dụ, bài tập trong các trang này; câu hỏi phải bám sát đúng kiến thức, dạng bài và số liệu kiểu trong trang (được đổi số liệu), không chép nguyên bài tập trong sách.');
     if (f.source || f.images) p.push('Chỉ dùng kiến thức có trong NGUỒN BÀI HỌC' + (f.images ? ' (gồm ' + f.images + ' ảnh/tệp PDF trang sách đính kèm' + (f.source ? ' và đoạn văn bản dưới đây' : '') + ')' : ' dưới đây') + '; không hỏi điều nằm ngoài nguồn.');
     else p.push('Không có nguồn kèm theo: hãy dựa vào nội dung chuẩn của bài/chủ đề này trong sách giáo khoa lớp ' + f.grade + ' theo Chương trình 2018.');
     if (f.source) p.push('NGUỒN BÀI HỌC:\n"""\n' + f.source + '\n"""');
@@ -199,7 +200,7 @@
   function blocking(issues) { return issues.filter(function (x) { return !/khó chiếu|Đã có trong Kho/.test(x); }); }
   function readForm() {
     var subject = $('taSubject') ? $('taSubject').value : 'Toán'; if (subject === '__other') subject = ($('taSubjectOther').value || '').trim();
-    return { grade: $('taGrade').value, subject: subject, topic: ($('taTopic').value || '').trim().slice(0, 200), count: Math.max(1, Math.min(20, parseInt($('taCount').value, 10) || 10)), kind: $('taKind').value, level: $('taLevel').value, source: ($('taSource').value || '').trim().slice(0, 20000), images: S.images.length + S.pdfs.length };
+    return { grade: $('taGrade').value, subject: subject, topic: ($('taTopic').value || '').trim().slice(0, 200), count: Math.max(1, Math.min(20, parseInt($('taCount').value, 10) || 10)), kind: $('taKind').value, level: $('taLevel').value, source: ($('taSource').value || '').trim().slice(0, 20000), images: S.images.length + S.pdfs.length + S.sgk.length, sgk: S.sgk.length ? S.sgkMeta : null };
   }
   function runGenerate(more) {
     if (S.busy) return;
@@ -209,6 +210,7 @@
     var p = prefs(); p.form = { grade: f.grade, subject: $('taSubject').value, other: $('taSubjectOther').value, topic: f.topic, count: f.count, kind: f.kind, level: f.level }; savePrefs(p);
     f.source = mask(f.source, map); f.topic = mask(f.topic, map);
     var parts = [{ text: questionPrompt(f, more ? S.drafts.map(function (d) { return d.text; }) : null) }];
+    S.sgk.forEach(function (im) { parts.push({ inlineData: { mimeType: im.mime, data: im.data } }); });
     S.images.forEach(function (im) { parts.push({ inlineData: { mimeType: im.mime, data: im.data } }); });
     S.pdfs.forEach(function (pf) { parts.push({ inlineData: { mimeType: 'application/pdf', data: pf.data } }); });
     if (!more) S.saved = null; // bỏ thẻ "Đã lưu" của lần trước để khung 3 chỉ nói về lần đang chạy
@@ -376,7 +378,7 @@
       + '<section class="card ta-result"><h3>3 · Duyệt, lưu và chơi</h3><div id="taDrafts"></div></section></div>';
     renderThumbs(); renderDrafts(); if (S.note) setNote(S.note); setBusy(S.busy);
   }
-  function renderThumbs() { var t = $('taThumbs'); if (!t) return; t.innerHTML = S.images.map(function (im, i) { return '<span class="ta-thumb"><img alt="Ảnh nguồn ' + (i + 1) + '" src="data:' + im.mime + ';base64,' + im.data + '"><button type="button" data-ta-img-del="' + i + '" aria-label="Bỏ ảnh ' + (i + 1) + '">×</button></span>'; }).join('') + S.pdfs.map(function (pf, i) { return '<span class="ta-thumb ta-doc" title="' + esc(pf.name) + '"><span class="ta-doc-name">📄 ' + esc(pf.name) + '</span><button type="button" data-ta-pdf-del="' + i + '" aria-label="Bỏ file ' + esc(pf.name) + '">×</button></span>'; }).join(''); }
+  function renderThumbs() { var t = $('taThumbs'); if (!t) return; t.innerHTML = S.sgk.map(function (im, i) { return '<span class="ta-thumb ta-sgk" title="' + esc(im.label || '') + '"><img alt="Trang SGK ' + esc(im.label || '') + '" src="data:' + im.mime + ';base64,' + im.data + '"><small>' + esc(im.label || 'SGK') + '</small><button type="button" data-ta-sgk-del="' + i + '" aria-label="Bỏ trang">×</button></span>'; }).join('') + S.images.map(function (im, i) { return '<span class="ta-thumb"><img alt="Ảnh nguồn ' + (i + 1) + '" src="data:' + im.mime + ';base64,' + im.data + '"><button type="button" data-ta-img-del="' + i + '" aria-label="Bỏ ảnh ' + (i + 1) + '">×</button></span>'; }).join('') + S.pdfs.map(function (pf, i) { return '<span class="ta-thumb ta-doc" title="' + esc(pf.name) + '"><span class="ta-doc-name">📄 ' + esc(pf.name) + '</span><button type="button" data-ta-pdf-del="' + i + '" aria-label="Bỏ file ' + esc(pf.name) + '">×</button></span>'; }).join(''); }
   function draftHtml(d, i, bank) {
     var issues = localIssues(d, i, bank), r = d.review, badge = r ? '<span class="ta-badge ' + r.verdict + '">' + (r.verdict === 'ok' ? '✅ AI: ổn' : r.verdict === 'warn' ? '⚠️ AI: nên chỉnh' : '❌ AI: sai') + '</span>' : '';
     var body = '';
@@ -470,6 +472,7 @@
     if (d.taDel) { syncDrafts(); S.drafts.splice(+d.taDel, 1); return renderDrafts(); }
     if (d.taFix) { syncDrafts(); return applyFix(+d.taFix); }
     if (d.taImgDel) { S.images.splice(+d.taImgDel, 1); return renderThumbs(); }
+    if (d.taSgkDel) { S.sgk.splice(+d.taSgkDel, 1); if (!S.sgk.length) S.sgkMeta = null; return renderThumbs(); }
     if (d.taPdfDel) { S.pdfs.splice(+d.taPdfDel, 1); return renderThumbs(); }
     if (d.taTask) { if (d.taTask === 'games') { S.tab = 'quick'; return render(); } S.task = d.taTask; return renderChatTab(); }
     if ('taNew' in d) { S.chats[S.task] = { messages: [], map: [] }; return renderChatTab(); }
@@ -519,6 +522,17 @@
   }
   /* 2.1: nhận các câu AI soạn từ thẻ Phân tích để duyệt, lưu và chơi như câu soạn nhanh. */
   function loadDrafts(list, meta, note) { S.drafts = (list || []).slice(); S.meta = meta || S.meta; S.saved = null; S.dropped = 0; S.note = note || ''; S.tab = 'quick'; var box = $('taSetName'); if (box) box.value = ''; render(); }
-  win.hmvTroLyAI = { loadDrafts: loadDrafts, open: function (tab) { if (typeof win.openView === 'function') win.openView(VIEW); open(tab); }, status: function () { return S.status; }, refresh: loadStatus, state: function () { return { tab: S.tab, busy: S.busy, drafts: S.drafts.length, saved: S.saved, task: S.task }; }, generate: generate, parseJson: parseJson, ready: ready, _test: { normalizeQuestions: normalizeQuestions, md: md, mask: mask, unmask: unmask, questionPrompt: questionPrompt, toKho: toKho } };
+  /* 2.46: nguồn từ PPCT Hub (ppct-hub-nguon.js) – ảnh trang SGK của bài đã chọn. */
+  function setSgk(list, meta) {
+    S.sgk = (list || []).slice(0, 8); S.sgkMeta = S.sgk.length ? (meta || { note: 'bài đã chọn' }) : null;
+    var f = meta && meta.form;
+    if (f) {
+      if (f.grade && $('taGrade')) $('taGrade').value = String(f.grade);
+      if (f.subject && $('taSubject')) { var o = Array.prototype.some.call($('taSubject').options, function (x) { return x.value === f.subject; }); if (o) $('taSubject').value = f.subject; }
+      if (f.topic && $('taTopic')) $('taTopic').value = String(f.topic).slice(0, 200);
+    }
+    renderThumbs();
+  }
+  win.hmvTroLyAI = { setSgk: setSgk, sgkCount: function () { return S.sgk.length; }, loadDrafts: loadDrafts, open: function (tab) { if (typeof win.openView === 'function') win.openView(VIEW); open(tab); }, status: function () { return S.status; }, refresh: loadStatus, state: function () { return { tab: S.tab, busy: S.busy, drafts: S.drafts.length, saved: S.saved, task: S.task }; }, generate: generate, parseJson: parseJson, ready: ready, _test: { normalizeQuestions: normalizeQuestions, md: md, mask: mask, unmask: unmask, questionPrompt: questionPrompt, toKho: toKho } };
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', function () { win.setTimeout(install, 0); }); else win.setTimeout(install, 0);
 })(window);

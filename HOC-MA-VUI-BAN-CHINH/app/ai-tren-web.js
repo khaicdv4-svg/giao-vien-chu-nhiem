@@ -12,7 +12,7 @@
   var ACTIVE = !LOCAL;
   var STORE = 'hmv_gemini_web_v1';
   var DEFAULT_MODELS = { quality: ['gemini-3.8-flash', 'gemini-3.5-flash-lite'], fast: ['gemini-3.5-flash-lite', 'gemini-3.8-flash'], tts: ['gemini-3.8-flash-tts', 'gemini-3.8-flash-lite-tts', 'gemini-3.1-flash-tts-preview'] };
-  var MAX_TEXT = 60000, MAX_IMAGES = 6, WINDOW = 60000, LIMIT = 30;
+  var MAX_TEXT = 60000, MAX_IMAGES = 14, WINDOW = 60000, LIMIT = 30;
   var hits = [], lastOk = null, lastError = null;
 
   function base() { return 'https://generativelanguage.googleapis.com'; }

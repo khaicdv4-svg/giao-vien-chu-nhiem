@@ -12,7 +12,7 @@ const KEY_FILE = path.join(DIR, 'khoa-gemini.txt');
 const MODEL_FILE = path.join(DIR, 'mo-hinh.txt');
 const BASE = String(process.env.HMV_GEMINI_BASE || 'https://generativelanguage.googleapis.com').replace(/\/+$/, '');
 const DEFAULT_MODELS = { quality: ['gemini-3.8-flash', 'gemini-3.5-flash-lite'], fast: ['gemini-3.5-flash-lite', 'gemini-3.8-flash'], tts: ['gemini-3.8-flash-tts', 'gemini-3.8-flash-lite-tts', 'gemini-3.1-flash-tts-preview'] };
-const MAX_BODY = 14 * 1024 * 1024, MAX_TEXT = 60000, MAX_IMAGES = 6, WINDOW = 60000, LIMIT = Number(process.env.HMV_AI_LIMIT) || 30;
+const MAX_BODY = 20 * 1024 * 1024, MAX_TEXT = 60000, MAX_IMAGES = 14, WINDOW = 60000, LIMIT = Number(process.env.HMV_AI_LIMIT) || 30;
 const KEY_TEMPLATE = [
   '# HỌC MÀ VUI - khóa Gemini (Google AI Studio).',
   '# Dán khóa vào MỘT dòng riêng ở bên dưới rồi lưu tệp. Không cần khởi động lại ứng dụng.',
