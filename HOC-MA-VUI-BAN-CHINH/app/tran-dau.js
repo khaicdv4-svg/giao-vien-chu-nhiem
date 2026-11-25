@@ -27,7 +27,7 @@
     'magic-hand': { host: '#mhSetup', count: 'mhCount', answer: 'mhTime', revealDef: 3 },
     'raise-hand': { host: '#rhSetup', count: 'rhCount', answer: 'rhAnswerTime', revealDef: 4 },
     'head-tilt': { host: '#tiltSetupModal .tilt-setup-grid', before: true, count: 'tiltLimit', revealDef: 2, answerDef: 0 },
-    'paper-mode': { host: '#games .paper-mode-panel .paper-note', after: true, revealDef: 0, manual: true, answerDef: 0, rule: 'Giáo viên bấm Kết thúc, hoặc hết câu hỏi', auto: true }
+    'paper-mode': { host: '#cdgRules', count: 'cdgCount', answer: 'cdgTime', revealDef: 0, manual: true, auto: true }
   };
   var store = {}; try { store = JSON.parse(win.localStorage.getItem(KEY) || '{}') || {}; } catch (e) { store = {}; }
   function save() { try { win.localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
@@ -91,7 +91,7 @@
     if (!Number.isInteger(c.correct) && c.correct !== null && c.correct !== undefined && c.correct !== '') c.correct = Number(c.correct);
     return c;
   }
-  function usable(list, t) { return (list || []).map(forGame).filter(function (q) { return q.text && (q.kind === 'ABCD' || q.kind === 'TRUEFALSE') && !errs(q, t).length && (t !== 'millionaire' && t !== 'paper-mode' || q.answers.length === 4); }); }
+  function usable(list, t) { return (list || []).map(forGame).filter(function (q) { return q.text && (q.kind === 'ABCD' || q.kind === 'TRUEFALSE') && !errs(q, t).length && (t !== 'millionaire' || q.answers.length === 4) && (t !== 'paper-mode' || q.answers.length <= 4); }); }
   function demoSets() {
     var kho = Array.isArray(win.questionBankSets) ? win.questionBankSets : [], mine = kho.filter(function (s) { return !/^mau-\d/.test(String(s.id)); }), mau = kho.filter(function (s) { return /^mau-\d/.test(String(s.id)); });
     var spare = win.HMV_DEMO && Array.isArray(win.HMV_DEMO.sets) ? win.HMV_DEMO.sets.filter(function (s) { return !mau.some(function (m) { return m.id === s.id; }); }) : [];

@@ -6,6 +6,16 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0e. Cập nhật 2.44 (25/11/2026) – Chế độ giấy viết lại
+
+- Hiện lại trò trong Thư viện (2.43). Bấm vào trò là tới màn hình **Cài đặt**: in thẻ, chọn bộ câu hỏi, Luật trận đấu, chọn camera và quét thử. Chỉ khi bấm **▶ Bắt đầu** mới chơi.
+- Thẻ mới dùng mã ArUco (thư viện `app/aruco-che-do-giay.js`, chạy offline). A ở cạnh trên, B phải, C dưới, D trái; chữ nào lên trên thì chữ đó đứng thẳng. Số thẻ ở góc trên trái, tên học sinh ở góc dưới trái, không còn đè lên chữ C. Số thẻ gắn cố định với từng học sinh của lớp.
+- Camera quét cả lớp cùng lúc (giữ yên khoảng 0,3 giây), học sinh đổi ý thì máy ghi chữ mới cho tới khi chốt. Chọn được camera (webcam, điện thoại làm webcam qua Iriun/DroidCam hay Liên kết với Windows). Có hướng dẫn 📱 ngay trong màn hình cài đặt.
+- Không có camera: bấm ô tên học sinh rồi chọn A/B/C/D.
+- Kết quả cuối lượt theo từng học sinh, tải được tệp CSV mở bằng Excel; số liệu từng câu ghi vào 📈 Phân tích.
+- Tệp: `app/che-do-giay.js` (mới), `app/aruco-che-do-giay.js` (mới), `app/tran-dau.js`, `app/doc-to.js`, `app/ket-qua.js`, `app/uxui-stage5.js`, `app/index.html`, `app/sw.js` (`hmv-ban-chinh-2.44-che-do-giay`).
+- Kiểm thử: Chromium với camera giả lập (video có 6–7 thẻ xoay các hướng): nhận đúng 13/13 lượt giơ thẻ; chốt, tự chốt khi hết giờ, tự chuyển câu, nhập tay, tạm dừng, kết thúc sớm, tải CSV, giao diện điện thoại. Chưa thử với webcam thật trong lớp.
+
 ## 0d. Cập nhật 2.23 (15/10/2026) – Trợ lý AI · Tạo câu hỏi nhanh: hiện rõ trạng thái đang soạn
 
 - Lỗi: bấm “Tạo câu hỏi” không có trạng thái làm việc rõ ràng, còn khung “3 · Duyệt, lưu và chơi” vẫn hiện thẻ “✅ Đã lưu bộ … vào Kho” của lần trước, dễ hiểu lầm là lần này đã xong.

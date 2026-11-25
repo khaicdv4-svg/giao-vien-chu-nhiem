@@ -30,7 +30,7 @@
     { id: 'poll', box: '#bcStage', q: '#bcQuestion', a: '.bc-row', letter: '.bc-key b', text: '.bc-label', off: function (q) { return q.classList.contains('quick'); } },
     { id: 'raise-hand', box: '#rhStage', q: '#rhQuestion', a: '.rh-ans', letter: '.rh-ans > b', text: '.rh-ans-text' },
     { id: 'magic-hand', box: '#mhStage', q: '#mhPrompt' },
-    { id: 'paper', box: '#games', q: '.paper-question', a: '.paper-answer-chip' }
+    { id: 'paper', box: '#cdgStage', q: '#cdgQuestion', a: '.cdg-opt', letter: '.cdg-opt > b', text: '.cdg-opt-text' }
   ];
 
   var cfg = load();
