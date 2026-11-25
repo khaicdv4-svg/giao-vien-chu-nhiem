@@ -6,6 +6,15 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0f. Cập nhật 2.45 (25/11/2026) – Chế độ giấy: quét bằng điện thoại qua mã QR
+
+- Cài đặt → "4 · Quét thẻ bằng": chọn **📱 Điện thoại** (mặc định) hoặc **💻 Camera máy tính**.
+- Điện thoại: máy tính hiện mã QR + mã phòng 6 ký tự. Điện thoại quét mã → mở `quet-the.html` → Mở camera. Điện thoại tự nhận thẻ, gửi số thẻ + chữ về máy tính tức thì; điện thoại hiện câu đang hỏi và các số thẻ chưa nhận.
+- Kênh nối: Supabase Realtime Broadcast (dự án `hoc-ma-vui-dev`), chỉ chuyển tiếp, không lưu; không gửi tên học sinh. Tệp: `app/rt-che-do-giay.js`. Mã QR: `app/qr-che-do-giay.js` (qrcode-generator, MIT).
+- Máy tính: bảng **⚡ Vừa quét** hiện tên + đáp án từng bạn ngay khi quét (có thể đổi thành chỉ hiện ✓ đến khi chốt); vòng tiến độ số bạn đã giơ thẻ.
+- Chốt câu (bấm hoặc hết giờ): hiện ba danh sách **✅ Đúng / ❌ Chưa đúng (kèm chữ đã chọn) / ⏳ Chưa trả lời**. Kết thúc: 🌟 bạn đúng nhiều nhất, danh sách theo từng câu, bảng tổng hợp, tải CSV.
+- Kiểm thử: máy chủ Realtime giả lập + 2 trình duyệt (máy tính và điện thoại có camera giả lập): nối qua mã phòng, quét thử ở màn hình cài đặt, nhận đúng 6/6 rồi 7/7 thẻ, danh sách đúng/sai, kết thúc. Chưa thử trên Supabase thật và điện thoại thật.
+
 ## 0e. Cập nhật 2.44 (25/11/2026) – Chế độ giấy viết lại
 
 - Hiện lại trò trong Thư viện (2.43). Bấm vào trò là tới màn hình **Cài đặt**: in thẻ, chọn bộ câu hỏi, Luật trận đấu, chọn camera và quét thử. Chỉ khi bấm **▶ Bắt đầu** mới chơi.

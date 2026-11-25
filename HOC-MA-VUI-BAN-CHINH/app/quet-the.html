@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1e1b4b">
+<title>Quét thẻ · Chế độ giấy · HỌC MÀ VUI</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#0b1020;color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+.app{display:flex;flex-direction:column;height:100dvh}
+header{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 10px) 14px 10px;background:linear-gradient(135deg,#4c1d95,#1e1b4b)}
+header .t{font-weight:900;font-size:16px;line-height:1.1}header .t small{display:block;font-weight:600;font-size:12px;color:#c4b5fd}
+.dot{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;background:#ffffff1a;border-radius:999px;padding:6px 10px}.dot i{width:10px;height:10px;border-radius:50%;background:#f59e0b;box-shadow:0 0 0 0 #f59e0b88}
+.dot.on i{background:#22c55e;animation:pulse 1.6s infinite}.dot.off i{background:#ef4444}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #22c55e99}70%{box-shadow:0 0 0 10px #22c55e00}100%{box-shadow:0 0 0 0 #22c55e00}}
+.bar{padding:10px 14px;background:#141a33;display:grid;gap:6px}.bar .q{font-weight:800;font-size:15px;line-height:1.3;max-height:3.9em;overflow:hidden}.bar .s{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#cbd5e1}
+.phase{display:inline-block;border-radius:8px;padding:2px 8px;font-weight:800;font-size:12px;background:#334155}.phase.ans{background:#16a34a}.phase.rev{background:#b45309}
+.cam{position:relative;flex:1;min-height:0;background:#000;overflow:hidden}.cam video,.cam canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.veil{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:24px;background:#0b1020cc;font-size:20px;font-weight:800}.veil.show{display:grid}.veil small{display:block;font-size:14px;font-weight:600;color:#cbd5e1;margin-top:8px}
+.big{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:#0b1020cc;border-radius:999px;padding:8px 16px;font-weight:900;font-size:20px;white-space:nowrap}
+.miss{padding:8px 14px;background:#141a33;font-size:13px;color:#cbd5e1;max-height:70px;overflow:auto}.miss b{display:inline-block;min-width:28px;text-align:center;margin:2px;border-radius:6px;background:#334155;color:#fff;padding:2px 4px}
+.tools{display:flex;gap:8px;padding:10px 14px calc(env(safe-area-inset-bottom) + 10px);background:#0b1020}.tools button{flex:1;min-height:48px;border:0;border-radius:14px;background:#1f2a4d;color:#fff;font:inherit;font-weight:800;font-size:15px}.tools button.main{background:#7c3aed}
+.join{padding:24px;display:grid;gap:14px;align-content:start}.join h2{margin:0}.join input{font:inherit;font-size:28px;letter-spacing:.2em;text-transform:uppercase;text-align:center;padding:12px;border-radius:14px;border:2px solid #7c3aed;background:#111827;color:#fff}.join button{min-height:52px;border:0;border-radius:14px;background:#7c3aed;color:#fff;font:inherit;font-weight:800;font-size:18px}.join p{color:#cbd5e1;margin:0;line-height:1.5}
+.flash{position:absolute;inset:0;pointer-events:none;background:#22c55e;opacity:0;transition:opacity .25s}.flash.go{opacity:.18;transition:none}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header><div class="t">🃏 Quét thẻ · Chế độ giấy<small id="room">HỌC MÀ VUI</small></div><div class="dot" id="dot"><i></i><span>Đang kết nối…</span></div></header>
+  <div class="bar" id="bar"><div class="q" id="q">Đang chờ máy tính…</div><div class="s"><span id="ph"><span class="phase">Chờ</span></span><span id="cnt"></span></div></div>
+  <div class="cam" id="cam"><video id="v" autoplay muted playsinline></video><canvas id="o"></canvas><div class="flash" id="flash"></div><div class="big" id="big" hidden></div><div class="veil show" id="veil"><div>Bấm “Mở camera” để bắt đầu quét<small>Hướng camera về phía lớp, đứng cách 2–4 mét.</small></div></div></div>
+  <div class="miss" id="miss" hidden></div>
+  <div class="tools"><button class="main" id="bCam">📷 Mở camera</button><button id="bFlip">🔄 Đổi camera</button><button id="bTorch" hidden>🔦 Đèn</button></div>
+</div>
+<script src="./aruco-che-do-giay.js"></script>
+<script src="./rt-che-do-giay.js"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); }, LET = 'ABCD';
+  var code = HMVRT.cleanCode((location.hash || '').replace(/^#/, '') || new URLSearchParams(location.search).get('s'));
+  var rt = null, state = null, lastState = 0, stream = null, facing = 'environment', det = null, can = null, timer = 0, pend = {}, mine = {}, dirty = {}, sentAt = 0, wake = null, torchOn = false;
+
+  if (!code) { showJoin(); return; }
+  start();
+
+  function showJoin() {
+    $('app').innerHTML = '<header><div class="t">🃏 Quét thẻ · Chế độ giấy<small>HỌC MÀ VUI</small></div></header><div class="join"><h2>Nhập mã phòng</h2><p>Mã gồm 6 ký tự, hiện dưới mã QR trên màn hình máy tính (trò Chế độ giấy → Camera → Điện thoại).</p><input id="code" maxlength="6" autocomplete="off" autocapitalize="characters" inputmode="text"><button id="go">Kết nối</button></div>';
+    $('go').onclick = function () { var c = HMVRT.cleanCode($('code').value); if (c.length < 6) return; location.hash = c; location.reload(); };
+  }
+  function start() {
+    $('room').textContent = 'Phòng ' + code;
+    rt = HMVRT.join(code, 'phone', onMsg, onStatus);
+    rt.send('hello', { ua: navigator.userAgent.slice(0, 80) });
+    setInterval(function () { rt.send('ping', {}); paintDot(); }, 4000);
+    $('bCam').onclick = function () { stream ? stopCam() : startCam(); };
+    $('bFlip').onclick = function () { facing = facing === 'environment' ? 'user' : 'environment'; if (stream) startCam(); };
+    $('bTorch').onclick = toggleTorch;
+    document.addEventListener('visibilitychange', function () { if (!document.hidden && stream) lockWake(); });
+  }
+  function onStatus() { paintDot(); }
+  function paintDot() {
+    var d = $('dot'), s = rt ? rt.status() : 'connecting', pc = state && Date.now() - lastState < 10000;
+    d.className = 'dot ' + (s === 'online' && pc ? 'on' : s === 'online' ? '' : 'off');
+    d.querySelector('span').textContent = s !== 'online' ? (s === 'error' ? 'Lỗi kết nối' : 'Đang kết nối…') : pc ? 'Đã nối máy tính' : 'Chờ máy tính…';
+  }
+  function onMsg(ev, p) {
+    if (ev === 'state') {
+      var newQ = !state || state.q !== p.q || state.phase !== p.phase;
+      state = p; lastState = Date.now();
+      if (newQ) { pend = {}; if (!state || state.phase !== 'answer') {} }
+      if (newQ && p.phase === 'answer' && (!mine._q || mine._q !== p.q + '|' + p.round)) { mine = { _q: p.q + '|' + p.round }; dirty = {}; }
+      paint(); paintDot();
+    } else if (ev === 'hello-pc') { rt.send('hello', { ua: navigator.userAgent.slice(0, 80) }); }
+  }
+  function paint() {
+    if (!state) return;
+    var ph = state.phase, deck = state.need || state.deck || [], got = state.got || [];
+    $('q').textContent = state.text ? 'Câu ' + (state.q + 1) + '/' + state.n + ': ' + state.text : (ph === 'setup' ? 'Máy tính đang ở màn hình cài đặt. Có thể quét thử thẻ.' : ph === 'end' ? 'Đã kết thúc lượt chơi.' : '');
+    $('ph').innerHTML = '<span class="phase ' + (ph === 'answer' ? 'ans' : ph === 'reveal' ? 'rev' : '') + '">' + (ph === 'answer' ? (state.paused ? 'Tạm dừng' : 'Đang nhận đáp án') : ph === 'reveal' ? 'Đã chốt – chờ câu tiếp' : ph === 'end' ? 'Kết thúc' : 'Quét thử') + '</span>';
+    var gotN = got.filter(function (n) { return deck.indexOf(n) >= 0; }).length;
+    $('cnt').textContent = ph === 'answer' || ph === 'reveal' ? 'Đã nhận ' + gotN + '/' + deck.length : '';
+    var miss = deck.filter(function (n) { return got.indexOf(n) < 0; });
+    var m = $('miss'); m.hidden = !(ph === 'answer' && deck.length);
+    if (!m.hidden) m.innerHTML = miss.length ? 'Chưa nhận thẻ: ' + miss.map(function (n) { return '<b>' + n + '</b>'; }).join('') : '✅ Đã nhận đủ cả lớp!';
+    var veil = $('veil');
+    if (stream) { veil.classList.toggle('show', ph === 'reveal' || ph === 'end'); veil.innerHTML = ph === 'end' ? '<div>Đã kết thúc<small>Xem kết quả trên máy tính.</small></div>' : '<div>Đã chốt câu ' + (state.q + 1) + '<small>Chờ thầy cô chuyển câu tiếp.</small></div>'; }
+  }
+  function startCam() {
+    stopCam(true);
+    var c = { video: { facingMode: { ideal: facing }, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false };
+    navigator.mediaDevices.getUserMedia(c).then(function (s) {
+      stream = s; var v = $('v'); v.srcObject = s; v.play().catch(function () {});
+      det = new HMV_AR.Detector({ dictionaryName: 'ARUCO_MIP_16h3', maxHammingDistance: 1 });
+      $('bCam').textContent = '⏹ Tắt camera'; $('veil').classList.remove('show');
+      clearInterval(timer); timer = setInterval(scan, 130); lockWake(); paint();
+      var tr = s.getVideoTracks()[0], caps = tr && tr.getCapabilities ? tr.getCapabilities() : {}; $('bTorch').hidden = !caps.torch;
+    }).catch(function (e) {
+      var v = $('veil'); v.classList.add('show');
+      v.innerHTML = '<div>' + (e && e.name === 'NotAllowedError' ? 'Chưa được phép dùng camera' : 'Không mở được camera') + '<small>Vào cài đặt trình duyệt, cho phép Camera cho trang này rồi thử lại.</small></div>';
+    });
+  }
+  function stopCam(keep) {
+    clearInterval(timer); timer = 0;
+    if (stream) stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; torchOn = false;
+    if (!keep) { $('bCam').textContent = '📷 Mở camera'; var v = $('veil'); v.classList.add('show'); v.innerHTML = '<div>Camera đang tắt<small>Bấm “Mở camera” để quét.</small></div>'; }
+    if (wake) { try { wake.release(); } catch (e) {} wake = null; }
+  }
+  function lockWake() { if ('wakeLock' in navigator) navigator.wakeLock.request('screen').then(function (w) { wake = w; }).catch(function () {}); }
+  function toggleTorch() { var tr = stream && stream.getVideoTracks()[0]; if (!tr) return; torchOn = !torchOn; tr.applyConstraints({ advanced: [{ torch: torchOn }] }).catch(function () {}); }
+  function letterOf(m) { var a = m.corners[0], b = m.corners[1], ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI; return LET[((Math.round(-ang / 90) % 4) + 4) % 4]; }
+  function scan() {
+    var v = $('v'); if (!stream || !det || v.readyState < 2 || !v.videoWidth) return;
+    var w = v.videoWidth, h = v.videoHeight; can = can || document.createElement('canvas'); if (can.width !== w) { can.width = w; can.height = h; }
+    var x = can.getContext('2d', { willReadFrequently: true }); x.drawImage(v, 0, 0, w, h);
+    var found = []; try { found = det.detect(x.getImageData(0, 0, w, h)); } catch (e) { return; }
+    var now = Date.now(), live = state && state.phase === 'answer' && !state.paused, deck = state ? state.deck || [] : [], got = state ? state.got || [] : [], seen = [], fresh = 0;
+    found.forEach(function (m) {
+      var no = m.id + 1; if (deck.length && deck.indexOf(no) < 0) return;
+      var L = letterOf(m); seen.push({ no: no, L: L, m: m });
+      if (!live) return;
+      var p = pend[no]; if (p && p.L === L && now - p.t < 1500) { p.n++; p.t = now; } else pend[no] = p = { L: L, n: 1, t: now };
+      if (p.n >= 2 && mine[no] !== L) { if (!mine[no]) fresh++; mine[no] = L; dirty[no] = L; }
+    });
+    if (state && state.phase === 'setup' && seen.length && now - sentAt > 500) { var t = {}; seen.forEach(function (x) { t[x.no] = x.L; }); rt.send('test', { cards: t }); sentAt = now; }
+    draw(seen, w, h, got);
+    if (fresh) { try { navigator.vibrate && navigator.vibrate(40); } catch (e) {} var f = $('flash'); f.classList.add('go'); setTimeout(function () { f.classList.remove('go'); }, 60); }
+    var b = $('big'); if (live && seen.length) { b.hidden = false; b.textContent = '👀 ' + seen.length + ' thẻ'; } else b.hidden = true;
+    if (live && state) {
+      var keys = Object.keys(dirty);
+      if (keys.length && now - sentAt > 250) { rt.send('scan', { q: state.q, round: state.round, cards: dirty }); dirty = {}; sentAt = now; }
+      else if (now - sentAt > 3000) { var all = {}; Object.keys(mine).forEach(function (k) { if (k !== '_q') all[k] = mine[k]; }); if (Object.keys(all).length) rt.send('scan', { q: state.q, round: state.round, cards: all, full: 1 }); sentAt = now; }
+    }
+  }
+  function draw(seen, w, h, got) {
+    var o = $('o'); if (o.width !== w) { o.width = w; o.height = h; }
+    var c = o.getContext('2d'); c.clearRect(0, 0, w, h);
+    seen.forEach(function (s) {
+      var k = s.m.corners, ok = got.indexOf(s.no) >= 0;
+      c.lineWidth = Math.max(4, w / 240); c.strokeStyle = ok ? '#22c55e' : '#a855f7';
+      c.beginPath(); c.moveTo(k[0].x, k[0].y); for (var i = 1; i < 4; i++) c.lineTo(k[i].x, k[i].y); c.closePath(); c.stroke();
+      var x = Math.min(k[0].x, k[1].x, k[2].x, k[3].x), y = Math.min(k[0].y, k[1].y, k[2].y, k[3].y), t = (ok ? '✓ ' : '') + s.no;
+      c.font = '800 ' + Math.max(22, Math.round(w / 32)) + 'px system-ui,sans-serif'; var tw = c.measureText(t).width + 14, th = Math.max(30, Math.round(w / 24));
+      c.fillStyle = c.strokeStyle; c.fillRect(x, y - th - 4, tw, th); c.fillStyle = '#fff'; c.fillText(t, x + 7, y - 12);
+    });
+  }
+})();
+</script>
+</body>
+</html>

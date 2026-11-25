@@ -1,4 +1,7 @@
-/* BAN-CHINH 2.44 · Trò chơi "Chế độ giấy" (viết lại).
+/* BAN-CHINH 2.45 · Trò chơi "Chế độ giấy".
+ *
+ * 2.45: quét bằng điện thoại qua mã QR (trang quet-the.html, kênh rt-che-do-giay.js); bảng "Vừa quét" hiện tên + đáp án;
+ *       chốt câu hiện danh sách Đúng / Chưa đúng / Chưa trả lời; màn hình kết quả có danh sách theo từng câu.
  *
  * Mỗi học sinh có một thẻ giấy in mã vuông (mã ArUco). Bốn cạnh thẻ ghi A, B, C, D.
  * Học sinh xoay thẻ cho chữ mình chọn nằm ở cạnh trên rồi giơ lên. Camera quét cả lớp cùng lúc,
@@ -16,9 +19,10 @@
   'use strict';
   var doc = document, win = window, TYPE = 'paper-mode';
   var SKEY = 'hmv_cdg_settings_v1', CKEY = 'hmv_cdg_cards_v1', LKEY = 'hmv_cdg_last_v1';
-  var DEF = { count: '10', time: 0, order: 'set', absent: true, sound: true, cam: '', res: '720', perPage: 2, names: true };
+  var DEF = { count: '10', time: 0, order: 'set', absent: true, sound: true, cam: '', res: '720', perPage: 2, names: true, src: 'phone', show: 'now' };
   var LET = 'ABCD';
   var cfg = Object.assign({}, DEF, read(SKEY, {}));
+  var link = null, linkCode = '', phoneSeen = 0, stateTimer = 0, feed = [], phoneTest = {}, qrPromise = null;
   var S = null, timer = 0, lastT = 0, stream = null, scanTimer = 0, detector = null, scanCanvas = null, camMsg = '', camDevices = [], pending = {}, autoNx = 0, actx = null, libPromise = null, testHits = {};
 
   function read(k, d) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } }
@@ -94,6 +98,99 @@
     });
     return libPromise;
   }
+  function loadScript(src, test) {
+    if (test()) return Promise.resolve();
+    return new Promise(function (ok, bad) { var s = doc.createElement('script'); s.src = src; s.async = true; s.onload = function () { test() ? ok() : bad(new Error('load')); }; s.onerror = function () { bad(new Error('load')); }; doc.head.appendChild(s); });
+  }
+  function loadQr() { if (!qrPromise) qrPromise = loadScript('./qr-che-do-giay.js', function () { return typeof win.qrcode === 'function'; }).catch(function (e) { qrPromise = null; throw e; }); return qrPromise; }
+
+  /* ---------- Điện thoại quét thẻ (mã QR) ---------- */
+  function phoneUrl() {
+    var pub = location.protocol === 'https:' && !/^(localhost|127\.|192\.168\.|10\.)/.test(location.hostname);
+    var base = pub ? location.href.replace(/[#?].*$/, '').replace(/[^\/]*$/, '') : 'https://giao-vien-chu-nhiem.vercel.app/';
+    return base + 'quet-the.html#' + linkCode;
+  }
+  function phoneOn() { return Date.now() - phoneSeen < 12000; }
+  function ensureLink() {
+    if (link) return Promise.resolve(link);
+    return loadScript('./rt-che-do-giay.js', function () { return !!win.HMVRT; }).then(function () {
+      if (link) return link;
+      try { linkCode = sessionStorage.getItem('hmv_cdg_room') || ''; } catch (e) {}
+      if (!/^[A-Z0-9]{6}$/.test(linkCode)) { linkCode = win.HMVRT.newCode(); try { sessionStorage.setItem('hmv_cdg_room', linkCode); } catch (e) {} }
+      link = win.HMVRT.join(linkCode, 'pc', onPhone, function () { paintLink(); if (link && link.status() === 'online') pushState(); });
+      link.send('hello-pc', {});
+      clearInterval(stateTimer); stateTimer = setInterval(function () { if (!here()) { closeLink(); return; } pushState(); paintLink(); }, 3000);
+      return link;
+    });
+  }
+  function closeLink() { clearInterval(stateTimer); stateTimer = 0; if (link) { try { link.close(); } catch (e) {} } link = null; phoneSeen = 0; }
+  function onPhone(ev, p) {
+    if (ev === 'hello' || ev === 'ping') {
+      var was = phoneOn(); phoneSeen = Date.now();
+      if (ev === 'hello') pushState();
+      if (!was) { paintLink(); toast('📱 Điện thoại đã kết nối – sẵn sàng quét thẻ'); tone('start'); }
+      return;
+    }
+    if (ev === 'test') { phoneSeen = Date.now(); var now = Date.now(), c = p.cards || {}; Object.keys(c).forEach(function (k) { phoneTest[k] = { L: c[k], t: now }; testHits[k] = { L: c[k], t: now }; }); paintTest(); return; }
+    if (ev === 'scan') {
+      phoneSeen = Date.now();
+      if (!S || S.phase !== 'answer' || S.paused || p.q !== S.q || p.round !== S.round) return;
+      var cards = p.cards || {}; Object.keys(cards).forEach(function (k) { record(Number(k), String(cards[k]), 'phone'); });
+    }
+  }
+  var pushSoonT = 0;
+  function pushSoon() { clearTimeout(pushSoonT); pushSoonT = setTimeout(pushState, 150); }
+  function pushState() {
+    if (!link) return;
+    var st;
+    if (S) { var q = Q(); st = { phase: S.phase, q: S.q, n: S.questions.length, round: S.round, paused: S.paused, text: S.phase === 'end' || !q ? '' : q.text, opts: q ? q.answers.length : 4, deck: S.roster.map(function (x) { return x.no; }), need: expected().map(function (x) { return x.no; }), got: Object.keys(ansMap()).map(Number) }; }
+    else { var r = roster(); st = { phase: 'setup', deck: r.map(function (x) { return x.no; }), need: r.map(function (x) { return x.no; }), got: [] }; }
+    link.send('state', st);
+  }
+  function qrSvg(text, cell) {
+    var q = win.qrcode(0, 'M'); q.addData(text); q.make();
+    return q.createSvgTag({ cellSize: cell || 6, margin: 2, scalable: true });
+  }
+  function paintLink() {
+    var on = phoneOn(), st = link ? link.status() : 'connecting';
+    doc.querySelectorAll('[data-cdg-link]').forEach(function (el) {
+      el.classList.toggle('on', on); el.classList.toggle('err', st === 'error' || st === 'offline');
+      el.textContent = on ? '📱 Điện thoại đã kết nối' : st === 'online' ? 'Chờ điện thoại quét mã…' : st === 'error' ? 'Lỗi kết nối máy chủ' : st === 'offline' ? 'Mất mạng – đang thử lại…' : 'Đang mở phòng…';
+    });
+    doc.querySelectorAll('[data-cdg-code]').forEach(function (el) { el.textContent = linkCode; });
+    doc.querySelectorAll('[data-cdg-qr]').forEach(function (el) {
+      if (!linkCode || el.dataset.code === linkCode) return;
+      loadQr().then(function () { el.innerHTML = qrSvg(phoneUrl(), 6); el.dataset.code = linkCode; el.title = phoneUrl(); }).catch(function () { el.textContent = 'Chưa tạo được mã QR (kiểm tra mạng).'; });
+    });
+    doc.querySelectorAll('[data-cdg-url]').forEach(function (el) { el.textContent = phoneUrl().replace(/^https:\/\//, ''); });
+  }
+  function bigQr() {
+    loadQr().then(function () {
+      var old = doc.getElementById('cdgQrBig'); if (old) { old.remove(); return; }
+      var o = doc.createElement('div'); o.id = 'cdgQrBig'; o.className = 'cdg-qrbig';
+      o.innerHTML = '<div class="in"><h3>📱 Quét mã bằng camera điện thoại</h3><div class="qr">' + qrSvg(phoneUrl(), 10) + '</div><p>Hoặc mở <b>' + esc(phoneUrl().replace(/^https:\/\//, '').replace(/#.*/, '')) + '</b> rồi nhập mã <b class="code">' + linkCode + '</b></p><p class="st" data-cdg-link></p><button class="btn color" type="button">Đóng</button></div>';
+      o.onclick = function (e) { if (e.target === o || e.target.closest('button')) o.remove(); };
+      doc.body.appendChild(o); paintLink();
+    });
+  }
+
+  /* ---------- Ghi đáp án (camera máy tính, điện thoại, bấm tay) ---------- */
+  function record(no, L, src) {
+    if (!S || S.phase !== 'answer' || S.paused) return false;
+    var st = byNo(no), q = Q(), i = LET.indexOf(L); if (!st || i < 0 || i >= q.answers.length) return false;
+    var m = ansMap(), had = m[no]; if (had === L) return false;
+    m[no] = L; feed.unshift({ no: no, L: L, t: Date.now(), change: !!had, src: src }); if (feed.length > 40) feed.length = 40;
+    if (!had) tone('scan');
+    paintPlay(); pushSoon(); return true;
+  }
+  function feedHtml() {
+    if (!feed.length) return '<p class="cdg-feed-empty">Chưa có thẻ nào. Học sinh giơ thẻ hướng về camera.</p>';
+    var now = Date.now();
+    return feed.slice(0, 8).map(function (f) {
+      var st = byNo(f.no), fresh = now - f.t < 1500, ans = cfg.show === 'now' || (S && S.phase === 'reveal');
+      return '<div class="cdg-feed-item' + (fresh ? ' fresh' : '') + '"><span class="no">' + f.no + '</span><span class="nm">' + esc(st ? st.name : '') + '</span>' + (ans ? '<span class="ch">' + (f.change ? 'đổi → ' : '') + '<b>' + f.L + '</b></span>' : '<span class="ch">✓</span>') + '</div>';
+    }).join('');
+  }
   function dict() { var AR = win.HMV_AR; if (!AR) return null; if (!dict._d) dict._d = new AR.Dictionary('ARUCO_MIP_16h3'); return dict._d; }
   function markerSvg(no) {
     var d = dict(); if (!d || no < 1 || no > d.codeList.length) return '';
@@ -158,7 +255,7 @@
       if (S.phase !== 'answer' || S.paused) return;
       var p = pending[no];
       if (p && p.L === L && now - p.t < 1500) { p.n++; p.t = now; } else pending[no] = p = { L: L, n: 1, t: now };
-      if (p.n >= 2) { var map = ansMap(), had = map[no]; if (had !== L) { map[no] = L; if (!had) tone('scan'); paintPlay(); } }
+      if (p.n >= 2) record(no, L, 'cam');
     });
     drawOverlay(seen, w, h);
     if (!S) paintTest();
@@ -220,6 +317,7 @@
     cfg.count = v('cdgCount') || '10'; cfg.time = Number(v('cdgTime')) || 0; cfg.order = v('cdgOrder') === 'shuffle' ? 'shuffle' : 'set';
     cfg.absent = v('cdgAbsent') !== '0'; cfg.sound = v('cdgSound') !== '0'; cfg.res = v('cdgRes') === '1080' ? '1080' : '720'; cfg.perPage = Number(v('cdgPer')) || 2;
     if (v('cdgCam') !== null) cfg.cam = v('cdgCam') || '';
+    if (v('cdgShow') !== null) cfg.show = v('cdgShow') === 'reveal' ? 'reveal' : 'now';
     write(SKEY, cfg);
   }
   function begin() {
@@ -229,14 +327,15 @@
     var list = cfg.order === 'shuffle' ? shuffle(src.list.slice()) : src.list.slice(), n = cfg.count === 'all' ? list.length : Math.min(list.length, Number(cfg.count) || 10);
     if (win.hmvTran && typeof win.hmvTran.limit === 'function') { var lim = win.hmvTran.limit(TYPE, n); if (lim > 0) n = Math.min(n, lim); }
     var keepCam = !!stream;
-    S = { questions: list.slice(0, n), sourceName: src.name, roster: r, q: 0, phase: 'answer', paused: false, answers: {}, left: 0, nextLeft: null, recorded: {} };
+    S = { questions: list.slice(0, n), sourceName: src.name, roster: r, q: 0, phase: 'answer', paused: false, answers: {}, left: 0, nextLeft: null, recorded: {}, round: Date.now() % 1e9 }; feed = [];
     win.classroomGame = { type: TYPE, started: true };
     S.left = answerTime();
     pending = {}; testHits = {};
     clearInterval(timer); lastT = Date.now(); timer = setInterval(tick, 250);
     if (win.hmvTran && typeof win.hmvTran.begin === 'function') win.hmvTran.begin(TYPE, { end: function () { if (S && S.phase !== 'end') finish(); }, live: function () { return !!S && S.phase !== 'end'; }, paused: function () { return !!(S && S.paused); } });
     tone('start'); render(true);
-    if (keepCam) attachVideo(); else startCam();
+    if (cfg.src === 'pc') { if (keepCam) attachVideo(); else startCam(); } else { if (keepCam) stopCam(); ensureLink().then(function () { pushState(); paintLink(); }).catch(function () {}); }
+    pushState();
     setTimeout(function () { var e = doc.querySelector('.cdg-game'); if (e && e.scrollIntoView && !doc.fullscreenElement && !doc.body.classList.contains('hmv-game-full')) e.scrollIntoView({ block: 'start' }); }, 60);
   }
   function answerTime() { var t = cfg.time; if (win.hmvTran && typeof win.hmvTran.answer === 'function') { var a = win.hmvTran.answer(TYPE, null); if (a !== null && a !== undefined) t = Number(a) || 0; } return t; }
@@ -259,14 +358,14 @@
       try { win.hmvKetQua.record({ game: TYPE, source: S.sourceName, id: q.id, text: q.text, answers: q.answers.slice(), correct: q.correct, counts: c.slice(0, q.answers.length), total: tot, right: c[q.correct], grade: q.grade, subject: q.subject, topic: q.topic }); } catch (e) {}
     }
     var r = revealTime(); S.nextLeft = r > 0 ? r : null;
-    tone('reveal'); render(true);
+    tone('reveal'); render(true); pushState();
   }
   function next() {
     if (!S) return;
     if (S.phase === 'answer') { lock(); return; }
     if (S.q + 1 >= S.questions.length) { finish(); return; }
     if (win.hmvTran && typeof win.hmvTran.reached === 'function') { try { if (win.hmvTran.reached(TYPE, S.q + 1)) { finish(); return; } } catch (e) {} }
-    S.q++; S.phase = 'answer'; S.left = answerTime(); S.nextLeft = null; pending = {}; render(true);
+    S.q++; S.phase = 'answer'; S.left = answerTime(); S.nextLeft = null; pending = {}; feed = []; render(true); pushState();
   }
   function finish() {
     if (!S) return;
@@ -275,15 +374,29 @@
     S.phase = 'end'; clearInterval(timer); timer = 0; stopCam(); closePick();
     if (win.hmvTran && typeof win.hmvTran.stop === 'function') { try { win.hmvTran.stop(); } catch (e) {} }
     write(LKEY, { at: Date.now(), cls: className(), source: S.sourceName, rows: tableRows(), n: S.questions.length });
-    tone('end'); render(true);
+    tone('end'); render(true); pushState();
   }
-  function pause() { if (!S || S.phase === 'end') return; S.paused = !S.paused; lastT = Date.now(); paintPlay(); }
-  function back() { clearInterval(timer); timer = 0; clearTimeout(autoNx); stopCam(); S = null; testHits = {}; var g = game(); g.type = null; g.started = false; if (win.hmvTran && typeof win.hmvTran.stop === 'function') { try { win.hmvTran.stop(); } catch (e) {} } if (typeof win.renderGames === 'function') win.renderGames(); }
+  function pause() { if (!S || S.phase === 'end') return; S.paused = !S.paused; lastT = Date.now(); paintPlay(); pushState(); }
+  function back() { clearInterval(timer); timer = 0; clearTimeout(autoNx); stopCam(); closeLink(); S = null; testHits = {}; var g = game(); g.type = null; g.started = false; if (win.hmvTran && typeof win.hmvTran.stop === 'function') { try { win.hmvTran.stop(); } catch (e) {} } if (typeof win.renderGames === 'function') win.renderGames(); }
   function toSetup() { clearInterval(timer); timer = 0; if (win.hmvTran && typeof win.hmvTran.stop === 'function') { try { win.hmvTran.stop(); } catch (e) {} } S = null; testHits = {}; win.classroomGame = { type: TYPE, started: false }; render(true); }
   function setManual(no, L) {
     if (!S || S.phase !== 'answer') return;
-    var m = ansMap(); if (L) m[no] = L; else delete m[no];
-    closePick(); paintPlay();
+    closePick();
+    if (L) { record(no, L, 'hand'); return; }
+    delete ansMap()[no]; paintPlay(); pushSoon();
+  }
+
+  /* ---------- Danh sách Đúng / Chưa đúng / Chưa trả lời ---------- */
+  function groups(i) {
+    var q = S.questions[i], m = S.answers[i] || {}, g = { right: [], wrong: [], none: [] };
+    S.roster.forEach(function (st) { var a = m[st.no]; if (!a) { if (!(cfg.absent && st.absent)) g.none.push({ st: st }); } else if (LET.indexOf(a) === q.correct) g.right.push({ st: st, a: a }); else g.wrong.push({ st: st, a: a }); });
+    return g;
+  }
+  function listsHtml(i) {
+    var g = groups(i), chip = function (x, showA) { return '<span class="cdg-chip"><i>' + x.st.no + '</i>' + esc(x.st.name) + (showA && x.a ? ' <b>' + x.a + '</b>' : '') + '</span>'; };
+    return '<div class="cdg-lists"><section class="ok"><h4>✅ Đúng <span>' + g.right.length + '</span></h4><div>' + (g.right.map(function (x) { return chip(x, false); }).join('') || '<em>Chưa có bạn nào</em>') + '</div></section>'
+      + '<section class="bad"><h4>❌ Chưa đúng <span>' + g.wrong.length + '</span></h4><div>' + (g.wrong.map(function (x) { return chip(x, true); }).join('') || '<em>Không có bạn nào 🎉</em>') + '</div></section>'
+      + (g.none.length ? '<section class="none"><h4>⏳ Chưa trả lời <span>' + g.none.length + '</span></h4><div>' + g.none.map(function (x) { return chip(x, false); }).join('') + '</div></section>' : '') + '</div>';
   }
 
   /* ---------- Bảng kết quả ---------- */
@@ -332,7 +445,7 @@
       + '.cdg-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.cdg-acts .btn{min-height:52px;font-size:18px}'
       + '.cdg-clock{font-variant-numeric:tabular-nums}.cdg-clock.low{color:#dc2626}'
       + '.cdg-side{display:grid;gap:12px}.cdg-count{font-size:30px;font-weight:900;color:#3b0764;text-align:center}.cdg-count small{display:block;font-size:14px;color:#64748b;font-weight:700}'
-      + '.cdg-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;margin-top:14px}'
+      + '.cdg-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:14px}'
       + '.cdg-tile{border:2px solid #e2e8f0;border-radius:12px;padding:7px 9px;background:#fff;text-align:left;font:inherit;cursor:pointer;color:#334155;display:flex;gap:7px;align-items:center;min-height:42px}'
       + '.cdg-tile i{font-style:normal;font-weight:900;color:#6d28d9;min-width:22px}.cdg-tile span{font-size:14px;line-height:1.15;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}'
       + '.cdg-tile.done{background:#ede9fe;border-color:#a78bfa}.cdg-tile.done i::after{content:" ✓";color:#16a34a}.cdg-tile.abs{opacity:.45}'
@@ -341,7 +454,24 @@
       + '.cdg-paused{background:#fef3c7;color:#92400e;border-radius:12px;padding:8px 12px;font-weight:800;text-align:center}'
       + '.cdg-end table{width:100%;border-collapse:collapse;font-size:15px}.cdg-end th,.cdg-end td{padding:8px;border-bottom:1px solid #e5e7eb;text-align:left}.cdg-end th{background:#f5f3ff;color:#4c1d95}.cdg-end td.m{font-family:ui-monospace,monospace;white-space:nowrap}'
       + '.cdg-sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}.cdg-sum div{background:#f5f3ff;border-radius:14px;padding:12px;text-align:center;font-weight:800;color:#3b0764;font-size:24px}.cdg-sum small{display:block;font-size:13px;color:#64748b}'
-      + '@media(max-width:900px){.cdg-grid2,.cdg-stage{grid-template-columns:1fr}.cdg-side{order:-1;grid-template-columns:1fr 1.7fr;align-items:center}.cdg-side .cdg-box{padding:10px}.cdg-count{font-size:24px}.cdg-side .cdg-msg{display:none}.cdg-form{grid-template-columns:1fr}.cdg-opts{grid-template-columns:1fr}}';
+      + '.cdg-seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.cdg-seg button{border:2px solid #ddd6fe;background:#faf5ff;border-radius:16px;padding:12px;font:inherit;font-weight:800;font-size:17px;color:#3b0764;cursor:pointer;text-align:left}.cdg-seg button small{display:block;font-weight:600;font-size:13px;color:#64748b}.cdg-seg button.on{border-color:#7c3aed;background:linear-gradient(135deg,#ede9fe,#fae8ff);box-shadow:0 6px 18px #7c3aed33}'
+      + '.cdg-phonebox{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center}.cdg-phonebox .qr,.cdg-mini-phone .qr{background:#fff;border-radius:18px;padding:8px;box-shadow:0 0 0 3px #7c3aed,0 10px 30px #7c3aed44;cursor:zoom-in;aspect-ratio:1;display:grid;place-items:center;color:#64748b;font-size:13px;animation:cdgGlow 2.4s ease-in-out infinite}.cdg-phonebox .qr svg,.cdg-mini-phone .qr svg,.cdg-qrbig .qr svg{width:100%;height:auto;display:block}'
+      + '@keyframes cdgGlow{50%{box-shadow:0 0 0 3px #a855f7,0 10px 40px #a855f777}}.cdg-phonebox ol{margin:8px 0;padding-left:20px;color:#334155;display:grid;gap:4px;font-size:15px}.cdg-code{letter-spacing:.15em;color:#6d28d9;font-size:18px}'
+      + '.cdg-link{margin:0;font-weight:800;color:#b45309}.cdg-link::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:#f59e0b;margin-right:8px;vertical-align:1px}.cdg-link.on{color:#15803d}.cdg-link.on::before{background:#22c55e;animation:cdgPing 1.6s infinite}.cdg-link.err{color:#b91c1c}.cdg-link.err::before{background:#ef4444}'
+      + '@keyframes cdgPing{0%{box-shadow:0 0 0 0 #22c55e99}70%{box-shadow:0 0 0 9px #22c55e00}100%{box-shadow:0 0 0 0 #22c55e00}}'
+      + '.cdg-qrbig{position:fixed;inset:0;z-index:1500;background:#1e1b4bcc;display:grid;place-items:center;padding:16px}.cdg-qrbig .in{background:#fff;border-radius:26px;padding:22px;text-align:center;width:min(520px,100%);color:#1e1b4b}.cdg-qrbig .qr{width:min(400px,80vw);margin:10px auto}.cdg-qrbig .code{letter-spacing:.15em;color:#6d28d9;font-size:22px}.cdg-qrbig .st{font-weight:800}'
+      + '.cdg-mini-phone{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center}.cdg-mini-phone p{margin:4px 0}'
+      + '.cdg-countbox{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:center}.cdg-ring{--p:0;width:84px;height:84px;border-radius:50%;background:conic-gradient(#7c3aed calc(var(--p)*1%),#ede9fe 0);display:grid;place-items:center;transition:--p .4s}.cdg-ring::after{content:"";width:62px;height:62px;border-radius:50%;background:#fff}'
+      + '.cdg-feed-h{margin:0 0 8px!important;font-size:17px!important}.cdg-feed{display:grid;gap:6px;max-height:340px;overflow:auto}.cdg-feed-empty{color:#64748b;font-size:14px;margin:0}'
+      + '.cdg-feed-item{display:flex;align-items:center;gap:8px;background:#f8fafc;border-radius:12px;padding:7px 10px;font-size:15px}.cdg-feed-item .no{min-width:28px;height:28px;border-radius:8px;background:#ede9fe;color:#6d28d9;font-weight:900;display:grid;place-items:center;font-size:14px}.cdg-feed-item .nm{font-weight:700;color:#1e1b4b;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cdg-feed-item .ch{color:#64748b;font-size:13px;white-space:nowrap}.cdg-feed-item .ch b{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:#6d28d9;color:#fff;font-size:17px}'
+      + '.cdg-feed-item.fresh{animation:cdgIn .5s ease-out;background:#f0fdf4;box-shadow:inset 3px 0 0 #22c55e}@keyframes cdgIn{from{opacity:0;transform:translateX(24px) scale(.96)}to{opacity:1;transform:none}}'
+      + '.cdg-tile.pop{animation:cdgPop .6s ease-out}@keyframes cdgPop{0%{transform:scale(1)}35%{transform:scale(1.1);box-shadow:0 0 0 6px #a78bfa66}100%{transform:scale(1)}}.cdg-tile.done em{background:#6d28d9;color:#fff;border-radius:7px;padding:1px 7px}'
+      + '.cdg-tiles.lists{display:block}.cdg-lists{display:grid;gap:12px}.cdg-lists section{background:#fff;border-radius:18px;padding:12px 14px;border:2px solid #e2e8f0}.cdg-lists section.ok{border-color:#86efac;background:#f0fdf4}.cdg-lists section.bad{border-color:#fca5a5;background:#fef2f2}.cdg-lists section.none{background:#f8fafc}'
+      + '.cdg-lists h4{margin:0 0 8px;font-size:17px;color:#1e1b4b;display:flex;gap:8px;align-items:center}.cdg-lists h4 span{background:#1e1b4b;color:#fff;border-radius:999px;padding:1px 10px;font-size:14px}.cdg-lists section>div{display:flex;flex-wrap:wrap;gap:6px}.cdg-lists em{color:#64748b}'
+      + '.cdg-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;border-radius:999px;padding:4px 10px 4px 4px;font-size:15px;color:#1e1b4b;animation:cdgIn .4s ease-out both}.cdg-chip i{font-style:normal;min-width:24px;height:24px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-weight:900;font-size:12px;display:grid;place-items:center}.cdg-chip b{background:#dc2626;color:#fff;border-radius:6px;padding:0 6px}'
+      + '.cdg-sec{margin:18px 0 8px!important;color:#3b0764}.cdg-qd{border:1px solid #e4defc;border-radius:14px;padding:10px 12px;margin:8px 0;background:#fcfbff}.cdg-qd summary{cursor:pointer;font-size:15px;color:#1e1b4b}.cdg-qd summary span{color:#6d28d9;font-weight:800;margin-left:6px}.cdg-qd .cdg-lists{margin-top:10px}'
+      + '.cdg-stars{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:linear-gradient(135deg,#fef3c7,#fae8ff);border-radius:20px;padding:14px 16px;margin-bottom:14px}.cdg-stars .t{font-weight:900;color:#92400e;font-size:18px;margin-right:6px}.cdg-stars .s{background:#fff;border-radius:999px;padding:5px 12px;font-weight:800;color:#3b0764;box-shadow:0 3px 10px #f59e0b33}'
+      + '@media(max-width:900px){.cdg-phonebox{grid-template-columns:1fr}.cdg-phonebox .qr{max-width:240px;margin:0 auto}.cdg-grid2,.cdg-stage{grid-template-columns:1fr}.cdg-side{order:-1;grid-template-columns:1fr 1.7fr;align-items:center}.cdg-side .cdg-box{padding:10px}.cdg-count{font-size:24px}.cdg-side .cdg-msg{display:none}.cdg-form{grid-template-columns:1fr}.cdg-opts{grid-template-columns:1fr}}';
     doc.head.appendChild(s);
   }
   function phoneHelp() {
@@ -351,6 +481,15 @@
       + '<h4>Cách 2 – Biến điện thoại thành webcam của máy tính (câu hỏi chiếu lên tivi)</h4><ol><li>Cài ứng dụng miễn phí <b>Iriun Webcam</b> (hoặc DroidCam) trên cả điện thoại và máy tính; Android hay iPhone đều được.</li><li>Cho điện thoại và máy tính dùng chung một mạng Wi-Fi (hoặc cắm cáp USB), mở ứng dụng trên cả hai máy.</li><li>Ở mục <b>Camera dùng để quét</b> phía trên, bấm Mở camera rồi chọn tên camera của ứng dụng (ví dụ “Iriun Webcam”).</li></ol>'
       + '<h4>Cách 3 – Máy Windows 11 với điện thoại Android</h4><ol><li>Trên máy tính: Cài đặt → Bluetooth &amp; thiết bị → Thiết bị di động → bật “Cho phép máy tính truy cập điện thoại”, ghép với điện thoại qua ứng dụng Liên kết với Windows.</li><li>Bật “Sử dụng làm camera kết nối”. Điện thoại xuất hiện trong ô “Chọn camera” phía trên.</li></ol>'
       + '<p>Mẹo: đứng cách học sinh 2–5 mét, lớp đủ sáng, in thẻ đúng tỉ lệ 100%. Lớp đông thì quét làm hai lượt: dãy trái rồi dãy phải.</p></details>';
+  }
+  function phoneBox() {
+    return '<div class="cdg-phonebox"><div class="qr" data-cdg-qr title="Bấm để phóng to" data-cdg="qr">Đang tạo mã…</div><div class="info"><p class="cdg-link" data-cdg-link>Đang mở phòng…</p><ol><li>Mở <b>camera</b> điện thoại (hoặc Zalo → Quét mã), hướng vào mã QR.</li><li>Bấm vào đường link hiện ra → <b>Mở camera</b> → cho phép.</li><li>Xong! Đi giữa lớp, hướng điện thoại về các thẻ học sinh giơ lên.</li></ol><p class="cdg-msg">Mã phòng: <b class="cdg-code" data-cdg-code></b> · <span data-cdg-url></span></p><button class="btn soft" type="button" data-cdg="qr">⛶ Phóng to mã QR</button></div></div>';
+  }
+  function pcCamBox() {
+    return '<div class="cdg-cam" id="cdgCamBox"><video id="cdgVideo" autoplay muted playsinline></video><canvas id="cdgOverlay"></canvas><div class="off">Camera đang tắt.<br>Bấm “Mở camera” để thử quét một thẻ.</div></div>'
+      + '<div class="cdg-row"><button class="btn color" id="cdgCamBtn" data-cdg="cam">📷 Mở camera</button></div>'
+      + '<div class="cdg-form" style="margin-top:10px"><label>Chọn camera<select id="cdgCam">' + camOptions() + '</select></label><label>Độ nét<select id="cdgRes">' + opt('720', cfg.res, 'Thường (máy nhẹ)') + opt('1080', cfg.res, 'Cao (quét xa hơn)') + '</select></label></div>'
+      + '<p class="cdg-msg" id="cdgCamMsg"></p>';
   }
   function setupHtml() {
     var src = source(), r = roster(), ok = src.list.length > 0 && r.length > 0, last = read(LKEY, null);
@@ -370,20 +509,25 @@
       + '<label>Học sinh vắng<select id="cdgAbsent">' + opt(1, cfg.absent ? 1 : 0, 'Không tính vào sĩ số') + opt(0, cfg.absent ? 1 : 0, 'Vẫn tính') + '</select></label>'
       + '<label>Tiếng báo khi quét được thẻ<select id="cdgSound">' + opt(1, cfg.sound ? 1 : 0, 'Bật') + opt(0, cfg.sound ? 1 : 0, 'Tắt') + '</select></label>'
       + '</div></section></div>'
-      + '<div style="display:grid;gap:16px"><section class="cdg-box"><h3>4 · Camera dùng để quét</h3>'
-      + '<div class="cdg-cam" id="cdgCamBox"><video id="cdgVideo" autoplay muted playsinline></video><canvas id="cdgOverlay"></canvas><div class="off">Camera đang tắt.<br>Bấm “Mở camera” để thử quét một thẻ.</div></div>'
-      + '<div class="cdg-row"><button class="btn color" id="cdgCamBtn" data-cdg="cam">📷 Mở camera</button></div>'
-      + '<div class="cdg-form" style="margin-top:10px"><label>Chọn camera<select id="cdgCam">' + camOptions() + '</select></label><label>Độ nét<select id="cdgRes">' + opt('720', cfg.res, 'Thường (máy nhẹ)') + opt('1080', cfg.res, 'Cao (quét xa hơn)') + '</select></label></div>'
-      + '<p class="cdg-msg" id="cdgCamMsg"></p><div class="cdg-test" id="cdgTest">Giơ thử một thẻ trước camera để kiểm tra.</div>' + phoneHelp() + '</section>'
+      + '<div style="display:grid;gap:16px"><section class="cdg-box"><h3>4 · Quét thẻ bằng</h3>'
+      + '<div class="cdg-seg"><button type="button" data-cdg="src" data-v="phone" class="' + (cfg.src === 'phone' ? 'on' : '') + '">📱 Điện thoại<small>quét mã QR là nối</small></button><button type="button" data-cdg="src" data-v="pc" class="' + (cfg.src === 'pc' ? 'on' : '') + '">💻 Camera máy tính<small>webcam, camera rời</small></button></div>'
+      + (cfg.src === 'phone' ? phoneBox() : pcCamBox())
+      + '<div class="cdg-test" id="cdgTest">Giơ thử một thẻ trước camera để kiểm tra.</div>'
+      + '<div class="cdg-form" style="margin-top:12px"><label>Màn hình máy tính khi quét<select id="cdgShow">' + opt('now', cfg.show, 'Hiện tên + đáp án từng bạn ngay') + opt('reveal', cfg.show, 'Chỉ hiện ✓, đáp án hiện khi chốt') + '</select></label></div>'
+      + (cfg.src === 'pc' ? phoneHelp() : '') + '</section>'
       + (last && last.rows ? '<section class="cdg-box"><h3>Lượt gần nhất</h3><p>' + esc(last.cls) + ' · ' + esc(new Date(last.at).toLocaleString('vi-VN')) + ' · ' + esc(last.source) + '</p></section>' : '')
       + '<section class="cdg-box cdg-startbox"><button class="btn color cdg-start" data-cdg="start"' + (ok ? '' : ' disabled') + '>▶ Bắt đầu</button><p class="cdg-msg" style="text-align:center">Cài đặt xong mới bấm. Camera đang mở sẽ được dùng luôn.</p></section>'
       + '</div></div></div>';
   }
   function playHtml() {
-    return '<div class="cdg-game"><div class="page-title"><div><h2>🃏 CHẾ ĐỘ GIẤY</h2><p>' + esc(className()) + ' · ' + esc(S.sourceName) + '</p></div><div class="toolbar"><button class="btn soft" data-cdg="pause" id="cdgPauseBtn">Ⅱ Tạm dừng</button><button class="btn soft" id="cdgCamBtn" data-cdg="cam">📷 Tắt camera</button><button class="btn soft" data-cdg="finish">Kết thúc</button></div></div>'
+    return '<div class="cdg-game"><div class="page-title"><div><h2>🃏 CHẾ ĐỘ GIẤY</h2><p>' + esc(className()) + ' · ' + esc(S.sourceName) + '</p></div><div class="toolbar"><button class="btn soft" data-cdg="pause" id="cdgPauseBtn">Ⅱ Tạm dừng</button>' + (cfg.src === 'pc' ? '<button class="btn soft" id="cdgCamBtn" data-cdg="cam">📷 Tắt camera</button>' : '') + '<button class="btn soft" data-cdg="finish">Kết thúc</button></div></div>'
       + '<div class="cdg-stage"><section><div class="cdg-q" id="cdgStage"><div class="cdg-qhead"><span id="cdgNo"></span><span class="cdg-clock" id="cdgClock"></span></div><div id="cdgPaused"></div><div id="cdgQuestion"></div><div id="cdgImg"></div><div class="cdg-opts" id="cdgOpts"></div><div class="cdg-acts" id="cdgActs"></div></div>'
       + '<div class="cdg-tiles" id="cdgTiles"></div></section>'
-      + '<aside class="cdg-side"><div class="cdg-box"><div class="cdg-count" id="cdgCount"></div></div><div class="cdg-box"><div class="cdg-cam" id="cdgCamBox"><video id="cdgVideo" autoplay muted playsinline></video><canvas id="cdgOverlay"></canvas><div class="off">Camera đang tắt.<br>Vẫn chơi được: bấm vào ô tên học sinh để ghi đáp án.</div></div><p class="cdg-msg" id="cdgCamMsg"></p></div></aside></div></div>';
+      + '<aside class="cdg-side"><div class="cdg-box cdg-countbox"><div class="cdg-ring" id="cdgRing"></div><div class="cdg-count" id="cdgCount"></div></div>'
+      + (cfg.src === 'phone'
+        ? '<div class="cdg-box cdg-mini-phone"><div class="qr" data-cdg-qr data-cdg="qr" title="Bấm để phóng to"></div><div><p class="cdg-link" data-cdg-link></p><p class="cdg-msg">Mã phòng <b data-cdg-code></b></p><button class="btn soft" type="button" data-cdg="qr">⛶ Mã QR</button></div></div>'
+        : '<div class="cdg-box"><div class="cdg-cam" id="cdgCamBox"><video id="cdgVideo" autoplay muted playsinline></video><canvas id="cdgOverlay"></canvas><div class="off">Camera đang tắt.<br>Vẫn chơi được: bấm vào ô tên học sinh để ghi đáp án.</div></div><p class="cdg-msg" id="cdgCamMsg"></p></div>')
+      + '<div class="cdg-box"><h3 class="cdg-feed-h">⚡ Vừa quét</h3><div class="cdg-feed" id="cdgFeed"></div></div></aside></div></div>';
   }
   function paintClock() {
     var el = doc.getElementById('cdgClock'); if (!el || !S) return;
@@ -405,14 +549,23 @@
     doc.getElementById('cdgActs').innerHTML = rev
       ? '<button class="btn color" data-cdg="next">' + (S.q + 1 >= S.questions.length ? '🏁 Xem kết quả' : 'Câu tiếp →') + '</button>'
       : '<button class="btn color" data-cdg="lock">🔒 Chốt &amp; hiện đáp án</button>';
+    var pct = exp.length ? Math.round(got / exp.length * 100) : 0, ring = doc.getElementById('cdgRing');
+    if (ring) ring.style.setProperty('--p', pct);
+    var fd = doc.getElementById('cdgFeed'); if (fd) fd.innerHTML = feedHtml();
     doc.getElementById('cdgCount').innerHTML = got + '/' + exp.length + '<small>' + (rev ? 'bạn trả lời · ' + c[q.correct] + ' bạn đúng' : 'bạn đã giơ thẻ') + (extra > 0 ? ' · +' + extra + ' bạn vắng' : '') + '</small>';
-    doc.getElementById('cdgTiles').innerHTML = S.roster.map(function (st) {
+    var tl = doc.getElementById('cdgTiles'); tl.classList.toggle('lists', rev);
+    if (rev) tl.innerHTML = listsHtml(S.q); else tl.innerHTML = S.roster.map(function (st) {
       var a = m[st.no], cls = a ? (rev ? (LET.indexOf(a) === q.correct ? ' right' : ' wrong') : ' done') : '';
       if (cfg.absent && st.absent && !a) cls += ' abs';
-      return '<button type="button" class="cdg-tile' + cls + '" data-cdg-tile="' + st.no + '" title="Bấm để ghi đáp án bằng tay"><i>' + st.no + '</i><span>' + esc(st.name) + '</span>' + (rev && a ? '<em>' + a + '</em>' : '') + '</button>';
+      return '<button type="button" class="cdg-tile' + cls + (a && feed[0] && feed[0].no === st.no && Date.now() - feed[0].t < 1200 ? ' pop' : '') + '" data-cdg-tile="' + st.no + '" title="Bấm để ghi đáp án bằng tay"><i>' + st.no + '</i><span>' + esc(st.name) + '</span>' + (a && cfg.show === 'now' ? '<em>' + a + '</em>' : '') + '</button>';
     }).join('');
     var pb = doc.getElementById('cdgPauseBtn'); if (pb) pb.textContent = S.paused ? '▶ Tiếp tục' : 'Ⅱ Tạm dừng';
-    paintClock(); paintCam();
+    paintClock(); if (cfg.src === 'pc') paintCam(); paintLink();
+  }
+  function starsHtml(rows, n) {
+    var top = rows.filter(function (r) { return r.right > 0; }).sort(function (a, b) { return b.right - a.right || a.no - b.no; }), best = top.length ? top[0].right : 0, stars = top.filter(function (r) { return r.right === best; });
+    if (!stars.length) return '';
+    return '<div class="cdg-stars"><span class="t">🌟 Đúng nhiều nhất (' + best + '/' + n + ')</span>' + stars.slice(0, 12).map(function (r) { return '<span class="s">' + esc(r.name) + '</span>'; }).join('') + (stars.length > 12 ? '<span class="s">+' + (stars.length - 12) + ' bạn</span>' : '') + '</div>';
   }
   function endHtml() {
     var rows = tableRows(), n = S.questions.length, took = rows.filter(function (r) { return r.done; }), avg = took.length ? took.reduce(function (s, r) { return s + r.right; }, 0) / took.length : 0;
@@ -420,16 +573,17 @@
     var hardest = -1; perQ.forEach(function (v, i) { if (Object.keys(S.answers[i] || {}).length && (hardest < 0 || v < perQ[hardest])) hardest = i; });
     if (!n) return '<div class="cdg-game cdg-end"><div class="page-title"><div><h2>🃏 CHẾ ĐỘ GIẤY · KẾT QUẢ</h2><p>' + esc(className()) + '</p></div><div class="toolbar"><button class="btn soft" data-cdg="again">↻ Chơi lại</button><button class="btn soft" data-cdg="back">← Thư viện</button></div></div><div class="cdg-box"><p>Lượt này chưa chốt câu nào nên chưa có kết quả.</p></div></div>';
     return '<div class="cdg-game cdg-end"><div class="page-title"><div><h2>🃏 CHẾ ĐỘ GIẤY · KẾT QUẢ</h2><p>' + esc(className()) + ' · ' + esc(S.sourceName) + '</p></div><div class="toolbar"><button class="btn color" data-cdg="csv">⇩ Tải bảng kết quả (Excel)</button><button class="btn soft" data-cdg="again">↻ Chơi lại</button><button class="btn soft" data-cdg="back">← Thư viện</button></div></div>'
-      + '<div class="cdg-box"><div class="cdg-sum"><div>' + n + '<small>câu hỏi</small></div><div>' + took.length + '/' + rows.length + '<small>học sinh có trả lời</small></div><div>' + avg.toFixed(1).replace('.', ',') + '/' + n + '<small>số câu đúng trung bình</small></div>' + (hardest >= 0 ? '<div>Câu ' + (hardest + 1) + '<small>khó nhất (' + perQ[hardest] + '% đúng)</small></div>' : '') + '</div>'
-      + '<div style="overflow:auto"><table><thead><tr><th>Thẻ</th><th>Học sinh</th><th>Đúng</th>' + S.questions.map(function (q, i) { return '<th title="' + esc(q.text) + '">C' + (i + 1) + '<br><small>' + LET[q.correct] + ' · ' + perQ[i] + '%</small></th>'; }).join('') + '</tr></thead><tbody>'
+      + starsHtml(rows, n) + '<div class="cdg-box"><div class="cdg-sum"><div>' + n + '<small>câu hỏi</small></div><div>' + took.length + '/' + rows.length + '<small>học sinh có trả lời</small></div><div>' + avg.toFixed(1).replace('.', ',') + '/' + n + '<small>số câu đúng trung bình</small></div>' + (hardest >= 0 ? '<div>Câu ' + (hardest + 1) + '<small>khó nhất (' + perQ[hardest] + '% đúng)</small></div>' : '') + '</div>'
+      + '<h3 class="cdg-sec">Danh sách theo từng câu</h3>' + S.questions.map(function (q, i) { return '<details class="cdg-qd"' + (i === 0 ? ' open' : '') + '><summary><b>Câu ' + (i + 1) + '</b> · ' + esc(q.text) + ' <span>Đáp án ' + LET[q.correct] + ' · ' + perQ[i] + '% đúng</span></summary>' + listsHtml(i) + '</details>'; }).join('')
+      + '<h3 class="cdg-sec">Bảng tổng hợp</h3><div style="overflow:auto"><table><thead><tr><th>Thẻ</th><th>Học sinh</th><th>Đúng</th>' + S.questions.map(function (q, i) { return '<th title="' + esc(q.text) + '">C' + (i + 1) + '<br><small>' + LET[q.correct] + ' · ' + perQ[i] + '%</small></th>'; }).join('') + '</tr></thead><tbody>'
       + rows.map(function (r) { return '<tr><td>' + r.no + '</td><td>' + esc(r.name) + (r.absent ? ' <small>(vắng)</small>' : '') + '</td><td><b>' + r.right + '/' + n + '</b></td>' + r.marks.map(function (x) { return '<td class="m" style="color:' + (/✓/.test(x) ? '#15803d' : /✗/.test(x) ? '#b91c1c' : '#94a3b8') + '">' + x + '</td>'; }).join('') + '</tr>'; }).join('')
       + '</tbody></table></div></div></div>';
   }
   function render(force) {
     var g = games(); if (!g) return; css();
-    if (!S) { if (force || !doc.getElementById('cdgSetup')) { g.innerHTML = setupHtml(); attachVideo(); paintCam(); if (!camDevices.length) listCams().then(function () { var sel = doc.getElementById('cdgCam'); if (sel && camDevices.length) sel.innerHTML = camOptions(); }); } return; }
+    if (!S) { if (force || !doc.getElementById('cdgSetup')) { g.innerHTML = setupHtml(); attachVideo(); paintCam(); if (cfg.src === 'phone') { ensureLink().then(function () { paintLink(); pushState(); }).catch(function () { var l = doc.querySelector('[data-cdg-link]'); if (l) l.textContent = 'Chưa tải được bộ kết nối (kiểm tra mạng).'; }); } if (!camDevices.length) listCams().then(function () { var sel = doc.getElementById('cdgCam'); if (sel && camDevices.length) sel.innerHTML = camOptions(); }); } return; }
     if (S.phase === 'end') { g.innerHTML = endHtml(); return; }
-    if (force || !doc.getElementById('cdgStage')) { g.innerHTML = playHtml(); attachVideo(); }
+    if (force || !doc.getElementById('cdgStage')) { g.innerHTML = playHtml(); attachVideo(); paintLink(); }
     paintPlay();
   }
 
@@ -459,6 +613,8 @@
     else if (act === 'back') back();
     else if (act === 'print') { collect(); printCards(roster()); }
     else if (act === 'cam') { if (stream) { stopCam(); paintCam(); } else { collect(); startCam(); } }
+    else if (act === 'src') { collect(); var v2 = b.dataset.v === 'pc' ? 'pc' : 'phone'; if (cfg.src !== v2) { cfg.src = v2; write(SKEY, cfg); if (v2 === 'phone') stopCam(); testHits = {}; render(true); } }
+    else if (act === 'qr') bigQr();
     else if (act === 'lock') lock();
     else if (act === 'next') next();
     else if (act === 'pause') pause();
@@ -470,6 +626,7 @@
   doc.addEventListener('change', function (e) {
     if (game().type !== TYPE || S || !e.target) return;
     if (e.target.id === 'cdgCam' || e.target.id === 'cdgRes') { collect(); if (stream) startCam(); }
+    else if (e.target.id === 'cdgShow') { collect(); }
     else if (/^cdg/.test(e.target.id)) collect();
   });
   doc.addEventListener('keydown', function (e) {
@@ -485,7 +642,7 @@
   win.gameSetup = function (t) { if (t === TYPE) { clearInterval(timer); timer = 0; S = null; testHits = {}; win.classroomGame = { type: TYPE, started: false }; render(true); return; } if (game().type === TYPE) { stopCam(); S = null; } return baseSetup.apply(this, arguments); };
   win.renderGames = function () { if (game().type === TYPE) { render(false); return; } var out = baseRender.apply(this, arguments); decorateCard(); return out; };
   win.gameStart = function () { if (game().type === TYPE) { if (!S) begin(); return; } return baseStart.apply(this, arguments); };
-  if (typeof baseBack === 'function') win.gameBack = function () { if (game().type === TYPE) { clearInterval(timer); timer = 0; stopCam(); S = null; closePick(); } return baseBack.apply(this, arguments); };
+  if (typeof baseBack === 'function') win.gameBack = function () { if (game().type === TYPE) { clearInterval(timer); timer = 0; stopCam(); closeLink(); S = null; closePick(); } return baseBack.apply(this, arguments); };
   if (typeof baseOpen === 'function') win.openView = function (id) { if (id !== 'games' && game().type === TYPE) back(); var out = baseOpen.apply(this, arguments); if (id === 'games') setTimeout(decorateCard, 0); return out; };
   function decorateCard() {
     var g = games(); if (!g) return;
