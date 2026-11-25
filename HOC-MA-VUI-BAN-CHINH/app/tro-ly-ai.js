@@ -144,6 +144,7 @@
     var p = ['Soạn đúng ' + f.count + ' câu hỏi cho học sinh lớp ' + f.grade + ', môn ' + f.subject + (f.topic ? ', bài/chủ đề: ' + f.topic : '') + '.', 'Dạng câu: ' + kind, 'Mức độ: ' + level,
       'Quy cách để chiếu trong trò chơi:', '- Câu hỏi không quá 150 ký tự; mỗi phương án không quá 45 ký tự.', '- Câu "ABCD": answers có đúng 4 phương án khác nhau, chỉ MỘT phương án đúng; correct là vị trí phương án đúng (0–3); phương án nhiễu là lỗi học sinh hay mắc; không dùng "Tất cả đều đúng", "Cả A và B"; answerText để chuỗi rỗng.', '- Câu "TRUEFALSE": text là một mệnh đề khẳng định; answers là ["Đúng","Sai"]; correct là 0 nếu mệnh đề đúng, 1 nếu sai; số mệnh đề đúng và sai xấp xỉ nhau.', '- Câu "SHORT": answers là mảng rỗng, correct là -1, answerText là đáp án ngắn (một số hoặc 1–4 từ).', '- explanation: một câu giải thích ngắn, dễ hiểu với học sinh.', '- level: "Mức 1", "Mức 2" hoặc "Mức 3".', '- Các câu không trùng ý nhau.'];
     if (avoid && avoid.length) p.push('Không lặp lại ý của các câu đã có sau đây:\n' + avoid.slice(0, 40).map(function (t) { return '- ' + t; }).join('\n'));
+    if (f.focus) p.push(f.focus);
     if (f.sgk) p.push('Các ảnh đính kèm đầu tiên là trang sách giáo khoa Kết nối tri thức (bản 2026–2027) của ' + f.sgk.note + ', lấy từ kho PPCT của tổ. Đọc kĩ nội dung, ví dụ, bài tập trong các trang này; câu hỏi phải bám sát đúng kiến thức, dạng bài và số liệu kiểu trong trang (được đổi số liệu), không chép nguyên bài tập trong sách.');
     if (f.source || f.images) p.push('Chỉ dùng kiến thức có trong NGUỒN BÀI HỌC' + (f.images ? ' (gồm ' + f.images + ' ảnh/tệp PDF trang sách đính kèm' + (f.source ? ' và đoạn văn bản dưới đây' : '') + ')' : ' dưới đây') + '; không hỏi điều nằm ngoài nguồn.');
     else p.push('Không có nguồn kèm theo: hãy dựa vào nội dung chuẩn của bài/chủ đề này trong sách giáo khoa lớp ' + f.grade + ' theo Chương trình 2018.');
@@ -200,7 +201,7 @@
   function blocking(issues) { return issues.filter(function (x) { return !/khó chiếu|Đã có trong Kho/.test(x); }); }
   function readForm() {
     var subject = $('taSubject') ? $('taSubject').value : 'Toán'; if (subject === '__other') subject = ($('taSubjectOther').value || '').trim();
-    return { grade: $('taGrade').value, subject: subject, topic: ($('taTopic').value || '').trim().slice(0, 200), count: Math.max(1, Math.min(20, parseInt($('taCount').value, 10) || 10)), kind: $('taKind').value, level: $('taLevel').value, source: ($('taSource').value || '').trim().slice(0, 20000), images: S.images.length + S.pdfs.length + S.sgk.length, sgk: S.sgk.length ? S.sgkMeta : null };
+    return { grade: $('taGrade').value, subject: subject, topic: ($('taTopic').value || '').trim().slice(0, 200), count: Math.max(1, Math.min(20, parseInt($('taCount').value, 10) || 10)), kind: $('taKind').value, level: $('taLevel').value, source: ($('taSource').value || '').trim().slice(0, 20000), images: S.images.length + S.pdfs.length + S.sgk.length, sgk: S.sgk.length ? S.sgkMeta : null, focus: S.sgkFocus && ($('taTopic').value || '').trim() === S.sgkFocus.topic ? S.sgkFocus.text : '' };
   }
   function runGenerate(more) {
     if (S.busy) return;
@@ -526,6 +527,7 @@
   function setSgk(list, meta) {
     S.sgk = (list || []).slice(0, 8); S.sgkMeta = S.sgk.length ? (meta || { note: 'bài đã chọn' }) : null;
     var f = meta && meta.form;
+    S.sgkFocus = meta && meta.focus && f && f.topic ? { text: meta.focus, topic: String(f.topic).slice(0, 200).trim() } : null;
     if (f) {
       if (f.grade && $('taGrade')) $('taGrade').value = String(f.grade);
       if (f.subject && $('taSubject')) { var o = Array.prototype.some.call($('taSubject').options, function (x) { return x.value === f.subject; }); if (o) $('taSubject').value = f.subject; }

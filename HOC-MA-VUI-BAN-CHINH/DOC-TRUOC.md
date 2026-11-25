@@ -6,6 +6,13 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0h. Cập nhật 2.47 (25/11/2026) – Soạn câu hỏi đúng tiết đã chọn; mã QR cho Chế độ giấy
+
+- PPCT Hub → Trợ lý AI: tên bài giữ nguyên tên tiết trong PPCT (vd. "LTVC: Danh từ", "Luyện tập (tr.10)"). Lời nhắc gửi AI có mục TRỌNG TÂM liệt kê từng tiết đã chọn kèm trang và quy tắc theo loại tiết (Đọc / Luyện từ và câu / Viết / Nói và nghe / Luyện tập / Ôn tập; tiết k/n của bài), dặn không hỏi phần khác của bài có trong trang ảnh.
+- Tiết Toán ghi trang: chỉ lấy đến trước trang của tiết kế tiếp (vd. "Ôn tập… (tr.6)" chỉ trang 6, "Luyện tập (tr7)" trang 7–8).
+- Nếu thầy cô sửa ô "Bài học / chủ đề" sau khi chọn, mục trọng tâm tự bỏ để không lệch với tên bài mới.
+- Chế độ giấy có mã QR `che-do-giay` (thẻ thư viện, hộp phóng to, trang qr.html – nay 15 mã, áp phích in A4), màn hình mở đầu có mô tả, lời chào đọc to và hướng dẫn chơi. Tệp: `app/qr-experiences.js`, `kiem-thu/generate-qr.cjs` (hình "paper"), `app/assets/qr/che-do-giay*.svg`.
+
 ## 0g. Cập nhật 2.46 (25/11/2026) – Trợ lý AI lấy nguồn bài từ PPCT Hub
 
 - Tạo câu hỏi nhanh → nút **📚 Chọn bài từ PPCT Hub**: chọn lớp, môn, tuần, đánh dấu một hay nhiều bài theo phân phối chương trình của tổ (bảng công khai `ppct_kho_chung_tiet`).

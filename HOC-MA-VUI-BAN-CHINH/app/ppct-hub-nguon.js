@@ -90,7 +90,7 @@
         var c = S.secs.filter(function (s) { return p >= s.from && p <= s.to; });
         sec = pick(c, it);
         var book = sec ? sec.book : (S.books.filter(function (b) { return b.vol === v; })[0] || S.books[0]);
-        if (book) { from = p; to = q && q >= p ? q : (sec ? Math.min(sec.to, p + 1) : p + 1); it.page = { book: book, from: from, to: to, how: 'trang' }; prev = it.page; it.sec = sec; return; }
+        if (book) { from = p; to = q && q >= p ? q : (sec ? Math.min(sec.to, p + 1) : p + 1); it.page = { book: book, from: from, to: to, how: 'trang', fixed: !!q }; prev = it.page; it.sec = sec; return; }
       }
       var nb = name.match(/^\s*bài\s*(\d{1,3})\b/i);
       if (nb) sec = pick(S.secs.filter(function (s) { return fold(s.label) === 'bai ' + nb[1]; }), it);
@@ -105,7 +105,37 @@
       if (sec) { it.sec = sec; it.page = { book: sec.book, from: sec.from, to: Math.min(sec.to, sec.from + PER_LESSON - 1), how: 'bai' }; prev = it.page; return; }
       if (prev) it.page = { book: prev.book, from: prev.from, to: prev.to, how: 'truoc' };
     });
+    /* Tiết "Luyện tập (tr.10)": chỉ lấy đến trước trang của tiết kế tiếp (tr.11) → đúng phần bài tập của tiết đó. */
+    list.forEach(function (it, i) {
+      if (!it.page || it.page.how !== 'trang' || it.page.fixed) return;
+      for (var j = i + 1; j < list.length; j++) { var nx = list[j].page; if (!nx || nx.how !== 'trang') continue; if (nx.book.id === it.page.book.id && nx.from > it.page.from) it.page.to = Math.max(it.page.from, Math.min(it.page.to, nx.from - 1)); break; }
+    });
+    /* Tiết thứ mấy của bài: "Đọc: Thi nhạc (Tiết 2)" → 2/2. */
+    var tot = {}; list.forEach(function (it) { var b = baseName(it.name); tot[b] = (tot[b] || 0) + 1; });
+    list.forEach(function (it) { var m2 = it.name.match(/\(\s*tiết\s*(\d+)\s*\)/i), b = baseName(it.name); it.tietNo = m2 ? +m2[1] : 0; it.tietOf = tot[b] || 1; });
     return list;
+  }
+  function baseName(n) { return String(n || '').replace(/\(\s*tiết\s*\d+\s*\)/ig, '').replace(/\s+/g, ' ').trim(); }
+  function partOf(n) {
+    var f = fold(n);
+    if (/^doc mo rong/.test(f)) return 'Đọc mở rộng';
+    if (/^doc\b/.test(f)) return 'Đọc';
+    if (/^(ltvc|luien tu va cau)\b/.test(f)) return 'Luyện từ và câu';
+    if (/^viet\b/.test(f)) return 'Viết';
+    if (/^noi va nghe\b/.test(f)) return 'Nói và nghe';
+    if (/^luien tap chung\b/.test(f)) return 'Luyện tập chung';
+    if (/^luien tap\b/.test(f)) return 'Luyện tập';
+    if (/^on tap\b/.test(f)) return 'Ôn tập';
+    return '';
+  }
+  function focusText(items) {
+    var rule = { 'Đọc': 'chỉ hỏi về bài đọc: nội dung, chi tiết, nhân vật, ý nghĩa, từ ngữ trong bài đọc', 'Đọc mở rộng': 'hỏi về kĩ năng đọc mở rộng của bài', 'Luyện từ và câu': 'chỉ hỏi kiến thức luyện từ và câu nêu trong tên tiết, theo các bài tập luyện từ và câu trong trang; không hỏi nội dung bài đọc', 'Viết': 'chỉ hỏi kiến thức, kĩ năng viết nêu trong tên tiết; không hỏi nội dung bài đọc', 'Nói và nghe': 'chỉ hỏi nội dung phần nói và nghe nêu trong tên tiết', 'Luyện tập': 'chỉ dựa vào các bài tập ở đúng các trang này, ra câu cùng dạng', 'Luyện tập chung': 'chỉ dựa vào các bài tập ở đúng các trang này, ra câu cùng dạng', 'Ôn tập': 'chỉ dựa vào nội dung ôn tập ở đúng các trang này' };
+    var lines = items.map(function (x) {
+      var pg = x.page ? 'SGK trang ' + x.page.from + (x.page.to > x.page.from ? '–' + x.page.to : '') : 'không có trang sách';
+      var part = partOf(x.name), t = x.tietNo && x.tietOf > 1 ? '; đây là tiết ' + x.tietNo + '/' + x.tietOf + ' của bài – tập trung phần nội dung ứng với tiết này' + (x.tietNo === 1 ? ' (phần đầu)' : x.tietNo >= x.tietOf ? ' (phần cuối, vận dụng)' : ' (phần giữa)') : '';
+      return '- Tiết "' + x.name + '" (' + pg + ')' + (rule[part] ? ': ' + rule[part] : '') + t + '.';
+    });
+    return 'TRỌNG TÂM: câu hỏi chỉ dành cho các TIẾT đã chọn dưới đây, không phải cả bài. Các trang ảnh có thể chứa thêm phần khác của bài (bài đọc, luyện từ và câu, viết… của tiết khác) – KHÔNG hỏi những phần đó.\n' + lines.join('\n');
   }
   function pageBlob(book, printed) {
     var pdf = printed + book.off, path = book.id + '/p-' + String(pdf).padStart(3, '0') + '.jpg';
@@ -209,7 +239,7 @@
     $('phUse').disabled = !n || !!M.busy; $('phUse').textContent = M.busy ? '⏳ ' + M.busy : '✓ Dùng làm nguồn';
   }
   function topicText() {
-    var names = M.list.filter(function (x, i) { return M.picked[i]; }).map(function (x) { return x.name.replace(/\s*\(\s*(tr|trang)\s*\.?\s*\d+[^)]*\)\s*/ig, ' ').replace(/\s*\(Tiết\s*\d+\)/ig, '').trim(); });
+    var names = M.list.filter(function (x, i) { return M.picked[i]; }).map(function (x) { return x.name.replace(/\s+/g, ' ').trim(); });
     var u = []; names.forEach(function (n) { if (u.indexOf(n) < 0) u.push(n); });
     return u.join('; ').slice(0, 200);
   }
@@ -217,13 +247,13 @@
     if (!M || M.busy) return;
     var topic = topicText(), pg = pages().slice(0, MAX_PAGES), my = M;
     var note = topic + ' (lớp ' + M.grade + ', môn ' + M.subject + (pg.length ? ', ' + pg[0].book.title + ' trang ' + pg.map(function (x) { return x.p; }).join(', ') : '') + ')';
-    var form = { grade: M.grade, subject: M.subject, topic: topic };
+    var form = { grade: M.grade, subject: M.subject, topic: topic }, focus = focusText(M.list.filter(function (x, i) { return M.picked[i]; }));
     var api2 = win.hmvTroLyAI;
-    if (!pg.length) { if (api2 && api2.setSgk) api2.setSgk([], { form: form }); close(); toast(auth ? 'Đã điền tên bài. Chưa tìm được trang SGK cho bài này.' : 'Đã điền tên bài. Đăng nhập PPCT Hub để gửi kèm trang SGK.'); return; }
+    if (!pg.length) { if (api2 && api2.setSgk) api2.setSgk([], { form: form, focus: focus }); close(); toast(auth ? 'Đã điền tên bài. Chưa tìm được trang SGK cho bài này.' : 'Đã điền tên bài. Đăng nhập PPCT Hub để gửi kèm trang SGK.'); return; }
     M.busy = 'Đang tải ' + pg.length + ' trang SGK…'; paint();
     var out = [];
     pg.reduce(function (p, x) { return p.then(function () { return pageBlob(x.book, x.p).then(toJpeg).then(function (d) { out.push({ mime: 'image/jpeg', data: d, label: 'tr.' + x.p }); }); }); }, Promise.resolve())
-      .then(function () { if (api2 && api2.setSgk) api2.setSgk(out, { note: note, form: form }); close(); toast('Đã gắn ' + out.length + ' trang SGK làm nguồn. Bấm “Tạo câu hỏi”.'); })
+      .then(function () { if (api2 && api2.setSgk) api2.setSgk(out, { note: note, form: form, focus: focus }); close(); toast('Đã gắn ' + out.length + ' trang SGK làm nguồn. Bấm “Tạo câu hỏi”.'); })
       .catch(function (e) { if (M !== my) return; M.busy = ''; paint(); setMsg(e.message); });
   }
 
