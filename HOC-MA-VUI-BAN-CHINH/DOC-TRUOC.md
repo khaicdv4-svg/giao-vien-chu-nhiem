@@ -6,6 +6,11 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0m. Bản 2.52 – Sửa "Mất mạng" ở Chế độ giấy
+- Nguyên nhân: dự án Supabase hoc-ma-vui-dev (kênh nối máy tính ↔ điện thoại) là gói miễn phí, bị Supabase tạm dừng vì lâu không dùng.
+- Sửa: kênh nối chạy trên dự án PPCT Hub (jxadtcyteinalzketfbh, dùng hằng ngày nên không bị dừng). hoc-ma-vui-dev chỉ còn là dự phòng: nối thất bại 2 lần thì tự đổi sang.
+- Code: app/rt-che-do-giay.js (SERVERS).
+
 ## 0l. Bản 2.51 – Quản lý Gmail ngay trong app
 - Menu bên trái có nút "👥 Quản lý Gmail GV" (trên điện thoại nằm trong mục "Thêm"); trang Cài đặt & dữ liệu có thẻ "Mở quản lý Gmail".
 - Bấm vào là mở thẳng hộp duyệt Gmail (chưa đăng nhập thì đăng nhập tài khoản quản lý trước). Link #quan-ly-gmail vẫn dùng được.

@@ -9,11 +9,17 @@
  */
 (function (win) {
   'use strict';
-  var CFG = {
-    url: 'wss://hirullckrmbkhmlchsdd.supabase.co/realtime/v1/websocket',
-    key: 'sb_publishable_qhky--zyK4iFaNgzl2BPhg_KHkGGD5v'
-  };
-  try { var o = JSON.parse(win.localStorage.getItem('hmv_cdg_rt') || 'null'); if (o && o.url && o.key) CFG = o; } catch (e) {}
+  /* 2.52: máy chủ chính là PPCT Hub (dự án dùng hằng ngày nên không bị Supabase tạm dừng);
+     hoc-ma-vui-dev chỉ còn là dự phòng (dự án miễn phí bị tạm dừng sau ~7 ngày không dùng → "Mất mạng"). */
+  var SERVERS = [
+    { url: 'wss://jxadtcyteinalzketfbh.supabase.co/realtime/v1/websocket', key: 'sb_publishable_a2JA7aO7af3I-leaEEcH1Q_iAdnJd5o' },
+    { url: 'wss://hirullckrmbkhmlchsdd.supabase.co/realtime/v1/websocket', key: 'sb_publishable_qhky--zyK4iFaNgzl2BPhg_KHkGGD5v' }
+  ];
+  try {
+    var o = JSON.parse(win.localStorage.getItem('hmv_cdg_rt') || 'null');
+    if (o && o.servers && o.servers.length) SERVERS = o.servers; else if (o && o.url && o.key) SERVERS = [o];
+  } catch (e) {}
+  var CFG = SERVERS[0];
 
   var ALPHA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   function newCode() {
@@ -27,13 +33,15 @@
   function join(code, role, onMessage, onStatus) {
     code = cleanCode(code);
     var topic = 'realtime:hmv-cdg-' + code, ws = null, ref = 0, joinRef = null, hb = 0, retry = 0, retryT = 0, closed = false, st = 'connecting', queue = [];
+    var srv = 0, fails = 0, okOnce = false;
     var me = role + '-' + Math.random().toString(36).slice(2, 8);
     function set(s, why) { if (st === s && !why) return; st = s; try { onStatus && onStatus(s, why || ''); } catch (e) {} }
     function raw(o) { if (ws && ws.readyState === 1) { ws.send(JSON.stringify(o)); return true; } return false; }
     function open() {
       if (closed) return;
       set('connecting');
-      try { ws = new win.WebSocket(CFG.url + '?apikey=' + encodeURIComponent(CFG.key) + '&vsn=1.0.0'); } catch (e) { schedule('Không mở được kết nối'); return; }
+      var cfg = SERVERS[srv % SERVERS.length];
+      try { ws = new win.WebSocket(cfg.url + '?apikey=' + encodeURIComponent(cfg.key) + '&vsn=1.0.0'); } catch (e) { schedule('Không mở được kết nối'); return; }
       ws.onopen = function () {
         joinRef = String(++ref);
         raw({ topic: topic, event: 'phx_join', payload: { config: { broadcast: { ack: false, self: false }, presence: { enabled: false }, private: false } }, ref: joinRef, join_ref: joinRef });
@@ -43,8 +51,8 @@
         var m; try { m = JSON.parse(ev.data); } catch (e) { return; }
         if (m.topic !== topic) return;
         if (m.event === 'phx_reply' && m.ref === joinRef) {
-          if (m.payload && m.payload.status === 'ok') { retry = 0; set('online'); var q = queue; queue = []; q.forEach(function (x) { send(x[0], x[1]); }); }
-          else { set('error', (m.payload && m.payload.response && m.payload.response.reason) || 'Máy chủ từ chối kết nối'); }
+          if (m.payload && m.payload.status === 'ok') { retry = 0; fails = 0; okOnce = true; set('online'); var q = queue; queue = []; q.forEach(function (x) { send(x[0], x[1]); }); }
+          else { if (!okOnce && SERVERS.length > 1) { srv++; try { ws.close(); } catch (e) {} return; } set('error', (m.payload && m.payload.response && m.payload.response.reason) || 'Máy chủ từ chối kết nối'); }
           return;
         }
         if (m.event === 'broadcast' && m.payload && m.payload.type === 'broadcast') {
@@ -59,6 +67,8 @@
     function schedule(why) {
       if (closed) return;
       set('offline', why);
+      /* Chưa nối được lần nào: thử 2 lần rồi đổi sang máy chủ dự phòng. */
+      if (!okOnce && SERVERS.length > 1 && ++fails >= 2) { fails = 0; srv++; retry = 0; }
       clearTimeout(retryT); var d = [1000, 2000, 5000, 10000][Math.min(retry++, 3)]; retryT = setTimeout(open, d);
     }
     function send(event, payload) {
@@ -72,5 +82,5 @@
     return { send: send, close: close, status: function () { return st; }, code: code, id: me };
   }
 
-  win.HMVRT = { join: join, newCode: newCode, cleanCode: cleanCode, cfg: function () { return { url: CFG.url }; } };
+  win.HMVRT = { join: join, newCode: newCode, cleanCode: cleanCode, cfg: function () { return { url: CFG.url }; }, servers: function () { return SERVERS.map(function (x) { return x.url; }); } };
 })(window);
