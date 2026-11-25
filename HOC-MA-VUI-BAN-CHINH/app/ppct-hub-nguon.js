@@ -87,12 +87,14 @@
   }
   function adminOpen() {
     var box = doc.querySelector('#phModal .ph-box'); if (!box) return;
-    var old = $('phAdmin'); if (old) { old.remove(); return; }
+    var old = $('phAdmin'); if (old) { if (M && M.admin) { M.admin = false; return; } old.remove(); box.classList.remove('ph-admin-mode'); return; }
+    if (M) M.admin = false;
     var a = doc.createElement('div'); a.id = 'phAdmin'; a.className = 'ph-admin';
     a.innerHTML = '<h3>👥 Gmail được phép dùng kho</h3><p>Gmail có trong danh sách: giáo viên bấm “Đăng nhập bằng Gmail” là dùng được ngay. Gmail lạ đăng nhập sẽ vào mục <b>Chờ duyệt</b>.</p>'
       + '<div class="ph-add"><textarea id="phAddList" rows="3" placeholder="Mỗi dòng một Gmail, có thể ghi kèm họ tên sau dấu phẩy.&#10;Ví dụ: nguyenvana@gmail.com, Nguyễn Văn A"></textarea><button type="button" class="btn color" data-ph="add">＋ Thêm vào danh sách</button></div>'
       + '<div id="phAdminList" class="ph-alist"><p class="ph-empty">Đang tải…</p></div>';
-    box.insertBefore(a, $('phMsg')); adminLoad();
+    a.innerHTML += '<div class="ph-aback"><button type="button" class="btn soft" data-ph="admin">← Quay lại chọn tiết</button></div>';
+    box.insertBefore(a, $('phMsg')); box.classList.add('ph-admin-mode'); adminLoad();
   }
   function adminLoad() {
     var el = $('phAdminList'); if (!el) return;
@@ -225,7 +227,7 @@
       + '.ph-ov{position:fixed;inset:0;z-index:1400;background:#0f172a99;display:grid;place-items:center;padding:12px}.ph-box{background:#fff;color:#17324d;border-radius:22px;width:min(860px,100%);max-height:94dvh;display:flex;flex-direction:column;box-shadow:0 24px 60px #0f172a66;overflow:hidden}'
       + '.ph-box header{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:16px 20px 8px}.ph-box h2{margin:0;font-size:21px}.ph-box header p{margin:4px 0 0;color:#475569;font-size:14px}'
       + '.ph-row{display:flex;flex-wrap:wrap;gap:10px;padding:0 20px 10px;align-items:end}.ph-row label{display:grid;gap:4px;font-weight:700;font-size:14px;color:#334155}.ph-row select,.ph-row input{min-height:40px;border:1px solid #c4b5fd;border-radius:10px;padding:6px 10px;font:inherit}'
-      + '.ph-auth{margin:0 20px 10px;padding:10px 12px;border-radius:14px;background:#fffbeb;border:1px solid #fde68a;font-size:14px}.ph-auth.ok{background:#f0fdf4;border-color:#86efac}.ph-admin{margin:0 20px 10px;padding:12px 14px;border:2px solid #c4b5fd;border-radius:16px;background:#faf5ff;max-height:46vh;overflow:auto}.ph-admin h3{margin:0 0 4px;font-size:17px}.ph-admin p{margin:0 0 8px;font-size:13.5px;color:#475569}.ph-add{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}.ph-add textarea{flex:1 1 300px;border:1px solid #c4b5fd;border-radius:10px;padding:8px;font:inherit;font-size:14px}.ph-admin h4{margin:12px 0 6px;color:#6d28d9}.ph-arow{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:7px 10px;margin-bottom:6px}.ph-arow.wait{border-color:#fcd34d;background:#fffbeb}.ph-arow .m{flex:1;display:grid}.ph-arow .m small{color:#64748b}.ph-arow .st{font-size:13px;font-weight:700;color:#334155;white-space:nowrap}.ph-arow .btn{min-height:34px;padding:2px 12px}.ph-arow .lead{font-size:12px;font-weight:800;color:#6d28d9;background:#ede9fe;border-radius:999px;padding:3px 10px}.ph-google{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}.ph-google[hidden]{display:none}.ph-google span{color:#64748b}.ph-auth form{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}.ph-auth input[type=email],.ph-auth input[type=password]{min-height:38px;border:1px solid #cbd5e1;border-radius:10px;padding:4px 10px;font:inherit;flex:1 1 180px}'
+      + '.ph-auth{margin:0 20px 10px;padding:10px 12px;border-radius:14px;background:#fffbeb;border:1px solid #fde68a;font-size:14px}.ph-auth.ok{background:#f0fdf4;border-color:#86efac}.ph-admin{margin:0 20px 14px;padding:12px 14px;border:2px solid #c4b5fd;border-radius:16px;background:#faf5ff;overflow:auto;flex:1;min-height:0}.ph-admin-mode .ph-row,.ph-admin-mode .ph-list,.ph-admin-mode footer{display:none!important}.ph-aback{margin-top:10px}.ph-admin h3{margin:0 0 4px;font-size:17px}.ph-admin p{margin:0 0 8px;font-size:13.5px;color:#475569}.ph-add{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}.ph-add textarea{flex:1 1 300px;border:1px solid #c4b5fd;border-radius:10px;padding:8px;font:inherit;font-size:14px}.ph-admin h4{margin:12px 0 6px;color:#6d28d9}.ph-arow{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:7px 10px;margin-bottom:6px}.ph-arow.wait{border-color:#fcd34d;background:#fffbeb}.ph-arow .m{flex:1;display:grid}.ph-arow .m small{color:#64748b}.ph-arow .st{font-size:13px;font-weight:700;color:#334155;white-space:nowrap}.ph-arow .btn{min-height:34px;padding:2px 12px}.ph-arow .lead{font-size:12px;font-weight:800;color:#6d28d9;background:#ede9fe;border-radius:999px;padding:3px 10px}.ph-google{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}.ph-google[hidden]{display:none}.ph-google span{color:#64748b}.ph-auth form{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}.ph-auth input[type=email],.ph-auth input[type=password]{min-height:38px;border:1px solid #cbd5e1;border-radius:10px;padding:4px 10px;font:inherit;flex:1 1 180px}'
       + '.ph-list{overflow:auto;padding:0 20px 10px;display:grid;gap:6px;flex:1}.ph-week{font-weight:900;color:#6d28d9;margin:8px 0 2px;font-size:14px}'
       + '.ph-item{display:flex;gap:10px;align-items:center;border:2px solid #e2e8f0;border-radius:12px;padding:8px 10px;cursor:pointer;background:#fff}.ph-item:hover{border-color:#a78bfa}.ph-item.on{border-color:#7c3aed;background:#f5f3ff}.ph-item input{width:20px;height:20px}.ph-item .n{flex:1;font-weight:700}.ph-item .pg{font-size:12px;font-weight:800;border-radius:999px;padding:3px 9px;background:#e0f2fe;color:#075985;white-space:nowrap}.ph-item .pg.no{background:#f1f5f9;color:#64748b}.ph-item .pg.guess{background:#fef3c7;color:#92400e}'
       + '.ph-box footer{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px 20px 16px;border-top:1px solid #ede9fe}.ph-box footer .btn{min-height:46px}.ph-sum{font-weight:700;color:#334155}.ph-msg{padding:0 20px 8px;color:#b45309;font-weight:700;font-size:14px}.ph-empty{color:#64748b;padding:20px;text-align:center}';
@@ -266,7 +268,8 @@
       me().then(function (m) {
         var x = $('phMe'); if (!x || !m) return;
         if (!m.da_duyet) { el.className = 'ph-auth'; x.innerHTML = '– <b style="color:#b45309">tài khoản đang chờ tổ trưởng duyệt</b>, tạm thời chưa xem được trang SGK.'; return; }
-        x.innerHTML = '– app lấy được ảnh trang SGK.' + (m.quan_ly ? ' <button type="button" class="btn color" data-ph="admin" style="min-height:32px;padding:2px 12px">👥 Quản lý Gmail được phép</button>' : '');
+        x.innerHTML = '– app lấy được ảnh trang SGK.' + (m.quan_ly ? ' <button type="button" class="btn color" data-ph="admin" style="min-height:32px;padding:2px 12px">👥 Quản lý Gmail được phép<span id="phWaitN"></span></button>' : '');
+        if (m.quan_ly) { rpc('hub_quyen_ds').then(function (r) { var n = (r || []).filter(function (x) { return x.loai === 'cho_duyet'; }).length, b = $('phWaitN'); if (b && n) b.textContent = ' · ⏳ ' + n + ' chờ duyệt'; if (M && M.admin) adminOpen(); }).catch(function () {}); }
       });
       return;
     }
@@ -360,6 +363,13 @@
   if (win.MutationObserver) new win.MutationObserver(function () { if (injT) return; injT = (win.requestAnimationFrame || win.setTimeout)(function () { injT = 0; inject(); }); }).observe(doc.body || doc.documentElement, { childList: true, subtree: true });
   setTimeout(inject, 0);
   oauthReturn();
+  /* Đường vào thẳng màn hình duyệt: .../#quan-ly-gmail (lưu thành dấu trang). */
+  function adminRoute() {
+    if (!/^#quan-ly-gmail$/i.test(win.location.hash || '')) return;
+    try { win.history.replaceState(null, '', win.location.pathname + win.location.search); } catch (e) {}
+    setTimeout(function () { if (win.hmvTroLyAI && win.hmvTroLyAI.open) win.hmvTroLyAI.open('quick'); setTimeout(function () { open(); if (M) M.admin = true; if (auth) paintAuth(); else setMsg('Đăng nhập tài khoản quản lý (tổ trưởng/quản trị) để duyệt Gmail.'); }, 400); }, 600);
+  }
+  adminRoute(); win.addEventListener('hashchange', adminRoute);
 
   win.hmvPpctHub = { open: open, match: match, fold: fold, state: function () { return M; }, loggedIn: function () { return !!auth; } };
 })(window);

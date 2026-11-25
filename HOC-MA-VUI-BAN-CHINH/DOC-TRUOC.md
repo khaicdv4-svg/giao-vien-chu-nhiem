@@ -6,6 +6,11 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0k. Cập nhật 2.50 (25/11/2026) – Đường vào thẳng màn hình duyệt Gmail
+
+- Mở `https://giao-vien-chu-nhiem.vercel.app/#quan-ly-gmail` (lưu thành dấu trang) → app mở Trợ lý AI, hộp PPCT Hub và bảng "Gmail được phép" ngay (cần đăng nhập tài khoản tổ trưởng/quản trị).
+- Nút "👥 Quản lý Gmail được phép" hiện số tài khoản đang chờ duyệt. Khi mở bảng duyệt, phần chọn tiết được ẩn đi cho rộng chỗ; nút "← Quay lại chọn tiết".
+
 ## 0j. Cập nhật 2.49 (25/11/2026) – Đăng nhập kho bằng Gmail giáo viên, tổ trưởng duyệt dễ
 
 - Kho PPCT Hub (Supabase tao-de-thu-nghiem), migration `hub_gmail_duoc_phep_va_duyet`:
