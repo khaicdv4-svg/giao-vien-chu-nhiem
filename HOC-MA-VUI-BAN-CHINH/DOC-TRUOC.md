@@ -6,6 +6,16 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0j. Cập nhật 2.49 (25/11/2026) – Đăng nhập kho bằng Gmail giáo viên, tổ trưởng duyệt dễ
+
+- Kho PPCT Hub (Supabase tao-de-thu-nghiem), migration `hub_gmail_duoc_phep_va_duyet`:
+  - Bảng `hub_gmail_duoc_phep` (danh sách Gmail được phép; chỉ truy cập qua hàm). Đã thêm sẵn 5 tài khoản đang dùng.
+  - Tài khoản mới (đăng nhập Gmail lần đầu): Gmail có trong danh sách → tự duyệt; chưa có → chờ duyệt. Cơ chế cũ `email_vai_tro` (gán vai trò theo Gmail) vẫn chạy song song.
+  - Xem SGK (sgk_books, sgk_sections, sgk_pages, ảnh sgk-pages) cần tài khoản đã duyệt (`hub_tai_khoan_hoat_dong()`).
+  - Hàm cho tổ trưởng/phó tổ/quản trị: `hub_toi`, `hub_quyen_ds`, `hub_quyen_them` (nhiều dòng "gmail, họ tên"; duyệt luôn tài khoản đang chờ), `hub_quyen_xoa` (bỏ quyền, khóa tài khoản giáo viên, không khóa tổ trưởng/quản trị).
+- App: hộp "Chọn tiết từ PPCT Hub" hiện trạng thái tài khoản (chờ duyệt); tổ trưởng/quản trị có nút **👥 Quản lý Gmail được phép**: thêm nhiều Gmail, duyệt tài khoản chờ, bỏ quyền.
+- Còn cần: bật nhà cung cấp Google trong Supabase (Client ID/Secret từ Google Cloud) và thêm Redirect URL của app.
+
 ## 0i. Cập nhật 2.48 (25/11/2026) – Chơi ngay có Chế độ giấy; Tạo câu hỏi nhanh gọn hai nguồn; đăng nhập kho bằng Gmail
 
 - Kho câu hỏi / Trợ lý AI → "Chơi ngay": thêm **Chế độ giấy (thẻ A–B–C–D)** (nhận câu A–B–C–D và Đúng/Sai). Bấm là mở màn hình cài đặt của trò với đúng bộ vừa chọn. Ô "Chọn bộ câu hỏi khác" trong cài đặt Chế độ giấy hiện đúng tên trò.
