@@ -30,7 +30,7 @@ header .t{font-weight:900;font-size:16px;line-height:1.1}header .t small{display
   <div class="bar" id="bar"><div class="q" id="q">Đang chờ máy tính…</div><div class="s"><span id="ph"><span class="phase">Chờ</span></span><span id="cnt"></span></div></div>
   <div class="cam" id="cam"><video id="v" autoplay muted playsinline></video><canvas id="o"></canvas><div class="flash" id="flash"></div><div class="big" id="big" hidden></div><div class="veil show" id="veil"><div>Bấm “Mở camera” để bắt đầu quét<small>Hướng camera về phía lớp, đứng cách 2–4 mét.</small></div></div></div>
   <div class="miss" id="miss" hidden></div>
-  <div class="tools"><button class="main" id="bCam">📷 Mở camera</button><button id="bFlip">🔄 Đổi camera</button><button id="bTorch" hidden>🔦 Đèn</button></div>
+  <div class="tools"><button class="main" id="bCam">📷 Mở camera</button><button id="bFlip">🔄 Đổi camera</button><button id="bZoom" hidden>🔍 1x</button><button id="bTorch" hidden>🔦 Đèn</button></div>
 </div>
 <script src="./aruco-che-do-giay.js"></script>
 <script src="./rt-che-do-giay.js"></script>
@@ -39,7 +39,7 @@ header .t{font-weight:900;font-size:16px;line-height:1.1}header .t small{display
   'use strict';
   var $ = function (id) { return document.getElementById(id); }, LET = 'ABCD';
   var code = HMVRT.cleanCode((location.hash || '').replace(/^#/, '') || new URLSearchParams(location.search).get('s'));
-  var rt = null, state = null, lastState = 0, stream = null, facing = 'environment', det = null, can = null, timer = 0, pend = {}, mine = {}, dirty = {}, sentAt = 0, wake = null, torchOn = false;
+  var rt = null, state = null, lastState = 0, stream = null, facing = 'environment', det = null, can = null, timer = 0, pend = {}, mine = {}, dirty = {}, sentAt = 0, wake = null, torchOn = false, maxW = 1920, recent = {}, zoomI = 0, zooms = [], frameMs = 120, nFrames = 0;
 
   if (!code) { showJoin(); return; }
   start();
@@ -56,6 +56,7 @@ header .t{font-weight:900;font-size:16px;line-height:1.1}header .t small{display
     $('bCam').onclick = function () { stream ? stopCam() : startCam(); };
     $('bFlip').onclick = function () { facing = facing === 'environment' ? 'user' : 'environment'; if (stream) startCam(); };
     $('bTorch').onclick = toggleTorch;
+    $('bZoom').onclick = nextZoom;
     document.addEventListener('visibilitychange', function () { if (!document.hidden && stream) lockWake(); });
   }
   function onStatus() { paintDot(); }
@@ -93,42 +94,73 @@ header .t{font-weight:900;font-size:16px;line-height:1.1}header .t small{display
       stream = s; var v = $('v'); v.srcObject = s; v.play().catch(function () {});
       det = new HMV_AR.Detector({ dictionaryName: 'ARUCO_MIP_16h3', maxHammingDistance: 1 });
       $('bCam').textContent = '⏹ Tắt camera'; $('veil').classList.remove('show');
-      clearInterval(timer); timer = setInterval(scan, 130); lockWake(); paint();
+      clearTimeout(timer); timer = setTimeout(loop, 300); lockWake(); paint();
+      try { var t0 = s.getVideoTracks()[0]; t0 && t0.applyConstraints && t0.applyConstraints({ advanced: [{ focusMode: 'continuous' }] }).catch(function () {}); } catch (e) {}
       var tr = s.getVideoTracks()[0], caps = tr && tr.getCapabilities ? tr.getCapabilities() : {}; $('bTorch').hidden = !caps.torch;
+      /* Phóng to bằng ống kính điện thoại (Android) – giúp đọc thẻ ở cuối lớp rõ hơn hẳn phóng to ảnh. */
+      zooms = []; zoomI = 0; if (caps.zoom && caps.zoom.max > 1) { [1, 1.5, 2, 3].forEach(function (z) { if (z >= (caps.zoom.min || 1) && z <= caps.zoom.max) zooms.push(z); }); }
+      $('bZoom').hidden = zooms.length < 2; $('bZoom').textContent = '🔍 1x';
     }).catch(function (e) {
       var v = $('veil'); v.classList.add('show');
       v.innerHTML = '<div>' + (e && e.name === 'NotAllowedError' ? 'Chưa được phép dùng camera' : 'Không mở được camera') + '<small>Vào cài đặt trình duyệt, cho phép Camera cho trang này rồi thử lại.</small></div>';
     });
   }
   function stopCam(keep) {
-    clearInterval(timer); timer = 0;
+    clearTimeout(timer); timer = 0;
     if (stream) stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; torchOn = false;
     if (!keep) { $('bCam').textContent = '📷 Mở camera'; var v = $('veil'); v.classList.add('show'); v.innerHTML = '<div>Camera đang tắt<small>Bấm “Mở camera” để quét.</small></div>'; }
     if (wake) { try { wake.release(); } catch (e) {} wake = null; }
   }
   function lockWake() { if ('wakeLock' in navigator) navigator.wakeLock.request('screen').then(function (w) { wake = w; }).catch(function () {}); }
+  function nextZoom() { var tr = stream && stream.getVideoTracks()[0]; if (!tr || zooms.length < 2) return; zoomI = (zoomI + 1) % zooms.length; tr.applyConstraints({ advanced: [{ zoom: zooms[zoomI] }] }).catch(function () {}); $('bZoom').textContent = '🔍 ' + zooms[zoomI] + 'x'; }
   function toggleTorch() { var tr = stream && stream.getVideoTracks()[0]; if (!tr) return; torchOn = !torchOn; tr.applyConstraints({ advanced: [{ torch: torchOn }] }).catch(function () {}); }
   function letterOf(m) { var a = m.corners[0], b = m.corners[1], ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI; return LET[((Math.round(-ang / 90) % 4) + 4) % 4]; }
+  /* 2.56: quét nối tiếp (khung sau chờ khung trước xong) và tự giảm độ phân giải khi điện thoại chậm,
+     để không dồn hàng – trước đây quét 1920px mỗi 130ms làm máy yếu treo, gần như không nhận thẻ. */
+  function loop() {
+    if (!stream) return;
+    var t0 = performance.now(); try { scan(); } catch (e) {}
+    var dt = performance.now() - t0; frameMs = frameMs * 0.7 + dt * 0.3; nFrames++;
+    if (nFrames % 8 === 0) { if (frameMs > 700 && maxW > 1600) maxW -= 160; else if (frameMs < 300 && maxW < 1920) maxW += 160; /* không xuống dưới 1600: ảnh nhỏ hơn thì thẻ ở xa không đọc được */ }
+    timer = setTimeout(loop, Math.max(30, Math.min(200, dt * 0.25)));
+  }
   function scan() {
     var v = $('v'); if (!stream || !det || v.readyState < 2 || !v.videoWidth) return;
-    var w = v.videoWidth, h = v.videoHeight; can = can || document.createElement('canvas'); if (can.width !== w) { can.width = w; can.height = h; }
-    var x = can.getContext('2d', { willReadFrequently: true }); x.drawImage(v, 0, 0, w, h);
-    var found = []; try { found = det.detect(x.getImageData(0, 0, w, h)); } catch (e) { return; }
+    var vw = v.videoWidth, vh = v.videoHeight, k = Math.min(1, maxW / Math.max(vw, vh)), w = Math.round(vw * k), h = Math.round(vh * k);
+    can = can || document.createElement('canvas'); var x = can.getContext('2d', { willReadFrequently: true }), found = [], mode = nFrames % 3;
+    /* Lượt 1: cả khung hình. Lượt 2, 3: nửa trái / nửa phải phóng to 1,5 lần – để đọc được thẻ nhỏ ở cuối lớp. */
+    try {
+      if (mode === 0) {
+        if (can.width !== w || can.height !== h) { can.width = w; can.height = h; }
+        x.drawImage(v, 0, 0, w, h); found = det.detect(x.getImageData(0, 0, w, h));
+      } else {
+        var U = 1.5, half = vw > vh, sw = half ? Math.round(vw * 0.56) : vw, sh = half ? vh : Math.round(vh * 0.56);
+        var sx = half && mode === 2 ? vw - sw : 0, sy = !half && mode === 2 ? vh - sh : 0, tw = Math.round(sw * U), th = Math.round(sh * U);
+        if (can.width !== tw || can.height !== th) { can.width = tw; can.height = th; }
+        x.imageSmoothingQuality = 'high'; x.drawImage(v, sx, sy, sw, sh, 0, 0, tw, th);
+        found = det.detect(x.getImageData(0, 0, tw, th)).map(function (m) {
+          return { id: m.id, hammingDistance: m.hammingDistance, corners: m.corners.map(function (c) { return { x: (sx + c.x / U) * k, y: (sy + c.y / U) * k }; }) };
+        });
+      }
+    } catch (e) { return; }
     var now = Date.now(), live = state && state.phase === 'answer' && !state.paused, deck = state ? state.deck || [] : [], got = state ? state.got || [] : [], seen = [], fresh = 0;
     found.forEach(function (m) {
       var no = m.id + 1; if (deck.length && deck.indexOf(no) < 0) return;
       var L = letterOf(m); seen.push({ no: no, L: L, m: m });
       if (!live) return;
-      var p = pend[no]; if (p && p.L === L && now - p.t < 1500) { p.n++; p.t = now; } else pend[no] = p = { L: L, n: 1, t: now };
-      if (p.n >= 2 && mine[no] !== L) { if (!mine[no]) fresh++; mine[no] = L; dirty[no] = L; }
+      var p = pend[no]; if (p && p.L === L && now - p.t < Math.max(1500, frameMs * 4)) { p.n++; p.t = now; } else pend[no] = p = { L: L, n: 1, t: now };
+      /* Mã đọc khớp tuyệt đối (sai 0 bit) thì nhận ngay; sai 1 bit thì chờ thêm 1 khung cho chắc. */
+      if ((p.n >= 2 || !m.hammingDistance) && mine[no] !== L) { if (!mine[no]) fresh++; mine[no] = L; dirty[no] = L; }
     });
     if (state && state.phase === 'setup' && seen.length && now - sentAt > 500) { var t = {}; seen.forEach(function (x) { t[x.no] = x.L; }); rt.send('test', { cards: t }); sentAt = now; }
-    draw(seen, w, h, got);
+    var nowD = Date.now(); seen.forEach(function (z) { recent[z.no] = { no: z.no, L: z.L, m: z.m, t: nowD }; });
+    var show = Object.keys(recent).map(function (n) { return recent[n]; }).filter(function (z) { if (nowD - z.t > 900) { delete recent[z.no]; return false; } return true; });
+    draw(show, w, h, got);
     if (fresh) { try { navigator.vibrate && navigator.vibrate(40); } catch (e) {} var f = $('flash'); f.classList.add('go'); setTimeout(function () { f.classList.remove('go'); }, 60); }
-    var b = $('big'); if (live && seen.length) { b.hidden = false; b.textContent = '👀 ' + seen.length + ' thẻ'; } else b.hidden = true;
+    var b = $('big'), port = v.videoHeight > v.videoWidth; var txt = live && show.length ? '👀 ' + show.length + ' thẻ · ' + Object.keys(mine).filter(function (k) { return k !== '_q'; }).length + ' đã nhận' : ''; if (port) txt = '↔️ Xoay ngang điện thoại' + (txt ? ' · ' + txt : ''); b.hidden = !txt; b.textContent = txt;
     if (live && state) {
       var keys = Object.keys(dirty);
-      if (keys.length && now - sentAt > 250) { rt.send('scan', { q: state.q, round: state.round, cards: dirty }); dirty = {}; sentAt = now; }
+      if (keys.length && now - sentAt > 150) { rt.send('scan', { q: state.q, round: state.round, cards: dirty }); dirty = {}; sentAt = now; }
       else if (now - sentAt > 3000) { var all = {}; Object.keys(mine).forEach(function (k) { if (k !== '_q') all[k] = mine[k]; }); if (Object.keys(all).length) rt.send('scan', { q: state.q, round: state.round, cards: all, full: 1 }); sentAt = now; }
     }
   }

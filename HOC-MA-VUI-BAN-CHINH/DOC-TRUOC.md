@@ -6,6 +6,10 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0n. Bản 2.53–2.56
+- 2.53–2.55: đăng nhập Gmail vào PPCT Hub. Google đã bật; hook Supabase `hub_chan_dang_ky` (Before User Created) chỉ cho Gmail có trong `hub_gmail_duoc_phep` tạo tài khoản; luôn hiện bảng chọn tài khoản Google (prompt=select_account).
+- 2.56 (quet-the.html): quét nối tiếp thay vì setInterval; luân phiên cả khung → nửa trái ×1,5 → nửa phải ×1,5 để đọc thẻ nhỏ ở cuối lớp (thử với 35 thẻ nhỏ: bản cũ 14/35, bản mới 32/35); mã khớp tuyệt đối nhận ngay; nút 🔍 phóng to ống kính (Android); nhắc xoay ngang điện thoại.
+
 ## 0m. Bản 2.52 – Sửa "Mất mạng" ở Chế độ giấy
 - Nguyên nhân: dự án Supabase hoc-ma-vui-dev (kênh nối máy tính ↔ điện thoại) là gói miễn phí, bị Supabase tạm dừng vì lâu không dùng.
 - Sửa: kênh nối chạy trên dự án PPCT Hub (jxadtcyteinalzketfbh, dùng hằng ngày nên không bị dừng). hoc-ma-vui-dev chỉ còn là dự phòng: nối thất bại 2 lần thì tự đổi sang.
