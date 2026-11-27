@@ -55,7 +55,7 @@
   /* Đăng nhập bằng Gmail (Google) qua PPCT Hub – chỉ hiện khi kho đã bật Google. */
   var gEnabled = null;
   function googleOn() {
-    if (gEnabled !== null) return Promise.resolve(gEnabled);
+    if (gEnabled) return Promise.resolve(true); /* chỉ nhớ khi đã bật; chưa bật thì lần mở sau hỏi lại */
     return api('/auth/v1/settings').then(json).then(function (r) { gEnabled = !!(r && r.external && r.external.google); return gEnabled; }).catch(function () { return false; });
   }
   function googleLogin(remember) {
