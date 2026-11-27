@@ -61,7 +61,7 @@
   function googleLogin(remember) {
     try { win.sessionStorage.setItem('hmv_ppct_oauth', JSON.stringify({ remember: !!remember, at: Date.now() })); } catch (e) {}
     var back = win.location.origin + win.location.pathname;
-    win.location.href = HUB.url + '/auth/v1/authorize?provider=google&redirect_to=' + encodeURIComponent(back);
+    win.location.href = HUB.url + '/auth/v1/authorize?provider=google&prompt=select_account&redirect_to=' + encodeURIComponent(back); /* luôn cho chọn Gmail, không tự lấy Gmail đang mở trên Chrome */
   }
   function oauthReturn() {
     var h = String(win.location.hash || ''), pend = null;
