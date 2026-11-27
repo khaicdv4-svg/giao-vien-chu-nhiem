@@ -113,6 +113,12 @@
     if (cfg.answers) answersOf(c).forEach(function (a) { var t = say(a.text); parts.push((a.letter ? a.letter + ', ' : '') + t + (/[.?!]$/.test(t) ? '' : '.')); });
     return parts.join(' ');
   }
+  /* 2.58: tách thành 2 đoạn (câu hỏi | các đáp án) để giọng AI tạo song song – câu hỏi ngắn nên có tiếng sớm hơn. */
+  function segs(c) {
+    var q = say(c.text), a = [];
+    if (cfg.answers) answersOf(c).forEach(function (x) { var t = say(x.text); a.push((x.letter ? x.letter + ', ' : '') + t + (/[.?!]$/.test(t) ? '' : '.')); });
+    return [q + (/[.?!:]$/.test(q) ? '' : '.')].concat(a.length ? [a.join(' ')] : []);
+  }
 
   /* ---------- Nguồn giọng ---------- */
   function synth() { return win.speechSynthesis && typeof win.SpeechSynthesisUtterance === 'function' ? win.speechSynthesis : null; }
@@ -226,37 +232,52 @@
       if (was) win.setTimeout(begin, 80); else begin();
     });
   }
-  function speakAi(text, token) {
+  function aiBlob(text) {
     var key = 'v2|' + cfg.aiVoice + '|' + text;   /* v2: bản không lời dẫn; âm thanh lưu từ bản trước không dùng lại */
-    setState('loading');
-    return cacheGet(key).then(function (b) { return b || fetchAi(text).then(function (nb) { cachePut(key, nb); return nb; }); }).then(function (blob) {
-      if (token !== S.token) return false;
-      return new Promise(function (ok, no) {
-        var a = new win.Audio(); S.url = win.URL.createObjectURL(blob); S.audio = a; a.src = S.url;
-        try { a.playbackRate = cfg.rate >= 1.05 ? 1.2 : cfg.rate <= 0.85 ? 0.85 : 1; } catch (e) {}
-        a.onended = function () { if (token === S.token) ok(true); };
-        a.onerror = function () { if (token === S.token) no(fail('AUDIO', 'Không phát được âm thanh của giọng AI.')); };
-        var p = a.play(); setState('speaking');
-        if (p && p.catch) p.catch(function () { if (token === S.token) no(fail('BLOCKED', 'Trình duyệt chưa cho phát tiếng. Hãy bấm lại nút loa.')); });
-      });
+    return cacheGet(key).then(function (b) { return b || fetchAi(text).then(function (nb) { cachePut(key, nb); return nb; }); });
+  }
+  function playBlob(blob, token) {
+    return new Promise(function (ok, no) {
+      if (S.url) { try { win.URL.revokeObjectURL(S.url); } catch (e) {} }
+      var a = new win.Audio(); S.url = win.URL.createObjectURL(blob); S.audio = a; a.src = S.url;
+      try { a.playbackRate = cfg.rate >= 1.05 ? 1.2 : cfg.rate <= 0.85 ? 0.85 : 1; } catch (e) {}
+      a.onended = function () { if (token === S.token) ok(true); };
+      a.onerror = function () { if (token === S.token) no(fail('AUDIO', 'Không phát được âm thanh của giọng AI.')); };
+      var p = a.play(); setState('speaking');
+      if (p && p.catch) p.catch(function () { if (token === S.token) no(fail('BLOCKED', 'Trình duyệt chưa cho phát tiếng. Hãy bấm lại nút loa.')); });
     });
   }
-  function speak(text) {
+  function speakAi(text, token, parts) {
+    parts = parts && parts.length ? parts : [text];
+    setState('loading');
+    var jobs = parts.map(function (t, i) { var j = aiBlob(t); if (i) j.catch(function () {}); return j; });   /* gọi cùng lúc */
+    var i = 0;
+    function next(prev) {
+      if (token !== S.token) return false;
+      if (i >= jobs.length) return prev;
+      var idx = i++;
+      return jobs[idx].then(function (blob) { if (token !== S.token) return false; return playBlob(blob, token); },
+        function (e) { if (idx === 0) throw e; return true; })   /* đoạn đáp án lỗi thì thôi, không chặn câu hỏi */
+        .then(function (r) { return r === false ? false : next(true); });
+    }
+    return next(true);
+  }
+  function speak(text, parts) {
     halt();
     var token = S.token, eng = engine(); S.engine = eng; S.lastText = text;
     if (!text) return Promise.resolve(false);
     if (!eng) { setState('idle'); return Promise.reject(fail('NO_VOICE', 'Máy này chưa có giọng đọc tiếng Việt. Xem cách bật ở Trợ lý AI → Kết nối AI.')); }
-    var run = eng === 'ai' ? speakAi(text, token) : speakBrowser(text, token).catch(function (e) {
+    var run = eng === 'ai' ? speakAi(text, token, parts) : speakBrowser(text, token).catch(function (e) {
       if (token !== S.token || !aiReady()) throw e;
-      halt(); token = S.token; S.engine = 'ai'; return speakAi(text, token);          /* giọng của máy hỏng → thử giọng AI */
+      halt(); token = S.token; S.engine = 'ai'; return speakAi(text, token, parts);          /* giọng của máy hỏng → thử giọng AI */
     });
     return run.then(function (done) { if (token === S.token) { halt(); setState('idle'); } return done; }, function (e) { if (token === S.token) { halt(); setState('idle'); } throw e; });
   }
   function readCurrent() {
     var c = current(); if (!c) return Promise.resolve(false);
-    var text = build(c), id = c.g.id; halt(); S.gameRead = true;
+    var text = build(c), parts = segs(c), id = c.g.id; halt(); S.gameRead = true;
     /* 2.6: báo cho trò chơi biết máy đã đọc xong (Bình chọn ngón tay dùng để tự bắt đầu đếm). */
-    return speak(text).catch(function (e) { toast(e.message); return false; }).then(function (done) { try { doc.dispatchEvent(new win.CustomEvent('hmv-doc-to-xong', { detail: { game: id, done: done === true } })); } catch (e) {} return done; });
+    return speak(text, parts).catch(function (e) { toast(e.message); return false; }).then(function (done) { try { doc.dispatchEvent(new win.CustomEvent('hmv-doc-to-xong', { detail: { game: id, done: done === true } })); } catch (e) {} return done; });
   }
   function toggle() { if (S.state !== 'idle') { stop(); return; } readCurrent(); }
 

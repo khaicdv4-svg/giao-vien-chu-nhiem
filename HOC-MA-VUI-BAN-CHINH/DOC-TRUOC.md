@@ -6,6 +6,12 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0p. Bản 2.58
+- quet-the.html: tự chỉnh chữ theo độ xoay thật của điện thoại (trọng lực devicemotion, iOS đảo dấu) trừ góc màn hình (window.orientation / screen.orientation.angle) → cầm ngang/dọc, khóa xoay hay không đều đúng. Nút "🔤 Chỉnh chữ" (chỉ hiện lúc quét thử) để chỉnh tay 90° nếu máy không có cảm biến. Lúc quét thử nhãn hiện cả chữ đọc được.
+- Nhận nhanh hơn: thẻ mới 2 phiếu cách ≥0,2 s; đổi đáp án 3 phiếu ≥0,6 s.
+- Thử giả lập ảnh xoay 90° (cầm ngang, khóa xoay): không cảm biến sai 19/19, có cảm biến đúng 19/19.
+- doc-to.js: giọng AI tách 2 đoạn (câu hỏi | đáp án) gọi Gemini song song, phát câu hỏi ngay khi có → có tiếng sớm hơn khoảng một nửa.
+
 ## 0o. Bản 2.57 – Chống nhận nhầm đáp án (quet-the.html)
 - Bỏ "nhận ngay khi mã khớp" của 2.56 (đó là lý do nhận nhầm: thẻ đang giơ lên/xoay bị chốt chữ sai).
 - Bỏ phiếu: thẻ mới cần ≥3 phiếu cùng chữ trong ≥0,4 s; đổi đáp án cần ≥5 phiếu trong ≥1 s; mã sai 1 bit = nửa phiếu; thẻ nghiêng >25° hoặc méo, hay 1 số xuất hiện 2 lần trong khung thì bỏ.
