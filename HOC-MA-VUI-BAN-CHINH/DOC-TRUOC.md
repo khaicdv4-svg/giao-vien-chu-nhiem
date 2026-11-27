@@ -6,6 +6,12 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0o. Bản 2.57 – Chống nhận nhầm đáp án (quet-the.html)
+- Bỏ "nhận ngay khi mã khớp" của 2.56 (đó là lý do nhận nhầm: thẻ đang giơ lên/xoay bị chốt chữ sai).
+- Bỏ phiếu: thẻ mới cần ≥3 phiếu cùng chữ trong ≥0,4 s; đổi đáp án cần ≥5 phiếu trong ≥1 s; mã sai 1 bit = nửa phiếu; thẻ nghiêng >25° hoặc méo, hay 1 số xuất hiện 2 lần trong khung thì bỏ.
+- Khóa xoay màn hình: cảm biến thấy điện thoại nằm ngang mà màn hình vẫn dọc (hoặc ngược lại) → tạm ngưng nhận và nhắc. Bỏ lời nhắc "xoay ngang" của 2.56.
+- Thử giả lập 35 thẻ (giơ sai hướng 0,5 s, xoay, rồi đúng): 2.56 từng nhận sai 35/35 trước khi sửa lại; 2.57 nhận sai 0, cuối cùng đúng 35/35.
+
 ## 0n. Bản 2.53–2.56
 - 2.53–2.55: đăng nhập Gmail vào PPCT Hub. Google đã bật; hook Supabase `hub_chan_dang_ky` (Before User Created) chỉ cho Gmail có trong `hub_gmail_duoc_phep` tạo tài khoản; luôn hiện bảng chọn tài khoản Google (prompt=select_account).
 - 2.56 (quet-the.html): quét nối tiếp thay vì setInterval; luân phiên cả khung → nửa trái ×1,5 → nửa phải ×1,5 để đọc thẻ nhỏ ở cuối lớp (thử với 35 thẻ nhỏ: bản cũ 14/35, bản mới 32/35); mã khớp tuyệt đối nhận ngay; nút 🔍 phóng to ống kính (Android); nhắc xoay ngang điện thoại.

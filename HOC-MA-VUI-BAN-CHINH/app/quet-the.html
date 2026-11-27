@@ -17,7 +17,7 @@ header .t{font-weight:900;font-size:16px;line-height:1.1}header .t small{display
 .phase{display:inline-block;border-radius:8px;padding:2px 8px;font-weight:800;font-size:12px;background:#334155}.phase.ans{background:#16a34a}.phase.rev{background:#b45309}
 .cam{position:relative;flex:1;min-height:0;background:#000;overflow:hidden}.cam video,.cam canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .veil{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:24px;background:#0b1020cc;font-size:20px;font-weight:800}.veil.show{display:grid}.veil small{display:block;font-size:14px;font-weight:600;color:#cbd5e1;margin-top:8px}
-.big{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:#0b1020cc;border-radius:999px;padding:8px 16px;font-weight:900;font-size:20px;white-space:nowrap}
+.big{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:#0b1020cc;border-radius:999px;padding:8px 16px;font-weight:900;font-size:20px;max-width:92%;text-align:center;white-space:normal}
 .miss{padding:8px 14px;background:#141a33;font-size:13px;color:#cbd5e1;max-height:70px;overflow:auto}.miss b{display:inline-block;min-width:28px;text-align:center;margin:2px;border-radius:6px;background:#334155;color:#fff;padding:2px 4px}
 .tools{display:flex;gap:8px;padding:10px 14px calc(env(safe-area-inset-bottom) + 10px);background:#0b1020}.tools button{flex:1;min-height:48px;border:0;border-radius:14px;background:#1f2a4d;color:#fff;font:inherit;font-weight:800;font-size:15px}.tools button.main{background:#7c3aed}
 .join{padding:24px;display:grid;gap:14px;align-content:start}.join h2{margin:0}.join input{font:inherit;font-size:28px;letter-spacing:.2em;text-transform:uppercase;text-align:center;padding:12px;border-radius:14px;border:2px solid #7c3aed;background:#111827;color:#fff}.join button{min-height:52px;border:0;border-radius:14px;background:#7c3aed;color:#fff;font:inherit;font-weight:800;font-size:18px}.join p{color:#cbd5e1;margin:0;line-height:1.5}
@@ -39,7 +39,7 @@ header .t{font-weight:900;font-size:16px;line-height:1.1}header .t small{display
   'use strict';
   var $ = function (id) { return document.getElementById(id); }, LET = 'ABCD';
   var code = HMVRT.cleanCode((location.hash || '').replace(/^#/, '') || new URLSearchParams(location.search).get('s'));
-  var rt = null, state = null, lastState = 0, stream = null, facing = 'environment', det = null, can = null, timer = 0, pend = {}, mine = {}, dirty = {}, sentAt = 0, wake = null, torchOn = false, maxW = 1920, recent = {}, zoomI = 0, zooms = [], frameMs = 120, nFrames = 0;
+  var rt = null, state = null, lastState = 0, stream = null, facing = 'environment', det = null, can = null, timer = 0, pend = {}, mine = {}, dirty = {}, sentAt = 0, wake = null, torchOn = false, maxW = 1920, recent = {}, physLand = null, zoomI = 0, zooms = [], frameMs = 120, nFrames = 0;
 
   if (!code) { showJoin(); return; }
   start();
@@ -53,7 +53,11 @@ header .t{font-weight:900;font-size:16px;line-height:1.1}header .t small{display
     rt = HMVRT.join(code, 'phone', onMsg, onStatus);
     rt.send('hello', { ua: navigator.userAgent.slice(0, 80) });
     setInterval(function () { rt.send('ping', {}); paintDot(); }, 4000);
-    $('bCam').onclick = function () { stream ? stopCam() : startCam(); };
+    $('bCam').onclick = function () { askTilt(); stream ? stopCam() : startCam(); };
+    window.addEventListener('deviceorientation', function (e) {
+      if (e.beta == null || e.gamma == null) return; var b = Math.abs(e.beta), g = Math.abs(e.gamma);
+      if (g > 55 && b < 35) physLand = true; else if (b > 55 && g < 35) physLand = false;
+    });
     $('bFlip').onclick = function () { facing = facing === 'environment' ? 'user' : 'environment'; if (stream) startCam(); };
     $('bTorch').onclick = toggleTorch;
     $('bZoom').onclick = nextZoom;
@@ -114,6 +118,15 @@ header .t{font-weight:900;font-size:16px;line-height:1.1}header .t small{display
   function lockWake() { if ('wakeLock' in navigator) navigator.wakeLock.request('screen').then(function (w) { wake = w; }).catch(function () {}); }
   function nextZoom() { var tr = stream && stream.getVideoTracks()[0]; if (!tr || zooms.length < 2) return; zoomI = (zoomI + 1) % zooms.length; tr.applyConstraints({ advanced: [{ zoom: zooms[zoomI] }] }).catch(function () {}); $('bZoom').textContent = '🔍 ' + zooms[zoomI] + 'x'; }
   function toggleTorch() { var tr = stream && stream.getVideoTracks()[0]; if (!tr) return; torchOn = !torchOn; tr.applyConstraints({ advanced: [{ torch: torchOn }] }).catch(function () {}); }
+  /* Góc nghiêng của thẻ: lệch quá 25° so với thẳng đứng/ngang (đang xoay thẻ) thì bỏ qua, không đoán chữ. */
+  /* Màn hình bị khóa xoay: cầm ngang mà màn hình vẫn dọc thì hình camera bị xoay 90° → đọc sai hết chữ.
+     Phát hiện bằng cảm biến nghiêng; khi lệch thì tạm ngưng nhận đáp án và nhắc thầy cô. */
+  function askTilt() { try { if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') DeviceOrientationEvent.requestPermission().catch(function () {}); } catch (e) {} }
+  function screenLand() { try { if (screen.orientation && screen.orientation.type) return screen.orientation.type.indexOf('landscape') === 0; } catch (e) {} return Math.abs(window.orientation || 0) === 90 || window.innerWidth > window.innerHeight; }
+  function rotWrong() { return physLand !== null && physLand !== screenLand(); }
+  function tiltOf(m) { var a = m.corners[0], b = m.corners[1], q = -Math.atan2(b.y - a.y, b.x - a.x) * 2 / Math.PI; return Math.abs(q - Math.round(q)) * 90; }
+  /* Mã phải gần vuông: hình méo (nhiễu, nếp áo, chữ viết) thì bỏ. */
+  function squareOk(m) { var c = m.corners, d = [0, 1, 2, 3].map(function (i) { var a = c[i], b = c[(i + 1) % 4]; return Math.hypot(b.x - a.x, b.y - a.y); }); var mx = Math.max.apply(0, d), mn = Math.min.apply(0, d); return mn > 6 && mx / mn < 2; }
   function letterOf(m) { var a = m.corners[0], b = m.corners[1], ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI; return LET[((Math.round(-ang / 90) % 4) + 4) % 4]; }
   /* 2.56: quét nối tiếp (khung sau chờ khung trước xong) và tự giảm độ phân giải khi điện thoại chậm,
      để không dồn hàng – trước đây quét 1920px mỗi 130ms làm máy yếu treo, gần như không nhận thẻ. */
@@ -143,21 +156,28 @@ header .t{font-weight:900;font-size:16px;line-height:1.1}header .t small{display
         });
       }
     } catch (e) { return; }
-    var now = Date.now(), live = state && state.phase === 'answer' && !state.paused, deck = state ? state.deck || [] : [], got = state ? state.got || [] : [], seen = [], fresh = 0;
+    var bad = rotWrong(), now = Date.now(), live = state && state.phase === 'answer' && !state.paused && !bad, deck = state ? state.deck || [] : [], got = state ? state.got || [] : [], seen = [], fresh = 0;
+    /* 2.57: chống nhận nhầm. Mỗi lần thấy thẻ là 1 phiếu (mã sai 1 bit chỉ tính nửa phiếu).
+       Thẻ mới: cần ≥ 3 phiếu cùng một chữ, giữ ≥ 0,4 giây. Đổi đáp án đã nhận: cần ≥ 5 phiếu, giữ ≥ 1 giây.
+       Thẻ đang xoay (nghiêng giữa hai chữ) hoặc méo thì không tính. */
+    var cnt = {};
+    found.forEach(function (m) { cnt[m.id] = (cnt[m.id] || 0) + 1; });
     found.forEach(function (m) {
       var no = m.id + 1; if (deck.length && deck.indexOf(no) < 0) return;
-      var L = letterOf(m); seen.push({ no: no, L: L, m: m });
-      if (!live) return;
-      var p = pend[no]; if (p && p.L === L && now - p.t < Math.max(1500, frameMs * 4)) { p.n++; p.t = now; } else pend[no] = p = { L: L, n: 1, t: now };
-      /* Mã đọc khớp tuyệt đối (sai 0 bit) thì nhận ngay; sai 1 bit thì chờ thêm 1 khung cho chắc. */
-      if ((p.n >= 2 || !m.hammingDistance) && mine[no] !== L) { if (!mine[no]) fresh++; mine[no] = L; dirty[no] = L; }
+      if (cnt[m.id] > 1 || !squareOk(m)) return;
+      var L = letterOf(m), steady = tiltOf(m) <= 25; seen.push({ no: no, L: L, m: m, unsure: !steady });
+      if (!live || !steady) return;
+      var gap = Math.max(1500, frameMs * 5), w1 = m.hammingDistance ? 0.5 : 1;
+      var p = pend[no]; if (p && p.L === L && now - p.t < gap) { p.v += w1; p.t = now; } else pend[no] = p = { L: L, v: w1, t: now, t0: now };
+      var need = mine[no] ? 5 : 3, hold = mine[no] ? 1000 : 400;
+      if (p.v >= need && now - p.t0 >= hold && mine[no] !== L) { if (!mine[no]) fresh++; mine[no] = L; dirty[no] = L; }
     });
     if (state && state.phase === 'setup' && seen.length && now - sentAt > 500) { var t = {}; seen.forEach(function (x) { t[x.no] = x.L; }); rt.send('test', { cards: t }); sentAt = now; }
     var nowD = Date.now(); seen.forEach(function (z) { recent[z.no] = { no: z.no, L: z.L, m: z.m, t: nowD }; });
     var show = Object.keys(recent).map(function (n) { return recent[n]; }).filter(function (z) { if (nowD - z.t > 900) { delete recent[z.no]; return false; } return true; });
     draw(show, w, h, got);
     if (fresh) { try { navigator.vibrate && navigator.vibrate(40); } catch (e) {} var f = $('flash'); f.classList.add('go'); setTimeout(function () { f.classList.remove('go'); }, 60); }
-    var b = $('big'), port = v.videoHeight > v.videoWidth; var txt = live && show.length ? '👀 ' + show.length + ' thẻ · ' + Object.keys(mine).filter(function (k) { return k !== '_q'; }).length + ' đã nhận' : ''; if (port) txt = '↔️ Xoay ngang điện thoại' + (txt ? ' · ' + txt : ''); b.hidden = !txt; b.textContent = txt;
+    var b = $('big'), port = v.videoHeight > v.videoWidth; var txt = live && show.length ? '👀 ' + show.length + ' thẻ · ' + Object.keys(mine).filter(function (k) { return k !== '_q'; }).length + ' đã nhận' : ''; if (bad) txt = '⚠️ Màn hình chưa xoay theo điện thoại – mở khóa xoay màn hình (hoặc cầm dọc) rồi quét tiếp'; b.hidden = !txt; b.textContent = txt;
     if (live && state) {
       var keys = Object.keys(dirty);
       if (keys.length && now - sentAt > 150) { rt.send('scan', { q: state.q, round: state.round, cards: dirty }); dirty = {}; sentAt = now; }
