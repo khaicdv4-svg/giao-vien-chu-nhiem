@@ -6,6 +6,12 @@
 
 **Trạng thái: ĐẠT kiểm thử phần mềm trên trình duyệt – CHỜ THẦY NGHIỆM THU.** Bản này chưa chạy trên Chrome của máy thầy và camera chưa thử với webcam thật (xem mục 5).
 
+## 0q. Bản 2.59 – Hiệu ứng vui nhộn Chế độ giấy (che-do-giay.js, phần "Hiệu ứng vui nhộn")
+- Nhận thẻ: ô học sinh nảy lên, tung biểu tượng ✨, thẻ tên bay vào vòng đếm, tiếng "bíp" cao dần; mốc nửa lớp / cả lớp có băng rôn (+ tiếng cổ vũ cheer.mp3 khi đủ lớp).
+- Chốt đáp án: đáp án đúng phát sáng, danh sách bạn đúng hiện lần lượt; ≥80% đúng: băng rôn "Xuất sắc", pháo giấy, tiếng đúng + cổ vũ; 50–80%: "Giỏi lắm"; <50%: "Cùng xem lại nhé" (không chê).
+- Kết thúc: băng rôn "Hoàn thành", pháo giấy 2 đợt, tiếng mừng chiến thắng (hmvMung).
+- Tắt hết tiếng bằng mục "Âm thanh" trong cài đặt trò chơi.
+
 ## 0p. Bản 2.58
 - quet-the.html: tự chỉnh chữ theo độ xoay thật của điện thoại (trọng lực devicemotion, iOS đảo dấu) trừ góc màn hình (window.orientation / screen.orientation.angle) → cầm ngang/dọc, khóa xoay hay không đều đúng. Nút "🔤 Chỉnh chữ" (chỉ hiện lúc quét thử) để chỉnh tay 90° nếu máy không có cảm biến. Lúc quét thử nhãn hiện cả chữ đọc được.
 - Nhận nhanh hơn: thẻ mới 2 phiếu cách ≥0,2 s; đổi đáp án 3 phiếu ≥0,6 s.
