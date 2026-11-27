@@ -90,7 +90,7 @@
     var old = $('phAdmin'); if (old) { if (M && M.admin) { M.admin = false; return; } old.remove(); box.classList.remove('ph-admin-mode'); return; }
     if (M) M.admin = false;
     var a = doc.createElement('div'); a.id = 'phAdmin'; a.className = 'ph-admin';
-    a.innerHTML = '<h3>👥 Gmail được phép dùng kho</h3><p>Gmail có trong danh sách: giáo viên bấm “Đăng nhập bằng Gmail” là dùng được ngay. Gmail lạ đăng nhập sẽ vào mục <b>Chờ duyệt</b>.</p>'
+    a.innerHTML = '<h3>👥 Gmail được phép dùng kho</h3><p>Gmail có trong danh sách: giáo viên bấm “Đăng nhập bằng Gmail” là dùng được ngay. Gmail <b>chưa có trong danh sách sẽ không đăng nhập được</b> – thầy cô thêm Gmail vào đây trước.</p>'
       + '<div class="ph-add"><textarea id="phAddList" rows="3" placeholder="Mỗi dòng một Gmail, có thể ghi kèm họ tên sau dấu phẩy.&#10;Ví dụ: nguyenvana@gmail.com, Nguyễn Văn A"></textarea><button type="button" class="btn color" data-ph="add">＋ Thêm vào danh sách</button></div>'
       + '<div id="phAdminList" class="ph-alist"><p class="ph-empty">Đang tải…</p></div>';
     a.innerHTML += '<div class="ph-aback">' + (M && M.direct ? '<button type="button" class="btn soft" data-ph="close">Đóng</button>' : '<button type="button" class="btn soft" data-ph="admin">← Quay lại chọn tiết</button>') + '</div>';
